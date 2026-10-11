@@ -7,7 +7,9 @@
 <!--
   「星河夜行列车」—— 改编自 incarnation-gem/sunset-cloud-train（落日云间列车），
   该项目提取自 Rice-dog/code-codex「Cloud Train Background」插件（MIT）。
-  星河版 shader 为重新编写，未复用原插件中 mdb 的 shader 代码；面板交互与渲染循环思路参考原版。
+  云的生成算法（噪声、fbm、12 层深度高度场与色带合成）移植自原版 shader，作者 mdb，
+  经 incarnation-gem/sunset-cloud-train 获得；该 shader 无再分发许可，本文件仅供本地学习使用，不公开发布、不商用。
+  其余部分（夜空、桥、列车、蒸汽、水面、近景、远岸）为重新编写；面板交互与渲染循环思路参考原版。
   沿用原作者声明：仅供学习与欣赏，不建议商业使用。
 -->
 <style>
@@ -117,8 +119,9 @@ const SLIDERS = [
   ['twinkle', '闪烁强度', 0, 1, .01, .6, '夜空'],
   ['milky', '银河亮度', 0, 2, .01, 1, '夜空'],
   ['meteor', '流星频率', 0, 1, .01, .35, '夜空'],
-  ['cloud', '云量', 0, 1.5, .01, .9, '云与蒸汽'],
-  ['cloudH', '云层高度', .3, 1.6, .01, 1, '云与蒸汽'],
+  ['cloudCover', '云量', 0, 1.5, .01, .7, '云与蒸汽'],
+  ['cloudStack', '云层高度', .1, 1, .01, .4, '云与蒸汽'],
+  ['amplitude', '云层起伏', 0, 2, .01, .6, '云与蒸汽'],
   ['steam', '蒸汽浓度', 0, 1.5, .01, 1, '云与蒸汽'],
   ['cars', '车厢数量', 1, 10, 1, 5, '列车'],
   ['win', '车窗亮度', 0, 2, .01, 1, '列车'],
@@ -131,7 +134,7 @@ const SLIDERS = [
   ['vignette', '暗角', 0, 1, .01, .45, '后期'],
   ['poster', '色阶（0 关闭）', 0, 32, 1, 0, '后期'],
   ['scale', '渲染比例', .25, 1, .05, .5, '画质'],
-  ['detail', '噪声细节', 1, 6, 1, 4, '画质'],
+  ['detail', '噪声细节', 1, 8, 1, 8, '画质'],
   ['fps', '帧率上限', 20, 60, 5, 60, '画质'],
 ];
 const TOGGLES = [
@@ -186,12 +189,12 @@ precision mediump float;
 #endif
 uniform vec2 uRes;
 uniform float uT, uCamX, uFore, uTrainX, uSmokeOff, uFarOff, uWheel;
-uniform vec3 uCloudOff;
-uniform float uCars, uStars, uTwinkle, uMilky, uMeteor, uCloud, uCloudH, uSteam, uWin, uGlow;
+uniform float uCL[12], uNMin, uNMax;
+uniform float uCars, uStars, uTwinkle, uMilky, uMeteor, uCover, uStack, uAmp, uSteam, uWin, uGlow;
 uniform float uRipple, uRefl, uHorizon, uExposure, uSat, uVignette, uPoster, uZoom, uCamY;
 uniform int uOct;
 uniform vec3 cSkyTop, cSkyHor, cCloudLit, cCloudTop, cCloudShade, cWin, cTrain, cBridge, cLight, cFore;
-uniform sampler2D uNoise;
+uniform sampler2D uNoise, uCloudTex;
 
 vec3 gGlow;
 // 场景坐标每单位对应的屏幕像素：近景/中景按 uZoom，星空按 √uZoom（轻微视差）
@@ -282,46 +285,65 @@ vec3 sky(vec2 sp){
   return col;
 }
 
-// ---------- 云 ----------
-vec4 cloud(vec2 p, float off, float freq, float base, float amp, float seed, float dim){
-  float A=amp*uCloudH;
-  if(p.y>base+A*1.3+.05) return vec4(0.);
-  float x=p.x*freq+off;
-  float bank=mix(uHorizon-.01,base,min(uCloud*2.,1.))+.012*(noise(vec2(x*3.,seed))-.5);
-  // 轮廓 = 重叠圆顶：大圆顶定云团高度，小圆顶在顶上叠出鼓包（周期按噪声 256 对齐）
-  float edge=bank;
-  float cw=.5; float id=floor(x/cw);
-  for(int k=-1;k<=1;k++){
-    float cid=id+float(k); float hm=mod(cid,512.);
-    float cx=(cid+.5)*cw+(hash(vec2(hm,seed))-.5)*cw*.5;
-    float cl=smoothstep(.56-.22*uCloud,.76-.22*uCloud,noise(vec2(cx*1.2,seed)));
-    // 半圆：屏幕坐标下半宽 = 高度；半宽上限 0.6 个噪声单位，保证只需检查相邻 3 格
-    float hd=min(A*cl*(.45+.55*hash(vec2(hm,seed+2.)))+.03,.6/freq);
-    float u=(x-cx)/(hd*freq);
-    if(cl>0.&&abs(u)<1.) edge=max(edge,bank+hd*sqrt(1.-u*u));
-  }
-  if(edge>bank+.01){
-    float sw=.16; float sid=floor(x/sw); float sc=0.;
-    for(int k=-1;k<=1;k++){
-      float cid=sid+float(k); float hm=mod(cid,1600.);
-      float cx=(cid+.5)*sw+(hash(vec2(hm,seed+5.))-.5)*sw*.4;
-      float hw=sw*(.6+.5*hash(vec2(hm,seed+6.)));
-      float u=(x-cx)/hw;
-      if(abs(u)<1.) sc=max(sc,hw/freq*(sqrt(1.-u*u)-.35));
+// ---------- 云：移植自原版 sunset-cloud-train 的 mdb shader（无再分发许可，仅本地学习使用） ----------
+// 原版噪声：五次插值，从 1024 纹理的 4 个整数格点取值；格点正好落在 texel 边界，线性过滤得到相邻 2×2 texel 的平均。
+// uCloudTex 预存这个 2×2 平均值（亮度 = 高 8 位，alpha = 低 2 位），一次硬件双线性采样即等价于原版的 4 次取值加插值。
+float cnoise(vec2 x){
+  vec2 f=fract(x);
+  vec2 u=f*f*f*(f*(f*6.-15.)+10.);
+  vec2 t=texture2D(uCloudTex,(floor(x)+u+.5)/1024.).xw;
+  return t.x+t.y/256.;
+}
+// 原版 fbm：每阶权重 ×0.7、频率 ×2；每阶对 1024 取模（噪声周期），只防止坐标过大丢精度，不改变结果。
+// 提前退出不改变结果：噪声值必在纹理的 [uNMin, uNMax] 内，每阶后可得最终值的上下界；
+// 上界 < lo 说明这层盖不到当前像素（返回 -1），下界 > hi 说明一定落在最深色带（返回 2）。
+float cfbm(vec2 x, float lo, float hi){
+  float T=0., w=1.;
+  for(int i=0;i<8;i++){ if(i>=uOct) break; T+=w; w*=.7; }
+  float a=0., b=1., t=0.;
+  for(int i=0;i<8;i++){
+    if(i>=uOct) break;
+    a+=b*cnoise(x); t+=b; b*=.7; x=mod(x*2.,1024.);
+    if(i+1<uOct){
+      float R=T-t;
+      if((a+R*uNMax)/T<lo-1e-4) return -1.;
+      if((a+R*uNMin)/T>hi+1e-4) return 2.;
     }
-    edge+=sc*smoothstep(bank+.01,bank+.06,edge);
   }
-  float d=edge-p.y;
-  if(d<0.) return vec4(0.);
-  float hy=clamp((p.y-uHorizon)/.5,0.,1.);
-  vec3 c=mix(cCloudLit,cCloudTop,smoothstep(.35,.95,hy));
-  float pc=fbmB(vec2(x*3.,p.y*freq*3.+seed));
-  float band=floor(clamp(d/.03+(pc-.45)*2.2,0.,3.))/3.;
-  c=mix(c,cCloudShade,band*.55);
-  if(d<.005) c=mix(c,vec3(1.,.93,.98),.38);
-  c=mix(c,cSkyHor,sstep(uHorizon+.07,uHorizon,p.y)*.5);
-  c=mix(c,mix(cSkyHor,cSkyTop,hy*.6),dim);
-  return vec4(c,1.);
+  return a/t;
+}
+// 原版配色映射到星河版：按亮度在云暗部 → 云亮部之间取色，又亮又不饱和的（原版的奶油色）偏向云顶色
+// 夜色雾化：越远的层越向天空色靠拢（原版没有，用来让远层融进夜空）
+float gFog;
+vec3 cpal(vec3 o){
+  float l=dot(o,vec3(.299,.587,.114));
+  float s=max(o.r,max(o.g,o.b))-min(o.r,min(o.g,o.b));
+  vec3 c=mix(cCloudShade*.7,cCloudLit,smoothstep(.3,.72,l));
+  c=mix(c,cCloudTop,.7*smoothstep(.6,.92,l)*smoothstep(.5,.15,s));
+  c*=.78+.3*l;
+  return mix(c,mix(cSkyHor,cSkyTop,.5),gFog);
+}
+// 一层云 = 一个二维 fbm 高度场；按 dh 从深到浅切出色带（与原版 layer 宏一致），命中即不透明返回。
+// 云量、云层高度只改 midlevel（整体平移 / 按层间距压缩），不改单层形状。
+#define CLD(mid,disp,i,dhMax) gFog=float(i)*.03; m_=.3+((mid)-.3)*uStack+(uCover-1.)*.3; D_=max((disp)*uAmp,1e-4); run_=cy<m_+(uNMax-.5)*D_; if(run_){ h_=(cfbm(vec2(p.x+uCL[i],cy),(cy-m_)/D_+.5,(cy+(dhMax)-m_)/D_+.5)-.5)*D_+m_; }
+#define BAND(dh,c) if(run_&&cy<h_-(dh)) return vec4(cpal(c),1.);
+vec4 clouds(vec2 p){
+  // 云坐标：地平线对应原版 y=0.2，原版 c12（midlevel 0.3）落在地平线与桥面之间，和原版相对桥的位置一致
+  float cy=p.y-uHorizon+.2;
+  float m_, D_, h_=0.; bool run_;
+  CLD(.3,.9,0,.14)   BAND(.14,vec3(.48,.19,.20)) BAND(.1,vec3(.68,.28,.19)) BAND(.07,vec3(.88,.38,.24)) BAND(0.,vec3(.95,.45,.30))
+  CLD(.35,1.,1,.04)  BAND(.04,vec3(.98,.76,.64)) BAND(0.,vec3(.95,.80,.77))
+  CLD(.35,3.5,2,.12) BAND(.12,vec3(.43,.32,.31)) BAND(.08,vec3(.55,.42,.41)) BAND(.04,vec3(.66,.42,.40)) BAND(0.,vec3(.77,.48,.46))
+  CLD(.45,2.,3,.04)  BAND(.04,vec3(.98,.57,.36)) BAND(0.,vec3(1.,.62,.44))
+  CLD(.5,2.3,4,.12)  BAND(.12,vec3(.41,.27,.27)) BAND(.08,vec3(.53,.35,.32)) BAND(.04,vec3(.80,.24,.17)) BAND(0.,vec3(.99,.29,.20))
+  CLD(.5,2.5,5,.1)   BAND(.1,vec3(.88,.38,.24))  BAND(.05,vec3(.98,.42,.28)) BAND(0.,vec3(1.,.48,.35))
+  CLD(.6,2.,6,.1)    BAND(.1,vec3(.95,.66,.48))  BAND(0.,vec3(1.,.76,.60))
+  CLD(.75,3.5,7,.2)  BAND(.2,vec3(1.,.55,.33))   BAND(.15,vec3(.98,.50,.24)) BAND(.1,vec3(.90,.55,.40)) BAND(0.,vec3(1.,.62,.44))
+  CLD(.7,2.7,8,.04)  BAND(.04,vec3(.73,.36,.30)) BAND(0.,vec3(.80,.40,.34))
+  CLD(.8,2.7,9,.1)   BAND(.1,vec3(.93,.58,.35))  BAND(0.,vec3(1.,.76,.60))
+  CLD(.9,3.,10,.1)   BAND(.1,vec3(.56,.25,.22))  BAND(.05,vec3(.60,.30,.27)) BAND(0.,vec3(.74,.35,.30))
+  CLD(1.,5.,11,.1)   BAND(.1,vec3(.92,.85,.82))  BAND(0.,vec3(1.,.94,.91))
+  return vec4(0.);
 }
 
 // ---------- 远岸与灯光 ----------
@@ -527,10 +549,8 @@ vec3 scene(vec2 p){
   ADD(steam(p))
   ADD(train(p))
   ADD(bridge(p))
-  ADD(cloud(p,uCloudOff.z,2.4,H+.04,.3,11.,0.))
-  ADD(cloud(p,uCloudOff.y,1.6,H+.06,.42,37.,.12))
-  ADD(cloud(p,uCloudOff.x,1.1,H+.08,.45,73.,.35))
   ADD(farShore(p))
+  ADD(clouds(p))
   acc.rgb+=(1.-acc.a)*sky(p);
   return acc.rgb+gGlow;
 }
@@ -569,9 +589,10 @@ void main(){
 
 // ======== 运动状态（所有量按周期取模，长时间运行不跳变） ========
 const CAM_WRAP = 15.6, FORE_WRAP = 1.95, SMOKE_WRAP = 256 / 24, TAU = Math.PI * 2;
-const CLOUD_PAR = [.05, .12, .25], CLOUD_FREQ = [1.1, 1.6, 2.4];
-// 云层初始偏移选在「两侧有云、中间露出星空」的位置，开场构图接近参考图
-const M = { t: 0, camX: 0, fore: 0, far: 37, smoke: 0, cloud: [11, 3, 7.5], trainX: null, wheel: 0 };
+// 12 层云的深度与初始偏移沿用原版 c12…c1；原版各层滚动为 t/dist、桥为 t/5，所以云层速度 = 镜头速度 × 5 / dist
+const CLOUD_DIST = [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 100];
+const M = { t: 0, camX: 0, fore: 0, far: 37, smoke: 0, trainX: null, wheel: 0,
+  cl: [32.5, 30, 27.5, 23, 20.5, 18, 18, 15.5, 12, 9.5, 7, 3.5] };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function trainLength() { return .14 + S.cars * .126; }
 function advance(dt, aspect) {
@@ -588,7 +609,7 @@ function advance(dt, aspect) {
   M.fore = (M.fore + camD * 1.15) % FORE_WRAP;
   M.far = (M.far + camD * .08 * 3) % 256;
   M.smoke = (M.smoke + camD + dt * .01) % SMOKE_WRAP;
-  for (let i = 0; i < 3; i++) M.cloud[i] = (M.cloud[i] + (camD * CLOUD_PAR[i] + dt * .004) * CLOUD_FREQ[i]) % 256;
+  for (let i = 0; i < 12; i++) M.cl[i] = (M.cl[i] + (camD + dt * .01) * 5 / CLOUD_DIST[i]) % 1024;
   if (S.follow) M.trainX += (followX - M.trainX) * Math.min(1, dt * 1.5);
   else {
     M.trainX += d;
@@ -633,8 +654,11 @@ function frame(now) {
   if (!perfStart) perfStart = now;
   if (now - perfStart > 2000) {
     const avg = perfN ? perfSum / perfN : 0, target = 1000 / S.fps;
-    if (S.auto && perfN >= 10 && avg > target * 1.6 && S.scale > .25) {
-      S.scale = Math.max(.25, Math.round(S.scale * .85 * 20) / 20);
+    // 先降渲染比例到 0.35，再把噪声细节降到 5 阶，最后才把比例降到下限 0.25
+    if (S.auto && perfN >= 10 && avg > target * 1.6) {
+      if (S.scale > .35) S.scale = Math.max(.35, Math.round(S.scale * .85 * 20) / 20);
+      else if (S.detail > 5) S.detail--;
+      else if (S.scale > .25) S.scale = Math.max(.25, Math.round(S.scale * .85 * 20) / 20);
       syncUI();
     }
     perfSum = 0; perfN = 0; perfStart = now;
@@ -688,11 +712,36 @@ function createGL() {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    uniformNames = ['uRes', 'uT', 'uCamX', 'uFore', 'uTrainX', 'uSmokeOff', 'uFarOff', 'uWheel', 'uCloudOff', 'uCars', 'uStars',
-      'uTwinkle', 'uMilky', 'uMeteor', 'uCloud', 'uCloudH', 'uSteam', 'uWin', 'uGlow', 'uRipple', 'uRefl', 'uHorizon',
-      'uExposure', 'uSat', 'uVignette', 'uPoster', 'uZoom', 'uCamY', 'uOct', 'uNoise', ...COLORS.map(c => c[3])];
+    // 云噪声：与原版相同的 1024×1024 xorshift 纹理（种子 93451）；预存每个格点的 2×2 texel 平均值，
+    // 和为 0～1020，亮度存高 8 位（和 >> 2），alpha 存低 2 位（× 64），着色器里还原为精确平均值
+    const raw = new Uint8Array(1024 * 1024); let cs = 93451;
+    for (let i = 0; i < raw.length; i++) { cs ^= cs << 13; cs ^= cs >>> 17; cs ^= cs << 5; raw[i] = cs & 255; }
+    const avg = new Uint8Array(1024 * 1024 * 2);
+    let sMin = 1020, sMax = 0;
+    for (let y = 0; y < 1024; y++) {
+      const y0 = ((y + 1023) & 1023) * 1024, y1 = y * 1024;
+      for (let x = 0; x < 1024; x++) {
+        const x0 = (x + 1023) & 1023;
+        const sum = raw[y0 + x0] + raw[y0 + x] + raw[y1 + x0] + raw[y1 + x];
+        avg[(y1 + x) * 2] = sum >> 2; avg[(y1 + x) * 2 + 1] = (sum & 3) * 64;
+        if (sum < sMin) sMin = sum; if (sum > sMax) sMax = sum;
+      }
+    }
+    const ctex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, ctex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE_ALPHA, 1024, 1024, 0, gl.LUMINANCE_ALPHA, gl.UNSIGNED_BYTE, avg);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+    gl.activeTexture(gl.TEXTURE0);
+    uniformNames = ['uRes', 'uT', 'uCamX', 'uFore', 'uTrainX', 'uSmokeOff', 'uFarOff', 'uWheel', 'uCL', 'uCars', 'uStars',
+      'uTwinkle', 'uMilky', 'uMeteor', 'uCover', 'uStack', 'uAmp', 'uSteam', 'uWin', 'uGlow', 'uRipple', 'uRefl', 'uHorizon',
+      'uExposure', 'uSat', 'uVignette', 'uPoster', 'uZoom', 'uCamY', 'uOct', 'uNoise', 'uCloudTex', 'uNMin', 'uNMax',
+      ...COLORS.map(c => c[3])];
     loc = Object.fromEntries(uniformNames.map(n => [n, gl.getUniformLocation(prog, n)]));
-    gl.uniform1i(loc.uNoise, 0);
+    gl.uniform1i(loc.uNoise, 0); gl.uniform1i(loc.uCloudTex, 1);
+    gl.uniform1f(loc.uNMin, sMin / 1020); gl.uniform1f(loc.uNMax, sMax / 1020);
   }
   init();
   const f1 = (n, v) => gl.uniform1f(loc[n], v);
@@ -703,9 +752,9 @@ function createGL() {
       gl.uniform2f(loc.uRes, w, h);
       f1('uT', M.t); f1('uCamX', M.camX); f1('uFore', M.fore); f1('uTrainX', M.trainX);
       f1('uSmokeOff', M.smoke); f1('uFarOff', M.far); f1('uWheel', M.wheel);
-      gl.uniform3f(loc.uCloudOff, M.cloud[0], M.cloud[1], M.cloud[2]);
+      gl.uniform1fv(loc.uCL, M.cl);
       f1('uCars', S.cars); f1('uStars', S.stars); f1('uTwinkle', S.twinkle); f1('uMilky', S.milky);
-      f1('uMeteor', S.meteor); f1('uCloud', S.cloud); f1('uCloudH', S.cloudH); f1('uSteam', S.steam);
+      f1('uMeteor', S.meteor); f1('uCover', S.cloudCover); f1('uStack', S.cloudStack); f1('uAmp', S.amplitude); f1('uSteam', S.steam);
       f1('uWin', S.win); f1('uGlow', S.glow); f1('uRipple', S.ripple); f1('uRefl', S.refl);
       f1('uHorizon', S.horizon); f1('uExposure', S.exposure); f1('uSat', S.saturation);
       f1('uVignette', S.vignette); f1('uPoster', S.poster); f1('uZoom', S.zoom); f1('uCamY', S.camY);
