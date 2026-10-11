@@ -111,6 +111,8 @@
 // [键, 名称, 最小, 最大, 步长, 默认, 分组]
 const SLIDERS = [
   ['speed', '行进速度', 0, 1, .01, .12, '运动'],
+  ['zoom', '镜头远近', .5, 2, .01, 1, '镜头'],
+  ['camY', '镜头高度', -.3, .3, .01, 0, '镜头'],
   ['stars', '星星密度', 0, 1, .01, .55, '夜空'],
   ['twinkle', '闪烁强度', 0, 1, .01, .6, '夜空'],
   ['milky', '银河亮度', 0, 2, .01, 1, '夜空'],
@@ -186,12 +188,15 @@ uniform vec2 uRes;
 uniform float uT, uCamX, uFore, uTrainX, uSmokeOff, uFarOff, uWheel;
 uniform vec3 uCloudOff;
 uniform float uCars, uStars, uTwinkle, uMilky, uMeteor, uCloud, uCloudH, uSteam, uWin, uGlow;
-uniform float uRipple, uRefl, uHorizon, uExposure, uSat, uVignette, uPoster;
+uniform float uRipple, uRefl, uHorizon, uExposure, uSat, uVignette, uPoster, uZoom, uCamY;
 uniform int uOct;
 uniform vec3 cSkyTop, cSkyHor, cCloudLit, cCloudTop, cCloudShade, cWin, cTrain, cBridge, cLight, cFore;
 uniform sampler2D uNoise;
 
 vec3 gGlow;
+// 场景坐标每单位对应的屏幕像素：近景/中景按 uZoom，星空按 √uZoom（轻微视差）
+float gPx, gPxS;
+vec2 gC;
 
 float hash(vec2 p){ vec3 p3=fract(vec3(p.xyx)*.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
 // 单次采样值噪声：256 纹理 + 线性过滤，周期 256
@@ -218,13 +223,13 @@ float starLayer(vec2 p, float cell, float dens, float seed, float big){
   float h=hash(id+seed);
   if(h>dens) return 0.;
   vec2 c=vec2(hash(id+seed+1.7),hash(id+seed+4.3))*.6+.2;
-  vec2 d=(f-c)*cell*uRes.y;
+  vec2 d=(f-c)*cell*gPxS;
   float r=length(d);
   float tw=1.-uTwinkle*.5*(1.+sin(uT*(1.2+3.*hash(id+seed+2.9))+h*80.));
   float b=.45+.55*hash(id+seed+5.5);
   float s;
   if(big>0.){
-    float k=max(uRes.y/540.,.6);
+    float k=max(gPxS/540.,.6);
     s=sstep(1.8*k,0.,r)+(exp(-abs(d.x)/(2.6*k)-abs(d.y)/(.45*k))+exp(-abs(d.y)/(2.6*k)-abs(d.x)/(.45*k)))*.9;
   } else {
     float sz=.35+.9*hash(id+seed+8.1);
@@ -248,15 +253,18 @@ float meteor(vec2 p, float slot){
   vec2 rel=p-head;
   float al=dot(rel,-dir);
   float pe=abs(dot(rel,vec2(-dir.y,dir.x)));
-  float w=(1.+1.4*(1.-clamp(al/len,0.,1.)))/uRes.y;
+  float w=(1.+1.4*(1.-clamp(al/len,0.,1.)))/gPxS;
   float tail=step(0.,al)*sstep(len,0.,al)*sstep(w,0.,pe);
-  float hd=exp(-dot(rel,rel)*uRes.y*uRes.y*.12);
+  float hd=exp(-dot(rel,rel)*gPxS*gPxS*.12);
   return (tail*.9+hd*1.6)*sin(pr*3.14159);
 }
-vec3 sky(vec2 p){
+vec3 sky(vec2 sp){
   float H=uHorizon;
-  float hy=clamp((p.y-H)/(1.-H),0.,1.);
+  float hy=clamp((sp.y-H)/(1.-H),0.,1.);
   vec3 col=mix(cSkyHor,cSkyTop,pow(hy,.6));
+  // 场景坐标 → 屏幕坐标 → 星空坐标：星空只按 √zoom 缩放、镜头高度只移一半
+  vec2 s=(sp-vec2(0.,uCamY)-gC)*uZoom+gC;
+  vec2 p=(s-gC)/sqrt(uZoom)+gC+vec2(0.,uCamY*.5);
   float asp=uRes.x/uRes.y;
   float v=p.y-(.6+.3*(p.x-.5*asp));
   float band=exp(-v*v/.018);
@@ -269,7 +277,7 @@ vec3 sky(vec2 p){
   }
   float st=starLayer(p,1./90.,uStars*(.35+.45*band),0.,0.);
   st+=starLayer(p,1./14.,uStars*.2,31.,1.);
-  col+=vec3(.95,.93,1.)*st*smoothstep(H,H+.12,p.y);
+  col+=vec3(.95,.93,1.)*st*smoothstep(H,H+.12,sp.y);
   col+=vec3(.85,.9,1.)*(meteor(p,0.)+meteor(p,1.));
   return col;
 }
@@ -326,10 +334,10 @@ vec4 farShore(vec2 p){
   float cid=mod(floor(fx*6.),1536.);
   float hc=hash(vec2(cid,7.));
   if(hc<town*.95){
-    float k=uRes.y/540.;
+    float k=gPx/540.;
     float lx=(fract(fx*6.)-(.2+.6*hash(vec2(cid,9.))))/18.;
     float ly=p.y-(H+.004+.007*hash(vec2(cid,13.)));
-    float d=length(vec2(lx,ly))*uRes.y;
+    float d=length(vec2(lx,ly))*gPx;
     float fl=.85+.15*sin(uT*3.+hc*40.);
     gGlow+=cLight*(sstep(1.6*k+.4,.3,d)*1.4+exp(-d*d/(70.*k*k))*.35*uGlow)*fl;
   }
@@ -364,8 +372,8 @@ vec4 railing(vec2 p){
   float ry=p.y-DECK;
   if(ry<0.||ry>.013) return vec4(0.);
   float bx=p.x+uCamX;
-  float post=step(abs(mod(bx,.016)-.008),max(.0011,.55/uRes.y));
-  float rail=step(abs(ry-.0115),max(.001,.55/uRes.y))+step(abs(ry-.006),max(.0007,.5/uRes.y));
+  float post=step(abs(mod(bx,.016)-.008),max(.0011,.55/gPx));
+  float rail=step(abs(ry-.0115),max(.001,.55/gPx))+step(abs(ry-.006),max(.0007,.5/gPx));
   return vec4(cBridge*1.3,clamp(post+rail,0.,1.));
 }
 
@@ -480,15 +488,15 @@ vec4 fore(vec2 p){
   float s=mod(fx+.35,1.95);
   float ptop=H+.24;
   float dp=min(abs(s-.15),abs(s-.42));
-  if(p.y<ptop&&dp<max(.0022,1./uRes.y)) return vec4(cFore,1.);
-  if(abs(p.y-(ptop-.012))<max(.0016,.6/uRes.y)&&dp<.02) return vec4(cFore,1.);
-  if(abs(p.y-(ptop-.03))<max(.0014,.6/uRes.y)&&dp<.014) return vec4(cFore,1.);
+  if(p.y<ptop&&dp<max(.0022,1./gPx)) return vec4(cFore,1.);
+  if(abs(p.y-(ptop-.012))<max(.0016,.6/gPx)&&dp<.02) return vec4(cFore,1.);
+  if(abs(p.y-(ptop-.03))<max(.0014,.6/gPx)&&dp<.014) return vec4(cFore,1.);
   if(p.y<ptop){
     float u, sag;
     if(s>=.15&&s<=.42){ u=(s-.15)/.27; sag=.01; }
     else { float s2=s<.15?s+1.95:s; u=(s2-.42)/1.68; sag=.06; }
     float dropW=4.*u*(1.-u)*sag;
-    float lw=max(.0009,.55/uRes.y);
+    float lw=max(.0009,.55/gPx);
     if(abs(p.y-(ptop-.012-dropW))<lw||abs(p.y-(ptop-.03-dropW))<lw) return vec4(cFore,.9);
   }
   float lm=landMask(fx);
@@ -528,7 +536,10 @@ vec3 scene(vec2 p){
 }
 
 void main(){
-  vec2 p=gl_FragCoord.xy/uRes.y;
+  // 镜头：以屏幕中心为原点缩放，再按镜头高度整体上下平移（与原版 zoom/offset 同义）
+  gC=.5*uRes/uRes.y;
+  gPx=uRes.y*uZoom; gPxS=uRes.y*sqrt(uZoom);
+  vec2 p=(gl_FragCoord.xy/uRes.y-gC)/uZoom+gC+vec2(0.,uCamY);
   float H=uHorizon;
   float depth=H-p.y;
   vec2 q=p;
@@ -544,7 +555,7 @@ void main(){
     col=mix(col*uRefl,cSkyTop*.55,.12+.35*smoothstep(0.,.4,depth));
     float ln=smoothstep(.66,.74,noise(vec2(p.x*2.5+uT*.02,wy*5.-uT*.5)));
     col+=cCloudTop*ln*.07*uRipple;
-    col+=cSkyHor*.25*exp(-depth*uRes.y*.6);
+    col+=cSkyHor*.25*exp(-depth*gPx*.6);
   }
   col*=uExposure;
   float l=dot(col,vec3(.299,.587,.114));
@@ -564,7 +575,9 @@ const M = { t: 0, camX: 0, fore: 0, far: 37, smoke: 0, cloud: [11, 3, 7.5], trai
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function trainLength() { return .14 + S.cars * .126; }
 function advance(dt, aspect) {
-  const followX = Math.min(Math.max(aspect * .62, .45), aspect - .05);
+  // 屏幕横坐标 → 场景横坐标（镜头以屏幕中心缩放）
+  const cx = aspect / 2, toScene = x => cx + (x - cx) / S.zoom;
+  const followX = toScene(Math.min(Math.max(aspect * .62, .45), aspect - .05));
   if (M.trainX === null) M.trainX = followX;
   if (S.paused) return;
   const v = S.speed * (reduceMotion.matches ? .5 : 1), d = v * dt;
@@ -579,7 +592,7 @@ function advance(dt, aspect) {
   if (S.follow) M.trainX += (followX - M.trainX) * Math.min(1, dt * 1.5);
   else {
     M.trainX += d;
-    if (M.trainX > aspect + trainLength() + .1) M.trainX = -.05;
+    if (M.trainX > toScene(aspect) + trainLength() + .1) M.trainX = toScene(0) - .05;
   }
 }
 
@@ -677,7 +690,7 @@ function createGL() {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
     uniformNames = ['uRes', 'uT', 'uCamX', 'uFore', 'uTrainX', 'uSmokeOff', 'uFarOff', 'uWheel', 'uCloudOff', 'uCars', 'uStars',
       'uTwinkle', 'uMilky', 'uMeteor', 'uCloud', 'uCloudH', 'uSteam', 'uWin', 'uGlow', 'uRipple', 'uRefl', 'uHorizon',
-      'uExposure', 'uSat', 'uVignette', 'uPoster', 'uOct', 'uNoise', ...COLORS.map(c => c[3])];
+      'uExposure', 'uSat', 'uVignette', 'uPoster', 'uZoom', 'uCamY', 'uOct', 'uNoise', ...COLORS.map(c => c[3])];
     loc = Object.fromEntries(uniformNames.map(n => [n, gl.getUniformLocation(prog, n)]));
     gl.uniform1i(loc.uNoise, 0);
   }
@@ -695,7 +708,7 @@ function createGL() {
       f1('uMeteor', S.meteor); f1('uCloud', S.cloud); f1('uCloudH', S.cloudH); f1('uSteam', S.steam);
       f1('uWin', S.win); f1('uGlow', S.glow); f1('uRipple', S.ripple); f1('uRefl', S.refl);
       f1('uHorizon', S.horizon); f1('uExposure', S.exposure); f1('uSat', S.saturation);
-      f1('uVignette', S.vignette); f1('uPoster', S.poster);
+      f1('uVignette', S.vignette); f1('uPoster', S.poster); f1('uZoom', S.zoom); f1('uCamY', S.camY);
       gl.uniform1i(loc.uOct, S.detail);
       for (const [k, , , u] of COLORS) gl.uniform3fv(loc[u], hexRgb(S[k]));
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -710,34 +723,45 @@ function createFallback() {
   const stars = Array.from({ length: 160 }, () => [Math.random(), Math.random(), Math.random()]);
   return {
     draw(w, h) {
-      const H = h * (1 - S.horizon), u = h;
-      const g = ctx.createLinearGradient(0, 0, 0, H);
+      const H = h * (1 - S.horizon), u = h, z = S.zoom;
+      // 未缩放坐标下的可见范围：缩小时向四周多画，避免边缘空白
+      const xl = w / 2 - w / (2 * z), xr = w / 2 + w / (2 * z);
+      const yt = h / 2 - h / (2 * z) - S.camY * h, yb = h / 2 + h / (2 * z) - S.camY * h;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.translate(w / 2, h / 2); ctx.scale(z, z); ctx.translate(-w / 2, -h / 2 + S.camY * h);
+      const g = ctx.createLinearGradient(0, H - .64 * u, 0, H);
       g.addColorStop(0, S.skyTop); g.addColorStop(1, S.skyHor);
-      ctx.fillStyle = g; ctx.fillRect(0, 0, w, H);
+      ctx.fillStyle = g; ctx.fillRect(xl, yt, xr - xl, H - yt);
       for (const [x, y, p] of stars) {
         if (p > S.stars + .2) continue;
         ctx.globalAlpha = .5 + .5 * Math.sin(M.t * (1 + 3 * p) + p * 50) * S.twinkle;
-        ctx.fillStyle = '#f2f0ff'; ctx.fillRect(x * w, y * H * .95, 1, 1);
+        ctx.fillStyle = '#f2f0ff'; ctx.fillRect(xl + x * (xr - xl), yt + y * (H - yt) * .95, 1 / z, 1 / z);
       }
       ctx.globalAlpha = 1;
-      const deck = H - .155 * u, P = .24 * u, aw = .088 * u, off = (M.camX * u) % P;
-      ctx.fillStyle = S.bridgeColor; ctx.fillRect(0, deck, w, H - deck);
-      ctx.fillStyle = S.skyHor;
-      for (let x = -off - P; x < w + P; x += P) {
-        ctx.beginPath(); ctx.ellipse(x + P / 2, H - .03 * u, aw, aw * .85, 0, Math.PI, 0); ctx.lineTo(x + P / 2 + aw, H); ctx.lineTo(x + P / 2 - aw, H); ctx.fill();
-      }
-      const tx = M.trainX * u, base = deck;
-      ctx.fillStyle = S.trainColor; ctx.fillRect(tx - .1 * u, base - .045 * u, .1 * u, .037 * u);
-      ctx.fillRect(tx - .02 * u, base - .05 * u, .007 * u, .01 * u);
-      for (let i = 0; i < S.cars; i++) {
-        const x0 = tx - .146 * u - i * .126 * u - .12 * u;
-        ctx.fillStyle = S.trainColor; ctx.fillRect(x0, base - .038 * u, .12 * u, .03 * u);
-        ctx.fillStyle = S.winColor;
-        for (let k = 0; k < 7; k++) ctx.fillRect(x0 + (.0105 + k * .0155) * u, base - .031 * u, .009 * u, .011 * u);
-      }
-      ctx.save(); ctx.globalAlpha = S.refl * .8; ctx.translate(0, 2 * H); ctx.scale(1, -1);
-      ctx.drawImage(canvas, 0, 0, w, H, 0, 0, w, H); ctx.restore();
-      ctx.fillStyle = 'rgba(13,18,64,.35)'; ctx.fillRect(0, H, w, h - H);
+      const g2 = ctx.createLinearGradient(0, H, 0, H + .5 * u);
+      g2.addColorStop(0, S.skyHor); g2.addColorStop(1, S.skyTop);
+      ctx.fillStyle = g2; ctx.fillRect(xl, H, xr - xl, yb - H);
+      const deck = H - .115 * u, P = .2 * u, aw = .074 * u, off = (M.camX * u) % P;
+      const drawWorld = () => {
+        ctx.fillStyle = S.bridgeColor; ctx.fillRect(xl, deck, xr - xl, H - deck);
+        ctx.fillStyle = S.skyHor;
+        for (let x = xl - off - (xl % P) - P; x < xr + P; x += P) {
+          ctx.beginPath(); ctx.ellipse(x + P / 2, H - .012 * u, aw, aw * .8, 0, Math.PI, 0); ctx.lineTo(x + P / 2 + aw, H); ctx.lineTo(x + P / 2 - aw, H); ctx.fill();
+        }
+        const tx = M.trainX * u, base = deck;
+        ctx.fillStyle = S.trainColor; ctx.fillRect(tx - .1 * u, base - .045 * u, .1 * u, .037 * u);
+        ctx.fillRect(tx - .02 * u, base - .05 * u, .007 * u, .01 * u);
+        for (let i = 0; i < S.cars; i++) {
+          const x0 = tx - .146 * u - i * .126 * u - .12 * u;
+          ctx.fillStyle = S.trainColor; ctx.fillRect(x0, base - .038 * u, .12 * u, .03 * u);
+          ctx.fillStyle = S.winColor;
+          for (let k = 0; k < 7; k++) ctx.fillRect(x0 + (.0105 + k * .0155) * u, base - .031 * u, .009 * u, .011 * u);
+        }
+      };
+      drawWorld();
+      ctx.save(); ctx.globalAlpha = Math.min(1, S.refl * .8); ctx.translate(0, 2 * H); ctx.scale(1, -1);
+      drawWorld(); ctx.restore();
+      ctx.fillStyle = 'rgba(13,18,64,.35)'; ctx.fillRect(xl, H, xr - xl, yb - H);
     },
   };
 }
