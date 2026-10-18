@@ -895,11 +895,6 @@
       "sha256": "4956fb8453ed0ed9a3db51deef57951c19ea45d012d46d1495d99437d8d59630"
     },
     {
-      "path": "themes/blue-sky-train/lab/cloud-compare.html",
-      "bytes": 18226,
-      "sha256": "544bb0f528a06dc4392b16b5d93d6865ea5b0fdf4e19a6e79cb906ef33735843"
-    },
-    {
       "path": "themes/blue-sky-train/lab/cloud-library.html",
       "bytes": 16938978,
       "sha256": "ba9bc31ba5f621ca14e81990cf4870f8e825510f326d8e84ba24ada95f23460e"
@@ -908,36 +903,6 @@
       "path": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
       "bytes": 2242060,
       "sha256": "e63ef5f779fb00ed4dea665eae8fd38bd8dcf83403ec7e9268a8fc1105a365cb"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/examples/cloud.html",
-      "bytes": 302843,
-      "sha256": "fb3d0b4b09e0fa6b6c1b8524af1a2566d633bcc6134bf1096ed44fa5517f64c1"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/examples/procedural-cloud.html",
-      "bytes": 31248,
-      "sha256": "3d315dc1b9d8cfe1cebc698ce861aed42a95d4726434f7cb7474ce6c219db46a"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/examples/procedural-scene.html",
-      "bytes": 38173,
-      "sha256": "5e818cbb8659ca4d9d806df6ae520003e0f9c544ea7d36870d1e3bafc53e7af4"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/examples/scene.html",
-      "bytes": 309676,
-      "sha256": "fd4785072d7dd10572d78fd06335fd5258ca44891925d86f9985b647c0a0693a"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/examples/train.html",
-      "bytes": 20375,
-      "sha256": "e32f16441604153d5de158dabc09a2f4f98c964f61202be2da686929351d4f3c"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/examples/water.html",
-      "bytes": 309705,
-      "sha256": "44728169d16fc719b3914eafa6d462ad4e239845a90cfabc1ea3b284c937ffeb"
     },
     {
       "path": "themes/blue-sky-train/lab/history/r01/src/cloud.glsl",
@@ -1643,16 +1608,6 @@
       "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/world.glsl",
       "bytes": 3004,
       "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/index.html",
-      "bytes": 42088,
-      "sha256": "871e9cb15d03aaccd315be2a178214201b5af412c8450719a3e883cb16b0fe01"
-    },
-    {
-      "path": "themes/blue-sky-train/lab/procedural-cloud-compare.html",
-      "bytes": 18420,
-      "sha256": "ac9ffb53e5dfd512dad514b193c21276c9e3267b07c7d9027b9070095f0a279b"
     },
     {
       "path": "themes/blue-sky-train/lab/src/asset-cloud.glsl",
