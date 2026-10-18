@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "revision": "r20-natural-shoreline-balanced",
+  "revision": "r21-irregular-lakeshore",
   "featuredCase": "starry-night",
   "wallpapers": [
     {
@@ -1152,8 +1152,8 @@
           0.43
         ],
         "lighting": "左上方日光；生成PNG保留原受光方向",
-        "time": "uTime + uGroundTravel；倒影复用 aboveWater(p,t)",
-        "shoreline": "桥墩与岸线共用世界坐标；低矮缓坡保持桥脚落地，现有 understory PNG 稀疏点缀；贴岸倒影受水色衰减。"
+        "time": "uTime + uGroundTravel；桥和列车倒影复用 landscapeWithoutBank，岸线倒影共享 shoreProfile / lakeshore",
+        "shoreline": "草坡上沿与入水下沿独立变化，形成宽滩与窄湾；生成 understory 素材按大小不一的灌木簇分布，中间保留低草。桥梁倒影保留水平基准，岸边植物采用局部短倒影。"
       },
       "limitations": [
         "山体造型仍需校准。",
@@ -1175,15 +1175,16 @@
           "sky",
           "cloudBank",
           "mountains",
-          "bank",
           "train",
           "steam",
-          "bridge（含护栏，覆盖车轮下缘）"
+          "bridge（含护栏，覆盖车轮下缘）",
+          "bank（草坡与成组灌木，遮住桥脚接地处）"
         ],
         "fullScene": [
-          "aboveWater",
-          "水线以下反射坐标重求值aboveWater",
-          "水面染色与波纹",
+          "可变岸线判断水面区域",
+          "水平反射坐标重求值landscapeWithoutBank",
+          "局部岸线短倒影、水面染色与波纹",
+          "岸线上方直接求值aboveWater",
           "foreground"
         ]
       },

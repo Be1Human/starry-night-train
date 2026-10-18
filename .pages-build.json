@@ -1,6 +1,6 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r20-natural-shoreline-balanced",
+  "catalogRevision": "r21-irregular-lakeshore",
   "wallpapers": 2,
   "materials": 8,
   "files": [
@@ -111,13 +111,13 @@
     },
     {
       "path": "cases/blue-sky-assets/compose.glsl",
-      "bytes": 2264,
-      "sha256": "cd5367421b9eee2611ec6ddd1e0db5a96aa0d1c7b4018a9071e0447c39327c58"
+      "bytes": 3346,
+      "sha256": "4577ee5756bb3d96d20aa8a2babcb43b394d3e0be9e01927de405513ccf42602"
     },
     {
       "path": "cases/blue-sky-assets/README.md",
-      "bytes": 2292,
-      "sha256": "83a2494a93e165ca542672b91f5638b29a91bf7f99263110607e7fb863966b06"
+      "bytes": 2576,
+      "sha256": "27eb90cbd7de3edc50483e8b71713976db95df5c6596c1c8274b4d9e04d72791"
     },
     {
       "path": "cases/blue-sky-assets/runtime.js",
@@ -126,8 +126,8 @@
     },
     {
       "path": "cases/blue-sky-assets/scene.json",
-      "bytes": 3353,
-      "sha256": "e16a5ddcd2817319f5f9fe4334ecdfb185e027fb5d4f88911591437dc3890c4f"
+      "bytes": 3639,
+      "sha256": "5067ee5c720ebe170799176614b19fa04d18b92b714f701e886696cfaef8aca3"
     },
     {
       "path": "cases/blue-sky-original/README.md",
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 45580,
-      "sha256": "4a7b6dc2234704c11f7f48ec03dbceb87f94f5621c5be12c622919627a45a7c4"
+      "bytes": 45863,
+      "sha256": "dbac3d679cf32d5c6d8dda2c492df4798d5dd2fcb4b97832fd37582a4a3e5d4f"
     },
     {
       "path": "library/index.html",
-      "bytes": 2190,
-      "sha256": "10dd81efe402a52d1521f9f834fdfad01ec8be118817a180c984b62b59fe65e5"
+      "bytes": 2183,
+      "sha256": "6796e3031af1f54d91cd9a560eaea347118e1e1b868f582ec22322e3a63feafb"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 12113,
-      "sha256": "129640cfae31823728319169556058af275423d08dc0baa11ad24e096de4ff9d"
+      "bytes": 12106,
+      "sha256": "4afece8418e19252b78ecf8c43fad60a0ce240cb7c7ae415dff81e37fd1c72be"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 14222,
-      "sha256": "411ee019a101d1bd3a5a20b1b9dbe24a163f52d2105cbe5dbd2d21ba31ef609f"
+      "bytes": 14215,
+      "sha256": "6788470414cbe6f9ae1a088800916d03f7db10f4ce14b048abb596457103f329"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -346,8 +346,8 @@
     },
     {
       "path": "modules/bridge/blue-stone-lighting/preview.html",
-      "bytes": 1143,
-      "sha256": "c78348ced5aeb90bf6374e7ccee2ec6a05c423b259415d6a17e64dcb96950324"
+      "bytes": 1136,
+      "sha256": "27cfea0873d55e7490398624ae6a4fb3da538024cdcdc8b6054b2f736f9f0074"
     },
     {
       "path": "modules/bridge/blue-stone-lighting/README.md",
@@ -401,8 +401,8 @@
     },
     {
       "path": "modules/catalog.internal.json",
-      "bytes": 79816,
-      "sha256": "c527ce188d30abe592018fc3f18297def1ab44752d9e2f8b4597c6c66b0a3d65"
+      "bytes": 80322,
+      "sha256": "763aafcd4fa75b24920a39bf94deb2993a4f926bec6844e7271718ffbfcfca1a"
     },
     {
       "path": "modules/categories.json",
@@ -426,8 +426,8 @@
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
-      "bytes": 1161,
-      "sha256": "8c7aaf12dbd59c2cff7c6d2f78b003e5e146866172fae607c50b082b3b56c516"
+      "bytes": 1154,
+      "sha256": "c809fb4b9f0f1712b43c0f3d312555f1b9918c743906328ce5db8fdb5b20d1de"
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/README.md",
@@ -546,8 +546,8 @@
     },
     {
       "path": "modules/foreground/generated-foliage-r09/preview.html",
-      "bytes": 1165,
-      "sha256": "64378c6c6084c9a1ac6de5ceefb9353c61dae740a67547079286a94b98ec5cf7"
+      "bytes": 1158,
+      "sha256": "775c1bb4c70cd0ff734574efa56251cd19adb925ecc07eb04282762a520328c6"
     },
     {
       "path": "modules/foreground/generated-foliage-r09/README.md",
@@ -821,13 +821,13 @@
     },
     {
       "path": "modules/water/shared-scene-reflection/README.md",
-      "bytes": 2242,
-      "sha256": "07874f33acf973777f4a3c8d4ebc56cbb99c63a0d5dfe5cc5175cf1a460a1dca"
+      "bytes": 2440,
+      "sha256": "f5dc24213da47845e6c8d6f5403dad9786fe8a75462cbf5c6769bb63599ebcb6"
     },
     {
       "path": "modules/water/shared-scene-reflection/source.glsl",
-      "bytes": 1105,
-      "sha256": "1757b32cc253261aa65226d25eacc11679c280088ef314e4f02a4f3e15846bae"
+      "bytes": 1493,
+      "sha256": "2c75b86d403cdd78a17d1124827e8da1402b81e83f596a08a9bc7cc2732bb3b0"
     },
     {
       "path": "modules/water/shared-scene-reflection/study.glsl",
@@ -836,8 +836,8 @@
     },
     {
       "path": "modules/water/shared-scene-reflection/template.json",
-      "bytes": 1897,
-      "sha256": "bd60fbad20766fb63b3ca57353ace8398a766310a485609f8bd1a18402c0a57a"
+      "bytes": 2105,
+      "sha256": "e04927f31f3a53f5f8a12208117a51ce10bc430f4cec56fbe53782fafcb56ad7"
     },
     {
       "path": "modules/water/starry-perspective-reflection/preview.html",
@@ -901,8 +901,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/cloud-library.html",
-      "bytes": 16941933,
-      "sha256": "fbf3868d04f9d2c0107512a9407d785c8dc8e9009e7a73a6d3e62e447833d573"
+      "bytes": 16943443,
+      "sha256": "74613577b2a2bb61889cd78ad4cc6c86331ed30adcc96aebcc8e2c290b8106b2"
     },
     {
       "path": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
@@ -1716,8 +1716,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
-      "bytes": 5084,
-      "sha256": "6b247d5356f17287c4298db6c759bf6fdf60b313200d318a1920a51d4cd8653f"
+      "bytes": 6554,
+      "sha256": "ffa6ac98660aa638bb49becf9a5e11b031e279c73c8e80988d9e1db0324b6806"
     },
     {
       "path": "themes/blue-sky-train/lab/src/train.glsl",

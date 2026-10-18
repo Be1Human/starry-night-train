@@ -32,74 +32,114 @@ vec3 mountains(vec2 p,vec3 c,float t){
   }
   return c;
 }
-// The far bank shares the bridge's world frame so each pier stays grounded.
-float shoreGroundHeight(float x){
- // Keep the plinths rooted in one continuous slope, without repeating a mound
- // below every pier. Broad, low-amplitude undulation supplies the shoreline.
- float broad=noise(vec2(x*3.7,27.0))+.35*noise(vec2(x*11.0,8.0));
- return BRIDGE_FOOT-.002+.009*smoothstep(.20,1.10,broad);
+// The bank and bridge travel in the same world frame. Upper ground and lower
+// water edge are separate: broad peninsulas alternate with narrow, recessed bays.
+vec2 shoreProfile(float x){
+ float headland=smoothstep(.23,.79,noise(vec2(x*1.65,32.0)));
+ float shelf=noise(vec2(x*5.3,17.0));
+ float crest=BRIDGE_FOOT-.001+.014*headland+.004*shelf;
+ crest+=(noise(vec2(x*43.0,9.0))-.5)*.0025;
+ float width=.012+.036*headland+.006*noise(vec2(x*3.6,45.0));
+ float edge=crest-width;
+ // Fine erosion breaks the contour without making the broad bank a sine wave.
+ edge+=(noise(vec2(floor(x*768.0)*.047,63.0))-.5)*.003;
+ return vec2(crest,edge);
 }
-vec4 lakeshore(vec2 p,float t){
- if(p.y>BRIDGE_FOOT+.030)return vec4(0);
- float x=p.x+cameraAt(t),top=shoreGroundHeight(x);
- vec2 pixel=floor(vec2(x,p.y)*768.0);
- float brush=noise(pixel*vec2(.095,.31));
- // A cool bank face, a muted grassy surface and intermittent sunlit flecks.
- float shade=smoothstep(.35,.68,noise(vec2(x*7.5,18.0))+.12*brush);
- vec3 face=mix(vec3(.110,.315,.270),vec3(.245,.415,.285),shade);
- vec3 turf=mix(vec3(.190,.395,.285),vec3(.435,.585,.320),step(.49,brush)*(.42+.58*shade));
- float upper=smoothstep(HORIZON+.004,HORIZON+.018,p.y);
- vec3 color=mix(face,turf,upper);
- float light=step(.61,noise(vec2(pixel.x*.057,pixel.y*.24)))*mask(top-p.y-.0025);
- color=mix(color,vec3(.535,.645,.355),light*upper*uSun*.70);
- // Wet contact is a narrow, broken dark edge, not a second bright green stripe.
- float wet=1.0-smoothstep(HORIZON+.001,HORIZON+.0045,p.y);
- color=mix(color,vec3(.075,.235,.245),wet*.72);
- vec4 bank=vec4(color,mask(p.y-top));
- // Reuse the generated understory PNG, at a distant scale and only in patches.
- // At most two samples; no new hand-drawn or synthesized leaf silhouettes.
- const float spacing=.098;
- float cell=floor(x/spacing);
- for(int i=0;i<2;i++){
-  float id=cell+float(i)-.5,r=hash(vec2(id,251.0));
-  float center=(id+.35+.30*hash(vec2(id,79.0)))*spacing;
-  float patch=noise(vec2(center*6.0,15.0));
-  if(r>.42&&patch>.39){
-   float height=.030+.008*r;
-   vec4 plant=foliageSprite(vec2(x,p.y),center,shoreGroundHeight(center)-.023,height,2.0,foliageBend(t,id,.012));
-   plant.rgb=mix(plant.rgb,vec3(.180,.370,.315),.37);
-   plant.rgb=mix(plant.rgb,vec3(.335,.515,.465),.10);
-   foliageOver(bank,plant);
+float shoreWaterline(float x){return shoreProfile(x).y;}
+vec4 shorePlants(vec2 p,float t){
+ vec4 plants=vec4(0);
+ const float spacing=.46;
+ float cell=floor(p.x/spacing);
+ // Uneven groups with broad empty stretches, never one plant per bridge pier.
+ for(int i=-1;i<=1;i++){
+  float id=cell+float(i),r=hash(vec2(id,251.0));
+  if(r>.28){
+   float center=(id+.22+.56*hash(vec2(id,79.0)))*spacing;
+   float spread=.050+.065*hash(vec2(id,148.0));
+   for(int j=-1;j<=1;j++){
+    float part=float(j),seed=hash(vec2(id*7.0+part,191.0));
+    if(j==0||seed>.32){
+     float cx=center+part*spread+(seed-.5)*.025;
+     float h=(.047+.045*r)*mix(1.0,.66,abs(part));
+     h*=.82+.32*seed;
+     vec2 ground=shoreProfile(cx);
+     float root=ground.x-h*.29;
+     vec4 plant=foliageSprite(p,cx,root,h,2.0,foliageBend(t,id*7.0+part,.014));
+     // Distant clumps inherit the blue atmosphere; retain generated leaf shapes.
+     plant.rgb=mix(plant.rgb,vec3(.135,.340,.280),.29);
+     plant.rgb=mix(plant.rgb,vec3(.255,.480,.420),.13);
+     plant.a*=smoothstep(ground.y,ground.y+.004,p.y);
+     foliageOver(plants,plant);
+    }
+   }
   }
  }
+ return plants;
+}
+vec4 lakeshore(vec2 p,float t){
+ if(p.y>BRIDGE_FOOT+.077||p.y<HORIZON-.026)return vec4(0);
+ float x=p.x+cameraAt(t);
+ vec2 profile=shoreProfile(x);
+ float crest=profile.x,edge=profile.y;
+ vec2 pixel=floor(vec2(x,p.y)*768.0);
+ // Broad lit meadows between blue-green shrub shadows; horizontal brush marks
+ // follow the slope instead of filling a constant-height rectangle with noise.
+ float meadow=smoothstep(.30,.72,noise(vec2(x*4.7,21.0)));
+ float strokes=noise(vec2(pixel.x*.052,pixel.y*.27+x*2.0));
+ float flat=step(.46,strokes);
+ vec3 grass=mix(vec3(.235,.405,.265),vec3(.470,.615,.320),meadow);
+ grass+=vec3(.060,.065,.012)*flat*uSun;
+ float sunPatch=step(.64,noise(vec2(x*17.0,p.y*82.0)))*meadow;
+ grass=mix(grass,vec3(.585,.690,.360),sunPatch*.52*uSun);
+ vec3 wet=mix(vec3(.075,.245,.225),vec3(.165,.340,.250),step(.48,strokes));
+ float dry=smoothstep(.0015,.0065,p.y-edge);
+ vec3 color=mix(wet,grass,dry);
+ color=mix(color,vec3(.130,.330,.270),step(.58,noise(vec2(x*29.0,p.y*132.0)))*(1.0-meadow)*.27);
+ float a=mask(p.y-crest)*mask(edge-p.y);
+ vec4 bank=vec4(color,a);
+ foliageOver(bank,shorePlants(vec2(x,p.y),t));
  return bank;
 }
-vec3 aboveWater(vec2 p,float t){
+// Keep the bridge reflection on one horizontal plane. Only the shallow bank
+// gets its own local reflection, so a meandering shoreline cannot bend the bridge.
+vec3 landscapeWithoutBank(vec2 p,float t){
  vec3 c=cloudBank(p,sky(p),t);
  c=mountains(p,c,t);
- c=over(c,lakeshore(p,t));
  c=over(c,train(p,t));c=over(c,steam(p,t));c=over(c,bridge(p,t));
  return c;
 }
+vec3 aboveWater(vec2 p,float t){
+ return over(landscapeWithoutBank(p,t),lakeshore(p,t));
+}
 vec2 reflectionPoint(vec2 p,float t){
-  float depth=max(HORIZON-p.y,0.0),perspective=1.0/(depth+.035);
-  float wave=sin(p.x*65.0+perspective*3.0+t*1.5)*.6+sin(p.x*113.0-perspective*2.3+t*1.1)*.4;
-  float displacement=wave*(.0005+depth*.010)*uRipple;
-  return vec2(p.x+displacement,2.0*HORIZON-p.y+displacement*.18);
+ float depth=max(HORIZON-p.y,0.0),perspective=1.0/(depth+.035);
+ float wave=sin(p.x*65.0+perspective*3.0+t*1.5)*.6+sin(p.x*113.0-perspective*2.3+t*1.1)*.4;
+ float displacement=wave*(.0005+depth*.010)*uRipple;
+ return vec2(p.x+displacement,2.0*HORIZON-p.y+displacement*.18);
 }
 vec3 fullScene(vec2 p,float t,bool withForeground){
-  vec3 c;
-  if(p.y<HORIZON){
-    c=aboveWater(reflectionPoint(p,t),t);float depth=HORIZON-p.y;
-    c=mix(c,vec3(.13,.49,.65),.09+depth*.20);
-    // Water close to the bank absorbs the bright turf colour. Horizontal,
-    // interrupted ripples separate the reflected bank from the real shore.
-    float bankReflection=1.0-smoothstep(.006,.034,depth);
-    float brokenRipple=smoothstep(.50,.82,noise(vec2(floor(p.x*420.0)*.035,floor(depth*768.0)*.68-t*.22)));
-    c=mix(c,vec3(.160,.450,.510),bankReflection*(.26+.20*brokenRipple));
-    float glint=pow(max(0.0,sin(p.x*36.0+1.0/(depth+.03)*3.0-t*.8)),28.0);
-    c+=vec3(.04,.055,.06)*glint*uRipple;
-  }else c=aboveWater(p,t);
-  if(withForeground)c=over(c,foreground(p,t));
-  return c;
+ float edge=shoreWaterline(p.x+cameraAt(t));
+ vec3 c;
+ if(p.y<edge){
+  vec2 reflected=reflectionPoint(p,t);
+  c=landscapeWithoutBank(reflected,t);
+  float depth=max(HORIZON-p.y,0.0),shoreDepth=edge-p.y;
+  c=mix(c,vec3(.13,.49,.65),.09+depth*.20);
+  // Short, broken reflections follow the local water edge. The main scene
+  // still uses HORIZON, preserving straight arches and the train's alignment.
+  if(shoreDepth<.065){
+   float reflectedEdge=shoreWaterline(reflected.x+cameraAt(t));
+   vec4 bank=lakeshore(vec2(reflected.x,reflectedEdge+shoreDepth*1.70),t);
+   float ripple=noise(vec2(floor(p.x*420.0)*.035,floor(shoreDepth*768.0)*.68-t*.22));
+   bank.rgb=mix(bank.rgb,vec3(.105,.365,.415),.40);
+   bank.a*=(1.0-smoothstep(.006,.058,shoreDepth))*(.52+.30*step(.46,ripple));
+   c=over(c,bank);
+   float contact=(1.0-smoothstep(.0005,.0028,shoreDepth))*(.40+.30*step(.48,ripple));
+   c=mix(c,vec3(.090,.300,.310),contact);
+  }
+  float glint=pow(max(0.0,sin(p.x*36.0+1.0/(depth+.03)*3.0-t*.8)),28.0);
+  c+=vec3(.04,.055,.06)*glint*uRipple;
+ }else c=aboveWater(p,t);
+ if(withForeground)c=over(c,foreground(p,t));
+ return c;
 }

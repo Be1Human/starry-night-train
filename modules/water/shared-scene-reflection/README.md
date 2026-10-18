@@ -1,6 +1,6 @@
 # 蓝天同场景实时倒影
 
-反射坐标再求值同一个aboveWater，加透视波纹和深度染色
+共用场景与时间的水平倒影，加透视波纹；不规则岸线单独合成短倒影
 
 状态：独立教学案例。这表示实现进度，不代表原图美术已验收。
 
@@ -17,7 +17,8 @@
 
 ## 接口与组合约束
 
-- reflectionPoint / fullScene / aboveWater
+- reflectionPoint / fullScene / aboveWater / landscapeWithoutBank
+- shoreProfile / shoreWaterline / lakeshore
 - HORIZON / uRipple
 
 - coordinates：x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度
@@ -37,6 +38,7 @@
 
 - 反射与原景必须使用相同时间和位移
 - 会增加场景求值开销；不能把旧帧截图当成实时倒影
+- 弯曲的是水岸遮罩，不是桥梁的反射平面；岸边植被局部倒影仅是二维风格化近似
 
 ## 证据与使用范围
 
