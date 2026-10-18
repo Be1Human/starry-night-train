@@ -1,6 +1,6 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r17-daylight-example",
+  "catalogRevision": "r18-daylight-motion",
   "wallpapers": 2,
   "materials": 8,
   "files": [
@@ -126,8 +126,8 @@
     },
     {
       "path": "cases/blue-sky-assets/scene.json",
-      "bytes": 2663,
-      "sha256": "c4262b95c5c39e1bad4242f8051f8eb02dfaa9bfad8f68c4692b040df81d6a7c"
+      "bytes": 3196,
+      "sha256": "0cef545af459cd9fc46cacd8c82f37be5890f644975f546377226d8004c14d7c"
     },
     {
       "path": "cases/blue-sky-original/README.md",
@@ -136,8 +136,8 @@
     },
     {
       "path": "cases/blue-sky-original/scene.json",
-      "bytes": 1841,
-      "sha256": "7b14c78030831b27fd59114cdd2d00f5d75b7058dc7e888e1bc2f0d350121498"
+      "bytes": 1837,
+      "sha256": "d8e88c4c422dba90151b25e1efa9b8410827b8fcd259cce8319b8fdde3288c89"
     },
     {
       "path": "cases/blue-sky-study/compose.glsl",
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 43332,
-      "sha256": "376faa1316b2d000db6b6abf434d68628f47b0b45ccc99d414e9e744dafc893c"
+      "bytes": 44752,
+      "sha256": "07e69c136b91af5d3d4195414c5fd418d89ae848004af40eb64ac466287c74ec"
     },
     {
       "path": "library/index.html",
-      "bytes": 2180,
-      "sha256": "3edac0e7b556ce4479bf2218cc056c7a9118c6aa4bfddee019b5c3933c081b21"
+      "bytes": 2179,
+      "sha256": "8cb4169a812c1148a3853d01df5a94f842975b7fbc04600b9120f3b3e15bd342"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 11920,
-      "sha256": "8fb4a0f7401ee61eed669a9e1eaa8d34b93489907c586618aee4252fee24b664"
+      "bytes": 11972,
+      "sha256": "e4f76879c335f27b533c438ec964f92e4c4a0bf53544c1439596902800141f69"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 13866,
-      "sha256": "1064874914dd94b6edd7133a5bb5540e1fcc0913ee162c01157b3dc2a4a250a5"
+      "bytes": 14127,
+      "sha256": "e45e4cf4b23f233f3aecc496135eda77e5af9d12d445e08c73c37729441109d3"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -325,9 +325,9 @@
       "sha256": "36d3b32078f33ec82a55f9df92d9c2dfc6d5b0b8e19fd9f6b193c52558a18eba"
     },
     {
-      "path": "library/thumbnails/wallpaper--blue-sky-original.png",
-      "bytes": 105709,
-      "sha256": "249212de45b01cce2519f8b7567fa6e8df0a53275335cab73cef485e58172cc6"
+      "path": "library/thumbnails/wallpaper--blue-sky-assets.png",
+      "bytes": 130641,
+      "sha256": "7da7477a53cda43bd27ac72ee2f6c801a3f66f9e56d413a58e85464ce8b8fc8b"
     },
     {
       "path": "library/thumbnails/water--starry-perspective-reflection.png",
@@ -401,8 +401,8 @@
     },
     {
       "path": "modules/catalog.internal.json",
-      "bytes": 78498,
-      "sha256": "0779e6b07742b15ac97b44612b7355436bf45b321a8329e986f25020b6b516af"
+      "bytes": 79083,
+      "sha256": "f9deaf67f40c3839014ba03742f9fbec6a50f42fa9f385da10b7070151f81c37"
     },
     {
       "path": "modules/categories.json",
@@ -1876,8 +1876,8 @@
     },
     {
       "path": "tools/public-library.mjs",
-      "bytes": 5227,
-      "sha256": "9d46b82d4416fcd20cf348591d947f9ac80fdf4ec4d7aae77c321b0faf2ee86a"
+      "bytes": 5673,
+      "sha256": "bda15a702da97b405b39eb4470c81ec2460c6e8cf23e4baaa899095c2eadd2ca"
     },
     {
       "path": "tools/serve.mjs",

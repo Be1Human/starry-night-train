@@ -13,7 +13,9 @@ export function selectPublicCatalog(inventory, selection) {
  });
  const cases=selection.cases.map(id=>{
   const c=inventory.cases.find(c=>c.id===id);
-  if(!c||['study','work-in-progress'].includes(c.status))throw Error('Unfinished public case: '+id);
+  // Keep development status separate from an explicit choice of an existing work.
+  const requested=selection.wallpapers.some(w=>w.caseId===id&&w.previewMode==='case-entry'&&w.review?.selection==='user-requested'&&w.review.image===c?.preview&&w.review.basis);
+  if(!c||c.status==='study'||(c.status==='work-in-progress'&&!requested))throw Error('Unfinished public case: '+id);
   return {...c,layers:c.layers.filter(l=>seen.has(l.template)),recipePath:'cases/'+id+'/scene.json'};
  });
  if(!cases.some(c=>c.id===selection.featuredCase))throw Error('Featured case must be selected');
@@ -26,13 +28,14 @@ export function selectPublicCatalog(inventory, selection) {
  }
  const wallpapers=selection.wallpapers.map(item=>{
   unique(item);
+  for(const alias of item.aliases??[]){if(!/^[a-z][a-z0-9-]*$/.test(alias))throw Error('Invalid wallpaper alias: '+alias);unique({id:alias});}
   const c=inventory.cases.find(c=>c.id===item.caseId&&selection.cases.includes(c.id));
   if(!c)throw Error('Train wallpaper requires a complete train case: '+item.id);
   let preview,previewEngine;
   if(item.previewMode==='case-entry'){
    const player=c.wallpaper;
    if(player?.kind!=='complete-train-scene')throw Error('Train wallpaper requires a complete train case: '+item.id);
-   if(player.engine!=='trainWallpaper'||player.entry!==c.entry.split('?')[0]||!player.dependencies?.length)throw Error('Wallpaper requires a supported case player: '+item.id);
+   if(!['trainWallpaper','CloudLibrary'].includes(player.engine)||player.entry!==c.entry.split('?')[0]||!player.dependencies?.length)throw Error('Wallpaper requires a supported case player: '+item.id);
    if(item.review?.image!==item.poster||!item.review?.basis)throw Error('Case wallpaper needs a reviewed render: '+item.id);
    preview=player.entry;previewEngine=player.engine;
   }else{

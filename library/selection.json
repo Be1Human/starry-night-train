@@ -1,10 +1,10 @@
 {
   "schemaVersion": 4,
-  "revision": "r17-daylight-example",
+  "revision": "r18-daylight-motion",
   "featuredCase": "starry-night",
   "cases": [
     "starry-night",
-    "blue-sky-original"
+    "blue-sky-assets"
   ],
   "templates": [
     {
@@ -244,24 +244,33 @@
       "category": "night"
     },
     {
-      "id": "blue-sky-original",
+      "id": "blue-sky-assets",
+      "aliases": [
+        "blue-sky-original"
+      ],
       "title": "蓝天湖景",
-      "poster": "library/thumbnails/wallpaper--blue-sky-original.png",
-      "alt": "蓝天白云、青山和湖面倒影之间，列车停驻在长桥上，水波与蒸汽缓缓流动。",
+      "poster": "library/thumbnails/wallpaper--blue-sky-assets.png",
+      "alt": "蓝天积云持续漂移，远处列车穿过石桥，眼前草木掠过，湖面映着云和桥的倒影。",
       "previewMode": "case-entry",
-      "caseId": "blue-sky-original",
+      "caseId": "blue-sky-assets",
       "category": "daylight",
       "aspect": "8 / 3",
-      "summary": "保留蓝天、积云、青山与列车的原画构图，水面和蒸汽轻轻流动。列车与景物保持原画位置。",
+      "summary": "云层持续漂移，近景草木随行进从眼前掠过。列车烟雾、桥梁与湖面倒影共享同一场景时间。",
       "settings": {
-        "fit": "contain",
+        "mode": 3,
+        "scale": 1,
+        "rate": 1,
         "speed": 1,
-        "ripple": 1,
-        "steam": true
+        "wind": 1,
+        "sun": 1,
+        "steam": 1,
+        "debug": 0,
+        "seed": 42
       },
       "review": {
-        "image": "library/thumbnails/wallpaper--blue-sky-original.png",
-        "basis": "已有完整 SVG 原画动画；2026-10-18 核对线上实际渲染并保存完整画幅截图。"
+        "selection": "user-requested",
+        "image": "library/thumbnails/wallpaper--blue-sky-assets.png",
+        "basis": "用户指出原画轻动画并非所指版本，明确恢复此前 cloud-library 的完整动态场景；核对线上实际渲染截图。开发限制继续保留在案例配方中。"
       }
     }
   ],

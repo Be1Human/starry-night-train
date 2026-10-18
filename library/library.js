@@ -86,7 +86,7 @@ function followHash(){
  if(!catalog)return;let route='';try{route=decodeURIComponent(location.hash.slice(1));}catch{}
  const [group,id]=route.split('/');
  const material=group==='material'?catalog.materials.find(m=>m.id===id):catalog.materials.find(m=>m.id===route||m.templateId===route);
- const wallpaper=group==='wallpaper'?catalog.wallpapers.find(w=>w.id===id):catalog.wallpapers.find(w=>w.id===route);
+ const wallpaper=group==='wallpaper'?catalog.wallpapers.find(w=>w.id===id||w.aliases?.includes(id)):catalog.wallpapers.find(w=>w.id===route||w.aliases?.includes(route));
  const item=material??wallpaper;
  if(item){if(current?.id!==item.id||!$('viewer').open){category=item.category;openItem(item);}return;}
  dismissViewer(false);
@@ -105,7 +105,7 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 $('viewer').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();navigateItem(1);}if(event.key==='ArrowLeft'){event.preventDefault();navigateItem(-1);}});
 window.addEventListener('pagehide',clearPlayer);window.addEventListener('hashchange',followHash);
 try{
- const response=await fetch('catalog.json?v=r17-daylight-example');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
+ const response=await fetch('catalog.json?v=r18-daylight-motion');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
  if(!catalog.wallpapers?.length)throw Error('没有可展示的火车壁纸');followHash();
  window.LayerLibrary={get state(){return {ready:true,revision:catalog.revision,collection,category,total:visibleItems().length,visibleIds:visibleItems().map(i=>i.id),selected:current?.id??null,playing:!!api&&!api.state.settings.paused};}};
 }catch(error){$('load-error').hidden=false;$('load-error').textContent='画廊暂时无法加载，请刷新重试。';console.error(error);}

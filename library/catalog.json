@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "revision": "r17-daylight-example",
+  "revision": "r18-daylight-motion",
   "featuredCase": "starry-night",
   "wallpapers": [
     {
@@ -22,28 +22,37 @@
       "previewEngine": "StarryModulePreview"
     },
     {
-      "id": "blue-sky-original",
+      "id": "blue-sky-assets",
+      "aliases": [
+        "blue-sky-original"
+      ],
       "title": "蓝天湖景",
-      "poster": "library/thumbnails/wallpaper--blue-sky-original.png",
-      "alt": "蓝天白云、青山和湖面倒影之间，列车停驻在长桥上，水波与蒸汽缓缓流动。",
+      "poster": "library/thumbnails/wallpaper--blue-sky-assets.png",
+      "alt": "蓝天积云持续漂移，远处列车穿过石桥，眼前草木掠过，湖面映着云和桥的倒影。",
       "previewMode": "case-entry",
-      "caseId": "blue-sky-original",
+      "caseId": "blue-sky-assets",
       "category": "daylight",
       "aspect": "8 / 3",
-      "summary": "保留蓝天、积云、青山与列车的原画构图，水面和蒸汽轻轻流动。列车与景物保持原画位置。",
+      "summary": "云层持续漂移，近景草木随行进从眼前掠过。列车烟雾、桥梁与湖面倒影共享同一场景时间。",
       "settings": {
-        "fit": "contain",
+        "mode": 3,
+        "scale": 1,
+        "rate": 1,
         "speed": 1,
-        "ripple": 1,
-        "steam": true
+        "wind": 1,
+        "sun": 1,
+        "steam": 1,
+        "debug": 0,
+        "seed": 42
       },
       "review": {
-        "image": "library/thumbnails/wallpaper--blue-sky-original.png",
-        "basis": "已有完整 SVG 原画动画；2026-10-18 核对线上实际渲染并保存完整画幅截图。"
+        "selection": "user-requested",
+        "image": "library/thumbnails/wallpaper--blue-sky-assets.png",
+        "basis": "用户指出原画轻动画并非所指版本，明确恢复此前 cloud-library 的完整动态场景；核对线上实际渲染截图。开发限制继续保留在案例配方中。"
       },
       "kind": "wallpaper",
-      "preview": "themes/blue-sky-train/index.html",
-      "previewEngine": "trainWallpaper"
+      "preview": "themes/blue-sky-train/lab/cloud-library.html",
+      "previewEngine": "CloudLibrary"
     }
   ],
   "wallpaperCategories": [
@@ -178,7 +187,9 @@
         "modules/_shared/blue/scene-core.glsl"
       ],
       "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
-      "usedIn": [],
+      "usedIn": [
+        "blue-sky-assets"
+      ],
       "sourceCases": [
         {
           "id": "blue-sky-assets",
@@ -302,7 +313,9 @@
       "assets": [],
       "dependencies": [],
       "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
-      "usedIn": [],
+      "usedIn": [
+        "blue-sky-assets"
+      ],
       "sourceCases": [
         {
           "id": "blue-sky-assets",
@@ -392,7 +405,9 @@
         "modules/_shared/blue/scene-core.glsl"
       ],
       "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
-      "usedIn": [],
+      "usedIn": [
+        "blue-sky-assets"
+      ],
       "sourceCases": [
         {
           "id": "blue-sky-assets",
@@ -1101,30 +1116,49 @@
       "recipePath": "cases/starry-night/scene.json"
     },
     {
-      "id": "blue-sky-original",
-      "name": "蓝天原画 · SVG 轻动画",
-      "description": "保留原图构图，局部水波与矢量烟雾循环，适用于画面轻动画。",
-      "status": "integrated",
-      "entry": "themes/blue-sky-train/index.html?controls=1",
-      "preview": "library/thumbnails/wallpaper--blue-sky-original.png",
-      "layers": [],
+      "id": "blue-sky-assets",
+      "name": "蓝天湖景 · 素材与程序组合",
+      "description": "完整云与草叶素材，结合程序山、桥、列车和实时倒影。当前研究主场景。",
+      "status": "work-in-progress",
+      "entry": "themes/blue-sky-train/lab/cloud-library.html",
+      "preview": "library/thumbnails/wallpaper--blue-sky-assets.png",
+      "layers": [
+        {
+          "role": "clouds",
+          "template": "clouds/complete-cloud-stream-r04",
+          "listingOrder": 1
+        },
+        {
+          "role": "bridge",
+          "template": "bridge/blue-stone-lighting",
+          "listingOrder": 3
+        },
+        {
+          "role": "foreground",
+          "template": "foreground/generated-foliage-r09",
+          "listingOrder": 7
+        }
+      ],
       "shared": {
-        "viewBox": [
-          0,
-          0,
-          2048,
-          768
+        "aspect": "8:3",
+        "horizon": 0.265,
+        "deck": 0.376,
+        "trainScale": [
+          0.55,
+          0.43
         ],
-        "time": "svg.setCurrentTime(time)，暂停浏览器自主SMIL时钟",
-        "artwork": "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+        "lighting": "左上方日光；生成PNG保留原受光方向",
+        "time": "uTime + uGroundTravel；倒影复用 aboveWater(p,t)"
       },
       "limitations": [
-        "天空、云、山、桥、列车和近景属于同一完整原画，不是独立可替换动态图层。",
-        "不能把它作为自由镜头穿行模板。"
+        "山体造型仍需校准。",
+        "原星河烟雾的蓝天适配尚未完成 R10 专项验收。",
+        "固定数量素材可持续排列，云与叶形仍会重复。"
       ],
       "composition": [
-        "themes/blue-sky-train/wallpaper.js",
-        "tools/vectorize.py"
+        "cases/blue-sky-assets/compose.glsl",
+        "cases/blue-sky-assets/runtime.js",
+        "tools/build-cloud-library.mjs"
       ],
       "schemaVersion": 1,
       "recipeKind": "descriptive",
@@ -1132,23 +1166,37 @@
       "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
       "compositing": {
         "direction": "back-to-front",
-        "layers": [
-          "artwork",
-          "water-layer（裁切原画重绘）",
-          "steam-layer"
+        "aboveWater": [
+          "sky",
+          "cloudBank",
+          "mountains",
+          "bank",
+          "train",
+          "steam",
+          "bridge（含护栏，覆盖车轮下缘）"
+        ],
+        "fullScene": [
+          "aboveWater",
+          "水线以下反射坐标重求值aboveWater",
+          "水面染色与波纹",
+          "foreground"
         ]
       },
       "wallpaper": {
         "kind": "complete-train-scene",
-        "engine": "trainWallpaper",
-        "entry": "themes/blue-sky-train/index.html",
+        "engine": "CloudLibrary",
+        "entry": "themes/blue-sky-train/lab/cloud-library.html",
         "dependencies": [
-          "themes/blue-sky-train/wallpaper.js",
-          "themes/blue-sky-train/settings.js",
-          "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+          "cases/blue-sky-assets/runtime.js",
+          "modules/motion/blue-stream-parallax/stream.js",
+          "assets/blue-sky-train/clouds/r04/cloud-tower.png",
+          "assets/blue-sky-train/clouds/r04/cloud-bank.png",
+          "assets/blue-sky-train/foliage/r09/grass.png",
+          "assets/blue-sky-train/foliage/r09/leaves.png",
+          "assets/blue-sky-train/foliage/r09/understory.png"
         ]
       },
-      "recipePath": "cases/blue-sky-original/scene.json"
+      "recipePath": "cases/blue-sky-assets/scene.json"
     }
   ]
 }

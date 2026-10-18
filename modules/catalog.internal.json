@@ -1648,7 +1648,7 @@
       "description": "完整云与草叶素材，结合程序山、桥、列车和实时倒影。当前研究主场景。",
       "status": "work-in-progress",
       "entry": "themes/blue-sky-train/lab/cloud-library.html",
-      "preview": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
+      "preview": "library/thumbnails/wallpaper--blue-sky-assets.png",
       "layers": [
         {
           "role": "sky",
@@ -1738,6 +1738,20 @@
           "水面染色与波纹",
           "foreground"
         ]
+      },
+      "wallpaper": {
+        "kind": "complete-train-scene",
+        "engine": "CloudLibrary",
+        "entry": "themes/blue-sky-train/lab/cloud-library.html",
+        "dependencies": [
+          "cases/blue-sky-assets/runtime.js",
+          "modules/motion/blue-stream-parallax/stream.js",
+          "assets/blue-sky-train/clouds/r04/cloud-tower.png",
+          "assets/blue-sky-train/clouds/r04/cloud-bank.png",
+          "assets/blue-sky-train/foliage/r09/grass.png",
+          "assets/blue-sky-train/foliage/r09/leaves.png",
+          "assets/blue-sky-train/foliage/r09/understory.png"
+        ]
       }
     },
     {
@@ -1746,7 +1760,7 @@
       "description": "保留原图构图，局部水波与矢量烟雾循环，适用于画面轻动画。",
       "status": "integrated",
       "entry": "themes/blue-sky-train/index.html?controls=1",
-      "preview": "library/thumbnails/wallpaper--blue-sky-original.png",
+      "preview": "assets/blue-sky-train/source/blue-sky-train.png",
       "layers": [
         {
           "role": "water",
