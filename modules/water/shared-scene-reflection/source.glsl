@@ -13,7 +13,7 @@ vec3 fullScene(vec2 p,float t,bool withForeground){
     // interrupted ripples separate the reflected bank from the real shore.
     float bankReflection=1.0-smoothstep(.006,.034,depth);
     float brokenRipple=smoothstep(.50,.82,noise(vec2(floor(p.x*420.0)*.035,floor(depth*768.0)*.68-t*.22)));
-    c=mix(c,vec3(.140,.390,.420),bankReflection*(.12+.12*brokenRipple));
+    c=mix(c,vec3(.160,.450,.510),bankReflection*(.26+.20*brokenRipple));
     float glint=pow(max(0.0,sin(p.x*36.0+1.0/(depth+.03)*3.0-t*.8)),28.0);
     c+=vec3(.04,.055,.06)*glint*uRipple;
   }else c=aboveWater(p,t);

@@ -1,6 +1,6 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r20-natural-shoreline-refined",
+  "catalogRevision": "r20-natural-shoreline-final",
   "wallpapers": 2,
   "materials": 8,
   "files": [
@@ -111,8 +111,8 @@
     },
     {
       "path": "cases/blue-sky-assets/compose.glsl",
-      "bytes": 2216,
-      "sha256": "febf0dc49fccfe3d7197c1e954e10c6c19db6f014a1e03c9122a24b0229e5223"
+      "bytes": 2256,
+      "sha256": "f94328e5a415839f550f82e7ed9cdecae585b90ddef0d68997e8dbf2ca6bea1f"
     },
     {
       "path": "cases/blue-sky-assets/README.md",
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 45579,
-      "sha256": "132814c24275c85d99917a99db0f8e498aab41f39b6d4cf2cde9bd1150e2ef67"
+      "bytes": 45577,
+      "sha256": "2d6dc766635406d9f9a365fa22d040a0d7736674fefe2381fbf3ded5142926c7"
     },
     {
       "path": "library/index.html",
-      "bytes": 2189,
-      "sha256": "8c0dd673383fc1d3b15791260fed75a8a8ce5115e680580fcaeb1c86c6a55b99"
+      "bytes": 2187,
+      "sha256": "e18d5d64759e160d5183bc0fec1b76db11f4db88b706bd39a6e7c2824b4620f0"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 12112,
-      "sha256": "18d9558c1219325e711332993e3b92ac2129a48dc21a8aeb6e94a9abebbdb158"
+      "bytes": 12110,
+      "sha256": "a16548f3969ad3f3e0652266ffe3264ef105452e885695fe8d41639e0b8f0817"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 14221,
-      "sha256": "05d3d244ab266f9d94e51f7be2796f79a476526607da1f178ad57daf093e1dc5"
+      "bytes": 14219,
+      "sha256": "7bb1bd88ccfe812497bd9eec054bdc36a610a3404b59a57197ac63d73fe162df"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -346,8 +346,8 @@
     },
     {
       "path": "modules/bridge/blue-stone-lighting/preview.html",
-      "bytes": 1142,
-      "sha256": "0ff0150d1d7b48e777caf67f4b75e818b5a264ddd5c80177cd67d4e7ff0736ef"
+      "bytes": 1140,
+      "sha256": "35f92cca2ceff26ba98bdbb6b84820e7b0c49fd10f47763ba9bda5f6df2ca040"
     },
     {
       "path": "modules/bridge/blue-stone-lighting/README.md",
@@ -402,7 +402,7 @@
     {
       "path": "modules/catalog.internal.json",
       "bytes": 79816,
-      "sha256": "9fca8759bab4274208831f49b22a28d524be63485cba3a2fea844d9b5f3df42d"
+      "sha256": "c527ce188d30abe592018fc3f18297def1ab44752d9e2f8b4597c6c66b0a3d65"
     },
     {
       "path": "modules/categories.json",
@@ -426,8 +426,8 @@
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
-      "bytes": 1160,
-      "sha256": "b9dbba5a0e7df0d1ef1282f59ca91a5812ee2949710f033424f9467f472ab217"
+      "bytes": 1158,
+      "sha256": "8a1edcf7458c7455f7f0d248ef4055e873c2334af5e867b6705f388cb918ac60"
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/README.md",
@@ -546,8 +546,8 @@
     },
     {
       "path": "modules/foreground/generated-foliage-r09/preview.html",
-      "bytes": 1164,
-      "sha256": "b95b3bbf641c460278af81751b00150d834cf6329ead95e798a0bfd8f4350fe8"
+      "bytes": 1162,
+      "sha256": "9aeaf64d7082c0b4ac4c23e45e3d5b3697335bf366ff22e2aaa5f9d9ac19f337"
     },
     {
       "path": "modules/foreground/generated-foliage-r09/README.md",
@@ -827,7 +827,7 @@
     {
       "path": "modules/water/shared-scene-reflection/source.glsl",
       "bytes": 1105,
-      "sha256": "ddef6b6f3988d04abdd22396b486ca918fe901d0c8be339c6e8fca828a421217"
+      "sha256": "1757b32cc253261aa65226d25eacc11679c280088ef314e4f02a4f3e15846bae"
     },
     {
       "path": "modules/water/shared-scene-reflection/study.glsl",
@@ -901,8 +901,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/cloud-library.html",
-      "bytes": 16941884,
-      "sha256": "67630b76b5dbf596ed9b58ab184faf79d6a2a83035522a96ccd1c1750e8a3d0c"
+      "bytes": 16941925,
+      "sha256": "7e8914577e9234c5a497353e5a8ced06562784d3931fd71bbc8e994e5434132a"
     },
     {
       "path": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
@@ -1716,8 +1716,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
-      "bytes": 5036,
-      "sha256": "0441d63df6a4a3dd748602a34fed8d5ac1e8588512e8250c665340320083c01d"
+      "bytes": 5076,
+      "sha256": "250a63e84ecc29d3d09b9853d2cb7740dcf6b1fd788dad3c95e9b0c25ec1e0fa"
     },
     {
       "path": "themes/blue-sky-train/lab/src/train.glsl",
