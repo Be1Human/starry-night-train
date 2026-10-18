@@ -9,6 +9,11 @@ vec3 fullScene(vec2 p,float t,bool withForeground){
   if(p.y<HORIZON){
     c=aboveWater(reflectionPoint(p,t),t);float depth=HORIZON-p.y;
     c=mix(c,vec3(.13,.49,.65),.09+depth*.20);
+    // Water close to the bank absorbs the bright turf colour. Horizontal,
+    // interrupted ripples separate the reflected bank from the real shore.
+    float bankReflection=1.0-smoothstep(.006,.034,depth);
+    float brokenRipple=smoothstep(.50,.82,noise(vec2(floor(p.x*420.0)*.035,floor(depth*768.0)*.68-t*.22)));
+    c=mix(c,vec3(.140,.390,.420),bankReflection*(.12+.12*brokenRipple));
     float glint=pow(max(0.0,sin(p.x*36.0+1.0/(depth+.03)*3.0-t*.8)),28.0);
     c+=vec3(.04,.055,.06)*glint*uRipple;
   }else c=aboveWater(p,t);
