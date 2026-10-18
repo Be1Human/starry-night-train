@@ -48,7 +48,7 @@ vec4 lakeshore(vec2 p,float t){
  float shade=smoothstep(.35,.68,noise(vec2(x*7.5,18.0))+.12*brush);
  vec3 face=mix(vec3(.110,.315,.270),vec3(.245,.415,.285),shade);
  vec3 turf=mix(vec3(.190,.395,.285),vec3(.435,.585,.320),step(.49,brush)*(.42+.58*shade));
- float upper=smoothstep(top-.009,top-.003,p.y);
+ float upper=smoothstep(HORIZON+.004,HORIZON+.018,p.y);
  vec3 color=mix(face,turf,upper);
  float light=step(.61,noise(vec2(pixel.x*.057,pixel.y*.24)))*mask(top-p.y-.0025);
  color=mix(color,vec3(.535,.645,.355),light*upper*uSun*.70);
