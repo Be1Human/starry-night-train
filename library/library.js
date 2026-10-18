@@ -106,7 +106,7 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 $('viewer').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();navigateItem(1);}if(event.key==='ArrowLeft'){event.preventDefault();navigateItem(-1);}});
 window.addEventListener('pagehide',clearPlayer);window.addEventListener('hashchange',followHash);
 try{
- const response=await fetch('catalog.json?v=r20-natural-shoreline');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
+ const response=await fetch('catalog.json?v=r20-natural-shoreline-refined');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
  if(!catalog.wallpapers?.length)throw Error('没有可展示的火车壁纸');followHash();
  window.LayerLibrary={get state(){return {ready:true,revision:catalog.revision,collection,category,total:visibleItems().length,visibleIds:visibleItems().map(i=>i.id),selected:current?.id??null,playing:!!api&&!api.state.settings.paused};}};
 }catch(error){$('load-error').hidden=false;$('load-error').textContent='画廊暂时无法加载，请刷新重试。';console.error(error);}

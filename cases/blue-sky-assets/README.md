@@ -26,7 +26,7 @@
 - trainScale：[0.55,0.43]
 - lighting："左上方日光；生成PNG保留原受光方向"
 - time："uTime + uGroundTravel；倒影复用 aboveWater(p,t)"
-- shoreline："桥墩与岸线共用世界坐标；低草坡在桥脚略抬高，现有 understory PNG 稀疏点缀；贴岸倒影受水色衰减。"
+- shoreline："桥墩与岸线共用世界坐标；低矮缓坡保持桥脚落地，现有 understory PNG 稀疏点缀；贴岸倒影受水色衰减。"
 
 ## 实际合成顺序
 
