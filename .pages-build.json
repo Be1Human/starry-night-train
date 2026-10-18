@@ -111,8 +111,8 @@
     },
     {
       "path": "cases/blue-sky-assets/compose.glsl",
-      "bytes": 3346,
-      "sha256": "4577ee5756bb3d96d20aa8a2babcb43b394d3e0be9e01927de405513ccf42602"
+      "bytes": 3358,
+      "sha256": "df63b17f8bbc87b6aa0aa7c55754ac9309b96b0eb16a5f71fc49ae1636f9567c"
     },
     {
       "path": "cases/blue-sky-assets/README.md",
@@ -402,7 +402,7 @@
     {
       "path": "modules/catalog.internal.json",
       "bytes": 80322,
-      "sha256": "763aafcd4fa75b24920a39bf94deb2993a4f926bec6844e7271718ffbfcfca1a"
+      "sha256": "931637a887851bee857d23ef01f18dec6a9c3c93b96093b0d625fe22e2c40bc4"
     },
     {
       "path": "modules/categories.json",
@@ -826,8 +826,8 @@
     },
     {
       "path": "modules/water/shared-scene-reflection/source.glsl",
-      "bytes": 1493,
-      "sha256": "2c75b86d403cdd78a17d1124827e8da1402b81e83f596a08a9bc7cc2732bb3b0"
+      "bytes": 1550,
+      "sha256": "5711c39251bb7990080409c39b0ad1d70ad84f448142196559f197055448e501"
     },
     {
       "path": "modules/water/shared-scene-reflection/study.glsl",
@@ -901,8 +901,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/cloud-library.html",
-      "bytes": 16943443,
-      "sha256": "74613577b2a2bb61889cd78ad4cc6c86331ed30adcc96aebcc8e2c290b8106b2"
+      "bytes": 16943513,
+      "sha256": "d46839ab3769f5cbeda05ffddee1419bff392af127f0c1a30916e29b5711f2b4"
     },
     {
       "path": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
@@ -1716,8 +1716,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
-      "bytes": 6554,
-      "sha256": "ffa6ac98660aa638bb49becf9a5e11b031e279c73c8e80988d9e1db0324b6806"
+      "bytes": 6623,
+      "sha256": "07037e2fde90f04283027d648def928c9694f3f36c130c5fbdf59c13df0e296d"
     },
     {
       "path": "themes/blue-sky-train/lab/src/train.glsl",

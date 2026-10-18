@@ -992,7 +992,7 @@
       "thumbnailKind": "模块实测 · t=8s",
       "sortOrder": 16,
       "sha256": {
-        "modules/water/shared-scene-reflection/source.glsl": "2c75b86d403cdd78a17d1124827e8da1402b81e83f596a08a9bc7cc2732bb3b0",
+        "modules/water/shared-scene-reflection/source.glsl": "5711c39251bb7990080409c39b0ad1d70ad84f448142196559f197055448e501",
         "modules/water/shared-scene-reflection/study.glsl": "27de4d64ba0536ffc7e15646c7a56a9ba595f941c3e9bd1ab2e8cf26feb7455f"
       },
       "readme": "modules/water/shared-scene-reflection/README.md",

@@ -5,7 +5,8 @@ vec2 reflectionPoint(vec2 p,float t){
  return vec2(p.x+displacement,2.0*HORIZON-p.y+displacement*.18);
 }
 vec3 fullScene(vec2 p,float t,bool withForeground){
- float edge=shoreWaterline(p.x+cameraAt(t));
+ float edge=HORIZON;
+ if(p.y>HORIZON-.080&&p.y<BRIDGE_FOOT+.015)edge=shoreWaterline(p.x+cameraAt(t));
  vec3 c;
  if(p.y<edge){
   vec2 reflected=reflectionPoint(p,t);

@@ -52,9 +52,9 @@ vec4 lakeshore(vec2 p,float t){
  // follow the slope instead of filling a constant-height rectangle with noise.
  float meadow=smoothstep(.30,.72,noise(vec2(x*4.7,21.0)));
  float strokes=noise(vec2(pixel.x*.052,pixel.y*.27+x*2.0));
- float flat=step(.46,strokes);
+ float strokeMask=step(.46,strokes);
  vec3 grass=mix(vec3(.235,.405,.265),vec3(.470,.615,.320),meadow);
- grass+=vec3(.060,.065,.012)*flat*uSun;
+ grass+=vec3(.060,.065,.012)*strokeMask*uSun;
  float sunPatch=step(.64,noise(vec2(x*17.0,p.y*82.0)))*meadow;
  grass=mix(grass,vec3(.585,.690,.360),sunPatch*.52*uSun);
  vec3 wet=mix(vec3(.075,.245,.225),vec3(.165,.340,.250),step(.48,strokes));
