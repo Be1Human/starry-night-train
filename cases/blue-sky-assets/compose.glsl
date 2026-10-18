@@ -1,12 +1,13 @@
 // The bank and bridge travel in the same world frame. Upper ground and lower
 // water edge are separate: broad peninsulas alternate with narrow, recessed bays.
 vec2 shoreProfile(float x){
- float headland=smoothstep(.23,.79,noise(vec2(x*1.65,32.0)));
+ float headland=smoothstep(.23,.79,noise(vec2(x*2.35,32.0)));
  float shelf=noise(vec2(x*5.3,17.0));
- float crest=BRIDGE_FOOT-.001+.014*headland+.004*shelf;
- crest+=(noise(vec2(x*43.0,9.0))-.5)*.0025;
- float width=.012+.036*headland+.006*noise(vec2(x*3.6,45.0));
- float edge=crest-width;
+ float crest=BRIDGE_FOOT-.001+.020*headland+.007*(shelf-.3);
+ crest+=(noise(vec2(x*43.0,9.0))-.5)*.004;
+ crest=max(BRIDGE_FOOT-.001,crest);
+ float edge=HORIZON+.016-.024*headland;
+ edge+=(noise(vec2(x*7.3,45.0))-.5)*.007;
  // Fine erosion breaks the contour without making the broad bank a sine wave.
  edge+=(noise(vec2(floor(x*768.0)*.047,63.0))-.5)*.003;
  return vec2(crest,edge);
@@ -21,7 +22,7 @@ vec4 shorePlants(vec2 p,float t){
   float id=cell+float(i),r=hash(vec2(id,251.0));
   if(r>.28){
    float center=(id+.22+.56*hash(vec2(id,79.0)))*spacing;
-   float spread=.050+.065*hash(vec2(id,148.0));
+   float spread=.065+.090*hash(vec2(id,148.0));
    for(int j=-1;j<=1;j++){
     float part=float(j),seed=hash(vec2(id*7.0+part,191.0));
     if(j==0||seed>.32){
@@ -29,8 +30,10 @@ vec4 shorePlants(vec2 p,float t){
      float h=(.047+.045*r)*mix(1.0,.66,abs(part));
      h*=.82+.32*seed;
      vec2 ground=shoreProfile(cx);
-     float root=ground.x-h*.29;
-     vec4 plant=foliageSprite(p,cx,root,h,2.0,foliageBend(t,id*7.0+part,.014));
+     float base=mix(ground.y+.003,ground.x-.002,.22+.65*seed);
+     float root=base-h*.20;
+     vec2 spritePoint=vec2(cx+(p.x-cx)/(1.08+.32*r),p.y);
+     vec4 plant=foliageSprite(spritePoint,cx,root,h,2.0,foliageBend(t,id*7.0+part,.014));
      // Distant clumps inherit the blue atmosphere; retain generated leaf shapes.
      plant.rgb=mix(plant.rgb,vec3(.135,.340,.280),.29);
      plant.rgb=mix(plant.rgb,vec3(.255,.480,.420),.13);
@@ -50,7 +53,7 @@ vec4 lakeshore(vec2 p,float t){
  vec2 pixel=floor(vec2(x,p.y)*768.0);
  // Broad lit meadows between blue-green shrub shadows; horizontal brush marks
  // follow the slope instead of filling a constant-height rectangle with noise.
- float meadow=smoothstep(.30,.72,noise(vec2(x*4.7,21.0)));
+ float meadow=smoothstep(.30,.72,noise(vec2(x*4.7+p.y*9.0,p.y*47.0+21.0)));
  float strokes=noise(vec2(pixel.x*.052,pixel.y*.27+x*2.0));
  float strokeMask=step(.46,strokes);
  vec3 grass=mix(vec3(.235,.405,.265),vec3(.470,.615,.320),meadow);
