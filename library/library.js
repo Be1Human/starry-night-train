@@ -1,6 +1,7 @@
 const $=id=>document.getElementById(id);
 const esc=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const url=p=>'../'+p;
+const posterUrl=p=>url(p)+'?v='+encodeURIComponent(catalog.revision);
 let catalog,collection='wallpapers',category='all',current=null,api=null,token=0;
 const listHash=()=>'#'+collection+(category==='all'?'':'/'+category);
 const collectionCategories=()=>collection==='wallpapers'?catalog.wallpaperCategories:catalog.materialCategories;
@@ -17,7 +18,7 @@ function renderGallery(){
  $('gallery').dataset.singleWallpaper=String(!materials&&items.length===1);
  $('empty').hidden=items.length>0;
  $('empty').textContent=materials?'这里暂时没有收录的素材。':'这个分类暂时没有收录的实例。';
- $('gallery').innerHTML=items.map((item,index)=>'<button class="work" data-work="'+esc(item.id)+'" data-kind="'+item.kind+'" aria-label="预览'+esc(item.title)+'"><div class="work-image"><img src="'+url(item.poster)+'" alt="'+esc(item.alt)+'" width="1280" height="720" loading="'+(index<2?'eager':'lazy')+'"><span class="play-mark" aria-hidden="true">▶</span></div><div class="work-caption"><h2>'+esc(item.title)+'</h2>'+('<span class="material-kind">'+esc(categoryName(item.category,item.kind))+' · ↗</span>')+'</div></button>').join('');
+ $('gallery').innerHTML=items.map((item,index)=>'<button class="work" data-work="'+esc(item.id)+'" data-kind="'+item.kind+'" aria-label="预览'+esc(item.title)+'"><div class="work-image"><img src="'+posterUrl(item.poster)+'" alt="'+esc(item.alt)+'" width="1280" height="720" loading="'+(index<2?'eager':'lazy')+'"><span class="play-mark" aria-hidden="true">▶</span></div><div class="work-caption"><h2>'+esc(item.title)+'</h2>'+('<span class="material-kind">'+esc(categoryName(item.category,item.kind))+' · ↗</span>')+'</div></button>').join('');
  $('gallery').querySelectorAll('button').forEach((button,index)=>button.onclick=()=>openItem(items[index]));
 }
 function clearPlayer(){token++;api=null;$('player').replaceChildren();$('player').dataset.ready='false';$('pause').disabled=true;$('pause').textContent='暂停';$('player-status').textContent='';$('retry').hidden=true;}
@@ -72,7 +73,7 @@ async function openItem(item,writeHash=true){
  renderGallery();const items=visibleItems(),index=items.findIndex(i=>i.id===item.id),request=token;
  $('viewer-title').innerHTML=esc(item.title)+'<span class="viewer-kind">'+esc(item.kind==='wallpaper'?categoryName(item.category,'wallpaper')+' · 完整实例':categoryName(item.category)+'素材')+'</span>';
  $('viewer-stage').style.aspectRatio=item.aspect??'16 / 9';
- $('viewer-poster').src=url(item.poster);$('viewer-poster').alt=item.alt;$('viewer-poster').hidden=false;
+ $('viewer-poster').src=posterUrl(item.poster);$('viewer-poster').alt=item.alt;$('viewer-poster').hidden=false;
  $('position').textContent=items.length>1?String(index+1).padStart(2,'0')+' / '+String(items.length).padStart(2,'0'):'';
  $('previous').disabled=items.length<2;$('next').disabled=items.length<2;$('previous').parentElement.hidden=items.length<2;
  renderDetails(item);if(!$('viewer').open)$('viewer').showModal();
@@ -105,7 +106,7 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 $('viewer').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();navigateItem(1);}if(event.key==='ArrowLeft'){event.preventDefault();navigateItem(-1);}});
 window.addEventListener('pagehide',clearPlayer);window.addEventListener('hashchange',followHash);
 try{
- const response=await fetch('catalog.json?v=r19-open-lakeshore');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
+ const response=await fetch('catalog.json?v=r19-open-lakeshore-final');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
  if(!catalog.wallpapers?.length)throw Error('没有可展示的火车壁纸');followHash();
  window.LayerLibrary={get state(){return {ready:true,revision:catalog.revision,collection,category,total:visibleItems().length,visibleIds:visibleItems().map(i=>i.id),selected:current?.id??null,playing:!!api&&!api.state.settings.paused};}};
 }catch(error){$('load-error').hidden=false;$('load-error').textContent='画廊暂时无法加载，请刷新重试。';console.error(error);}

@@ -1262,7 +1262,7 @@
         "modules/_shared/blue/scene-core.glsl"
       ],
       "thumbnail": "library/thumbnails/foreground--generated-foliage-r09.png",
-      "thumbnailKind": "模块实测 · t=8s",
+      "thumbnailKind": "模块实测 · r19 植物簇 · t=60s",
       "sortOrder": 21,
       "sha256": {
         "modules/foreground/generated-foliage-r09/source.glsl": "536083202a35746efd87fc4b870f459674165ebba7b5a23ac20b8b1be831e211"

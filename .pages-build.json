@@ -1,6 +1,6 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r19-open-lakeshore",
+  "catalogRevision": "r19-open-lakeshore-final",
   "wallpapers": 2,
   "materials": 8,
   "files": [
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 45389,
-      "sha256": "ecf1f47c98b22713a349db2fc820ec89ad5a5756cec52ee339d37e3e671c5d16"
+      "bytes": 45413,
+      "sha256": "cfb39facd7c6c380dbd79d01cfd2012bc622de9d202bc19b88c8bab59178b490"
     },
     {
       "path": "library/index.html",
-      "bytes": 2178,
-      "sha256": "fc7a0dd42a43952f4100a2021e38e67c5252ff11beaecbce7aeb4f9d7ac87538"
+      "bytes": 2184,
+      "sha256": "f49caf4c9a3cd2cbecf436ecab16e1b3403b0abc78e595ad37ed05404f2537d4"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 12019,
-      "sha256": "f9beabaf830a62840fc630c5ae8a928b9f877517a2dde4a8e318e362165ee1cd"
+      "bytes": 12107,
+      "sha256": "55b4bffcf625ed8e851bb301b82df76b3f8554311e1f9d7f5275b035222cea3f"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 14210,
-      "sha256": "05d1f61d42bc252c09ab0b02ff03378a467b90b7841c1e054e85c61a357acfea"
+      "bytes": 14216,
+      "sha256": "87beda52f779c6ae15a4f1464bae6dc7c5453cf579393c92dcbc106b14ed82f3"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -311,8 +311,8 @@
     },
     {
       "path": "library/thumbnails/foreground--generated-foliage-r09.png",
-      "bytes": 658431,
-      "sha256": "b52e481e9e2df1f5de1c2dc12ccf8a3895390ea91facdd3c04632c5b905cdd08"
+      "bytes": 38369,
+      "sha256": "9b43db82bd92d01b1a7014d1dbaa0020dc302d52d3d25a2c9c5a2e95898b27f0"
     },
     {
       "path": "library/thumbnails/sky--starry-galaxy.png",
@@ -326,8 +326,8 @@
     },
     {
       "path": "library/thumbnails/wallpaper--blue-sky-assets.png",
-      "bytes": 130641,
-      "sha256": "7da7477a53cda43bd27ac72ee2f6c801a3f66f9e56d413a58e85464ce8b8fc8b"
+      "bytes": 106163,
+      "sha256": "89102df34f6a091275b6f9227dfbc1d274571e3722c0992b875eb1df987e052c"
     },
     {
       "path": "library/thumbnails/water--starry-perspective-reflection.png",
@@ -346,8 +346,8 @@
     },
     {
       "path": "modules/bridge/blue-stone-lighting/preview.html",
-      "bytes": 1131,
-      "sha256": "c7f85ad5e2909539bb541d37ed2854a2b73020d154ed67fbfb760708f301a50b"
+      "bytes": 1137,
+      "sha256": "fc563d8750070d3cb7fea0bee3e84f5c57191fa1bc1ea7dbaa87811b60e72550"
     },
     {
       "path": "modules/bridge/blue-stone-lighting/README.md",
@@ -401,8 +401,8 @@
     },
     {
       "path": "modules/catalog.internal.json",
-      "bytes": 79637,
-      "sha256": "2a34486f1fe39af6ec7b3e32377e136f22e744c4a1262bd8a106f8d5fc02a126"
+      "bytes": 79655,
+      "sha256": "a16736d4ace19e423129507fd9b4d954e7fe5e7877df2bace25b34c0c5a16733"
     },
     {
       "path": "modules/categories.json",
@@ -426,8 +426,8 @@
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
-      "bytes": 1149,
-      "sha256": "d5939c79a47f35e448e94271cac119f4d2ea2e6f7926966161aa6bb68bfc747f"
+      "bytes": 1155,
+      "sha256": "ee43ad6fcf995988cf6daa43258c505434e1123ea4162be52b9be700d9de1633"
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/README.md",
@@ -546,8 +546,8 @@
     },
     {
       "path": "modules/foreground/generated-foliage-r09/preview.html",
-      "bytes": 1153,
-      "sha256": "22f7aa9e8cd5fda1a9abc5244ed53fc11b057648924a25a5f49f226113eb1413"
+      "bytes": 1159,
+      "sha256": "3f27172f81735e0f14858ee3ba8d70e47b1350012179d903acd2998ce6014f79"
     },
     {
       "path": "modules/foreground/generated-foliage-r09/README.md",
@@ -561,8 +561,8 @@
     },
     {
       "path": "modules/foreground/generated-foliage-r09/template.json",
-      "bytes": 2752,
-      "sha256": "e797ff35de1eef0637a5a49e8766621677f1f3b663d7738e6b2d3549fed06ad1"
+      "bytes": 2770,
+      "sha256": "49f802ee3fe27f4f799f65be8163e0fbc863d46942016ae6516af45420bf6b67"
     },
     {
       "path": "modules/foreground/procedural-grass-r08/README.md",
