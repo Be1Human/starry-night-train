@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "bridge/blue-stone-lighting",
+  "category": "bridge",
+  "name": "蓝灰石桥与局部日光",
+  "method": "独立桥体SDF＋世界空间石纹＋左上受光和帽沿遮光",
+  "status": "integrated",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/bridge/blue-stone-lighting/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-bridge.glsl",
+      "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/bridge/blue-stone-lighting/preview.html",
+    "kind": "isolated",
+    "offline": false
+  },
+  "interfaces": [
+    "bridge(vec2 p,float t)",
+    "uSun / DECK / BRIDGE_FOOT"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "简化色层光照，不是物理光追",
+    "石纹不是逐像素复刻；画幅缩小时细护栏易丢失"
+  ],
+  "evidence": [
+    "themes/blue-sky-train/lab/evidence/r06-bridge/report.json",
+    "themes/blue-sky-train/lab/evidence/r07-lighting/report.json"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/bridge--blue-stone-lighting.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 24
+}

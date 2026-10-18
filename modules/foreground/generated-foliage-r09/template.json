@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "foreground/generated-foliage-r09",
+  "category": "foreground",
+  "name": "R09 完整生成近景素材",
+  "method": "三张透明PNG＋层间速度差＋根部固定UV风摆",
+  "status": "integrated",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/foreground/generated-foliage-r09/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-foreground.glsl",
+      "sha256": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+      "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+    }
+  ],
+  "assets": [
+    "assets/blue-sky-train/foliage/r09/grass.png",
+    "assets/blue-sky-train/foliage/r09/leaves.png",
+    "assets/blue-sky-train/foliage/r09/understory.png",
+    "assets/blue-sky-train/foliage/r09/generation-prompts.json"
+  ],
+  "preview": {
+    "path": "modules/foreground/generated-foliage-r09/preview.html",
+    "kind": "isolated",
+    "offline": false
+  },
+  "interfaces": [
+    "foliageSprite / foliageBend / foliageOver / nearBank / passingBranch / grassLayer",
+    "uFoliageAspect / uGroundTravel / uWind"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "每类只有一张素材，重复可能被认出",
+    "素材受光不随日光滑杆变化；保留方向避免镜像",
+    "近枝遮挡桥车是设计效果，需要控制频率"
+  ],
+  "evidence": [
+    "themes/blue-sky-train/lab/evidence/r09-generated-foreground/report.json"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "cases/blue-sky-assets/runtime.js",
+    "modules/_shared/blue/scene-core.glsl"
+  ],
+  "thumbnail": "library/thumbnails/foreground--generated-foliage-r09.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 21
+}

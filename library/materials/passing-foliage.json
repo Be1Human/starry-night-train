@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "passing-foliage",
+  "title": "掠过的草木",
+  "category": "foreground",
+  "implementation": "hybrid",
+  "summary": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
+  "editable": [
+    "替换草丛、枝叶、灌木 PNG",
+    "经过速度、遮挡频率与风摆幅度"
+  ],
+  "preview": {
+    "path": "modules/foreground/generated-foliage-r09/preview.html",
+    "query": "embed=1",
+    "engine": "CloudLibrary",
+    "settings": {
+      "scale": 0.85,
+      "speed": 1,
+      "wind": 1,
+      "sun": 1
+    },
+    "aspect": "8 / 3"
+  },
+  "sourceFiles": [
+    "modules/foreground/generated-foliage-r09/source.glsl"
+  ],
+  "assets": [
+    "assets/blue-sky-train/foliage/r09/grass.png",
+    "assets/blue-sky-train/foliage/r09/leaves.png",
+    "assets/blue-sky-train/foliage/r09/understory.png",
+    "assets/blue-sky-train/foliage/r09/generation-prompts.json"
+  ],
+  "dependencies": [
+    "cases/blue-sky-assets/runtime.js",
+    "modules/_shared/blue/scene-core.glsl"
+  ],
+  "edit": {
+    "sourceMode": "canonical",
+    "authority": [
+      "modules/foreground/generated-foliage-r09/source.glsl"
+    ],
+    "instructions": "修改模块权威源并重建；lab/src 中的兼容镜像不是编辑入口。"
+  },
+  "interfaces": [
+    "foliageSprite / foliageBend / foliageOver / nearBank / passingBranch / grassLayer",
+    "uFoliageAspect / uGroundTravel / uWind"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "sourceCases": [
+    {
+      "id": "blue-sky-assets",
+      "recipe": "cases/blue-sky-assets/scene.json"
+    }
+  ],
+  "pitfalls": [
+    "每类只有一张素材，重复可能被认出",
+    "素材受光不随日光滑杆变化；保留方向避免镜像",
+    "近枝遮挡桥车是设计效果，需要控制频率"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "build": "npm run build:library",
+  "runtime": "npm start"
+}

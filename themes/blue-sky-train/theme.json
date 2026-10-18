@@ -1,0 +1,12 @@
+{
+  "id": "blue-sky-train",
+  "name": "蓝天湖景列车",
+  "subtitle": "晴空、积云与湖面的慢时光",
+  "renderer": "svg",
+  "entry": "themes/blue-sky-train/index.html",
+  "preview": "assets/blue-sky-train/source/blue-sky-train.png",
+  "assets": "assets/blue-sky-train",
+  "aspectRatio": "8:3",
+  "animations": ["water-ripple", "steam"],
+  "defaultFps": 30
+}

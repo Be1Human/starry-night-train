@@ -1,0 +1,34 @@
+[
+  {
+    "id": "sky",
+    "name": "天空"
+  },
+  {
+    "id": "clouds",
+    "name": "云"
+  },
+  {
+    "id": "terrain",
+    "name": "山体与远近"
+  },
+  {
+    "id": "train",
+    "name": "列车与烟雾"
+  },
+  {
+    "id": "water",
+    "name": "湖面"
+  },
+  {
+    "id": "foreground",
+    "name": "近景"
+  },
+  {
+    "id": "bridge",
+    "name": "桥梁与光照"
+  },
+  {
+    "id": "motion",
+    "name": "镜头与分层运动"
+  }
+]

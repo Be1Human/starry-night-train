@@ -1,0 +1,51 @@
+<!-- Extracted from the original animated SVG; coordinates assume the original chimney. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 768"><g id="steam-layer"><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-0.000s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-0.000s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-0.000s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-1.286s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-1.286s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-1.286s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-2.571s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-2.571s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-2.571s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-3.857s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-3.857s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-3.857s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-5.143s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-5.143s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-5.143s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-6.429s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-6.429s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-6.429s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g><g>
+          <animateTransform attributeName="transform" type="translate" values="1218 449;1325 420;1480 395" keyTimes="0;.5;1" dur="9s" begin="-7.714s" repeatCount="indefinite"/>
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;.36;.23;0" keyTimes="0;.18;.65;1" dur="9s" begin="-7.714s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values=".35;.9;1.6" keyTimes="0;.5;1" dur="9s" begin="-7.714s" repeatCount="indefinite"/>
+            <path fill="#f4fcff" d="M-24 2h4v-6h6v-5h8v-4H4v3h9v4h8v5h7v6H-24Z"/>
+          </g>
+        </g></g></svg>

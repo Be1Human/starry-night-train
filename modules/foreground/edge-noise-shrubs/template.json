@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "foreground/edge-noise-shrubs",
+  "category": "foreground",
+  "name": "早期两侧噪声树丛",
+  "method": "画幅边缘高度包络＋噪声轮廓与色块",
+  "status": "experiment",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/foreground/edge-noise-shrubs/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/world.glsl",
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/foreground/edge-noise-shrubs/preview.html",
+    "kind": "isolated",
+    "offline": true
+  },
+  "interfaces": [
+    "foreground(vec2 p,float t)"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "左右包络绑定屏幕，不能表现整株经过眼前",
+    "只保留为早期方法和踩坑案例"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/foreground--edge-noise-shrubs.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 19
+}

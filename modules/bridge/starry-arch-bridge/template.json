@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "bridge/starry-arch-bridge",
+  "category": "bridge",
+  "name": "星河石拱桥与护栏",
+  "method": "周期桥拱＋石缝暗线＋独立前层护栏",
+  "status": "integrated",
+  "sourceMode": "generated-extract",
+  "sourceFiles": [
+    "modules/bridge/starry-arch-bridge/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/starry-night-train/index.html",
+      "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/bridge/starry-arch-bridge/preview.html",
+    "kind": "isolated-with-host",
+    "offline": true
+  },
+  "interfaces": [
+    "bridge / railing",
+    "uCamX / DECK"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "pitfalls": [
+    "护栏在列车前，桥在列车后，不能合成单一错误层级",
+    "线宽依赖gPx以适应镜头缩放"
+  ],
+  "evidence": [],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "thumbnail": "library/thumbnails/bridge--starry-arch-bridge.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 25
+}

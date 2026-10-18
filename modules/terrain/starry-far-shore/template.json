@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "terrain/starry-far-shore",
+  "category": "terrain",
+  "name": "夜间远岸与城镇灯光",
+  "method": "噪声岸线＋哈希楼体和灯点",
+  "status": "integrated",
+  "sourceMode": "generated-extract",
+  "sourceFiles": [
+    "modules/terrain/starry-far-shore/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/starry-night-train/index.html",
+      "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/terrain/starry-far-shore/preview.html",
+    "kind": "isolated-with-host",
+    "offline": true
+  },
+  "interfaces": [
+    "farShore(vec2 p)",
+    "uFarOff / uHorizon / gGlow"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "pitfalls": [
+    "这是远岸剪影和灯光，不是完整山体模板",
+    "gGlow副作用需要在复用时明确合成接口"
+  ],
+  "evidence": [],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "thumbnail": "library/thumbnails/terrain--starry-far-shore.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 11
+}

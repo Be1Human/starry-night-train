@@ -1,0 +1,137 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>积云 · 逐像素对比 R03</title><style>
+:root{font:14px/1.6 "Segoe UI","Microsoft YaHei",sans-serif;background:#0c1721;color:#d7e8f1;--line:#314b5d;--muted:#8eaabc;--cyan:#8dd2eb}*{box-sizing:border-box}body{margin:0}main{max-width:1600px;margin:auto;padding:28px 32px 55px}a{color:var(--cyan)}header{display:flex;align-items:center;justify-content:space-between;gap:24px}h1{font-size:28px;font-weight:550;margin:5px 0}h2{font-size:17px;font-weight:550}p{color:var(--muted);font-size:12px;margin:5px 0 18px}.eyebrow{font:10px Consolas,monospace;letter-spacing:2px;color:var(--cyan)}.toolbar{display:flex;gap:12px 20px;align-items:center;flex-wrap:wrap;background:#152734;padding:14px;border:1px solid var(--line);border-radius:8px 8px 0 0}label{display:flex;align-items:center;gap:8px;font-size:12px}select,button{font:inherit;font-size:12px;color:#dcecf4;border:1px solid #49677b;border-radius:5px;padding:6px 9px;background:#1c3445;cursor:pointer}input{accent-color:#8dd2eb}input[type=range]{width:110px}.viewport{overflow:auto;max-height:660px;border:1px solid var(--line);background:#09121b;position:relative}.viewport canvas{display:block;image-rendering:pixelated;cursor:crosshair;touch-action:pan-y}.bar{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;background:#132532;border:1px solid var(--line);border-top:0;padding:9px 14px;font:11px Consolas,monospace;color:#a6c7d9}.panels{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}.panel{background:#13232f;border:1px solid var(--line);border-radius:9px;padding:20px}.loupes{display:flex;gap:16px;flex-wrap:wrap}.loupe{flex:1;min-width:130px}.loupe canvas{width:100%;max-width:300px;image-rendering:pixelated;border:1px solid #3c5768;background:#081421}.loupe strong{display:block;font-size:11px;color:#a8ccdd;margin-bottom:8px}.rgb{font:12px Consolas,monospace;display:block;margin:6px 0;color:#b8d7e7}.legend{display:flex;gap:14px;align-items:center;font-size:10px;color:#a4bfce}.ramp{width:130px;height:9px;background:linear-gradient(90deg,#101829,#7a44aa,#ec6953,#ffe39b)}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid #2d4556}th{font-weight:500;color:#83a9bd}td{color:#d2e3ec}td.improved{color:#c4df9b}.note{font-size:11px;line-height:1.9;color:#8faebe}.status{color:#c4df9b;font-size:12px}#error{color:#ffb9a8}button:focus-visible,select:focus-visible,canvas:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}footer{font-size:11px;color:#7594a6;border-top:1px solid var(--line);padding-top:20px;margin-top:24px}.actions{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;margin-top:15px}@media(max-width:800px){main{padding:18px 12px}.panels{grid-template-columns:1fr}h1{font-size:23px}header{align-items:start}.toolbar{gap:10px}.viewport{max-height:440px}.panel{padding:14px}table{font-size:10px}}
+</style></head><body><main>
+<header><div><span class="eyebrow">REFERENCE / R01 / R02 / R03 · 2048 × 768</span><h1>云的差距，逐像素看。</h1></div><a href="index.html#cloud">返回 TA 方案 ↗</a></header>
+<p>原图与三版云层都使用 2048 × 768、t = 0、固定构图。边界以下沿用原图地景定位，只有上方云区参与对比。鼠标取样，点击锁定，方向键可移动一个原始像素。</p>
+<p><a href="cloud-library.html">R09：生成的草叶从眼前掠过 ↗</a> · 透明草丛、枝叶和灌木由 imagegen 生成，代码负责分层移动和风摆。支持完整原件预览、下载与原图 / R08 对照。</p>
+<div class="toolbar">
+<label>版本<select id="version"><option value="r03">R03 · 四层平涂</option><option value="r02">R02 · 程序云簇</option><option value="r01">R01 · 上一版</option></select></label>
+<label>查看<select id="mode"><option value="split">左右拖动对比</option><option value="overlay">透明叠加</option><option value="diff">RGB 绝对差分</option><option value="mask">云轮廓差异</option><option value="reference">只看原图</option><option value="render">只看程序云层</option></select></label>
+<label>分界 / 透明度<input id="blend" type="range" min="0" max="100" value="50"></label>
+<label>画幅<select id="zoom"><option value="fit">适应窗口</option><option value="1">1 : 1 原始像素</option><option value="2">2 ×</option><option value="4">4 ×</option></select></label>
+<label><input id="roi" type="checkbox" checked>仅云区差分 / 显示边界</label>
+<button id="unlock" type="button">解锁取样</button>
+</div>
+<div class="viewport" id="viewport"><canvas id="comparison" width="2048" height="768" tabindex="0" aria-label="原图与程序云的像素对齐画布"></canvas></div>
+<div class="bar"><span id="status">加载原始像素与同尺寸渲染…</span><span>左：原图 · 右：程序云层</span><span id="position">x = 1536, y = 200</span></div><p id="error" role="alert" hidden></p>
+<div class="panels"><section class="panel"><h2>25 × 25 像素局部放大</h2><p>每格对应一个原始像素；方框中心为当前取样点。</p><div class="loupes"><div class="loupe"><strong>REFERENCE / 原图</strong><canvas id="reference-loupe" width="300" height="300"></canvas><span class="rgb" id="reference-rgb"></span></div><div class="loupe"><strong id="render-label">R03 / 四层平涂</strong><canvas id="render-loupe" width="300" height="300"></canvas><span class="rgb" id="render-rgb"></span></div></div><span class="rgb" id="delta"></span><div class="legend"><span>差分低</span><span class="ramp"></span><span>差分高</span></div></section>
+<section class="panel"><h2>同一云区的 R01 / R02 / R03 实测</h2><div id="metrics"></div><p class="note">R01 / R02 为纯程序几何；R03 直接复用参考 SVG 轮廓并以四种固定色平涂。云区边界是按原图山脊与前景绘制的固定折线，排除列车、山、水面与树。云/天空分界使用固定 RGB 阈值，因此交并比只是可复现的轮廓近似指标。颜色误差为同一位置的 8-bit RGB 绝对误差，不表示感知相似度；主云顶均差沿 19 个固定横坐标采样，单位是原始像素。没有配准移动图像，也没有自动美化差分。</p><p class="note">轮廓模式：白色＝共同云区，橙色＝原图有云而程序缺失，青色＝程序多出的云。差分模式使用两图云掩膜的并集；天空底色差异可取消“仅云区”查看。</p><div class="actions"><a id="download" download="cloud-pixel-metrics.json">下载指标 JSON</a><a href="examples/scene.html" target="_blank">运行 R03 动画 ↗</a><a href="evidence/r03/render-r03.png" download>下载 2048×768 渲染</a></div></section></div>
+<footer>热图将平均通道误差 0–160 映射到色带，≥160 显示最高亮色；RGB 读数与指标保留原始 0–255 数值。像素比较是固定 t=0 的原生渲染快照；运动仍在独立案例中检查。数据由 <code>npm run compare:cloud</code> 重新捕获。R03 采用参考 SVG 的轮廓与四层固定填色，属于参考轮廓驱动的动画；不代表纯程序几何拟合的提升。</footer>
+</main><script>
+(() => {
+  'use strict';
+  const W=2048,H=768;
+  // Original-image coordinates, deliberately kept identical for both revisions.
+  const ridge=[[0,324],[120,410],[240,405],[350,365],[500,420],[650,461],[850,468],[1050,462],[1230,453],[1430,438],[1600,399],[1760,335],[1920,295],[2047,245]];
+  const canvas=document.getElementById('comparison'),context=canvas.getContext('2d');
+  const images={},pixels={},masks={},metrics={};
+  let version='r03',mode='split',blend=.5,onlyClouds=true,locked=false,dragging=false,point={x:1536,y:200};
+  const roi=new Uint8Array(W*H);
+  for(let x=0;x<W;x++){
+    const end=ridge.findIndex(p=>p[0]>=x),b=ridge[Math.max(1,end)],a=ridge[Math.max(0,end-1)];
+    const yEnd=a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);
+    for(let y=0;y<yEnd;y++)roi[y*W+x]=1;
+  }
+  function isCloud(r,g,b){return r>=90&&g>=145&&b-r<138&&g/b>.72;}
+  function cloudTops(id){
+    return Array.from({length:19},(_,j)=>{
+      const x=(j+1)*100,rows=[];
+      for(let y=0;y<480;y++){let n=0;for(let dx=-20;dx<=20;dx++)n+=masks[id][y*W+x+dx];rows.push(n>15?1:0);}
+      for(let y=0;y<470;y++)if(rows.slice(y,y+10).reduce((a,b)=>a+b,0)>=9)return {x,y};
+      return {x,y:null};
+    });
+  }
+  function measure(id){
+    const a=pixels.reference,b=pixels[id];let intersection=0,union=0,refCount=0,renderCount=0,colorError=0,unionError=0,n=0;
+    for(let i=0;i<W*H;i++)if(roi[i]){
+      n++;const ref=masks.reference[i],cur=masks[id][i],k=i*4;
+      refCount+=ref;renderCount+=cur;
+      if(ref||cur){union++;unionError+=Math.abs(a[k]-b[k])+Math.abs(a[k+1]-b[k+1])+Math.abs(a[k+2]-b[k+2]);}
+      if(ref&&cur){intersection++;colorError+=Math.abs(a[k]-b[k])+Math.abs(a[k+1]-b[k+1])+Math.abs(a[k+2]-b[k+2]);}
+    }
+    const refTops=cloudTops('reference'),tops=cloudTops(id),valid=tops.map((p,i)=>p.y!==null&&refTops[i].y!==null?Math.abs(p.y-refTops[i].y):null).filter(p=>p!==null);
+    return {cloudIoU:intersection/union,unionRgbMAE:unionError/(union*3),overlapRgbMAE:colorError/(intersection*3),cloudTopMAE:valid.reduce((a,b)=>a+b,0)/valid.length,cloudTopSamples:tops,referenceCloudPixels:refCount,renderCloudPixels:renderCount,roiPixels:n,unionPixels:union,intersectionPixels:intersection};
+  }
+  const buffers={};
+  function diagnostic(id,type){
+    const key=id+type+onlyClouds;if(buffers[key])return buffers[key];
+    const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d'),out=ctx.createImageData(W,H),a=pixels.reference,b=pixels[id];
+    for(let i=0;i<W*H;i++){
+      const k=i*4,ref=masks.reference[i],cur=masks[id][i],enabled=!onlyClouds||roi[i]&&(ref||cur);
+      let color=[12,23,34];
+      if(enabled&&type==='mask')color=ref&&cur?[222,235,239]:ref?[244,139,77]:cur?[83,209,231]:[19,35,49];
+      if(enabled&&type==='diff'){
+        const value=(Math.abs(a[k]-b[k])+Math.abs(a[k+1]-b[k+1])+Math.abs(a[k+2]-b[k+2]))/(3*160);
+        const v=Math.min(1,value),stops=[[16,24,41],[122,68,170],[236,105,83],[255,227,155]],s=Math.min(2,Math.floor(v*3)),f=v*3-s;
+        color=stops[s].map((c,j)=>Math.round(c+(stops[s+1][j]-c)*f));
+      }
+      out.data.set([...color,255],k);
+    }
+    ctx.putImageData(out,0,0);buffers[key]=c;return c;
+  }
+  function draw(){
+    context.globalAlpha=1;context.imageSmoothingEnabled=false;
+    if(mode==='reference')context.drawImage(images.reference,0,0);
+    else if(mode==='render')context.drawImage(images[version],0,0);
+    else if(mode==='diff'||mode==='mask')context.drawImage(diagnostic(version,mode),0,0);
+    else{
+      context.drawImage(images.reference,0,0);
+      if(mode==='overlay'){context.globalAlpha=blend;context.drawImage(images[version],0,0);context.globalAlpha=1;}
+      else{context.save();context.beginPath();context.rect(W*blend,0,W*(1-blend),H);context.clip();context.drawImage(images[version],0,0);context.restore();context.fillStyle='#ffda9a';context.fillRect(Math.floor(W*blend),0,2,H);}
+    }
+    if(onlyClouds){
+      context.beginPath();ridge.forEach(([x,y],i)=>i?context.lineTo(x,y):context.moveTo(x,y));context.lineTo(W,H);context.lineTo(0,H);context.closePath();
+      if(mode!=='diff'&&mode!=='mask'){context.save();context.clip();context.drawImage(images.reference,0,0);context.restore();}
+      context.fillStyle='rgba(8,18,28,.58)';context.fill();
+      context.beginPath();ridge.forEach(([x,y],i)=>i?context.lineTo(x,y):context.moveTo(x,y));context.strokeStyle='#e6ba7b';context.lineWidth=2;context.setLineDash([8,7]);context.stroke();context.setLineDash([]);
+    }
+    context.strokeStyle='#ffe0a8';context.lineWidth=1;context.strokeRect(point.x-12.5,point.y-12.5,25,25);
+    loupe();
+  }
+  function loupe(){
+    for(const [target,id] of [['reference-loupe','reference'],['render-loupe',version]]){
+      const c=document.getElementById(target),g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,300,300);
+      g.drawImage(images[id],point.x-12,point.y-12,25,25,0,0,300,300);
+      g.strokeStyle='rgba(11,22,35,.18)';g.lineWidth=1;g.beginPath();for(let i=0;i<=25;i++){g.moveTo(i*12+.5,0);g.lineTo(i*12+.5,300);g.moveTo(0,i*12+.5);g.lineTo(300,i*12+.5);}g.stroke();
+      g.strokeStyle='#131d2b';g.lineWidth=3;g.strokeRect(144,144,12,12);g.strokeStyle='#ffcd82';g.lineWidth=1;g.strokeRect(144,144,12,12);
+    }
+    const k=(point.y*W+point.x)*4,ref=Array.from(pixels.reference.slice(k,k+3)),cur=Array.from(pixels[version].slice(k,k+3));
+    document.getElementById('reference-rgb').textContent=`RGB (${ref.join(', ')})`;
+    document.getElementById('render-rgb').textContent=`RGB (${cur.join(', ')})`;
+    document.getElementById('delta').textContent=`|ΔRGB| = (${ref.map((c,i)=>Math.abs(c-cur[i])).join(', ')})`;
+    document.getElementById('position').textContent=`x = ${point.x}, y = ${point.y}${locked?' · 已锁定':''}${roi[point.y*W+point.x]?'':' · 评估云区之外'}`;
+    document.getElementById('render-label').textContent=version.toUpperCase()+' / 程序云';
+  }
+  function sizing(){const value=document.getElementById('zoom').value;const width=value==='fit'?document.getElementById('viewport').clientWidth:W*Number(value);canvas.style.width=width+'px';canvas.style.height=width*H/W+'px';}
+  function pointer(event){const r=canvas.getBoundingClientRect();point={x:Math.max(0,Math.min(W-1,Math.floor((event.clientX-r.left)*W/r.width))),y:Math.max(0,Math.min(H-1,Math.floor((event.clientY-r.top)*H/r.height)))};draw();}
+  const load=async(id,src)=>{
+    const img=new Image();img.src=src;await img.decode();if(img.width!==W||img.height!==H)throw new Error(id+' 不是 2048×768，拒绝重采样比较');images[id]=img;
+    const c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(img,0,0);pixels[id]=g.getImageData(0,0,W,H).data;
+    masks[id]=new Uint8Array(W*H);for(let i=0;i<W*H;i++){const k=i*4;masks[id][i]=isCloud(pixels[id][k],pixels[id][k+1],pixels[id][k+2])?1:0;}
+  };
+  async function start(){
+    await Promise.all([load('reference','../../../assets/blue-sky-train/source/blue-sky-train.png'),...['r01','r02','r03'].map(id=>load(id,`evidence/r03/render-${id}.png`))]);
+    for(const id of ['r01','r02','r03'])metrics[id]=measure(id);
+    const definitions=[['云轮廓交并比 ↑','cloudIoU',v=>(v*100).toFixed(2)+'%',true],['云区 RGB 均差 ↓','unionRgbMAE',v=>v.toFixed(2)+' / 255',false],['重合云区 RGB 均差 ↓','overlapRgbMAE',v=>v.toFixed(2)+' / 255',false],['主云顶纵向均差 ↓','cloudTopMAE',v=>v.toFixed(1)+' px',false]];
+    document.getElementById('metrics').innerHTML='<table><thead><tr><th>指标</th><th>R01</th><th>R02</th><th>R03</th></tr></thead><tbody>'+definitions.map(([name,key,fmt,higher])=>`<tr><td>${name}</td><td>${fmt(metrics.r01[key])}</td><td>${fmt(metrics.r02[key])}</td><td class="${(metrics.r03[key]>metrics.r02[key])===higher?'improved':''}">${fmt(metrics.r03[key])}</td></tr>`).join('')+'</tbody></table>';
+    const report={revision:'r03',dimensions:[W,H],time:0,sampling:'native cloudBank + sky render, no resizing or registration',geometrySources:{r01:'analytic geometry',r02:'analytic geometry',r03:'contours traced from reference SVG, four flat masks'},cloudMask:'R >= 90; G >= 145; B - R < 138; G / B > 0.72',roiPolygonUpperBoundary:ridge,referenceCloudTopSamples:cloudTops('reference'),cloudTopMethod:'19 columns x=100..1900; +/-20px band; >15 cloud pixels per row, at least 9 of 10 consecutive rows; y<480',metrics,limitations:['R03 直接使用参考 SVG 轮廓，几何误差降低不代表纯程序几何生成能力提升','颜色阈值为近似掩膜，不是精准云语义分割','RGB 均差不是感知距离；必须同时检查轮廓、色块和动画','仅渲染天空和云；对比视图的边界以下使用原图地景作定位，不计入指标']};
+    document.getElementById('download').href=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));
+    document.getElementById('status').textContent='2048 × 768 · 原始像素已对齐 · t = 0';
+    document.getElementById('version').onchange=e=>{version=e.target.value;draw();};
+    document.getElementById('mode').onchange=e=>{mode=e.target.value;draw();};
+    document.getElementById('blend').oninput=e=>{blend=Number(e.target.value)/100;draw();};
+    document.getElementById('roi').onchange=e=>{onlyClouds=e.target.checked;draw();};
+    document.getElementById('zoom').onchange=sizing;new ResizeObserver(sizing).observe(document.getElementById('viewport'));
+    canvas.onpointerdown=e=>{const r=canvas.getBoundingClientRect();if(mode==='split'&&Math.abs(e.clientX-r.left-r.width*blend)<16){dragging=true;canvas.setPointerCapture(e.pointerId);}};
+    canvas.onpointermove=e=>{if(dragging){const r=canvas.getBoundingClientRect();blend=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));document.getElementById('blend').value=blend*100;draw();}else if(!locked)pointer(e);};
+    canvas.onpointerup=e=>{if(dragging){dragging=false;canvas.releasePointerCapture(e.pointerId);}};
+    canvas.onclick=e=>{pointer(e);locked=true;loupe();};
+    canvas.onkeydown=e=>{const move={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(move){e.preventDefault();point.x=Math.max(0,Math.min(W-1,point.x+move[0]));point.y=Math.max(0,Math.min(H-1,point.y+move[1]));locked=true;draw();}};
+    document.getElementById('unlock').onclick=()=>{locked=false;loupe();};sizing();draw();
+    window.PixelCompare={ready:true,report,get point(){return {...point};},sample(x,y){const i=(y*W+x)*4;return Object.fromEntries(['reference','r01','r02','r03'].map(id=>[id,Array.from(pixels[id].slice(i,i+3))]));}};
+  }
+  start().catch(error=>{const node=document.getElementById('error');node.hidden=false;node.textContent='无法读取对比像素：'+error.message+'。请先运行 npm run compare:cloud，并通过项目本地服务打开页面。';document.getElementById('status').textContent='对比未就绪';console.error(error);});
+})();
+
+</script></body></html>
+

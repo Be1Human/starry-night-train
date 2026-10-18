@@ -1,0 +1,415 @@
+{
+  "schemaVersion": 3,
+  "revision": "r14-ta-materials",
+  "featuredCase": "starry-night",
+  "cases": [
+    "starry-night"
+  ],
+  "templates": [
+    {
+      "id": "sky/starry-galaxy",
+      "title": "银河与星光",
+      "description": "星点在深蓝里闪烁，一道带着暗纹的银河斜穿夜空。",
+      "previewLabel": "独立天空",
+      "lookFor": [
+        "银河的亮带与暗纹共同塑造体积。",
+        "小星点与少量亮星形成疏密层次。",
+        "闪烁和偶尔划过的流星保持画面安静。"
+      ],
+      "controls": [
+        {
+          "key": "milky",
+          "label": "银河亮度",
+          "min": 0,
+          "max": 1.5,
+          "step": 0.05
+        },
+        {
+          "key": "stars",
+          "label": "星星密度",
+          "min": 0,
+          "max": 1,
+          "step": 0.05
+        },
+        {
+          "key": "twinkle",
+          "label": "闪烁强度",
+          "min": 0,
+          "max": 1,
+          "step": 0.05
+        }
+      ],
+      "review": {
+        "basis": "原星河作品；用户明确认可星空观感；核对实际单层截图。",
+        "image": "library/thumbnails/sky--starry-galaxy.png"
+      }
+    },
+    {
+      "id": "clouds/starry-layered-heightfield",
+      "title": "晚霞层云",
+      "description": "十二层云带叠出粉紫晚霞与深浅轮廓。",
+      "previewLabel": "独立图层",
+      "lookFor": [
+        "粉紫色带连续叠层",
+        "远近云层不同的移动节奏"
+      ],
+      "review": {
+        "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",
+        "image": "library/thumbnails/clouds--starry-layered-heightfield.png"
+      }
+    },
+    {
+      "id": "clouds/complete-cloud-stream-r04",
+      "title": "蓝天积云",
+      "description": "完整透明云素材，配合 Shader 混色与分层漂移。",
+      "previewLabel": "独立图层",
+      "lookFor": [
+        "完整白色轮廓和内层蓝色阴影",
+        "透明云的边缘与连续漂移"
+      ],
+      "review": {
+        "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",
+        "image": "library/thumbnails/clouds--complete-cloud-stream-r04.png"
+      }
+    },
+    {
+      "id": "train/starry-locomotive-sdf",
+      "title": "暖窗列车",
+      "description": "可调车厢与暖色窗光，车轮随行进转动。",
+      "previewLabel": "独立图层",
+      "lookFor": [
+        "列车结构与车厢衔接",
+        "车窗、车灯光晕"
+      ],
+      "review": {
+        "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",
+        "image": "library/thumbnails/train--starry-locomotive-sdf.png"
+      }
+    },
+    {
+      "id": "bridge/starry-arch-bridge",
+      "title": "夜色石拱桥",
+      "description": "连续圆拱、石材明暗与单独绘制的前层护栏。",
+      "previewLabel": "独立图层",
+      "lookFor": [
+        "圆拱的连续轮廓与拱顶石块",
+        "护栏与桥体的前后关系"
+      ],
+      "review": {
+        "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",
+        "image": "library/thumbnails/bridge--starry-arch-bridge.png"
+      }
+    },
+    {
+      "id": "bridge/blue-stone-lighting",
+      "title": "日光石桥",
+      "description": "蓝灰石材、桥墩受光与桥脚植被染色。",
+      "previewLabel": "独立图层",
+      "lookFor": [
+        "桥墩侧面的日光",
+        "桥体阴影与桥脚色彩"
+      ],
+      "review": {
+        "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",
+        "image": "library/thumbnails/bridge--blue-stone-lighting.png"
+      }
+    },
+    {
+      "id": "water/starry-perspective-reflection",
+      "title": "湖面倒影",
+      "description": "云、桥和车窗一起映入水中，细小的波纹轻轻扰动光影。",
+      "previewLabel": "在完整风景中预览",
+      "lookFor": [
+        "水上的物体与倒影共享同一场景和时间。",
+        "远处波纹更密，近处逐渐展开。",
+        "保留完整构图，便于检查倒影与实体的关系。"
+      ],
+      "controls": [
+        {
+          "key": "ripple",
+          "label": "波纹幅度",
+          "min": 0,
+          "max": 2,
+          "step": 0.05
+        },
+        {
+          "key": "refl",
+          "label": "倒影亮度",
+          "min": 0,
+          "max": 1,
+          "step": 0.05
+        }
+      ],
+      "review": {
+        "basis": "原星河水面；实际整景截图可观察桥、车窗和倒影对应关系。",
+        "image": "library/thumbnails/water--starry-perspective-reflection.png"
+      }
+    },
+    {
+      "id": "foreground/generated-foliage-r09",
+      "title": "掠过的草木",
+      "description": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
+      "previewLabel": "独立图层",
+      "lookFor": [
+        "叶片细节和透明边缘",
+        "草丛快速掠过，枝叶间歇遮挡"
+      ],
+      "review": {
+        "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",
+        "image": "library/thumbnails/foreground--generated-foliage-r09.png"
+      }
+    }
+  ],
+  "policy": {
+    "defaultVisibility": "private",
+    "requirements": [
+      "实现方式不限：Shader、图像素材、矢量、序列帧或混合方案均可收录",
+      "素材自身画面、运动和复用入口经过验证，不要求其所属整景先完成",
+      "预览来自实际实现，独立图层或场景语境明确",
+      "AI复用说明包含源码、素材、依赖、可修改项与适用范围"
+    ],
+    "excluded": [
+      "历史实验",
+      "只有技术通过但视觉未完成的模板",
+      "原图代替实现截图",
+      "未经复核的新模板"
+    ]
+  },
+  "materialCategories": [
+    {
+      "id": "background",
+      "name": "背景",
+      "sourceCategories": [
+        "sky"
+      ]
+    },
+    {
+      "id": "clouds",
+      "name": "云",
+      "sourceCategories": [
+        "clouds"
+      ]
+    },
+    {
+      "id": "mountains",
+      "name": "山与远景",
+      "sourceCategories": [
+        "terrain"
+      ]
+    },
+    {
+      "id": "train",
+      "name": "火车与烟",
+      "sourceCategories": [
+        "train"
+      ]
+    },
+    {
+      "id": "bridge",
+      "name": "桥梁",
+      "sourceCategories": [
+        "bridge"
+      ]
+    },
+    {
+      "id": "water",
+      "name": "湖面",
+      "sourceCategories": [
+        "water"
+      ]
+    },
+    {
+      "id": "foreground",
+      "name": "近景",
+      "sourceCategories": [
+        "foreground"
+      ]
+    }
+  ],
+  "wallpapers": [
+    {
+      "id": "starry-night",
+      "title": "星河夜行",
+      "poster": "assets/starry-night-train/images/screenshot.png",
+      "alt": "星河、层云、石拱桥与湖面之间，一列暖色车窗的火车驶过夜色。",
+      "previewTemplate": "water/starry-perspective-reflection",
+      "settings": {
+        "zoom": 0.5,
+        "camY": 0.06,
+        "scale": 0.75,
+        "fps": 30
+      },
+      "caseId": "starry-night"
+    }
+  ],
+  "materials": [
+    {
+      "id": "milky-way",
+      "title": "银河星空",
+      "category": "background",
+      "templateId": "sky/starry-galaxy",
+      "poster": "library/thumbnails/sky--starry-galaxy.png",
+      "alt": "闪烁星点与带有暗尘纹理的银河。",
+      "summary": "闪烁星点与带有暗尘纹理的银河。",
+      "implementation": "shader",
+      "editable": [
+        "银河色彩和亮度",
+        "星点密度、闪烁与流星频率"
+      ],
+      "aspect": "16 / 9",
+      "settings": {
+        "zoom": 1,
+        "camY": 0,
+        "scale": 0.75,
+        "fps": 30
+      }
+    },
+    {
+      "id": "layered-clouds",
+      "title": "晚霞层云",
+      "category": "clouds",
+      "templateId": "clouds/starry-layered-heightfield",
+      "poster": "library/thumbnails/clouds--starry-layered-heightfield.png",
+      "alt": "十二层云带叠出粉紫晚霞与深浅轮廓。",
+      "summary": "十二层云带叠出粉紫晚霞与深浅轮廓。",
+      "implementation": "shader",
+      "editable": [
+        "云量、层数与轮廓起伏",
+        "晚霞色板与分层移动速度"
+      ],
+      "aspect": "16 / 9",
+      "settings": {
+        "zoom": 1,
+        "camY": 0,
+        "scale": 0.75,
+        "fps": 30
+      }
+    },
+    {
+      "id": "painted-clouds",
+      "title": "蓝天积云",
+      "category": "clouds",
+      "templateId": "clouds/complete-cloud-stream-r04",
+      "poster": "library/thumbnails/clouds--complete-cloud-stream-r04.png",
+      "alt": "完整透明云素材，配合 Shader 混色与分层漂移。",
+      "summary": "完整透明云素材，配合 Shader 混色与分层漂移。",
+      "implementation": "hybrid",
+      "editable": [
+        "替换云塔、云带 PNG",
+        "云间距、远近比例与风速"
+      ],
+      "aspect": "8 / 3",
+      "settings": {
+        "scale": 0.85,
+        "speed": 1,
+        "wind": 1,
+        "sun": 1
+      }
+    },
+    {
+      "id": "warm-train",
+      "title": "暖窗列车",
+      "category": "train",
+      "templateId": "train/starry-locomotive-sdf",
+      "poster": "library/thumbnails/train--starry-locomotive-sdf.png",
+      "alt": "可调车厢与暖色窗光，车轮随行进转动。",
+      "summary": "可调车厢与暖色窗光，车轮随行进转动。",
+      "implementation": "shader",
+      "editable": [
+        "车厢数量、车身颜色",
+        "车窗和车头灯亮度"
+      ],
+      "aspect": "16 / 9",
+      "settings": {
+        "zoom": 1,
+        "camY": 0,
+        "scale": 0.75,
+        "fps": 30
+      }
+    },
+    {
+      "id": "arch-bridge",
+      "title": "夜色石拱桥",
+      "category": "bridge",
+      "templateId": "bridge/starry-arch-bridge",
+      "poster": "library/thumbnails/bridge--starry-arch-bridge.png",
+      "alt": "连续圆拱、石材明暗与单独绘制的前层护栏。",
+      "summary": "连续圆拱、石材明暗与单独绘制的前层护栏。",
+      "implementation": "shader",
+      "editable": [
+        "拱孔比例与桥面高度",
+        "石材色板、纹理与护栏"
+      ],
+      "aspect": "16 / 9",
+      "settings": {
+        "zoom": 1,
+        "camY": 0,
+        "scale": 0.75,
+        "fps": 30
+      }
+    },
+    {
+      "id": "sunlit-bridge",
+      "title": "日光石桥",
+      "category": "bridge",
+      "templateId": "bridge/blue-stone-lighting",
+      "poster": "library/thumbnails/bridge--blue-stone-lighting.png",
+      "alt": "蓝灰石材、桥墩受光与桥脚植被染色。",
+      "summary": "蓝灰石材、桥墩受光与桥脚植被染色。",
+      "implementation": "shader",
+      "editable": [
+        "日光强度与桥体颜色",
+        "桥墩间距和石材颗粒"
+      ],
+      "aspect": "8 / 3",
+      "settings": {
+        "scale": 0.85,
+        "speed": 1,
+        "wind": 1,
+        "sun": 1
+      }
+    },
+    {
+      "id": "lake-reflection",
+      "title": "湖面倒影",
+      "category": "water",
+      "templateId": "water/starry-perspective-reflection",
+      "poster": "library/thumbnails/water--starry-perspective-reflection.png",
+      "alt": "共享场景的实时倒影，带透视水波与车窗反光。",
+      "summary": "共享场景的实时倒影，带透视水波与车窗反光。",
+      "implementation": "shader",
+      "editable": [
+        "水线与波纹强度",
+        "倒影亮度和水面色调"
+      ],
+      "aspect": "16 / 9",
+      "settings": {
+        "zoom": 1,
+        "camY": 0,
+        "scale": 0.75,
+        "fps": 30
+      }
+    },
+    {
+      "id": "passing-foliage",
+      "title": "掠过的草木",
+      "category": "foreground",
+      "templateId": "foreground/generated-foliage-r09",
+      "poster": "library/thumbnails/foreground--generated-foliage-r09.png",
+      "alt": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
+      "summary": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
+      "implementation": "hybrid",
+      "editable": [
+        "替换草丛、枝叶、灌木 PNG",
+        "经过速度、遮挡频率与风摆幅度"
+      ],
+      "aspect": "8 / 3",
+      "settings": {
+        "scale": 0.85,
+        "speed": 1,
+        "wind": 1,
+        "sun": 1
+      }
+    }
+  ]
+}

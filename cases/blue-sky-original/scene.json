@@ -1,0 +1,50 @@
+{
+  "id": "blue-sky-original",
+  "name": "蓝天原画 · SVG 轻动画",
+  "description": "保留原图构图，局部水波与矢量烟雾循环，适用于画面轻动画。",
+  "status": "integrated",
+  "entry": "themes/blue-sky-train/index.html?controls=1",
+  "preview": "assets/blue-sky-train/source/blue-sky-train.png",
+  "layers": [
+    {
+      "role": "water",
+      "template": "water/svg-local-ripple",
+      "listingOrder": 0
+    },
+    {
+      "role": "steam",
+      "template": "train/svg-steam-loop",
+      "listingOrder": 1
+    }
+  ],
+  "shared": {
+    "viewBox": [
+      0,
+      0,
+      2048,
+      768
+    ],
+    "time": "svg.setCurrentTime(time)，暂停浏览器自主SMIL时钟",
+    "artwork": "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+  },
+  "limitations": [
+    "天空、云、山、桥、列车和近景属于同一完整原画，不是独立可替换动态图层。",
+    "不能把它作为自由镜头穿行模板。"
+  ],
+  "composition": [
+    "themes/blue-sky-train/wallpaper.js",
+    "tools/vectorize.py"
+  ],
+  "schemaVersion": 1,
+  "recipeKind": "descriptive",
+  "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+  "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+  "compositing": {
+    "direction": "back-to-front",
+    "layers": [
+      "artwork",
+      "water-layer（裁切原画重绘）",
+      "steam-layer"
+    ]
+  }
+}

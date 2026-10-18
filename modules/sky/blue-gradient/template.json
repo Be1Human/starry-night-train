@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "sky/blue-gradient",
+  "category": "sky",
+  "name": "蓝天渐变与局部亮区",
+  "method": "渐变色＋指数衰减光斑",
+  "status": "integrated",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/sky/blue-gradient/source.glsl",
+    "modules/sky/blue-gradient/study.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/common.glsl",
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/sky/blue-gradient/preview.html",
+    "kind": "isolated",
+    "offline": true
+  },
+  "interfaces": [
+    "sky(vec2 p)",
+    "色板、地平线范围、亮区中心/半径"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "源码同时包含噪声工具和镜头参数；天空函数可单独提取",
+    "亮区是颜色模型，不是物理照明"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/sky--blue-gradient.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 0
+}

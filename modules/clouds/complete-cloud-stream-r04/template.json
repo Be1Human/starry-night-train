@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "clouds/complete-cloud-stream-r04",
+  "category": "clouds",
+  "name": "R04 完整透明云素材流",
+  "method": "两种完整生成PNG＋种子布局＋近远各6个固定槽位",
+  "status": "integrated",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/clouds/complete-cloud-stream-r04/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-cloud.glsl",
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-stream.js",
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+      "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+    }
+  ],
+  "assets": [
+    "assets/blue-sky-train/clouds/r04/cloud-tower.png",
+    "assets/blue-sky-train/clouds/r04/cloud-bank.png"
+  ],
+  "preview": {
+    "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
+    "kind": "isolated",
+    "offline": false
+  },
+  "interfaces": [
+    "completeCloud / cloudBank",
+    "createAssetStream(step,far).update(distance,seed)",
+    "uCloudLayout[12] / uCloudKinds[12]"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "有限两种云形会被认出重复",
+    "必须保留完整透明外边距、宽高比与统一受光，不随意镜像",
+    "24小时已有检查为时间跳转，不是持续运行"
+  ],
+  "evidence": [
+    "themes/blue-sky-train/lab/evidence/r04-assets/report.json",
+    "themes/blue-sky-train/lab/evidence/r09-generated-foreground/report.json"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "modules/motion/blue-stream-parallax/stream.js",
+    "cases/blue-sky-assets/runtime.js",
+    "modules/_shared/blue/scene-core.glsl"
+  ],
+  "thumbnail": "library/thumbnails/clouds--complete-cloud-stream-r04.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 5
+}

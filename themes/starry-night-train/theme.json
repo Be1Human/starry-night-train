@@ -1,0 +1,10 @@
+{
+  "id": "starry-night-train",
+  "name": "星河夜行列车",
+  "subtitle": "星河、晚云与暖色车窗",
+  "renderer": "webgl",
+  "entry": "themes/starry-night-train/index.html",
+  "preview": "assets/starry-night-train/images/screenshot.png",
+  "assets": "assets/starry-night-train",
+  "defaultFps": 60
+}

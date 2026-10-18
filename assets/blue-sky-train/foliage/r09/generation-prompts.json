@@ -1,0 +1,34 @@
+{
+  "mode": "built-in image_gen",
+  "revision": "r09-generated-foreground",
+  "reference": "assets/blue-sky-train/source/blue-sky-train.png",
+  "role": "style reference only; independently generated complete foreground sprites",
+  "transparent_background": true,
+  "prompts": [
+    {
+      "id": "grass",
+      "prompt": "Use case: stylized-concept. Create one production-ready transparent RGBA 2D foreground game-art sprite for the attached blue-sky train wallpaper. The attached landscape is ONLY a STYLE AND PALETTE REFERENCE, not an edit target. Recreate the painting language of its dark green foreground plants: rich layered flat color shapes, crisp irregular stepped/pixel-painted edges, small varied leaf clusters, dark blue-teal occlusion, emerald midtones, restrained warm olive/yellow-green sunlit tips from UPPER LEFT. Painterly anime background pixel illustration, neither clean vector icons nor photorealism. Detailed organic brush shapes, no smooth plastic shading, no black cartoon outline. The complete isolated plant must have a natural closed silhouette with genuinely transparent gaps between leaves and 8–12% TRANSPARENT padding on ALL sides. Draw no rectangular scene patch, no sky, no distant mountains, no lake, no train, no checkerboard pattern, no shadow plane, no labels or text. Do not crop any tips or sides. Preserve actual alpha transparency. The sprite will move as a complete piece in front of a distant landscape.\nSubject: a wide, lush irregular clump of foreground grasses and small meadow leaves, landscape 3:2 canvas, occupying about 80% width and 60% height. Several uneven overlapping tussocks, short broad leafy groundcover at their base, taller thin arching grasses scattered irregularly, with natural negative spaces. Mostly cool dark blue-green in the lower half, olive green upper leaves with small sunlight accents. An irregular low dark plant base, no soil slab. Match the reference's dense painterly silhouette and many small brush planes, not symmetrical fans of five blades. This is one whole connected grass clump."
+    },
+    {
+      "id": "leaves",
+      "prompt": "Use case: stylized-concept. Create one production-ready transparent RGBA 2D foreground game-art sprite for the attached blue-sky train wallpaper. The attached landscape is ONLY a STYLE AND PALETTE REFERENCE, not an edit target. Recreate the painting language of its dark green foreground plants: rich layered flat color shapes, crisp irregular stepped/pixel-painted edges, small varied leaf clusters, dark blue-teal occlusion, emerald midtones, restrained warm olive/yellow-green sunlit tips from UPPER LEFT. Painterly anime background pixel illustration, neither clean vector icons nor photorealism. Detailed organic brush shapes, no smooth plastic shading, no black cartoon outline. The complete isolated plant must have a natural closed silhouette with genuinely transparent gaps between leaves and 8–12% TRANSPARENT padding on ALL sides. Draw no rectangular scene patch, no sky, no distant mountains, no lake, no train, no checkerboard pattern, no shadow plane, no labels or text. Do not crop any tips or sides. Preserve actual alpha transparency. The sprite will move as a complete piece in front of a distant landscape.\nSubject: one asymmetrical leafy young tree/shrub branch growing upward from a subtle thin lower stem, on a square canvas. About 70% width and 80% height. Three unequal masses of many SMALL broad leaves, with transparent airy gaps and a few visible secondary twigs, leaning slightly left. Dense broken foliage like the nearest dark trees in the reference, NOT a botanical diagram and NOT a sparse branch with huge smooth almond leaves. Deep blue-teal shaded centers, flat emerald patches and scattered olive-gold tips at upper left. Root and twigs fully contained. A complete reusable passing foliage silhouette, no pot or separate ground."
+    },
+    {
+      "id": "understory",
+      "prompt": "Use case: stylized-concept. Create one production-ready transparent RGBA 2D foreground game-art sprite for the attached blue-sky train wallpaper. The attached landscape is ONLY a STYLE AND PALETTE REFERENCE, not an edit target. Recreate the painting language of its dark green foreground plants: rich layered flat color shapes, crisp irregular stepped/pixel-painted edges, small varied leaf clusters, dark blue-teal occlusion, emerald midtones, restrained warm olive/yellow-green sunlit tips from UPPER LEFT. Painterly anime background pixel illustration, neither clean vector icons nor photorealism. Detailed organic brush shapes, no smooth plastic shading, no black cartoon outline. The complete isolated plant must have a natural closed silhouette with genuinely transparent gaps between leaves and 8–12% TRANSPARENT padding on ALL sides. Draw no rectangular scene patch, no sky, no distant mountains, no lake, no train, no checkerboard pattern, no shadow plane, no labels or text. Do not crop any tips or sides. Preserve actual alpha transparency. The sprite will move as a complete piece in front of a distant landscape.\nSubject: a broad, low, continuous shrub-and-fern groundcover clump on a landscape 3:2 canvas. About 82% width and 45% height, all silhouette edges complete. Uneven small broadleaf mounds, some low grasses, a dark densely layered lower base and little gaps towards the top. Low enough to form a foreground bank when several whole sprites overlap. Blue-teal shadows, muted emerald and olive upper planes. Natural brush detail consistent with the reference's lower foreground. No long straight edge, no flat rectangular strip, no visible soil, no giant individual leaves."
+    }
+  ],
+  "cleanup": {
+    "targets": [
+      "grass",
+      "understory"
+    ],
+    "prompt": "Use case: background-extraction. Edit this generated plant sprite. Preserve the actual painted vegetation, shapes, blue-teal shadows and yellow-green sunlight. Remove ALL surrounding soft green glow, colored haze, gradient fog and black background. ONLY real leaves, blades and stems may have alpha; the empty space around them and between blades must be fully transparent alpha=0, crisp cutout edges with only a very thin antialiased edge. No semi-transparent colored halo. Shrink the complete plant slightly if needed so there is at least 7% EMPTY transparent padding at every frame edge. The result is one intact clean transparent RGBA game sprite, not a scene or sticker, no solid background, no white outlines. Preserve the style and full botanical silhouette; no added objects or text."
+  },
+  "selected": [
+    "grass.png",
+    "leaves.png",
+    "understory.png"
+  ],
+  "notes": "Original generated and cleaned variants preserved. Runtime uses the generated alpha and only moves/deforms complete sprites."
+}

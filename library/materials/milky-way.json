@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "id": "milky-way",
+  "title": "银河星空",
+  "category": "background",
+  "implementation": "shader",
+  "summary": "闪烁星点与带有暗尘纹理的银河。",
+  "editable": [
+    "银河色彩和亮度",
+    "星点密度、闪烁与流星频率"
+  ],
+  "preview": {
+    "path": "modules/sky/starry-galaxy/preview.html",
+    "query": "embed=1",
+    "engine": "StarryModulePreview",
+    "settings": {
+      "zoom": 1,
+      "camY": 0,
+      "scale": 0.75,
+      "fps": 30
+    },
+    "aspect": "16 / 9"
+  },
+  "sourceFiles": [
+    "modules/sky/starry-galaxy/source.glsl"
+  ],
+  "assets": [],
+  "dependencies": [],
+  "edit": {
+    "sourceMode": "generated-extract",
+    "authority": [
+      "themes/starry-night-train/index.html"
+    ],
+    "instructions": "在项目副本中修改原主题权威源，再构建提取；source.glsl 是阅读用的生成片段，不能单独当完整 Shader 运行。"
+  },
+  "interfaces": [
+    "sky(vec2 sp)",
+    "starLayer / meteor",
+    "uStars / uMilky / uMeteor / uZoom / uCamY"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "sourceCases": [
+    {
+      "id": "starry-night",
+      "recipe": "cases/starry-night/scene.json"
+    }
+  ],
+  "pitfalls": [
+    "嵌在单文件 shader，依赖噪声纹理与相机全局量",
+    "需要和云算法的许可范围分清"
+  ],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "build": "npm run build:library",
+  "runtime": "npm start"
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "warm-train",
+  "title": "暖窗列车",
+  "category": "train",
+  "implementation": "shader",
+  "summary": "可调车厢与暖色窗光，车轮随行进转动。",
+  "editable": [
+    "车厢数量、车身颜色",
+    "车窗和车头灯亮度"
+  ],
+  "preview": {
+    "path": "modules/train/starry-locomotive-sdf/preview.html",
+    "query": "embed=1",
+    "engine": "StarryModulePreview",
+    "settings": {
+      "zoom": 1,
+      "camY": 0,
+      "scale": 0.75,
+      "fps": 30
+    },
+    "aspect": "16 / 9"
+  },
+  "sourceFiles": [
+    "modules/train/starry-locomotive-sdf/source.glsl"
+  ],
+  "assets": [],
+  "dependencies": [],
+  "edit": {
+    "sourceMode": "generated-extract",
+    "authority": [
+      "themes/starry-night-train/index.html"
+    ],
+    "instructions": "在项目副本中修改原主题权威源，再构建提取；source.glsl 是阅读用的生成片段，不能单独当完整 Shader 运行。"
+  },
+  "interfaces": [
+    "train(vec2 p)",
+    "uCars / uTrainX / uWheel / uWin / uGlow"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "sourceCases": [
+    {
+      "id": "starry-night",
+      "recipe": "cases/starry-night/scene.json"
+    }
+  ],
+  "pitfalls": [
+    "依赖PAINT宏、gGlow与全局色板",
+    "局部几何朝向与蓝天相反，不能直接替换坐标"
+  ],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "build": "npm run build:library",
+  "runtime": "npm start"
+}

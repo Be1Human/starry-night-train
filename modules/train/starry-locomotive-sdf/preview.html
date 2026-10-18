@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星河列车与车窗灯光 · 方法预览</title>
+<!--
+  「星河夜行列车」—— 改编自 incarnation-gem/sunset-cloud-train（落日云间列车），
+  该项目提取自 Rice-dog/code-codex「Cloud Train Background」插件（MIT）。
+  云的生成算法（噪声、fbm、12 层深度高度场与色带合成）移植自原版 shader，作者 mdb，
+  经 incarnation-gem/sunset-cloud-train 获得；该 shader 无再分发许可，按上游做法公开仅供学习欣赏、不商用，权利人认为不妥即下架。
+  其余部分（夜空、桥、列车、蒸汽、水面、近景、远岸）为重新编写；面板交互与渲染循环思路参考原版。
+  沿用原作者声明：仅供学习与欣赏，不建议商业使用。
+-->
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #070a1f; }
+  body { font: 13px/1.5 -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #e2e4f6; }
+  #stage { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+  #stage.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+  header {
+    position: fixed; top: 14px; left: 16px; z-index: 2; pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0,0,0,.7);
+  }
+  header h1 { font-size: 15px; font-weight: 600; letter-spacing: .04em; }
+  header p { font-size: 11px; opacity: .65; margin-top: 2px; }
+  body.ui-hidden header, body.ui-hidden #panel { display: none; }
+
+  #notice {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 5;
+    max-width: min(92vw, 520px); padding: 9px 14px; font-size: 12px; text-align: center;
+    color: #ffe3d6; background: rgba(120, 40, 60, .82); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.45);
+  }
+  #notice[hidden] { display: none; }
+
+  #panel {
+    position: fixed; right: 14px; bottom: 14px; z-index: 3; width: 272px;
+    background: rgba(10, 12, 34, .8); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.12); border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.45); overflow: hidden;
+  }
+  #panel-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 9px 12px; cursor: pointer; user-select: none; background: rgba(255,255,255,.05);
+  }
+  #panel-head b { font-size: 13px; font-weight: 600; }
+  #fps { font-size: 10px; opacity: .6; font-variant-numeric: tabular-nums; margin-left: auto; white-space: nowrap; }
+  #panel-toggle { border: none; background: none; color: #e2e4f6; font-size: 12px; cursor: pointer; opacity: .7; }
+  #panel-body { padding: 2px 12px 12px; max-height: min(66vh, 560px); overflow-y: auto; }
+  #panel.collapsed #panel-body { display: none; }
+
+  fieldset { border: none; }
+  legend { font-size: 11px; opacity: .55; padding: 8px 0 2px; letter-spacing: .05em; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 0 8px; align-items: center; padding: 2px 0; }
+  .row label { font-size: 12px; opacity: .9; display: flex; align-items: center; min-width: 0; }
+  .row output { font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; min-width: 34px; text-align: right; }
+  .row input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: #b69cff; height: 18px; }
+  .row input[type=color] { width: 44px; height: 22px; border: 1px solid rgba(255,255,255,.3); border-radius: 4px; background: none; cursor: pointer; padding: 0; }
+  .mini-reset {
+    border: 1px solid rgba(255,255,255,.45); background: transparent; color: #fff;
+    font: inherit; font-size: 9px; line-height: 1.5; padding: 0 5px; margin-left: 6px;
+    border-radius: 4px; cursor: pointer; flex-shrink: 0;
+  }
+  .mini-reset:hover { background: rgba(255,255,255,.16); border-color: #fff; }
+  .toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; padding: 4px 0; }
+  .toggles label { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+  .toggles input { accent-color: #b69cff; }
+  .actions { display: flex; gap: 6px; margin-top: 10px; }
+  .actions button {
+    flex: 1; padding: 6px 0; font-size: 11px; cursor: pointer; white-space: nowrap;
+    color: #e2e4f6; background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.16); border-radius: 8px;
+  }
+  .actions button:hover { background: rgba(255,255,255,.15); }
+  .hint { font-size: 10px; opacity: .45; margin-top: 8px; }
+</style>
+<style>.module-links{position:fixed;left:14px;bottom:12px;z-index:4;display:flex;gap:10px;flex-wrap:wrap;max-width:calc(100vw - 320px);padding:7px 10px;background:#10172de6;border:1px solid #58648166;border-radius:8px;font-size:12px}.module-links a{color:#96deef}.module-links span{flex-basis:100%;color:#bdcadb}body.ui-hidden .module-links{display:none}@media(max-width:640px){.module-links{max-width:calc(100vw - 28px);bottom:auto;top:70px}.module-links span{max-width:90vw}#panel{width:248px;max-height:55vh}header p{max-width:90vw}}</style></head>
+<body><nav class="module-links"><a href="../../../library/index.html">模块库</a><a href="source.glsl">源码</a><a href="../../../themes/starry-night-train/index.html">原主题</a><span>单元素展示：保留原星河宿主与 shader 依赖，当前只绘制所选方法。</span></nav>
+<canvas id="stage" class="pixel"></canvas>
+
+<header>
+  <h1>星河列车与车窗灯光</h1>
+  <p>改编自 sunset-cloud-train（源自 Rice-dog/code-codex）· 仅供学习欣赏</p>
+</header>
+
+<div id="notice" hidden></div>
+
+<aside id="panel" class="collapsed">
+  <div id="panel-head">
+    <b>方法参数</b>
+    <span id="fps"></span>
+    <button id="panel-toggle" aria-label="折叠/展开设置面板">▾</button>
+  </div>
+  <div id="panel-body">
+    <div class="toggles" id="toggles"></div>
+    <div id="sliders"></div>
+    <fieldset id="colors"><legend>颜色（默认即参考图配色）</legend></fieldset>
+    <div class="actions">
+      <button id="btn-reset">恢复默认</button>
+      <button id="btn-save">记住设置</button>
+      <button id="btn-forget">清除记录</button>
+    </div>
+    <p class="hint">按 H 隐藏/显示界面</p>
+  </div>
+</aside>
+
+<script>
+'use strict';
+// ======== 设置定义 ========
+// [键, 名称, 最小, 最大, 步长, 默认, 分组]
+const SLIDERS = [
+  ['speed', '行进速度', 0, 1, .01, .12, '运动'],
+  ['zoom', '镜头远近', .5, 2, .01, .5, '镜头'],
+  ['camY', '镜头高度', -.3, .3, .01, .06, '镜头'],
+  ['stars', '星星密度', 0, 1, .01, .55, '夜空'],
+  ['twinkle', '闪烁强度', 0, 1, .01, .6, '夜空'],
+  ['milky', '银河亮度', 0, 2, .01, 1, '夜空'],
+  ['meteor', '流星频率', 0, 1, .01, .35, '夜空'],
+  ['cloudCover', '云量', 0, 1.5, .01, .7, '云与蒸汽'],
+  ['cloudStack', '云层高度', .1, 1, .01, .4, '云与蒸汽'],
+  ['amplitude', '云层起伏', 0, 2, .01, .6, '云与蒸汽'],
+  ['steam', '蒸汽浓度', 0, 1.5, .01, 1, '云与蒸汽'],
+  ['cars', '车厢数量', 1, 10, 1, 5, '列车'],
+  ['win', '车窗亮度', 0, 2, .01, 1, '列车'],
+  ['glow', '光晕强度', 0, 2, .01, 1, '列车'],
+  ['horizon', '地平线高度', .25, .5, .005, .36, '水面'],
+  ['refl', '倒影亮度', 0, 1.2, .01, .85, '水面'],
+  ['ripple', '波纹强度', 0, 2, .01, 1, '水面'],
+  ['exposure', '曝光', .4, 2, .01, 1, '后期'],
+  ['saturation', '饱和度', 0, 2, .01, 1.1, '后期'],
+  ['vignette', '暗角', 0, 1, .01, .45, '后期'],
+  ['poster', '色阶（0 关闭）', 0, 32, 1, 0, '后期'],
+  ['scale', '渲染比例', .25, 1, .05, .5, '画质'],
+  ['detail', '噪声细节', 1, 8, 1, 8, '画质'],
+  ['fps', '帧率上限', 20, 60, 5, 60, '画质'],
+];
+const TOGGLES = [
+  ['follow', '镜头跟随', true],
+  ['pixel', '像素风', true],
+  ['auto', '自动降画质', true],
+  ['paused', '暂停', false],
+];
+// [键, 名称, 默认, uniform 名]
+const COLORS = [
+  ['skyTop', '天顶', '#0d1240', 'cSkyTop'],
+  ['skyHor', '地平线', '#4a3c8c', 'cSkyHor'],
+  ['cloudLit', '云亮部', '#ff8fbd', 'cCloudLit'],
+  ['cloudTop', '云顶', '#8f97f0', 'cCloudTop'],
+  ['cloudShade', '云暗部', '#4b3f8f', 'cCloudShade'],
+  ['winColor', '车窗', '#ffd27a', 'cWin'],
+  ['trainColor', '车身', '#1d1a3a', 'cTrain'],
+  ['bridgeColor', '桥体', '#2a2554', 'cBridge'],
+  ['lightColor', '远处灯光', '#ffb35c', 'cLight'],
+  ['foreColor', '近景剪影', '#0b0d26', 'cFore'],
+];
+const DEFAULTS = {};
+for (const [k, , , , , d] of SLIDERS) DEFAULTS[k] = d;
+for (const [k, , d] of TOGGLES) DEFAULTS[k] = d;
+for (const [k, , d] of COLORS) DEFAULTS[k] = d;
+// v2：默认镜头改为视频成片的构图；v1 旧存档不迁移，直接作废，让新默认生效
+const STORE_KEY = 'module:starry-locomotive-sdf:v1';
+try { localStorage.removeItem('module:starry-locomotive-sdf:legacy'); } catch { /* 存储不可用时忽略 */ }
+
+function normalize(v) {
+  const r = { ...DEFAULTS };
+  if (!v || typeof v !== 'object') return r;
+  for (const [k, , min, max] of SLIDERS) {
+    const n = typeof v[k] === 'number' ? v[k] : parseFloat(v[k]);
+    if (Number.isFinite(n)) r[k] = Math.min(max, Math.max(min, n));
+  }
+  for (const [k] of TOGGLES) if (typeof v[k] === 'boolean') r[k] = v[k];
+  for (const [k] of COLORS) if (typeof v[k] === 'string' && /^#[0-9a-f]{6}$/i.test(v[k])) r[k] = v[k].toLowerCase();
+  r.cars = Math.round(r.cars); r.detail = Math.round(r.detail); r.poster = Math.round(r.poster);
+  return r;
+}
+let saved = null;
+try { saved = JSON.parse(localStorage.getItem(STORE_KEY)); } catch { /* 存储不可用时用默认值 */ }
+Object.assign(DEFAULTS,{zoom:1,camY:0,auto:false,fps:30});
+const S = normalize(new URLSearchParams(location.search).has("embed") ? DEFAULTS : saved);
+const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+
+// ======== Shader ========
+const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+const FRAG = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+uniform vec2 uRes;
+uniform float uT, uCamX, uFore, uTrainX, uSmokeOff, uFarOff, uWheel;
+uniform float uCL[12], uNMin, uNMax;
+uniform float uCars, uStars, uTwinkle, uMilky, uMeteor, uCover, uStack, uAmp, uSteam, uWin, uGlow;
+uniform float uRipple, uRefl, uHorizon, uExposure, uSat, uVignette, uPoster, uZoom, uCamY;
+uniform int uOct;
+uniform vec3 cSkyTop, cSkyHor, cCloudLit, cCloudTop, cCloudShade, cWin, cTrain, cBridge, cLight, cFore;
+uniform sampler2D uNoise, uCloudTex;
+
+vec3 gGlow;
+// 场景坐标每单位对应的屏幕像素：近景/中景按 uZoom，星空按 √uZoom（轻微视差）
+float gPx, gPxS;
+vec2 gC;
+
+float hash(vec2 p){ vec3 p3=fract(vec3(p.xyx)*.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
+// 单次采样值噪声：256 纹理 + 线性过滤，周期 256
+float noise(vec2 x){ vec2 i=floor(x); vec2 f=fract(x); f=f*f*(3.-2.*f); return texture2D(uNoise,(i+f+.5)/256.).x; }
+float fbm(vec2 x){
+  float a=0., w=.5, s=0.;
+  for(int i=0;i<6;i++){ if(i>=uOct) break; a+=w*noise(x); s+=w; w*=.5; x=x*2.+vec2(17.,9.); }
+  return a/s;
+}
+// billow 噪声：|2n-1| 叠加，圆顶尖谷，适合积云的花椰菜轮廓
+float fbmB(vec2 x){
+  float a=0., w=.5, s=0.;
+  for(int i=0;i<6;i++){ if(i>=uOct) break; a+=w*abs(2.*noise(x)-1.); s+=w; w*=.5; x=x*2.+vec2(17.,9.); }
+  return a/s;
+}
+#define DECK (uHorizon+.115)
+// 允许 a>b 的 smoothstep（GLSL ES 规范里 edge0>=edge1 未定义）
+float sstep(float a, float b, float x){ float t=clamp((x-a)/(b-a),0.,1.); return t*t*(3.-2.*t); }
+float sdBox(vec2 p, vec2 c, vec2 h){ vec2 d=abs(p-c)-h; return length(max(d,0.))+min(max(d.x,d.y),0.); }
+
+// ---------- 天空 ----------
+float starLayer(vec2 p, float cell, float dens, float seed, float big){
+  vec2 g=p/cell; vec2 id=floor(g); vec2 f=fract(g);
+  float h=hash(id+seed);
+  if(h>dens) return 0.;
+  vec2 c=vec2(hash(id+seed+1.7),hash(id+seed+4.3))*.6+.2;
+  vec2 d=(f-c)*cell*gPxS;
+  float r=length(d);
+  float tw=1.-uTwinkle*.5*(1.+sin(uT*(1.2+3.*hash(id+seed+2.9))+h*80.));
+  float b=.45+.55*hash(id+seed+5.5);
+  float s;
+  if(big>0.){
+    float k=max(gPxS/540.,.6);
+    s=sstep(1.8*k,0.,r)+(exp(-abs(d.x)/(2.6*k)-abs(d.y)/(.45*k))+exp(-abs(d.y)/(2.6*k)-abs(d.x)/(.45*k)))*.9;
+  } else {
+    float sz=.35+.9*hash(id+seed+8.1);
+    s=sstep(sz+.8,sz-.2,r);
+  }
+  return s*tw*b;
+}
+float meteor(vec2 p, float slot){
+  if(uMeteor<=0.) return 0.;
+  float per=mix(18.,3.,uMeteor)*(1.+slot*.63);
+  float tt=uT+slot*7.3;
+  float k=floor(tt/per); float lt=tt-k*per;
+  float dur=1.1;
+  if(lt>dur) return 0.;
+  float asp=uRes.x/uRes.y;
+  vec2 s=vec2(mix(.45,asp+.05,hash(vec2(k,slot+3.))),mix(.76,.98,hash(vec2(k+5.,slot+9.))));
+  vec2 dir=normalize(vec2(-1.,-.42));
+  float pr=lt/dur;
+  vec2 head=s+dir*pr*.5;
+  float len=.2*min(1.,pr*2.5)+1e-4;
+  vec2 rel=p-head;
+  float al=dot(rel,-dir);
+  float pe=abs(dot(rel,vec2(-dir.y,dir.x)));
+  float w=(1.+1.4*(1.-clamp(al/len,0.,1.)))/gPxS;
+  float tail=step(0.,al)*sstep(len,0.,al)*sstep(w,0.,pe);
+  float hd=exp(-dot(rel,rel)*gPxS*gPxS*.12);
+  return (tail*.9+hd*1.6)*sin(pr*3.14159);
+}
+vec3 sky(vec2 sp){
+  float H=uHorizon;
+  float hy=clamp((sp.y-H)/(1.-H),0.,1.);
+  vec3 col=mix(cSkyHor,cSkyTop,pow(hy,.6));
+  // 场景坐标 → 屏幕坐标 → 星空坐标：星空只按 √zoom 缩放、镜头高度只移一半
+  vec2 s=(sp-vec2(0.,uCamY)-gC)*uZoom+gC;
+  vec2 p=(s-gC)/sqrt(uZoom)+gC+vec2(0.,uCamY*.5);
+  float asp=uRes.x/uRes.y;
+  float v=p.y-(.6+.3*(p.x-.5*asp));
+  float band=exp(-v*v/.018);
+  if(band>.01 && uMilky>0.){
+    vec2 r=vec2(p.x+p.y*.3,v);
+    float n=fbm(r*vec2(3.,6.)+vec2(3.,7.));
+    float dust=smoothstep(.45,.65,fbm(r*vec2(6.,14.)+vec2(11.,2.)));
+    float mw=band*(.2+n*n*1.7)*(1.-.65*dust*band);
+    col+=mix(vec3(.38,.36,.9),vec3(.95,.62,.95),n)*mw*uMilky*.7;
+  }
+  float st=starLayer(p,1./90.,uStars*(.35+.45*band),0.,0.);
+  st+=starLayer(p,1./14.,uStars*.2,31.,1.);
+  col+=vec3(.95,.93,1.)*st*smoothstep(H,H+.12,sp.y);
+  col+=vec3(.85,.9,1.)*(meteor(p,0.)+meteor(p,1.));
+  return col;
+}
+
+// ---------- 云：移植自原版 sunset-cloud-train 的 mdb shader（无再分发许可，仅本地学习使用） ----------
+// 原版噪声：五次插值，从 1024 纹理的 4 个整数格点取值；格点正好落在 texel 边界，线性过滤得到相邻 2×2 texel 的平均。
+// uCloudTex 预存这个 2×2 平均值（亮度 = 高 8 位，alpha = 低 2 位），一次硬件双线性采样即等价于原版的 4 次取值加插值。
+float cnoise(vec2 x){
+  vec2 f=fract(x);
+  vec2 u=f*f*f*(f*(f*6.-15.)+10.);
+  vec2 t=texture2D(uCloudTex,(floor(x)+u+.5)/1024.).xw;
+  return t.x+t.y/256.;
+}
+// 原版 fbm：每阶权重 ×0.7、频率 ×2；每阶对 1024 取模（噪声周期），只防止坐标过大丢精度，不改变结果。
+// 提前退出不改变结果：噪声值必在纹理的 [uNMin, uNMax] 内，每阶后可得最终值的上下界；
+// 上界 < lo 说明这层盖不到当前像素（返回 -1），下界 > hi 说明一定落在最深色带（返回 2）。
+float cfbm(vec2 x, float lo, float hi){
+  float T=0., w=1.;
+  for(int i=0;i<8;i++){ if(i>=uOct) break; T+=w; w*=.7; }
+  float a=0., b=1., t=0.;
+  for(int i=0;i<8;i++){
+    if(i>=uOct) break;
+    a+=b*cnoise(x); t+=b; b*=.7; x=mod(x*2.,1024.);
+    if(i+1<uOct){
+      float R=T-t;
+      if((a+R*uNMax)/T<lo-1e-4) return -1.;
+      if((a+R*uNMin)/T>hi+1e-4) return 2.;
+    }
+  }
+  return a/t;
+}
+// 原版配色映射到星河版：按亮度在云暗部 → 云亮部之间取色，又亮又不饱和的（原版的奶油色）偏向云顶色
+// 夜色雾化：越远的层越向天空色靠拢（原版没有，用来让远层融进夜空）
+float gFog;
+vec3 cpal(vec3 o){
+  float l=dot(o,vec3(.299,.587,.114));
+  float s=max(o.r,max(o.g,o.b))-min(o.r,min(o.g,o.b));
+  vec3 c=mix(cCloudShade*.7,cCloudLit,smoothstep(.3,.72,l));
+  c=mix(c,cCloudTop,.7*smoothstep(.6,.92,l)*smoothstep(.5,.15,s));
+  c*=.78+.3*l;
+  return mix(c,mix(cSkyHor,cSkyTop,.5),gFog);
+}
+// 一层云 = 一个二维 fbm 高度场；按 dh 从深到浅切出色带（与原版 layer 宏一致），命中即不透明返回。
+// 云量、云层高度只改 midlevel（整体平移 / 按层间距压缩），不改单层形状。
+#define CLD(mid,disp,i,dhMax) gFog=float(i)*.03; m_=.3+((mid)-.3)*uStack+(uCover-1.)*.3; D_=max((disp)*uAmp,1e-4); run_=cy<m_+(uNMax-.5)*D_; if(run_){ h_=(cfbm(vec2(p.x+uCL[i],cy),(cy-m_)/D_+.5,(cy+(dhMax)-m_)/D_+.5)-.5)*D_+m_; }
+#define BAND(dh,c) if(run_&&cy<h_-(dh)) return vec4(cpal(c),1.);
+vec4 clouds(vec2 p){
+  // 云坐标：地平线对应原版 y=0.2，原版 c12（midlevel 0.3）落在地平线与桥面之间，和原版相对桥的位置一致
+  float cy=p.y-uHorizon+.2;
+  float m_, D_, h_=0.; bool run_;
+  CLD(.3,.9,0,.14)   BAND(.14,vec3(.48,.19,.20)) BAND(.1,vec3(.68,.28,.19)) BAND(.07,vec3(.88,.38,.24)) BAND(0.,vec3(.95,.45,.30))
+  CLD(.35,1.,1,.04)  BAND(.04,vec3(.98,.76,.64)) BAND(0.,vec3(.95,.80,.77))
+  CLD(.35,3.5,2,.12) BAND(.12,vec3(.43,.32,.31)) BAND(.08,vec3(.55,.42,.41)) BAND(.04,vec3(.66,.42,.40)) BAND(0.,vec3(.77,.48,.46))
+  CLD(.45,2.,3,.04)  BAND(.04,vec3(.98,.57,.36)) BAND(0.,vec3(1.,.62,.44))
+  CLD(.5,2.3,4,.12)  BAND(.12,vec3(.41,.27,.27)) BAND(.08,vec3(.53,.35,.32)) BAND(.04,vec3(.80,.24,.17)) BAND(0.,vec3(.99,.29,.20))
+  CLD(.5,2.5,5,.1)   BAND(.1,vec3(.88,.38,.24))  BAND(.05,vec3(.98,.42,.28)) BAND(0.,vec3(1.,.48,.35))
+  CLD(.6,2.,6,.1)    BAND(.1,vec3(.95,.66,.48))  BAND(0.,vec3(1.,.76,.60))
+  CLD(.75,3.5,7,.2)  BAND(.2,vec3(1.,.55,.33))   BAND(.15,vec3(.98,.50,.24)) BAND(.1,vec3(.90,.55,.40)) BAND(0.,vec3(1.,.62,.44))
+  CLD(.7,2.7,8,.04)  BAND(.04,vec3(.73,.36,.30)) BAND(0.,vec3(.80,.40,.34))
+  CLD(.8,2.7,9,.1)   BAND(.1,vec3(.93,.58,.35))  BAND(0.,vec3(1.,.76,.60))
+  CLD(.9,3.,10,.1)   BAND(.1,vec3(.56,.25,.22))  BAND(.05,vec3(.60,.30,.27)) BAND(0.,vec3(.74,.35,.30))
+  CLD(1.,5.,11,.1)   BAND(.1,vec3(.92,.85,.82))  BAND(0.,vec3(1.,.94,.91))
+  return vec4(0.);
+}
+
+// ---------- 远岸与灯光 ----------
+vec4 farShore(vec2 p){
+  float H=uHorizon;
+  if(p.y>H+.03) return vec4(0.);
+  float fx=p.x*3.+uFarOff;
+  float town=smoothstep(.5,.72,noise(vec2(fx*.3,21.)));
+  float top=H+.004+.009*noise(vec2(fx*2.,5.))+.007*town*step(.45,hash(vec2(mod(floor(fx*14.),3584.),3.)));
+  float cid=mod(floor(fx*6.),1536.);
+  float hc=hash(vec2(cid,7.));
+  if(hc<town*.95){
+    float k=gPx/540.;
+    float lx=(fract(fx*6.)-(.2+.6*hash(vec2(cid,9.))))/18.;
+    float ly=p.y-(H+.004+.007*hash(vec2(cid,13.)));
+    float d=length(vec2(lx,ly))*gPx;
+    float fl=.85+.15*sin(uT*3.+hc*40.);
+    gGlow+=cLight*(sstep(1.6*k+.4,.3,d)*1.4+exp(-d*d/(70.*k*k))*.35*uGlow)*fl;
+  }
+  if(p.y<top) return vec4(mix(cFore,cSkyHor,.22),1.);
+  return vec4(0.);
+}
+
+// ---------- 石拱桥 ----------
+vec4 bridge(vec2 p){
+  float H=uHorizon, deck=DECK;
+  if(p.y>deck||p.y<H) return vec4(0.);
+  float P=.2, aw=.074, spring=H+.012;
+  float bx=p.x+uCamX;
+  float lx=mod(bx,P)-P*.5;
+  float ax=abs(lx);
+  float ey=max(p.y-spring,0.)/.8;
+  float e=length(vec2(ax,ey))-aw;
+  if(ax<aw && (p.y<spring || e<0.)) return vec4(0.);
+  vec3 c=cBridge*(.88+.24*noise(vec2(bx,p.y)*82.0513));
+  if(p.y>spring-.004 && e<.011){
+    float ang=atan(ey,lx);
+    float joint=step(.84,fract(ang*14./3.14159));
+    c=cBridge*(1.32-.4*joint);
+  }
+  if(p.y>deck-.011 && p.y<deck-.008) c=cBridge*.7;
+  if(p.y>deck-.007) c=cBridge*1.45;
+  if(p.y>deck-.002) c=mix(cBridge*2.,cCloudTop,.35);
+  c*=mix(.7,1.,smoothstep(H,H+.07,p.y));
+  return vec4(c,1.);
+}
+vec4 railing(vec2 p){
+  float ry=p.y-DECK;
+  if(ry<0.||ry>.013) return vec4(0.);
+  float bx=p.x+uCamX;
+  float post=step(abs(mod(bx,.016)-.008),max(.0011,.55/gPx));
+  float rail=step(abs(ry-.0115),max(.001,.55/gPx))+step(abs(ry-.006),max(.0007,.5/gPx));
+  return vec4(cBridge*1.3,clamp(post+rail,0.,1.));
+}
+
+// ---------- 列车 ----------
+#define PAINT(cond, c) if(cond){ col=(c); a=1.; }
+vec4 train(vec2 p){
+  float R=DECK;
+  vec2 q=vec2(p.x-uTrainX,p.y-R);
+  float carL=.12, gap=.006;
+  float tail=-.14-uCars*(carL+gap);
+  if(q.y>-.04 && q.y<.12 && q.x>tail-.06 && q.x<.7){
+    float dwin=max(sdBox(q,vec2((tail-.14)*.5,.0255),vec2((-.14-tail)*.5,.0065)),0.);
+    gGlow+=cWin*exp(-dwin*90.)*.28*uWin*uGlow;
+    float dc=max(sdBox(q,vec2(-.085,.032),vec2(.008,.006)),0.);
+    gGlow+=cWin*exp(-dc*110.)*.22*uWin*uGlow;
+    vec2 hl=q-vec2(.001,.031);
+    gGlow+=cLight*exp(-length(hl)*70.)*.9*uGlow;
+    if(hl.x>0.){ float spread=abs(hl.y)/(hl.x+.015); gGlow+=cLight*exp(-spread*7.-hl.x*4.)*.2*uGlow; }
+  }
+  if(q.y<-.001||q.y>.053||q.x>.008||q.x<tail) return vec4(0.);
+  vec3 body=cTrain*(.75+.75*smoothstep(0.,.05,q.y));
+  vec3 dark=cTrain*.45;
+  vec3 metal=mix(cTrain*2.2,cCloudTop,.3);
+  vec3 col=vec3(0.); float a=0.;
+  float w=q.x;
+  if(w>-.103){
+    // 机车
+    PAINT(w>-.1&&w<-.002&&q.y>.009&&q.y<.0125, dark)
+    PAINT(sdBox(q,vec2(-.04,.024),vec2(.026,.007))-.004<0., body)
+    PAINT(abs(w+.03)<.0008&&q.y>.013&&q.y<.035, metal)
+    PAINT(abs(w+.052)<.0008&&q.y>.013&&q.y<.035, metal)
+    PAINT(sdBox(q,vec2(-.009,.024),vec2(.005,.0115))<0., cTrain*.85)
+    PAINT(sdBox(q,vec2(-.02,.042),vec2(.0035,.0075))<0., body)
+    PAINT(sdBox(q,vec2(-.02,.0495),vec2(.006,.0018))<0., dark)
+    PAINT(length(q-vec2(-.045,.035))<.005&&q.y>.033, body)
+    PAINT(sdBox(q,vec2(-.085,.027),vec2(.015,.019))<0., body)
+    PAINT(sdBox(q,vec2(-.085,.032),vec2(.008,.006))<0., cWin*uWin*(1.05-.3*smoothstep(.026,.038,q.y)))
+    PAINT(sdBox(q,vec2(-.085,.048),vec2(.018,.002))<0., dark)
+    PAINT(w>-.004&&w<.007&&q.y>0.&&q.y<.010-(w+.004)*.9, dark)
+    PAINT(length(q-vec2(-.002,.031))<.0028, cLight*1.6)
+    for(int i=0;i<3;i++){
+      vec2 wc=vec2(-.058+float(i)*.018,.0075);
+      float d=length(q-wc);
+      PAINT(d<.0075, dark)
+      PAINT(d<.0075&&d>.0058, cTrain*1.3)
+      PAINT(d<.0015, metal)
+    }
+    PAINT(length(q-vec2(-.009,.004))<.004, dark)
+    vec2 o=vec2(cos(uWheel),sin(uWheel))*.0045;
+    PAINT(abs(q.y-.0075-o.y)<.0011&&w>-.058+o.x&&w<-.022+o.x, metal)
+  } else if(w>-.14){
+    // 煤水车
+    PAINT(sdBox(q,vec2(-.1215,.021),vec2(.0165,.012))-.001<0., body)
+    PAINT(abs(w+.1215)<.015&&q.y>.033&&q.y<.034+.004*(.6+.4*sin(w*900.)), dark*.8)
+    PAINT(length(q-vec2(-.132,.0045))<.0045||length(q-vec2(-.111,.0045))<.0045, dark)
+  } else {
+    // 客车厢：直接算出属于第几节
+    float u=-.14-gap-w;
+    float idx=floor(u/(carL+gap));
+    float lu=u-idx*(carL+gap);
+    if(idx>=0.&&idx<uCars){
+      if(lu>carL||lu<0.){
+        PAINT(q.y>.010&&q.y<.0135, dark)
+      } else {
+        float cx=carL*.5-lu;
+        vec2 cq=vec2(cx,q.y);
+        PAINT(sdBox(cq,vec2(0.,.0225),vec2(carL*.5-.002,.0125))-.002<0., body)
+        PAINT(sdBox(cq,vec2(0.,.0395),vec2(carL*.5-.004,.002))-.0015<0., dark*1.3)
+        PAINT(abs(q.y-.0135)<.0009&&abs(cx)<carL*.5-.002, mix(body*1.6,cCloudTop,.2))
+        PAINT(abs(q.y-.0088)<.0012&&abs(cx)<carL*.5-.003, dark)
+        float wx=lu-.0105; float wi=floor(wx/.0155); float wl=wx-wi*.0155;
+        if(wi>=0.&&wi<7.&&wl<.009&&abs(q.y-.0255)<.0055){
+          float hh=hash(vec2(wi+idx*7.,3.));
+          float lit=hh<.12?.22:(.75+.25*hh);
+          PAINT(true, cWin*lit*uWin*(1.05-.3*smoothstep(.02,.031,q.y)))
+        }
+        float ax=abs(cx);
+        PAINT(length(vec2(ax-.046,q.y-.0042))<.0042||length(vec2(ax-.036,q.y-.0042))<.0042, dark)
+      }
+    }
+  }
+  return vec4(col,a);
+}
+
+// ---------- 蒸汽 ----------
+vec4 steam(vec2 p){
+  if(uSteam<=0.) return vec4(0.);
+  vec2 ch=vec2(uTrainX-.02,DECK+.051);
+  float dx=ch.x-p.x;
+  float L=.3+.45*uSteam;
+  if(dx<-.006||dx>L) return vec4(0.);
+  float dxp=max(dx,0.);
+  float yc=ch.y+.1*sqrt(dxp)+.03*dxp;
+  float r=.004+.075*pow(dxp,.7);
+  float dy=p.y-yc;
+  if(abs(dy)>r*1.8+.01) return vec4(0.);
+  float n=fbmB(vec2((p.x+uSmokeOff)*24.,p.y*24.-uT*.6));
+  float fade=1.-smoothstep(L*.25,L,dxp);
+  float d=abs(dy)-r*(.25+1.5*n)*fade;
+  if(d>0.) return vec4(0.);
+  float s=floor(clamp(dy/(r+.002)*.5+.5,0.,1.)*3.+.5)/3.;
+  vec3 c=mix(mix(cCloudShade,cCloudTop,.5),vec3(1.,.95,.98),s);
+  c=mix(c,cCloudLit,.2);
+  return vec4(c,(.35+.65*fade)*min(uSteam,1.)*smoothstep(-.006,0.,dx));
+}
+
+// ---------- 近景：树丛、电线杆 ----------
+float landMask(float fx){ float s=mod(fx+.35,1.95); return smoothstep(0.,.05,s)*sstep(.56,.48,s); }
+vec4 fore(vec2 p){
+  float H=uHorizon;
+  float fx=p.x+uFore;
+  float s=mod(fx+.35,1.95);
+  float ptop=H+.24;
+  float dp=min(abs(s-.15),abs(s-.42));
+  if(p.y<ptop&&dp<max(.0022,1./gPx)) return vec4(cFore,1.);
+  if(abs(p.y-(ptop-.012))<max(.0016,.6/gPx)&&dp<.02) return vec4(cFore,1.);
+  if(abs(p.y-(ptop-.03))<max(.0014,.6/gPx)&&dp<.014) return vec4(cFore,1.);
+  if(p.y<ptop){
+    float u, sag;
+    if(s>=.15&&s<=.42){ u=(s-.15)/.27; sag=.01; }
+    else { float s2=s<.15?s+1.95:s; u=(s2-.42)/1.68; sag=.06; }
+    float dropW=4.*u*(1.-u)*sag;
+    float lw=max(.0009,.55/gPx);
+    if(abs(p.y-(ptop-.012-dropW))<lw||abs(p.y-(ptop-.03-dropW))<lw) return vec4(cFore,.9);
+  }
+  float lm=landMask(fx);
+  if(lm<=0.||p.y>H+.2) return vec4(0.);
+  float cw=.025; float id=floor(fx/cw);
+  float top=H+.01*lm;
+  for(int k=-1;k<=1;k++){
+    float cid=id+float(k);
+    float hm=mod(cid,78.);
+    float c=(cid+.5)*cw+(hash(vec2(hm,1.))-.5)*.01;
+    float ht=landMask(c)*(.025+.1*hash(vec2(hm,2.))*hash(vec2(hm,5.))+.025*hash(vec2(hm,7.)));
+    float dxn=abs(fx-c)/(cw*(.8+.8*hash(vec2(hm,3.))));
+    if(dxn<1.) top=max(top,H+ht*sqrt(1.-dxn*dxn));
+  }
+  top+=.006*(noise(vec2(fx*131.282,p.y*70.))-.5)*step(H+.02,top);
+  if(p.y<top) return vec4(cFore,1.);
+  return vec4(0.);
+}
+
+// ---------- 合成：从前往后，盖满即返回 ----------
+#define ADD(L) { vec4 l_=L; acc.rgb+=(1.-acc.a)*l_.a*l_.rgb; acc.a+=(1.-acc.a)*l_.a; if(acc.a>.995) return acc.rgb+gGlow; }
+vec3 scene(vec2 p){
+  gGlow=vec3(0.);
+  vec4 acc=vec4(0.);
+  float H=uHorizon;
+  ADD(fore(p))
+  ADD(railing(p))
+  ADD(steam(p))
+  ADD(train(p))
+  ADD(bridge(p))
+  ADD(farShore(p))
+  ADD(clouds(p))
+  acc.rgb+=(1.-acc.a)*sky(p);
+  return acc.rgb+gGlow;
+}
+
+void main(){
+vec2 s=gl_FragCoord.xy/uRes.y;gC=.5*uRes/uRes.y;
+float len=.14+uCars*.126;float z=min(4.2,(uRes.x/uRes.y)*.84/(len+.12));
+gPx=uRes.y*z;gPxS=gPx;
+vec2 p=vec2((s.x-gC.x)/z+uTrainX-len*.48,(s.y-.47)/z+DECK+.022);
+gGlow=vec3(0.);
+vec4 layer=train(p);vec3 col=mix(vec3(.18,.22,.33),layer.rgb,layer.a)+gGlow;
+col*=uExposure;float lum=dot(col,vec3(.299,.587,.114));col=max(mix(vec3(lum),col,uSat),0.);
+gl_FragColor=vec4(clamp(col,0.,1.),1.);
+}
+`;
+
+// ======== 运动状态（所有量按周期取模，长时间运行不跳变） ========
+const CAM_WRAP = 15.6, FORE_WRAP = 1.95, SMOKE_WRAP = 256 / 24, TAU = Math.PI * 2;
+// 12 层云的深度与初始偏移沿用原版 c12…c1；原版各层滚动为 t/dist、桥为 t/5，所以云层速度 = 镜头速度 × 5 / dist
+const CLOUD_DIST = [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 100];
+const M = { t: 0, camX: 0, fore: 0, far: 37, smoke: 0, trainX: null, wheel: 0,
+  cl: [32.5, 30, 27.5, 23, 20.5, 18, 18, 15.5, 12, 9.5, 7, 3.5] };
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function trainLength() { return .14 + S.cars * .126; }
+function advance(dt, aspect) {
+  // 屏幕横坐标 → 场景横坐标（镜头以屏幕中心缩放）
+  const cx = aspect / 2, toScene = x => cx + (x - cx) / S.zoom;
+  const followX = toScene(Math.min(Math.max(aspect * .62, .45), aspect - .05));
+  if (M.trainX === null) M.trainX = followX;
+  if (S.paused) return;
+  const v = S.speed * (reduceMotion.matches ? .5 : 1), d = v * dt;
+  M.t = (M.t + dt) % 3600;
+  M.wheel = (M.wheel + d / .0075) % TAU;
+  const camD = S.follow ? d : 0;
+  M.camX = (M.camX + camD) % CAM_WRAP;
+  M.fore = (M.fore + camD * 1.15) % FORE_WRAP;
+  M.far = (M.far + camD * .08 * 3) % 256;
+  M.smoke = (M.smoke + camD + dt * .01) % SMOKE_WRAP;
+  for (let i = 0; i < 12; i++) M.cl[i] = (M.cl[i] + (camD + dt * .01) * 5 / CLOUD_DIST[i]) % 1024;
+  if (S.follow) M.trainX += (followX - M.trainX) * Math.min(1, dt * 1.5);
+  else {
+    M.trainX += d;
+    if (M.trainX > toScene(aspect) + trainLength() + .1) M.trainX = toScene(0) - .05;
+  }
+}
+
+// ======== 通用：画布尺寸、提示 ========
+let canvas = document.getElementById('stage');
+const notice = document.getElementById('notice');
+const fpsEl = document.getElementById('fps');
+function showNotice(msg) { notice.textContent = msg; notice.hidden = false; }
+function targetSize() {
+  // 像素风按 CSS 像素算，像素块大小不随屏幕缩放变化，也更省；否则 dpr 上限 1.5
+  const dpr = (S.pixel ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)) * S.scale;
+  return [Math.max(1, Math.round(innerWidth * dpr)), Math.max(1, Math.round(innerHeight * dpr))];
+}
+function applyPixelClass() { canvas.classList.toggle('pixel', S.pixel); }
+applyPixelClass();
+
+// ======== 渲染循环（WebGL 与 Canvas2D 共用） ========
+let renderer = null, raf = 0, lastFrame = 0, lastDraw = 0;
+let perfSum = 0, perfN = 0, perfStart = 0, fpsCount = 0, fpsStart = 0;
+function request() { if (!raf && !document.hidden && renderer) raf = requestAnimationFrame(frame); }
+let nextDraw = 0;
+function frame(now) {
+  raf = 0;
+  // 按时间预算限帧：高刷屏上平均帧率也能贴近上限
+  const interval = 1000 / S.fps;
+  if (nextDraw && now < nextDraw - 2) { request(); return; }
+  nextDraw = nextDraw && now - nextDraw < interval ? nextDraw + interval : now + interval;
+  const gapMs = lastDraw ? now - lastDraw : 0;
+  const dt = lastFrame ? Math.min((now - lastFrame) / 1000, .1) : 0;
+  lastFrame = now; lastDraw = now;
+  const [w, h] = targetSize();
+  if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+  advance(dt, w / h);
+  renderer.draw(w, h);
+  // 自动降画质：每 2 秒统计一次平均帧间隔
+  // 超过 250ms 的间隔多半是后台限速或卡顿，不计入
+  if (gapMs > 0 && gapMs < 250) { perfSum += gapMs; perfN++; }
+  if (!perfStart) perfStart = now;
+  if (now - perfStart > 2000) {
+    const avg = perfN ? perfSum / perfN : 0, target = 1000 / S.fps;
+    // 先降渲染比例到 0.35，再把噪声细节降到 5 阶，最后才把比例降到下限 0.25
+    if (S.auto && perfN >= 10 && avg > target * 1.6) {
+      if (S.scale > .35) S.scale = Math.max(.35, Math.round(S.scale * .85 * 20) / 20);
+      else if (S.detail > 5) S.detail--;
+      else if (S.scale > .25) S.scale = Math.max(.25, Math.round(S.scale * .85 * 20) / 20);
+      syncUI();
+    }
+    perfSum = 0; perfN = 0; perfStart = now;
+  }
+  fpsCount++;
+  if (!fpsStart) fpsStart = now;
+  if (now - fpsStart > 1000) {
+    fpsEl.textContent = Math.round(fpsCount * 1000 / (now - fpsStart)) + ' fps · ' + w + '×' + h;
+    fpsCount = 0; fpsStart = now;
+  }
+  request();
+}
+function resetClock() { lastFrame = 0; lastDraw = 0; nextDraw = 0; perfSum = 0; perfN = 0; perfStart = 0; }
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+  else { resetClock(); request(); }
+});
+
+// ======== WebGL 渲染器 ========
+function createGL() {
+  const opts = { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'low-power' };
+  const gl = canvas.getContext('webgl', opts) || canvas.getContext('experimental-webgl', opts);
+  if (!gl) throw new Error('浏览器不支持 WebGL');
+  function shader(type, src) {
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS) && !gl.isContextLost()) throw new Error(gl.getShaderInfoLog(s) || 'shader 编译失败');
+    return s;
+  }
+  let prog, loc, uniformNames;
+  function init() {
+    prog = gl.createProgram();
+    gl.attachShader(prog, shader(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, FRAG));
+    gl.bindAttribLocation(prog, 0, 'a');
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS) && !gl.isContextLost()) throw new Error(gl.getProgramInfoLog(prog) || 'shader 链接失败');
+    gl.useProgram(prog);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    // 256×256 确定性随机噪声纹理（xorshift）
+    const data = new Uint8Array(256 * 256); let seed = 2463534242;
+    for (let i = 0; i < data.length; i++) { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; data[i] = seed & 255; }
+    const tex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, 256, 256, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, data);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+    // 云噪声：与原版相同的 1024×1024 xorshift 纹理（种子 93451）；预存每个格点的 2×2 texel 平均值，
+    // 和为 0～1020，亮度存高 8 位（和 >> 2），alpha 存低 2 位（× 64），着色器里还原为精确平均值
+    const raw = new Uint8Array(1024 * 1024); let cs = 93451;
+    for (let i = 0; i < raw.length; i++) { cs ^= cs << 13; cs ^= cs >>> 17; cs ^= cs << 5; raw[i] = cs & 255; }
+    const avg = new Uint8Array(1024 * 1024 * 2);
+    let sMin = 1020, sMax = 0;
+    for (let y = 0; y < 1024; y++) {
+      const y0 = ((y + 1023) & 1023) * 1024, y1 = y * 1024;
+      for (let x = 0; x < 1024; x++) {
+        const x0 = (x + 1023) & 1023;
+        const sum = raw[y0 + x0] + raw[y0 + x] + raw[y1 + x0] + raw[y1 + x];
+        avg[(y1 + x) * 2] = sum >> 2; avg[(y1 + x) * 2 + 1] = (sum & 3) * 64;
+        if (sum < sMin) sMin = sum; if (sum > sMax) sMax = sum;
+      }
+    }
+    const ctex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, ctex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE_ALPHA, 1024, 1024, 0, gl.LUMINANCE_ALPHA, gl.UNSIGNED_BYTE, avg);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+    gl.activeTexture(gl.TEXTURE0);
+    uniformNames = ['uRes', 'uT', 'uCamX', 'uFore', 'uTrainX', 'uSmokeOff', 'uFarOff', 'uWheel', 'uCL', 'uCars', 'uStars',
+      'uTwinkle', 'uMilky', 'uMeteor', 'uCover', 'uStack', 'uAmp', 'uSteam', 'uWin', 'uGlow', 'uRipple', 'uRefl', 'uHorizon',
+      'uExposure', 'uSat', 'uVignette', 'uPoster', 'uZoom', 'uCamY', 'uOct', 'uNoise', 'uCloudTex', 'uNMin', 'uNMax',
+      ...COLORS.map(c => c[3])];
+    loc = Object.fromEntries(uniformNames.map(n => [n, gl.getUniformLocation(prog, n)]));
+    gl.uniform1i(loc.uNoise, 0); gl.uniform1i(loc.uCloudTex, 1);
+    gl.uniform1f(loc.uNMin, sMin / 1020); gl.uniform1f(loc.uNMax, sMax / 1020);
+  }
+  init();
+  const f1 = (n, v) => gl.uniform1f(loc[n], v);
+  return {
+    gl, init,
+    draw(w, h) {
+      gl.viewport(0, 0, w, h);
+      gl.uniform2f(loc.uRes, w, h);
+      f1('uT', M.t); f1('uCamX', M.camX); f1('uFore', M.fore); f1('uTrainX', M.trainX);
+      f1('uSmokeOff', M.smoke); f1('uFarOff', M.far); f1('uWheel', M.wheel);
+      gl.uniform1fv(loc.uCL, M.cl);
+      f1('uCars', S.cars); f1('uStars', S.stars); f1('uTwinkle', S.twinkle); f1('uMilky', S.milky);
+      f1('uMeteor', S.meteor); f1('uCover', S.cloudCover); f1('uStack', S.cloudStack); f1('uAmp', S.amplitude); f1('uSteam', S.steam);
+      f1('uWin', S.win); f1('uGlow', S.glow); f1('uRipple', S.ripple); f1('uRefl', S.refl);
+      f1('uHorizon', S.horizon); f1('uExposure', S.exposure); f1('uSat', S.saturation);
+      f1('uVignette', S.vignette); f1('uPoster', S.poster); f1('uZoom', S.zoom); f1('uCamY', S.camY);
+      gl.uniform1i(loc.uOct, S.detail);
+      for (const [k, , , u] of COLORS) gl.uniform3fv(loc[u], hexRgb(S[k]));
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    },
+  };
+}
+
+// ======== Canvas2D 降级：简化星空、拱桥、列车与倒影 ========
+function createFallback() {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Canvas2D 也不可用');
+  const stars = Array.from({ length: 160 }, () => [Math.random(), Math.random(), Math.random()]);
+  return {
+    draw(w, h) {
+      const H = h * (1 - S.horizon), u = h, z = S.zoom;
+      // 未缩放坐标下的可见范围：缩小时向四周多画，避免边缘空白
+      const xl = w / 2 - w / (2 * z), xr = w / 2 + w / (2 * z);
+      const yt = h / 2 - h / (2 * z) - S.camY * h, yb = h / 2 + h / (2 * z) - S.camY * h;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.translate(w / 2, h / 2); ctx.scale(z, z); ctx.translate(-w / 2, -h / 2 + S.camY * h);
+      const g = ctx.createLinearGradient(0, H - .64 * u, 0, H);
+      g.addColorStop(0, S.skyTop); g.addColorStop(1, S.skyHor);
+      ctx.fillStyle = g; ctx.fillRect(xl, yt, xr - xl, H - yt);
+      for (const [x, y, p] of stars) {
+        if (p > S.stars + .2) continue;
+        ctx.globalAlpha = .5 + .5 * Math.sin(M.t * (1 + 3 * p) + p * 50) * S.twinkle;
+        ctx.fillStyle = '#f2f0ff'; ctx.fillRect(xl + x * (xr - xl), yt + y * (H - yt) * .95, 1 / z, 1 / z);
+      }
+      ctx.globalAlpha = 1;
+      const g2 = ctx.createLinearGradient(0, H, 0, H + .5 * u);
+      g2.addColorStop(0, S.skyHor); g2.addColorStop(1, S.skyTop);
+      ctx.fillStyle = g2; ctx.fillRect(xl, H, xr - xl, yb - H);
+      const deck = H - .115 * u, P = .2 * u, aw = .074 * u, off = (M.camX * u) % P;
+      const drawWorld = () => {
+        ctx.fillStyle = S.bridgeColor; ctx.fillRect(xl, deck, xr - xl, H - deck);
+        ctx.fillStyle = S.skyHor;
+        for (let x = xl - off - (xl % P) - P; x < xr + P; x += P) {
+          ctx.beginPath(); ctx.ellipse(x + P / 2, H - .012 * u, aw, aw * .8, 0, Math.PI, 0); ctx.lineTo(x + P / 2 + aw, H); ctx.lineTo(x + P / 2 - aw, H); ctx.fill();
+        }
+        const tx = M.trainX * u, base = deck;
+        ctx.fillStyle = S.trainColor; ctx.fillRect(tx - .1 * u, base - .045 * u, .1 * u, .037 * u);
+        ctx.fillRect(tx - .02 * u, base - .05 * u, .007 * u, .01 * u);
+        for (let i = 0; i < S.cars; i++) {
+          const x0 = tx - .146 * u - i * .126 * u - .12 * u;
+          ctx.fillStyle = S.trainColor; ctx.fillRect(x0, base - .038 * u, .12 * u, .03 * u);
+          ctx.fillStyle = S.winColor;
+          for (let k = 0; k < 7; k++) ctx.fillRect(x0 + (.0105 + k * .0155) * u, base - .031 * u, .009 * u, .011 * u);
+        }
+      };
+      drawWorld();
+      ctx.save(); ctx.globalAlpha = Math.min(1, S.refl * .8); ctx.translate(0, 2 * H); ctx.scale(1, -1);
+      drawWorld(); ctx.restore();
+      ctx.fillStyle = 'rgba(13,18,64,.35)'; ctx.fillRect(xl, H, xr - xl, yb - H);
+    },
+  };
+}
+
+// ======== 启动 ========
+function startFallback(reason){renderer=null;console.error(reason);showNotice("该方法需要 WebGL，预览未启动："+reason); }
+try { renderer = createGL(); request(); }
+catch (e) { startFallback(e && e.message ? e.message : String(e)); }
+
+canvas.addEventListener('webglcontextlost', ev => {
+  ev.preventDefault(); cancelAnimationFrame(raf); raf = 0;
+  showNotice('显卡上下文丢失，正在等待恢复…');
+});
+canvas.addEventListener('webglcontextrestored', () => {
+  try { renderer.init(); notice.hidden = true; resetClock(); request(); }
+  catch (e) { startFallback(e.message); }
+});
+
+// ======== 面板 ========
+const slidersBox = document.getElementById('sliders');
+const groups = {};
+for (const [key, label, min, max, step, , group] of SLIDERS) {
+  if (!groups[group]) {
+    const fs = document.createElement('fieldset');
+    fs.innerHTML = '<legend>' + group + '</legend>';
+    slidersBox.appendChild(fs); groups[group] = fs;
+  }
+  const row = document.createElement('div'); row.className = 'row';
+  row.innerHTML = `<label for="ctl-${key}">${label}<button type="button" class="mini-reset" title="恢复该项默认">重置</button></label>` +
+    `<output id="out-${key}"></output><input type="range" id="ctl-${key}" min="${min}" max="${max}" step="${step}">`;
+  groups[group].appendChild(row);
+  row.querySelector('input').addEventListener('input', ev => { S[key] = parseFloat(ev.target.value); onChange(key); });
+  row.querySelector('.mini-reset').addEventListener('click', ev => { ev.preventDefault(); S[key] = DEFAULTS[key]; onChange(key); });
+}
+const togglesBox = document.getElementById('toggles');
+for (const [key, label] of TOGGLES) {
+  const l = document.createElement('label');
+  l.innerHTML = `<input type="checkbox" id="ctl-${key}">${label}`;
+  togglesBox.appendChild(l);
+  l.querySelector('input').addEventListener('change', ev => { S[key] = ev.target.checked; onChange(key); });
+}
+const colorsBox = document.getElementById('colors');
+for (const [key, label] of COLORS) {
+  const row = document.createElement('div'); row.className = 'row';
+  row.innerHTML = `<label for="ctl-${key}">${label}<button type="button" class="mini-reset" title="恢复该项默认">重置</button></label>` +
+    `<input type="color" id="ctl-${key}">`;
+  colorsBox.appendChild(row);
+  row.querySelector('input').addEventListener('input', ev => { S[key] = ev.target.value; onChange(key); });
+  row.querySelector('.mini-reset').addEventListener('click', ev => { ev.preventDefault(); S[key] = DEFAULTS[key]; onChange(key); });
+}
+const fmt = v => (Number.isInteger(v) ? String(v) : v.toFixed(2));
+function syncUI() {
+  for (const [k] of SLIDERS) { document.getElementById('ctl-' + k).value = S[k]; document.getElementById('out-' + k).textContent = fmt(S[k]); }
+  for (const [k] of TOGGLES) document.getElementById('ctl-' + k).checked = S[k];
+  for (const [k] of COLORS) document.getElementById('ctl-' + k).value = S[k];
+}
+function onChange(key) {
+  syncUI();
+  if (key === 'pixel') applyPixelClass();
+  if (key === 'scale' || key === 'fps' || key === 'paused' || key === 'auto') resetClock();
+  request();
+}
+syncUI();
+
+document.getElementById('panel-head').addEventListener('click', () => {
+  const p = document.getElementById('panel');
+  p.classList.toggle('collapsed');
+  document.getElementById('panel-toggle').textContent = p.classList.contains('collapsed') ? '▴' : '▾';
+});
+document.getElementById('btn-reset').addEventListener('click', () => {
+  Object.assign(S, DEFAULTS); applyPixelClass(); syncUI(); resetClock(); request();
+});
+document.getElementById('btn-save').addEventListener('click', () => {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch { /* 隐私模式下静默失败 */ }
+  const b = document.getElementById('btn-save'); b.textContent = '已记住 ✓';
+  setTimeout(() => { b.textContent = '记住设置'; }, 1500);
+});
+document.getElementById('btn-forget').addEventListener('click', () => {
+  try { localStorage.removeItem(STORE_KEY); } catch { /* 同上 */ }
+  const b = document.getElementById('btn-forget'); b.textContent = '已清除 ✓';
+  setTimeout(() => { b.textContent = '清除记录'; }, 1500);
+});
+document.addEventListener('keydown', ev => {
+  if ((ev.key === 'h' || ev.key === 'H') && !(ev.target instanceof HTMLInputElement && ev.target.type !== 'checkbox' && ev.target.type !== 'range')) {
+    document.body.classList.toggle('ui-hidden');
+  }
+});
+
+// Generated module preview adapter; source theme remains unchanged.
+if(new URLSearchParams(location.search).has("embed"))document.body.classList.add("ui-hidden");
+const moduleAllowed=new Set(["speed","scale","detail","fps","exposure","saturation","cars","win","glow"]);
+for(const [key] of SLIDERS){if(!moduleAllowed.has(key))document.getElementById("ctl-"+key).closest(".row").style.display="none";}
+for(const group of Object.values(groups)){if(!Array.from(group.querySelectorAll(".row")).some(row=>row.style.display!=="none"))group.style.display="none";}
+window.StarryModulePreview={...{"id":"starry-locomotive-sdf","previewKind":"isolated-with-host","source":"themes/starry-night-train/index.html","dependencies":["PAINT / sdBox / hash","gGlow / uTrainX / uWheel / uCars / DECK","原宿主色板与行进状态"]},get state(){return {ready:!!renderer?.gl,webgl:!!renderer?.gl,notice:notice.hidden?null:notice.textContent,time:M.t,settings:{...S},resolution:[canvas.width,canvas.height],glError:renderer?.gl?.getError()??null};},
+setSettings(patch){Object.assign(S,normalize({...S,...patch}));applyPixelClass();syncUI();resetClock();request();},
+renderAt(time){if(!renderer?.gl)throw Error("WebGL preview unavailable");Object.assign(M,{t:0,camX:0,fore:0,far:37,smoke:0,trainX:null,wheel:0,cl:[32.5,30,27.5,23,20.5,18,18,15.5,12,9.5,7,3.5]});S.paused=false;const [w,h]=targetSize();canvas.width=w;canvas.height=h;advance(Math.max(0,Number(time)||0),w/h);S.paused=true;resetClock();renderer.draw(w,h);syncUI();return this.state;}};
+</script>
+</body>
+</html>

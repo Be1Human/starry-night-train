@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "clouds/starry-puffy-scene",
+  "category": "clouds",
+  "name": "星河圆云整图实验",
+  "method": "交错球冠簇场＋六层圆云合成，放入原列车场景",
+  "status": "experiment",
+  "sourceMode": "generated-extract",
+  "sourceFiles": [
+    "modules/clouds/starry-puffy-scene/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/starry-night-train/experiments/train-puffy-experiment-1792078486188.html",
+      "sha256": "989118c176c6cbd5f261630e7080143e842413bd8901acc26866d9d39ca7ef40"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/clouds/starry-puffy-scene/preview.html",
+    "kind": "historical-scene",
+    "offline": false
+  },
+  "interfaces": [
+    "cloudEnv / evalDomeCluster / evalCloudLayer / clouds"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "pitfalls": [
+    "属于历史实验，不替代正式星河入口",
+    "保留来源说明，不能因换了云就推定整个文件的许可"
+  ],
+  "evidence": [],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "sortOrder": 8
+}

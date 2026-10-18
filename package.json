@@ -1,0 +1,12 @@
+{
+  "name": "train-wallpapers-gallery",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "build:library": "node tools/build-module-library.mjs"
+  }
+}

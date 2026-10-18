@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "clouds/billow-clusters-r02",
+  "category": "clouds",
+  "name": "R02 双尺度球冠簇",
+  "method": "大轮廓包络＋两级局部3×3球冠邻域＋分段光色",
+  "status": "experiment",
+  "sourceMode": "archived-extract",
+  "sourceFiles": [
+    "modules/clouds/billow-clusters-r02/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/cloud.glsl",
+      "sha256": "3cb087dd9ba4eb7247168cc428cf96b3b4a6c3d9fa26c4062851d4ab36ea9c56"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/common.glsl",
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/clouds/billow-clusters-r02/preview.html",
+    "kind": "isolated",
+    "offline": true
+  },
+  "interfaces": [
+    "cloudField / cloudWarp / cloudBillows / cloudVariant",
+    "seed / scale / haze / uDetail"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "每云调用两级邻域计算，逐像素开销高于简单轮廓",
+    "仍属于球冠受光造型，不能等同参考图的平涂内部图案"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/clouds--billow-clusters-r02.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 3
+}

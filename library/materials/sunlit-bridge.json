@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "sunlit-bridge",
+  "title": "日光石桥",
+  "category": "bridge",
+  "implementation": "shader",
+  "summary": "蓝灰石材、桥墩受光与桥脚植被染色。",
+  "editable": [
+    "日光强度与桥体颜色",
+    "桥墩间距和石材颗粒"
+  ],
+  "preview": {
+    "path": "modules/bridge/blue-stone-lighting/preview.html",
+    "query": "embed=1",
+    "engine": "CloudLibrary",
+    "settings": {
+      "scale": 0.85,
+      "speed": 1,
+      "wind": 1,
+      "sun": 1
+    },
+    "aspect": "8 / 3"
+  },
+  "sourceFiles": [
+    "modules/bridge/blue-stone-lighting/source.glsl"
+  ],
+  "assets": [],
+  "dependencies": [],
+  "edit": {
+    "sourceMode": "canonical",
+    "authority": [
+      "modules/bridge/blue-stone-lighting/source.glsl"
+    ],
+    "instructions": "修改模块权威源并重建；lab/src 中的兼容镜像不是编辑入口。"
+  },
+  "interfaces": [
+    "bridge(vec2 p,float t)",
+    "uSun / DECK / BRIDGE_FOOT"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "sourceCases": [
+    {
+      "id": "blue-sky-assets",
+      "recipe": "cases/blue-sky-assets/scene.json"
+    }
+  ],
+  "pitfalls": [
+    "简化色层光照，不是物理光追",
+    "石纹不是逐像素复刻；画幅缩小时细护栏易丢失"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "build": "npm run build:library",
+  "runtime": "npm start"
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "train/svg-steam-loop",
+  "category": "train",
+  "name": "原画 SVG 蒸汽循环",
+  "method": "七个矢量烟形沿固定路径移动、放大、淡出",
+  "status": "integrated",
+  "sourceMode": "archived-extract",
+  "sourceFiles": [
+    "modules/train/svg-steam-loop/source.svg"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "tools/vectorize.py",
+      "sha256": "add47b9281b1d589de522b1342c7aa9418fc0b304b31f30ede5fe05bf1c2ba59"
+    },
+    {
+      "path": "themes/blue-sky-train/wallpaper.js",
+      "sha256": "fb76dc7799d63d21b3620f60c9182f9a6b4e1ab2f0899e83c35c24c68fb3dd8e"
+    }
+  ],
+  "assets": [
+    "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+  ],
+  "preview": {
+    "path": "modules/train/svg-steam-loop/preview.html",
+    "kind": "scene-context",
+    "offline": false
+  },
+  "interfaces": [
+    "#steam-layer / animateTransform / animate opacity",
+    "settings.steam / svg.setCurrentTime"
+  ],
+  "contract": {
+    "coordinates": "原图 viewBox 0 0 2048 768；烟囱和水域遮罩依附原画",
+    "time": "SVG SMIL 动画；wallpaper.js 调用 pauseAnimations() 后，以统一 time 驱动 svg.setCurrentTime(time)。",
+    "color": "浏览器原生SVG填色、opacity与滤镜合成；水域通过clipPath裁切，无GLSL/PNG上传步骤。"
+  },
+  "pitfalls": [
+    "发射路径和烟囱位置绑定原画坐标",
+    "未拆列车主体，列车不会在原画中真正行驶"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "themes/blue-sky-train/wallpaper.js",
+    "themes/blue-sky-train/settings.js",
+    "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+  ],
+  "sortOrder": 28
+}

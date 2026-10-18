@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "painted-clouds",
+  "title": "蓝天积云",
+  "category": "clouds",
+  "implementation": "hybrid",
+  "summary": "完整透明云素材，配合 Shader 混色与分层漂移。",
+  "editable": [
+    "替换云塔、云带 PNG",
+    "云间距、远近比例与风速"
+  ],
+  "preview": {
+    "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
+    "query": "embed=1",
+    "engine": "CloudLibrary",
+    "settings": {
+      "scale": 0.85,
+      "speed": 1,
+      "wind": 1,
+      "sun": 1
+    },
+    "aspect": "8 / 3"
+  },
+  "sourceFiles": [
+    "modules/clouds/complete-cloud-stream-r04/source.glsl"
+  ],
+  "assets": [
+    "assets/blue-sky-train/clouds/r04/cloud-tower.png",
+    "assets/blue-sky-train/clouds/r04/cloud-bank.png"
+  ],
+  "dependencies": [
+    "modules/motion/blue-stream-parallax/stream.js",
+    "cases/blue-sky-assets/runtime.js",
+    "modules/_shared/blue/scene-core.glsl"
+  ],
+  "edit": {
+    "sourceMode": "canonical",
+    "authority": [
+      "modules/clouds/complete-cloud-stream-r04/source.glsl"
+    ],
+    "instructions": "修改模块权威源并重建；lab/src 中的兼容镜像不是编辑入口。"
+  },
+  "interfaces": [
+    "completeCloud / cloudBank",
+    "createAssetStream(step,far).update(distance,seed)",
+    "uCloudLayout[12] / uCloudKinds[12]"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "sourceCases": [
+    {
+      "id": "blue-sky-assets",
+      "recipe": "cases/blue-sky-assets/scene.json"
+    }
+  ],
+  "pitfalls": [
+    "有限两种云形会被认出重复",
+    "必须保留完整透明外边距、宽高比与统一受光，不随意镜像",
+    "24小时已有检查为时间跳转，不是持续运行"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "build": "npm run build:library",
+  "runtime": "npm start"
+}

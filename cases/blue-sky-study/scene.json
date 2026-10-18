@@ -1,0 +1,90 @@
+{
+  "id": "blue-sky-study",
+  "name": "蓝天运动骨架 · R03",
+  "description": "理解四层云纹、局部列车坐标和同一场景倒影的最小组合。",
+  "status": "study",
+  "entry": "themes/blue-sky-train/lab/examples/scene.html",
+  "preview": "assets/blue-sky-train/source/blue-sky-train.png",
+  "layers": [
+    {
+      "role": "sky",
+      "template": "sky/blue-gradient",
+      "listingOrder": 0
+    },
+    {
+      "role": "clouds",
+      "template": "clouds/svg-flat-masks-r03",
+      "listingOrder": 1
+    },
+    {
+      "role": "terrain",
+      "template": "terrain/noise-ridges",
+      "listingOrder": 2
+    },
+    {
+      "role": "bridge",
+      "template": "bridge/simple-arch-bridge",
+      "listingOrder": 3
+    },
+    {
+      "role": "train",
+      "template": "train/blue-locomotive-sdf",
+      "listingOrder": 4
+    },
+    {
+      "role": "steam",
+      "template": "train/world-puffs",
+      "listingOrder": 5
+    },
+    {
+      "role": "water",
+      "template": "water/shared-scene-reflection",
+      "listingOrder": 6
+    },
+    {
+      "role": "foreground",
+      "template": "foreground/edge-noise-shrubs",
+      "listingOrder": 7
+    }
+  ],
+  "shared": {
+    "aspect": "8:3",
+    "horizon": 0.265,
+    "deck": 0.375,
+    "trainScale": [
+      1,
+      1
+    ],
+    "time": "共享 uTime；cameraAt=t×speed"
+  },
+  "limitations": [
+    "R03云图案有原山体遮挡边，不能作为完整透明云自由漂浮。",
+    "旧镜头公式在动态调速时可能跳变。"
+  ],
+  "composition": [
+    "cases/blue-sky-study/compose.glsl",
+    "tools/build-ta-lab.mjs"
+  ],
+  "schemaVersion": 1,
+  "recipeKind": "descriptive",
+  "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+  "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+  "compositing": {
+    "direction": "back-to-front",
+    "aboveWater": [
+      "sky",
+      "cloudBank",
+      "mountains",
+      "bank",
+      "train",
+      "steam",
+      "bridge（含护栏，覆盖车轮下缘）"
+    ],
+    "fullScene": [
+      "aboveWater",
+      "水线以下反射坐标重求值aboveWater",
+      "水面染色与波纹",
+      "foreground"
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "terrain/valley-distance-r05",
+  "category": "terrain",
+  "name": "远湖山谷与空气透视",
+  "method": "周期山峰包络＋三层低速视差＋坡面色块＋谷底空气光",
+  "status": "integrated",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/terrain/valley-distance-r05/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
+      "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/terrain/valley-distance-r05/preview.html",
+    "kind": "isolated",
+    "offline": false
+  },
+  "interfaces": [
+    "mountainPeak / mountains",
+    "视差 .035/.08/.125",
+    "uSun"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "山体造型和材质仍有用户反馈待修正",
+    "不能以R09近景通过来声称山体美术已通过",
+    "cameraAt使用时间×速度，调速可能造成远景位置跳变"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/terrain--valley-distance-r05.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 10
+}

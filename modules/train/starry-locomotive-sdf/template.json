@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "train/starry-locomotive-sdf",
+  "category": "train",
+  "name": "星河可变车厢列车",
+  "method": "SDF机车＋车厢索引定位＋随机窗光＋车灯光晕",
+  "status": "integrated",
+  "sourceMode": "generated-extract",
+  "sourceFiles": [
+    "modules/train/starry-locomotive-sdf/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/starry-night-train/index.html",
+      "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/train/starry-locomotive-sdf/preview.html",
+    "kind": "isolated-with-host",
+    "offline": true
+  },
+  "interfaces": [
+    "train(vec2 p)",
+    "uCars / uTrainX / uWheel / uWin / uGlow"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "pitfalls": [
+    "依赖PAINT宏、gGlow与全局色板",
+    "局部几何朝向与蓝天相反，不能直接替换坐标"
+  ],
+  "evidence": [],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "thumbnail": "library/thumbnails/train--starry-locomotive-sdf.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 13
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "water/shared-scene-reflection",
+  "category": "water",
+  "name": "蓝天同场景实时倒影",
+  "method": "反射坐标再求值同一个aboveWater，加透视波纹和深度染色",
+  "status": "standalone-example",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/water/shared-scene-reflection/source.glsl",
+    "modules/water/shared-scene-reflection/study.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/world.glsl",
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
+      "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/water/shared-scene-reflection/preview.html",
+    "kind": "scene-context",
+    "offline": false
+  },
+  "interfaces": [
+    "reflectionPoint / fullScene / aboveWater",
+    "HORIZON / uRipple"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "反射与原景必须使用相同时间和位移",
+    "会增加场景求值开销；不能把旧帧截图当成实时倒影"
+  ],
+  "evidence": [
+    "themes/blue-sky-train/lab/evidence/report.json"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "cases/blue-sky-assets/compose.glsl",
+    "cases/blue-sky-study/compose.glsl"
+  ],
+  "thumbnail": "library/thumbnails/water--shared-scene-reflection.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 16
+}

@@ -1,0 +1,98 @@
+{
+  "id": "blue-sky-assets",
+  "name": "蓝天湖景 · 素材与程序组合",
+  "description": "完整云与草叶素材，结合程序山、桥、列车和实时倒影。当前研究主场景。",
+  "status": "work-in-progress",
+  "entry": "themes/blue-sky-train/lab/cloud-library.html",
+  "preview": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
+  "layers": [
+    {
+      "role": "sky",
+      "template": "sky/blue-gradient",
+      "listingOrder": 0
+    },
+    {
+      "role": "clouds",
+      "template": "clouds/complete-cloud-stream-r04",
+      "listingOrder": 1
+    },
+    {
+      "role": "terrain",
+      "template": "terrain/valley-distance-r05",
+      "listingOrder": 2
+    },
+    {
+      "role": "bridge",
+      "template": "bridge/blue-stone-lighting",
+      "listingOrder": 3
+    },
+    {
+      "role": "train",
+      "template": "train/blue-locomotive-sdf",
+      "listingOrder": 4
+    },
+    {
+      "role": "steam",
+      "template": "train/original-starry-steam",
+      "listingOrder": 5
+    },
+    {
+      "role": "water",
+      "template": "water/shared-scene-reflection",
+      "listingOrder": 6
+    },
+    {
+      "role": "foreground",
+      "template": "foreground/generated-foliage-r09",
+      "listingOrder": 7
+    },
+    {
+      "role": "motion",
+      "template": "motion/blue-stream-parallax",
+      "listingOrder": 8
+    }
+  ],
+  "shared": {
+    "aspect": "8:3",
+    "horizon": 0.265,
+    "deck": 0.376,
+    "trainScale": [
+      0.55,
+      0.43
+    ],
+    "lighting": "左上方日光；生成PNG保留原受光方向",
+    "time": "uTime + uGroundTravel；倒影复用 aboveWater(p,t)"
+  },
+  "limitations": [
+    "山体造型仍需校准。",
+    "原星河烟雾的蓝天适配尚未完成 R10 专项验收。",
+    "固定数量素材可持续排列，云与叶形仍会重复。"
+  ],
+  "composition": [
+    "cases/blue-sky-assets/compose.glsl",
+    "cases/blue-sky-assets/runtime.js",
+    "tools/build-cloud-library.mjs"
+  ],
+  "schemaVersion": 1,
+  "recipeKind": "descriptive",
+  "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+  "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+  "compositing": {
+    "direction": "back-to-front",
+    "aboveWater": [
+      "sky",
+      "cloudBank",
+      "mountains",
+      "bank",
+      "train",
+      "steam",
+      "bridge（含护栏，覆盖车轮下缘）"
+    ],
+    "fullScene": [
+      "aboveWater",
+      "水线以下反射坐标重求值aboveWater",
+      "水面染色与波纹",
+      "foreground"
+    ]
+  }
+}

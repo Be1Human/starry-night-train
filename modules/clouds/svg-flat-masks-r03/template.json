@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "clouds/svg-flat-masks-r03",
+  "category": "clouds",
+  "name": "R03 四层平涂云纹",
+  "method": "参考SVG有序路径→四通道嵌套遮罩→统一坐标平涂",
+  "status": "standalone-example",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/clouds/svg-flat-masks-r03/mask.js",
+    "modules/clouds/svg-flat-masks-r03/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/cloud.glsl",
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/cloud-mask.js",
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "tools/build-cloud-patterns.mjs",
+      "sha256": "be32ba8fa91af2c8e5f16159c346d2516d66c9965acc510a9e003cd688105f1c"
+    }
+  ],
+  "assets": [
+    "assets/blue-sky-train/vector/cloud-patterns.json"
+  ],
+  "preview": {
+    "path": "modules/clouds/svg-flat-masks-r03/preview.html",
+    "kind": "isolated",
+    "offline": true
+  },
+  "interfaces": [
+    "cloudMasks / colorCloudPattern / cloudMotion / cloudBank",
+    "uCloudMasks / uDebug(4,5,6) / uWind"
+  ],
+  "contract": {
+    "coordinates": "GLSL世界坐标：x∈[0,8/3]，y∈[0,1]，+y向上；cloudMasks内部换算2048×480遮罩纹理坐标。",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "参考图轮廓复用，不是无限生成新云形",
+    "山后及画幅外区域没有补全，只适合构图内有限运动",
+    "四层共用UV，避免深色内层跑出白底"
+  ],
+  "evidence": [
+    "themes/blue-sky-train/lab/evidence/report.json"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "modules/_shared/blue/study-core.glsl",
+    "modules/motion/blue-stream-parallax/study-camera.glsl",
+    "modules/clouds/svg-flat-masks-r03/mask.js"
+  ],
+  "thumbnail": "library/thumbnails/clouds--svg-flat-masks-r03.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 4
+}

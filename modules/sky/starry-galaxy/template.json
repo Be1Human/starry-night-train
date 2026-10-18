@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "sky/starry-galaxy",
+  "category": "sky",
+  "name": "星河、闪星与流星",
+  "method": "倾斜高斯银河＋fbm暗尘＋两层哈希星点＋线段流星",
+  "status": "integrated",
+  "sourceMode": "generated-extract",
+  "sourceFiles": [
+    "modules/sky/starry-galaxy/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/starry-night-train/index.html",
+      "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/sky/starry-galaxy/preview.html",
+    "kind": "isolated-with-host",
+    "offline": true
+  },
+  "interfaces": [
+    "sky(vec2 sp)",
+    "starLayer / meteor",
+    "uStars / uMilky / uMeteor / uZoom / uCamY"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "pitfalls": [
+    "嵌在单文件 shader，依赖噪声纹理与相机全局量",
+    "需要和云算法的许可范围分清"
+  ],
+  "evidence": [],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "thumbnail": "library/thumbnails/sky--starry-galaxy.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 1
+}

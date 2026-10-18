@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "train/blue-locomotive-sdf",
+  "category": "train",
+  "name": "蓝天机车与联动轮轴",
+  "method": "SDF车身＋轮组＋连杆＋两节车厢",
+  "status": "standalone-example",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/train/blue-locomotive-sdf/distant.glsl",
+    "modules/train/blue-locomotive-sdf/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/train.glsl",
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/common.glsl",
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-train.glsl",
+      "sha256": "82272b4a901078ba01df09158c91833f1b75c31bc3a4e94a1be8b2e16b043b7c"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/train/blue-locomotive-sdf/preview.html",
+    "kind": "isolated",
+    "offline": true
+  },
+  "interfaces": [
+    "locomotive / wheel / train",
+    "WHEEL_RADIUS / travel / headAt / TRAIN_SCALE"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "scene-train仅适配远景尺寸，不是另一套机车造型",
+    "两节客车硬编码，轮轴相位依赖里程与尺度一致"
+  ],
+  "evidence": [
+    "themes/blue-sky-train/lab/evidence/report.json"
+  ],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "modules/_shared/blue/study-core.glsl",
+    "modules/motion/blue-stream-parallax/study-camera.glsl"
+  ],
+  "thumbnail": "library/thumbnails/train--blue-locomotive-sdf.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 12
+}

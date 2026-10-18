@@ -1,0 +1,1971 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "sky",
+      "name": "天空"
+    },
+    {
+      "id": "clouds",
+      "name": "云"
+    },
+    {
+      "id": "terrain",
+      "name": "山体与远近"
+    },
+    {
+      "id": "train",
+      "name": "列车与烟雾"
+    },
+    {
+      "id": "water",
+      "name": "湖面"
+    },
+    {
+      "id": "foreground",
+      "name": "近景"
+    },
+    {
+      "id": "bridge",
+      "name": "桥梁与光照"
+    },
+    {
+      "id": "motion",
+      "name": "镜头与分层运动"
+    }
+  ],
+  "status": {
+    "integrated": "已接入案例",
+    "standalone-example": "独立教学案例",
+    "experiment": "历史实验",
+    "adapter-unverified": "适配待验收"
+  },
+  "templates": [
+    {
+      "schemaVersion": 1,
+      "id": "sky/blue-gradient",
+      "category": "sky",
+      "name": "蓝天渐变与局部亮区",
+      "method": "渐变色＋指数衰减光斑",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/sky/blue-gradient/source.glsl",
+        "modules/sky/blue-gradient/study.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/common.glsl",
+          "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+          "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/sky/blue-gradient/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "sky(vec2 p)",
+        "色板、地平线范围、亮区中心/半径"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "源码同时包含噪声工具和镜头参数；天空函数可单独提取",
+        "亮区是颜色模型，不是物理照明"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/sky--blue-gradient.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 0,
+      "sha256": {
+        "modules/sky/blue-gradient/source.glsl": "a424e6baa02d1d95458929f2b742dc26d05fed921b998193a6b182cb00dec158",
+        "modules/sky/blue-gradient/study.glsl": "1aa08571209607ad678012c9fed03e841057b2818c83fa78c118d7a5855b669d"
+      },
+      "readme": "modules/sky/blue-gradient/README.md",
+      "manifest": "modules/sky/blue-gradient/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "sky/starry-galaxy",
+      "category": "sky",
+      "name": "星河、闪星与流星",
+      "method": "倾斜高斯银河＋fbm暗尘＋两层哈希星点＋线段流星",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/sky/starry-galaxy/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/sky/starry-galaxy/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "sky(vec2 sp)",
+        "starLayer / meteor",
+        "uStars / uMilky / uMeteor / uZoom / uCamY"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "嵌在单文件 shader，依赖噪声纹理与相机全局量",
+        "需要和云算法的许可范围分清"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/sky--starry-galaxy.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 1,
+      "sha256": {
+        "modules/sky/starry-galaxy/source.glsl": "1e1ba6b46d3bad1a50b785e19a0da31c19d15ee36b74e52c88b6839d432166e0"
+      },
+      "readme": "modules/sky/starry-galaxy/README.md",
+      "manifest": "modules/sky/starry-galaxy/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/sdf-cumulus-r01",
+      "category": "clouds",
+      "name": "R01 椭圆积云",
+      "method": "平滑合并椭圆 SDF＋高度场法线＋三色带",
+      "status": "experiment",
+      "sourceMode": "archived-extract",
+      "sourceFiles": [
+        "modules/clouds/sdf-cumulus-r01/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/history/r01/src/cloud.glsl",
+          "sha256": "2aa253e08e4473d1d63cb6b76aee14e065992ad799e7352be869abf0e25b6eda"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/history/r01/src/common.glsl",
+          "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/clouds/sdf-cumulus-r01/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "cloudShape / cloudField / cloudHeight / cloud / cloudBank",
+        "uDetail / uWind / uDebug"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "形状由固定的少数椭圆决定，和参考平涂云差异大",
+        "法线色带易产生立体胶团感"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/clouds--sdf-cumulus-r01.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 2,
+      "sha256": {
+        "modules/clouds/sdf-cumulus-r01/source.glsl": "2aa253e08e4473d1d63cb6b76aee14e065992ad799e7352be869abf0e25b6eda"
+      },
+      "readme": "modules/clouds/sdf-cumulus-r01/README.md",
+      "manifest": "modules/clouds/sdf-cumulus-r01/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/billow-clusters-r02",
+      "category": "clouds",
+      "name": "R02 双尺度球冠簇",
+      "method": "大轮廓包络＋两级局部3×3球冠邻域＋分段光色",
+      "status": "experiment",
+      "sourceMode": "archived-extract",
+      "sourceFiles": [
+        "modules/clouds/billow-clusters-r02/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/history/r02/src/cloud.glsl",
+          "sha256": "3cb087dd9ba4eb7247168cc428cf96b3b4a6c3d9fa26c4062851d4ab36ea9c56"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/history/r02/src/common.glsl",
+          "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/clouds/billow-clusters-r02/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "cloudField / cloudWarp / cloudBillows / cloudVariant",
+        "seed / scale / haze / uDetail"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "每云调用两级邻域计算，逐像素开销高于简单轮廓",
+        "仍属于球冠受光造型，不能等同参考图的平涂内部图案"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/clouds--billow-clusters-r02.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 3,
+      "sha256": {
+        "modules/clouds/billow-clusters-r02/source.glsl": "3cb087dd9ba4eb7247168cc428cf96b3b4a6c3d9fa26c4062851d4ab36ea9c56"
+      },
+      "readme": "modules/clouds/billow-clusters-r02/README.md",
+      "manifest": "modules/clouds/billow-clusters-r02/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/svg-flat-masks-r03",
+      "category": "clouds",
+      "name": "R03 四层平涂云纹",
+      "method": "参考SVG有序路径→四通道嵌套遮罩→统一坐标平涂",
+      "status": "standalone-example",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/clouds/svg-flat-masks-r03/mask.js",
+        "modules/clouds/svg-flat-masks-r03/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/cloud.glsl",
+          "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/cloud-mask.js",
+          "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+        },
+        {
+          "path": "tools/build-cloud-patterns.mjs",
+          "sha256": "be32ba8fa91af2c8e5f16159c346d2516d66c9965acc510a9e003cd688105f1c"
+        }
+      ],
+      "assets": [
+        "assets/blue-sky-train/vector/cloud-patterns.json"
+      ],
+      "preview": {
+        "path": "modules/clouds/svg-flat-masks-r03/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "cloudMasks / colorCloudPattern / cloudMotion / cloudBank",
+        "uCloudMasks / uDebug(4,5,6) / uWind"
+      ],
+      "contract": {
+        "coordinates": "GLSL世界坐标：x∈[0,8/3]，y∈[0,1]，+y向上；cloudMasks内部换算2048×480遮罩纹理坐标。",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "参考图轮廓复用，不是无限生成新云形",
+        "山后及画幅外区域没有补全，只适合构图内有限运动",
+        "四层共用UV，避免深色内层跑出白底"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/report.json"
+      ],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "modules/_shared/blue/study-core.glsl",
+        "modules/motion/blue-stream-parallax/study-camera.glsl",
+        "modules/clouds/svg-flat-masks-r03/mask.js"
+      ],
+      "thumbnail": "library/thumbnails/clouds--svg-flat-masks-r03.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 4,
+      "sha256": {
+        "modules/clouds/svg-flat-masks-r03/mask.js": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0",
+        "modules/clouds/svg-flat-masks-r03/source.glsl": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+      },
+      "readme": "modules/clouds/svg-flat-masks-r03/README.md",
+      "manifest": "modules/clouds/svg-flat-masks-r03/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/complete-cloud-stream-r04",
+      "category": "clouds",
+      "name": "R04 完整透明云素材流",
+      "method": "两种完整生成PNG＋种子布局＋近远各6个固定槽位",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/clouds/complete-cloud-stream-r04/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-cloud.glsl",
+          "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-stream.js",
+          "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+          "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+        }
+      ],
+      "assets": [
+        "assets/blue-sky-train/clouds/r04/cloud-tower.png",
+        "assets/blue-sky-train/clouds/r04/cloud-bank.png"
+      ],
+      "preview": {
+        "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
+        "kind": "isolated",
+        "offline": false,
+        "engine": "CloudLibrary",
+        "frame": true
+      },
+      "interfaces": [
+        "completeCloud / cloudBank",
+        "createAssetStream(step,far).update(distance,seed)",
+        "uCloudLayout[12] / uCloudKinds[12]"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "有限两种云形会被认出重复",
+        "必须保留完整透明外边距、宽高比与统一受光，不随意镜像",
+        "24小时已有检查为时间跳转，不是持续运行"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/r04-assets/report.json",
+        "themes/blue-sky-train/lab/evidence/r09-generated-foreground/report.json"
+      ],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "modules/motion/blue-stream-parallax/stream.js",
+        "cases/blue-sky-assets/runtime.js",
+        "modules/_shared/blue/scene-core.glsl"
+      ],
+      "thumbnail": "library/thumbnails/clouds--complete-cloud-stream-r04.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 5,
+      "sha256": {
+        "modules/clouds/complete-cloud-stream-r04/source.glsl": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+      },
+      "readme": "modules/clouds/complete-cloud-stream-r04/README.md",
+      "manifest": "modules/clouds/complete-cloud-stream-r04/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/starry-layered-heightfield",
+      "category": "clouds",
+      "name": "星河 12 层噪声高度场",
+      "method": "二维fbm等值线轮廓＋每层2–4道色带＋前向累积提前退出",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/clouds/starry-layered-heightfield/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        },
+        {
+          "path": "themes/starry-night-train/README.md",
+          "sha256": "e696e54122325507e857fc02660971288553811489722934f2acc60ff354b0eb"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/clouds/starry-layered-heightfield/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "cnoise / cfbm / cpal / clouds",
+        "uCL[12] / uCover / uStack / uAmp / uOct / uCloudTex / uNMin / uNMax"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "mdb 云算法移植，上游缺少再分发许可；README标明仅学习欣赏勿商用",
+        "不能包装为本仓库原创或默认商业素材"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/clouds--starry-layered-heightfield.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 6,
+      "sha256": {
+        "modules/clouds/starry-layered-heightfield/source.glsl": "71625410cf24b5c633583dc2e9df343af43f34add78f71482bf9086369af5571"
+      },
+      "readme": "modules/clouds/starry-layered-heightfield/README.md",
+      "manifest": "modules/clouds/starry-layered-heightfield/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/starry-round-clouds",
+      "category": "clouds",
+      "name": "星河多尺度圆云实验",
+      "method": "macro/meso/micro球冠簇＋圆弧高光＋六层U形构图",
+      "status": "experiment",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/clouds/starry-round-clouds/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/experiments/round-clouds.html",
+          "sha256": "196ff39f50d1f148767c22557ee8edc29b9a42c9c2268d4b7f1b58f2c710b899"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/clouds/starry-round-clouds/preview.html",
+        "kind": "historical-scene",
+        "offline": false,
+        "engine": "linked",
+        "frame": true
+      },
+      "interfaces": [
+        "cloudWarp / crestAt / evalScale / cloudLayer"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "独立美术实验，正式星河壁纸不使用该实现",
+        "主要构图是固定U形山谷，换场景仍需调包络"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "sortOrder": 7,
+      "sha256": {
+        "modules/clouds/starry-round-clouds/source.glsl": "4b4c321f62510ee45a96184ad94f059efe867dea3728ef0a38ea8515459e22bc"
+      },
+      "readme": "modules/clouds/starry-round-clouds/README.md",
+      "manifest": "modules/clouds/starry-round-clouds/template.json",
+      "thumbnail": "assets/starry-night-train/images/screenshot.png",
+      "thumbnailKind": "案例参考"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "clouds/starry-puffy-scene",
+      "category": "clouds",
+      "name": "星河圆云整图实验",
+      "method": "交错球冠簇场＋六层圆云合成，放入原列车场景",
+      "status": "experiment",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/clouds/starry-puffy-scene/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/experiments/train-puffy-experiment-1792078486188.html",
+          "sha256": "989118c176c6cbd5f261630e7080143e842413bd8901acc26866d9d39ca7ef40"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/clouds/starry-puffy-scene/preview.html",
+        "kind": "historical-scene",
+        "offline": false,
+        "engine": "linked",
+        "frame": true
+      },
+      "interfaces": [
+        "cloudEnv / evalDomeCluster / evalCloudLayer / clouds"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "属于历史实验，不替代正式星河入口",
+        "保留来源说明，不能因换了云就推定整个文件的许可"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "sortOrder": 8,
+      "sha256": {
+        "modules/clouds/starry-puffy-scene/source.glsl": "ccd7babf71dc3a0cf9fe5d7453392ca8805f0edc1aa72a6f238af865f4ce08d9"
+      },
+      "readme": "modules/clouds/starry-puffy-scene/README.md",
+      "manifest": "modules/clouds/starry-puffy-scene/template.json",
+      "thumbnail": "assets/starry-night-train/images/screenshot.png",
+      "thumbnailKind": "案例参考"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "terrain/noise-ridges",
+      "category": "terrain",
+      "name": "三层噪声山脊",
+      "method": "多频噪声轮廓＋分层色板＋细碎植被色块",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/terrain/noise-ridges/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/world.glsl",
+          "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/common.glsl",
+          "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/terrain/noise-ridges/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "mountains(vec2 p,vec3 c,float t)",
+        "layer depth .07/.15/.23"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "简单噪声山形与参考原图不一致",
+        "深度参数同时影响速度和外观，宜拆成明确参数"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/terrain--noise-ridges.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 9,
+      "sha256": {
+        "modules/terrain/noise-ridges/source.glsl": "9a78eb58eef8c6d89cbd1597a6e4e4b05e8d7132ac1ef00751f93d35b1c0fd4e"
+      },
+      "readme": "modules/terrain/noise-ridges/README.md",
+      "manifest": "modules/terrain/noise-ridges/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "terrain/valley-distance-r05",
+      "category": "terrain",
+      "name": "远湖山谷与空气透视",
+      "method": "周期山峰包络＋三层低速视差＋坡面色块＋谷底空气光",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/terrain/valley-distance-r05/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
+          "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+          "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/terrain/valley-distance-r05/preview.html",
+        "kind": "isolated",
+        "offline": false,
+        "engine": "CloudLibrary",
+        "frame": true
+      },
+      "interfaces": [
+        "mountainPeak / mountains",
+        "视差 .035/.08/.125",
+        "uSun"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "山体造型和材质仍有用户反馈待修正",
+        "不能以R09近景通过来声称山体美术已通过",
+        "cameraAt使用时间×速度，调速可能造成远景位置跳变"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/terrain--valley-distance-r05.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 10,
+      "sha256": {
+        "modules/terrain/valley-distance-r05/source.glsl": "5dce2d76a467e71276532365368a10025d9b76560c5a6a869ddcdccd0639b3a1"
+      },
+      "readme": "modules/terrain/valley-distance-r05/README.md",
+      "manifest": "modules/terrain/valley-distance-r05/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "terrain/starry-far-shore",
+      "category": "terrain",
+      "name": "夜间远岸与城镇灯光",
+      "method": "噪声岸线＋哈希楼体和灯点",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/terrain/starry-far-shore/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/terrain/starry-far-shore/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "farShore(vec2 p)",
+        "uFarOff / uHorizon / gGlow"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "这是远岸剪影和灯光，不是完整山体模板",
+        "gGlow副作用需要在复用时明确合成接口"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/terrain--starry-far-shore.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 11,
+      "sha256": {
+        "modules/terrain/starry-far-shore/source.glsl": "4ebf8eccf61301a173499658cfe27731d6cfbc6b0cd72ac88f29c480246e6c6b"
+      },
+      "readme": "modules/terrain/starry-far-shore/README.md",
+      "manifest": "modules/terrain/starry-far-shore/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "train/blue-locomotive-sdf",
+      "category": "train",
+      "name": "蓝天机车与联动轮轴",
+      "method": "SDF车身＋轮组＋连杆＋两节车厢",
+      "status": "standalone-example",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/train/blue-locomotive-sdf/distant.glsl",
+        "modules/train/blue-locomotive-sdf/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/train.glsl",
+          "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/common.glsl",
+          "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-train.glsl",
+          "sha256": "82272b4a901078ba01df09158c91833f1b75c31bc3a4e94a1be8b2e16b043b7c"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+          "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/train/blue-locomotive-sdf/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "locomotive / wheel / train",
+        "WHEEL_RADIUS / travel / headAt / TRAIN_SCALE"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "scene-train仅适配远景尺寸，不是另一套机车造型",
+        "两节客车硬编码，轮轴相位依赖里程与尺度一致"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/report.json"
+      ],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "modules/_shared/blue/study-core.glsl",
+        "modules/motion/blue-stream-parallax/study-camera.glsl"
+      ],
+      "thumbnail": "library/thumbnails/train--blue-locomotive-sdf.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 12,
+      "sha256": {
+        "modules/train/blue-locomotive-sdf/distant.glsl": "82272b4a901078ba01df09158c91833f1b75c31bc3a4e94a1be8b2e16b043b7c",
+        "modules/train/blue-locomotive-sdf/source.glsl": "82c436c3ee60dc923853ed933d0a0b7b369d4f4a3546e5e9819e3fecc774e993"
+      },
+      "readme": "modules/train/blue-locomotive-sdf/README.md",
+      "manifest": "modules/train/blue-locomotive-sdf/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "train/starry-locomotive-sdf",
+      "category": "train",
+      "name": "星河可变车厢列车",
+      "method": "SDF机车＋车厢索引定位＋随机窗光＋车灯光晕",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/train/starry-locomotive-sdf/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/train/starry-locomotive-sdf/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "train(vec2 p)",
+        "uCars / uTrainX / uWheel / uWin / uGlow"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "依赖PAINT宏、gGlow与全局色板",
+        "局部几何朝向与蓝天相反，不能直接替换坐标"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/train--starry-locomotive-sdf.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 13,
+      "sha256": {
+        "modules/train/starry-locomotive-sdf/source.glsl": "29facf05ee8304df6107a65a9c64577da6e35604893b27c21d7f070a04721284"
+      },
+      "readme": "modules/train/starry-locomotive-sdf/README.md",
+      "manifest": "modules/train/starry-locomotive-sdf/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "train/world-puffs",
+      "category": "train",
+      "name": "蓝天世界空间烟团",
+      "method": "按出生时刻确定位置，十个烟团生长上升和淡出",
+      "status": "standalone-example",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/train/world-puffs/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/train.glsl",
+          "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/train/world-puffs/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "steam(vec2 p,float t)",
+        "headAt(birth) / cameraAt(t) / uWind"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "单独球团的观感与原始星河连续烟带不同",
+        "必须以出生时刻位置发射，不能让旧烟粘在当前烟囱"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/train--world-puffs.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 14,
+      "sha256": {
+        "modules/train/world-puffs/source.glsl": "225ae5e72a22377d07e3dbefe58e2b5f72241071237599f8b2b33658987fca87"
+      },
+      "readme": "modules/train/world-puffs/README.md",
+      "manifest": "modules/train/world-puffs/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "train/original-starry-steam",
+      "category": "train",
+      "name": "原始星河连续烟带及蓝天适配",
+      "method": "抛物线中心线＋billow fbm轮廓＋空气空间漂移",
+      "status": "adapter-unverified",
+      "sourceMode": "mixed",
+      "sourceFiles": [
+        "modules/train/original-starry-steam/blue-adapter.glsl",
+        "modules/train/original-starry-steam/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-steam.glsl",
+          "sha256": "1670718866493c487f117a5914cf79d95f725a8d145327ae53e2b07879ac8ce5"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+          "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+        },
+        {
+          "path": "tools/build-cloud-library.mjs",
+          "sha256": "6ef73910e33dfa8a17dcf46cf5f1cd7e02480844ab3d35eb68009be0ccd54710"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/train/original-starry-steam/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "steam / fbmB / noise",
+        "chimneyAt / uSteamNoise / uSteamPhase / uSteamDensity / uSteamScale"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "构建器原样提取星河3个函数，适配器只改坐标与颜色",
+        "R10证据目录目前只有changes.json，不能宣称验证完成",
+        "原烟函数在星河已使用，蓝天适配状态应单独标注"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/r10-original-steam/changes.json"
+      ],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "editInstructions": "source.glsl 由原星河主题提取；blue-adapter.glsl 是蓝天适配的权威源，可直接修改后重建。不要修改 lab/src/scene-steam.glsl 兼容镜像。",
+      "sourceAuthority": {
+        "source.glsl": "generated-extract",
+        "blue-adapter.glsl": "canonical"
+      },
+      "thumbnail": "library/thumbnails/train--original-starry-steam.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 15,
+      "sha256": {
+        "modules/train/original-starry-steam/blue-adapter.glsl": "1670718866493c487f117a5914cf79d95f725a8d145327ae53e2b07879ac8ce5",
+        "modules/train/original-starry-steam/source.glsl": "02298c09248cfe443c2037a6467b40158dbed6c7a8a9d6d5129b65ceb6b3c1eb"
+      },
+      "readme": "modules/train/original-starry-steam/README.md",
+      "manifest": "modules/train/original-starry-steam/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "water/shared-scene-reflection",
+      "category": "water",
+      "name": "蓝天同场景实时倒影",
+      "method": "反射坐标再求值同一个aboveWater，加透视波纹和深度染色",
+      "status": "standalone-example",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/water/shared-scene-reflection/source.glsl",
+        "modules/water/shared-scene-reflection/study.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/world.glsl",
+          "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
+          "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/water/shared-scene-reflection/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "reflectionPoint / fullScene / aboveWater",
+        "HORIZON / uRipple"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "反射与原景必须使用相同时间和位移",
+        "会增加场景求值开销；不能把旧帧截图当成实时倒影"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/report.json"
+      ],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "cases/blue-sky-assets/compose.glsl",
+        "cases/blue-sky-study/compose.glsl"
+      ],
+      "thumbnail": "library/thumbnails/water--shared-scene-reflection.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 16,
+      "sha256": {
+        "modules/water/shared-scene-reflection/source.glsl": "34c9bbdaa91921afdab7c879ad7f6a0033f465a3126d57f3085aad7130cd75a2",
+        "modules/water/shared-scene-reflection/study.glsl": "27de4d64ba0536ffc7e15646c7a56a9ba595f941c3e9bd1ab2e8cf26feb7455f"
+      },
+      "readme": "modules/water/shared-scene-reflection/README.md",
+      "manifest": "modules/water/shared-scene-reflection/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "water/starry-perspective-reflection",
+      "category": "water",
+      "name": "星河透视水波与灯光倒影",
+      "method": "深度倒数波纹坐标＋双噪声扰动＋同scene重新求值",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/water/starry-perspective-reflection/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/water/starry-perspective-reflection/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "fragment main / scene",
+        "uRipple / uRefl / uHorizon"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "主函数同时混有曝光、饱和度、暗角和色阶，提取水面时需分离后期",
+        "远近镜头与反射共用坐标，不能单独移动水层"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/water--starry-perspective-reflection.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 17,
+      "sha256": {
+        "modules/water/starry-perspective-reflection/source.glsl": "01014662b44efa4f4a48e5456025d2e528d2ed73e1510311c577f6de157e98bb"
+      },
+      "readme": "modules/water/starry-perspective-reflection/README.md",
+      "manifest": "modules/water/starry-perspective-reflection/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "water/svg-local-ripple",
+      "category": "water",
+      "name": "完整原画局部水波",
+      "method": "SVG裁切水域＋feTurbulence/feDisplacementMap＋统一播放时钟",
+      "status": "integrated",
+      "sourceMode": "archived-extract",
+      "sourceFiles": [
+        "modules/water/svg-local-ripple/source.svg"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "tools/vectorize.py",
+          "sha256": "add47b9281b1d589de522b1342c7aa9418fc0b304b31f30ede5fe05bf1c2ba59"
+        },
+        {
+          "path": "themes/blue-sky-train/wallpaper.js",
+          "sha256": "fb76dc7799d63d21b3620f60c9182f9a6b4e1ab2f0899e83c35c24c68fb3dd8e"
+        }
+      ],
+      "assets": [
+        "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+      ],
+      "preview": {
+        "path": "modules/water/svg-local-ripple/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "linked",
+        "frame": true
+      },
+      "interfaces": [
+        "#water-layer / #water-ripple / #ripple-displacement",
+        "settings.ripple / svg.setCurrentTime"
+      ],
+      "contract": {
+        "coordinates": "原图 viewBox 0 0 2048 768；烟囱和水域遮罩依附原画",
+        "time": "SVG SMIL 动画；wallpaper.js 调用 pauseAnimations() 后，以统一 time 驱动 svg.setCurrentTime(time)。",
+        "color": "浏览器原生SVG填色、opacity与滤镜合成；水域通过clipPath裁切，无GLSL/PNG上传步骤。"
+      },
+      "pitfalls": [
+        "原画列车与大云保持静态，不能支持任意镜头穿行",
+        "适合完整画面轻动画，不等同拆分全场景"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "themes/blue-sky-train/wallpaper.js",
+        "themes/blue-sky-train/settings.js",
+        "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+      ],
+      "sortOrder": 18,
+      "sha256": {
+        "modules/water/svg-local-ripple/source.svg": "245e9f4633ecf9a9565a8ff8b6b4402c96739c36d0f34265d4e4fae87b8f0b15"
+      },
+      "readme": "modules/water/svg-local-ripple/README.md",
+      "manifest": "modules/water/svg-local-ripple/template.json",
+      "thumbnail": "assets/blue-sky-train/source/blue-sky-train.png",
+      "thumbnailKind": "案例参考"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "foreground/edge-noise-shrubs",
+      "category": "foreground",
+      "name": "早期两侧噪声树丛",
+      "method": "画幅边缘高度包络＋噪声轮廓与色块",
+      "status": "experiment",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/foreground/edge-noise-shrubs/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/world.glsl",
+          "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/foreground/edge-noise-shrubs/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "foreground(vec2 p,float t)"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "左右包络绑定屏幕，不能表现整株经过眼前",
+        "只保留为早期方法和踩坑案例"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/foreground--edge-noise-shrubs.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 19,
+      "sha256": {
+        "modules/foreground/edge-noise-shrubs/source.glsl": "a1fd7842e5c6e52c26a3b69702a106daa6f1c7789d89732b7196d8210391a705"
+      },
+      "readme": "modules/foreground/edge-noise-shrubs/README.md",
+      "manifest": "modules/foreground/edge-noise-shrubs/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "foreground/procedural-grass-r08",
+      "category": "foreground",
+      "name": "R08 程序草叶",
+      "method": "叶片几何＋双层草＋世界坐标枝叶平移",
+      "status": "experiment",
+      "sourceMode": "archived-extract",
+      "sourceFiles": [
+        "modules/foreground/procedural-grass-r08/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-foreground.glsl",
+          "sha256": "bc3cda8dfd13d74d33d585e692ab7a89db42e03f523a73b1c5b2098765d4d973"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/foreground/procedural-grass-r08/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "linked",
+        "frame": true
+      },
+      "interfaces": [
+        "broadLeaf / passingBranch / grassLayer / foreground",
+        "uGroundTravel / uWind"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "用户要求改用生成素材；保留实验，不作为最终美术方案",
+        "程序叶形与参考小叶簇画风差异明显"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "sortOrder": 20,
+      "sha256": {
+        "modules/foreground/procedural-grass-r08/source.glsl": "bc3cda8dfd13d74d33d585e692ab7a89db42e03f523a73b1c5b2098765d4d973"
+      },
+      "readme": "modules/foreground/procedural-grass-r08/README.md",
+      "manifest": "modules/foreground/procedural-grass-r08/template.json",
+      "thumbnail": "assets/blue-sky-train/source/blue-sky-train.png",
+      "thumbnailKind": "案例参考"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "foreground/generated-foliage-r09",
+      "category": "foreground",
+      "name": "R09 完整生成近景素材",
+      "method": "三张透明PNG＋层间速度差＋根部固定UV风摆",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/foreground/generated-foliage-r09/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-foreground.glsl",
+          "sha256": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+          "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+        }
+      ],
+      "assets": [
+        "assets/blue-sky-train/foliage/r09/grass.png",
+        "assets/blue-sky-train/foliage/r09/leaves.png",
+        "assets/blue-sky-train/foliage/r09/understory.png",
+        "assets/blue-sky-train/foliage/r09/generation-prompts.json"
+      ],
+      "preview": {
+        "path": "modules/foreground/generated-foliage-r09/preview.html",
+        "kind": "isolated",
+        "offline": false,
+        "engine": "CloudLibrary",
+        "frame": true
+      },
+      "interfaces": [
+        "foliageSprite / foliageBend / foliageOver / nearBank / passingBranch / grassLayer",
+        "uFoliageAspect / uGroundTravel / uWind"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "每类只有一张素材，重复可能被认出",
+        "素材受光不随日光滑杆变化；保留方向避免镜像",
+        "近枝遮挡桥车是设计效果，需要控制频率"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/r09-generated-foreground/report.json"
+      ],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "cases/blue-sky-assets/runtime.js",
+        "modules/_shared/blue/scene-core.glsl"
+      ],
+      "thumbnail": "library/thumbnails/foreground--generated-foliage-r09.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 21,
+      "sha256": {
+        "modules/foreground/generated-foliage-r09/source.glsl": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+      },
+      "readme": "modules/foreground/generated-foliage-r09/README.md",
+      "manifest": "modules/foreground/generated-foliage-r09/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "foreground/starry-silhouette-poles",
+      "category": "foreground",
+      "name": "星河树丛、电线杆与垂线",
+      "method": "周期地块＋局部树簇＋抛物线电线",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/foreground/starry-silhouette-poles/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/foreground/starry-silhouette-poles/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "landMask / fore",
+        "uFore / cFore / uHorizon"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "适合夜间剪影，不能当作日间细节植被",
+        "周期1.95必须与树簇哈希/电线段统一"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/foreground--starry-silhouette-poles.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 22,
+      "sha256": {
+        "modules/foreground/starry-silhouette-poles/source.glsl": "4d0bd8e047f4b97fe525ba84134e1f3b420371ab2b5cfd347aabbb52a8e12ca7"
+      },
+      "readme": "modules/foreground/starry-silhouette-poles/README.md",
+      "manifest": "modules/foreground/starry-silhouette-poles/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "bridge/simple-arch-bridge",
+      "category": "bridge",
+      "name": "蓝天早期石拱桥",
+      "method": "重复桥孔＋简化渐变桥面和护栏",
+      "status": "experiment",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/bridge/simple-arch-bridge/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/world.glsl",
+          "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/bridge/simple-arch-bridge/preview.html",
+        "kind": "isolated",
+        "offline": true,
+        "engine": "TALab",
+        "frame": false
+      },
+      "interfaces": [
+        "bridge(vec2 p,float t)",
+        "DECK / HORIZON / pitch"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "粗略比例和材质，与原图差距大",
+        "桥面、列车脚底、水线要共享构图参数"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/bridge--simple-arch-bridge.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 23,
+      "sha256": {
+        "modules/bridge/simple-arch-bridge/source.glsl": "4b753fa81f87ccd3c60f2741e785166c80a4f6ca3a86862163e59e66bd7ff215"
+      },
+      "readme": "modules/bridge/simple-arch-bridge/README.md",
+      "manifest": "modules/bridge/simple-arch-bridge/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "bridge/blue-stone-lighting",
+      "category": "bridge",
+      "name": "蓝灰石桥与局部日光",
+      "method": "独立桥体SDF＋世界空间石纹＋左上受光和帽沿遮光",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/bridge/blue-stone-lighting/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-bridge.glsl",
+          "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+          "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/bridge/blue-stone-lighting/preview.html",
+        "kind": "isolated",
+        "offline": false,
+        "engine": "CloudLibrary",
+        "frame": true
+      },
+      "interfaces": [
+        "bridge(vec2 p,float t)",
+        "uSun / DECK / BRIDGE_FOOT"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "简化色层光照，不是物理光追",
+        "石纹不是逐像素复刻；画幅缩小时细护栏易丢失"
+      ],
+      "evidence": [
+        "themes/blue-sky-train/lab/evidence/r06-bridge/report.json",
+        "themes/blue-sky-train/lab/evidence/r07-lighting/report.json"
+      ],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/bridge--blue-stone-lighting.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 24,
+      "sha256": {
+        "modules/bridge/blue-stone-lighting/source.glsl": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+      },
+      "readme": "modules/bridge/blue-stone-lighting/README.md",
+      "manifest": "modules/bridge/blue-stone-lighting/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "bridge/starry-arch-bridge",
+      "category": "bridge",
+      "name": "星河石拱桥与护栏",
+      "method": "周期桥拱＋石缝暗线＋独立前层护栏",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/bridge/starry-arch-bridge/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/bridge/starry-arch-bridge/preview.html",
+        "kind": "isolated-with-host",
+        "offline": true,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "bridge / railing",
+        "uCamX / DECK"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "护栏在列车前，桥在列车后，不能合成单一错误层级",
+        "线宽依赖gPx以适应镜头缩放"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/bridge--starry-arch-bridge.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 25,
+      "sha256": {
+        "modules/bridge/starry-arch-bridge/source.glsl": "a20bf17ab811e7f8063bb089377027bc0c189b0edf57f3cdd5efdc0997d103c3"
+      },
+      "readme": "modules/bridge/starry-arch-bridge/README.md",
+      "manifest": "modules/bridge/starry-arch-bridge/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "motion/starry-wrapped-camera",
+      "category": "motion",
+      "name": "星河共享镜头与周期积分",
+      "method": "统一scene坐标＋按图层周期积分＋列车跟随/定机位切换",
+      "status": "integrated",
+      "sourceMode": "generated-extract",
+      "sourceFiles": [
+        "modules/motion/starry-wrapped-camera/source.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/starry-night-train/index.html",
+          "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/motion/starry-wrapped-camera/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "StarryModulePreview",
+        "frame": false
+      },
+      "interfaces": [
+        "advance(dt,aspect) / M / CLOUD_DIST",
+        "speed / follow / zoom / camY"
+      ],
+      "contract": {
+        "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+        "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+        "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+      },
+      "pitfalls": [
+        "近景/桥/云/远岸各用不同周期，不能直接一个取模参数覆盖",
+        "着色器与JS运动状态共同组成接口"
+      ],
+      "evidence": [],
+      "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+      "thumbnail": "library/thumbnails/motion--starry-wrapped-camera.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 26,
+      "sha256": {
+        "modules/motion/starry-wrapped-camera/source.glsl": "93ae87709c052a32f1fb8e6a5cd7f8dc056f141ce5aae54f3a1eb8adf49f2000"
+      },
+      "readme": "modules/motion/starry-wrapped-camera/README.md",
+      "manifest": "modules/motion/starry-wrapped-camera/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "motion/blue-stream-parallax",
+      "category": "motion",
+      "name": "蓝天近远层素材行进",
+      "method": "固定槽位云流＋独立地面距离积分＋风摆时间",
+      "status": "integrated",
+      "sourceMode": "canonical",
+      "sourceFiles": [
+        "modules/motion/blue-stream-parallax/scene-camera.glsl",
+        "modules/motion/blue-stream-parallax/stream.js",
+        "modules/motion/blue-stream-parallax/study-camera.glsl"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-stream.js",
+          "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+          "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+        },
+        {
+          "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+          "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+        }
+      ],
+      "assets": [],
+      "preview": {
+        "path": "modules/motion/blue-stream-parallax/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "CloudLibrary",
+        "frame": true
+      },
+      "interfaces": [
+        "createAssetStream / CloudLibrary.setSettings / renderAt / setPaused / state",
+        "distance / groundTravel / speed / wind / seed"
+      ],
+      "contract": {
+        "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+        "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+      },
+      "pitfalls": [
+        "近景和云已积分，列车与山体仍用时间×速度模型",
+        "CloudLibrary依赖当前演示DOM，不是现成无UI通用渲染引擎"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "thumbnail": "library/thumbnails/motion--blue-stream-parallax.png",
+      "thumbnailKind": "模块实测 · t=8s",
+      "sortOrder": 27,
+      "sha256": {
+        "modules/motion/blue-stream-parallax/scene-camera.glsl": "e6f5eba538aad527d0e89a1266e86408a1622703136eeb17fc4f617fed3ec555",
+        "modules/motion/blue-stream-parallax/stream.js": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485",
+        "modules/motion/blue-stream-parallax/study-camera.glsl": "1c9a4c25b5de93f34d6c0ea121c2ca35aea3c284cb2984e1b1d1cbcbab51f9b9"
+      },
+      "readme": "modules/motion/blue-stream-parallax/README.md",
+      "manifest": "modules/motion/blue-stream-parallax/template.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "train/svg-steam-loop",
+      "category": "train",
+      "name": "原画 SVG 蒸汽循环",
+      "method": "七个矢量烟形沿固定路径移动、放大、淡出",
+      "status": "integrated",
+      "sourceMode": "archived-extract",
+      "sourceFiles": [
+        "modules/train/svg-steam-loop/source.svg"
+      ],
+      "sourceOrigins": [
+        {
+          "path": "tools/vectorize.py",
+          "sha256": "add47b9281b1d589de522b1342c7aa9418fc0b304b31f30ede5fe05bf1c2ba59"
+        },
+        {
+          "path": "themes/blue-sky-train/wallpaper.js",
+          "sha256": "fb76dc7799d63d21b3620f60c9182f9a6b4e1ab2f0899e83c35c24c68fb3dd8e"
+        }
+      ],
+      "assets": [
+        "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+      ],
+      "preview": {
+        "path": "modules/train/svg-steam-loop/preview.html",
+        "kind": "scene-context",
+        "offline": false,
+        "engine": "linked",
+        "frame": true
+      },
+      "interfaces": [
+        "#steam-layer / animateTransform / animate opacity",
+        "settings.steam / svg.setCurrentTime"
+      ],
+      "contract": {
+        "coordinates": "原图 viewBox 0 0 2048 768；烟囱和水域遮罩依附原画",
+        "time": "SVG SMIL 动画；wallpaper.js 调用 pauseAnimations() 后，以统一 time 驱动 svg.setCurrentTime(time)。",
+        "color": "浏览器原生SVG填色、opacity与滤镜合成；水域通过clipPath裁切，无GLSL/PNG上传步骤。"
+      },
+      "pitfalls": [
+        "发射路径和烟囱位置绑定原画坐标",
+        "未拆列车主体，列车不会在原画中真正行驶"
+      ],
+      "evidence": [],
+      "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+      "dependencies": [
+        "themes/blue-sky-train/wallpaper.js",
+        "themes/blue-sky-train/settings.js",
+        "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+      ],
+      "sortOrder": 28,
+      "sha256": {
+        "modules/train/svg-steam-loop/source.svg": "100d59cf3da52899432abbe62c7c79890eb49df20922867383e3fb44969e1eab"
+      },
+      "readme": "modules/train/svg-steam-loop/README.md",
+      "manifest": "modules/train/svg-steam-loop/template.json",
+      "thumbnail": "assets/blue-sky-train/source/blue-sky-train.png",
+      "thumbnailKind": "案例参考"
+    }
+  ],
+  "cases": [
+    {
+      "id": "blue-sky-assets",
+      "name": "蓝天湖景 · 素材与程序组合",
+      "description": "完整云与草叶素材，结合程序山、桥、列车和实时倒影。当前研究主场景。",
+      "status": "work-in-progress",
+      "entry": "themes/blue-sky-train/lab/cloud-library.html",
+      "preview": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
+      "layers": [
+        {
+          "role": "sky",
+          "template": "sky/blue-gradient",
+          "listingOrder": 0
+        },
+        {
+          "role": "clouds",
+          "template": "clouds/complete-cloud-stream-r04",
+          "listingOrder": 1
+        },
+        {
+          "role": "terrain",
+          "template": "terrain/valley-distance-r05",
+          "listingOrder": 2
+        },
+        {
+          "role": "bridge",
+          "template": "bridge/blue-stone-lighting",
+          "listingOrder": 3
+        },
+        {
+          "role": "train",
+          "template": "train/blue-locomotive-sdf",
+          "listingOrder": 4
+        },
+        {
+          "role": "steam",
+          "template": "train/original-starry-steam",
+          "listingOrder": 5
+        },
+        {
+          "role": "water",
+          "template": "water/shared-scene-reflection",
+          "listingOrder": 6
+        },
+        {
+          "role": "foreground",
+          "template": "foreground/generated-foliage-r09",
+          "listingOrder": 7
+        },
+        {
+          "role": "motion",
+          "template": "motion/blue-stream-parallax",
+          "listingOrder": 8
+        }
+      ],
+      "shared": {
+        "aspect": "8:3",
+        "horizon": 0.265,
+        "deck": 0.376,
+        "trainScale": [
+          0.55,
+          0.43
+        ],
+        "lighting": "左上方日光；生成PNG保留原受光方向",
+        "time": "uTime + uGroundTravel；倒影复用 aboveWater(p,t)"
+      },
+      "limitations": [
+        "山体造型仍需校准。",
+        "原星河烟雾的蓝天适配尚未完成 R10 专项验收。",
+        "固定数量素材可持续排列，云与叶形仍会重复。"
+      ],
+      "composition": [
+        "cases/blue-sky-assets/compose.glsl",
+        "cases/blue-sky-assets/runtime.js",
+        "tools/build-cloud-library.mjs"
+      ],
+      "schemaVersion": 1,
+      "recipeKind": "descriptive",
+      "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+      "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+      "compositing": {
+        "direction": "back-to-front",
+        "aboveWater": [
+          "sky",
+          "cloudBank",
+          "mountains",
+          "bank",
+          "train",
+          "steam",
+          "bridge（含护栏，覆盖车轮下缘）"
+        ],
+        "fullScene": [
+          "aboveWater",
+          "水线以下反射坐标重求值aboveWater",
+          "水面染色与波纹",
+          "foreground"
+        ]
+      }
+    },
+    {
+      "id": "blue-sky-original",
+      "name": "蓝天原画 · SVG 轻动画",
+      "description": "保留原图构图，局部水波与矢量烟雾循环，适用于画面轻动画。",
+      "status": "integrated",
+      "entry": "themes/blue-sky-train/index.html?controls=1",
+      "preview": "assets/blue-sky-train/source/blue-sky-train.png",
+      "layers": [
+        {
+          "role": "water",
+          "template": "water/svg-local-ripple",
+          "listingOrder": 0
+        },
+        {
+          "role": "steam",
+          "template": "train/svg-steam-loop",
+          "listingOrder": 1
+        }
+      ],
+      "shared": {
+        "viewBox": [
+          0,
+          0,
+          2048,
+          768
+        ],
+        "time": "svg.setCurrentTime(time)，暂停浏览器自主SMIL时钟",
+        "artwork": "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+      },
+      "limitations": [
+        "天空、云、山、桥、列车和近景属于同一完整原画，不是独立可替换动态图层。",
+        "不能把它作为自由镜头穿行模板。"
+      ],
+      "composition": [
+        "themes/blue-sky-train/wallpaper.js",
+        "tools/vectorize.py"
+      ],
+      "schemaVersion": 1,
+      "recipeKind": "descriptive",
+      "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+      "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+      "compositing": {
+        "direction": "back-to-front",
+        "layers": [
+          "artwork",
+          "water-layer（裁切原画重绘）",
+          "steam-layer"
+        ]
+      }
+    },
+    {
+      "id": "blue-sky-study",
+      "name": "蓝天运动骨架 · R03",
+      "description": "理解四层云纹、局部列车坐标和同一场景倒影的最小组合。",
+      "status": "study",
+      "entry": "themes/blue-sky-train/lab/examples/scene.html",
+      "preview": "assets/blue-sky-train/source/blue-sky-train.png",
+      "layers": [
+        {
+          "role": "sky",
+          "template": "sky/blue-gradient",
+          "listingOrder": 0
+        },
+        {
+          "role": "clouds",
+          "template": "clouds/svg-flat-masks-r03",
+          "listingOrder": 1
+        },
+        {
+          "role": "terrain",
+          "template": "terrain/noise-ridges",
+          "listingOrder": 2
+        },
+        {
+          "role": "bridge",
+          "template": "bridge/simple-arch-bridge",
+          "listingOrder": 3
+        },
+        {
+          "role": "train",
+          "template": "train/blue-locomotive-sdf",
+          "listingOrder": 4
+        },
+        {
+          "role": "steam",
+          "template": "train/world-puffs",
+          "listingOrder": 5
+        },
+        {
+          "role": "water",
+          "template": "water/shared-scene-reflection",
+          "listingOrder": 6
+        },
+        {
+          "role": "foreground",
+          "template": "foreground/edge-noise-shrubs",
+          "listingOrder": 7
+        }
+      ],
+      "shared": {
+        "aspect": "8:3",
+        "horizon": 0.265,
+        "deck": 0.375,
+        "trainScale": [
+          1,
+          1
+        ],
+        "time": "共享 uTime；cameraAt=t×speed"
+      },
+      "limitations": [
+        "R03云图案有原山体遮挡边，不能作为完整透明云自由漂浮。",
+        "旧镜头公式在动态调速时可能跳变。"
+      ],
+      "composition": [
+        "cases/blue-sky-study/compose.glsl",
+        "tools/build-ta-lab.mjs"
+      ],
+      "schemaVersion": 1,
+      "recipeKind": "descriptive",
+      "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+      "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+      "compositing": {
+        "direction": "back-to-front",
+        "aboveWater": [
+          "sky",
+          "cloudBank",
+          "mountains",
+          "bank",
+          "train",
+          "steam",
+          "bridge（含护栏，覆盖车轮下缘）"
+        ],
+        "fullScene": [
+          "aboveWater",
+          "水线以下反射坐标重求值aboveWater",
+          "水面染色与波纹",
+          "foreground"
+        ]
+      }
+    },
+    {
+      "id": "starry-night",
+      "name": "星河夜行 · 程序场景",
+      "description": "星河、12层云、城镇远岸、列车和灯光倒影，共享镜头与时间。",
+      "status": "integrated",
+      "entry": "themes/starry-night-train/index.html",
+      "preview": "assets/starry-night-train/images/screenshot.png",
+      "layers": [
+        {
+          "role": "sky",
+          "template": "sky/starry-galaxy",
+          "listingOrder": 0
+        },
+        {
+          "role": "clouds",
+          "template": "clouds/starry-layered-heightfield",
+          "listingOrder": 1
+        },
+        {
+          "role": "terrain",
+          "template": "terrain/starry-far-shore",
+          "listingOrder": 2
+        },
+        {
+          "role": "bridge",
+          "template": "bridge/starry-arch-bridge",
+          "listingOrder": 3
+        },
+        {
+          "role": "train",
+          "template": "train/starry-locomotive-sdf",
+          "listingOrder": 4
+        },
+        {
+          "role": "steam",
+          "template": "train/original-starry-steam",
+          "listingOrder": 5
+        },
+        {
+          "role": "water",
+          "template": "water/starry-perspective-reflection",
+          "listingOrder": 6
+        },
+        {
+          "role": "foreground",
+          "template": "foreground/starry-silhouette-poles",
+          "listingOrder": 7
+        },
+        {
+          "role": "motion",
+          "template": "motion/starry-wrapped-camera",
+          "listingOrder": 8
+        }
+      ],
+      "shared": {
+        "coordinates": "原星河screen→world映射，统一 horizon/zoom/camY",
+        "time": "M中的镜头/云/岸/烟/车/轮轴分别按周期积分",
+        "render": "前向alpha合成+gGlow；湖面复用 scene(q)"
+      },
+      "limitations": [
+        "原云来源及许可限制保留。",
+        "模块source.glsl是教学提取，原主题HTML仍是权威源；不能直接拼入蓝天运行时。"
+      ],
+      "composition": [
+        "themes/starry-night-train/index.html",
+        "tools/build-starry-modules.mjs"
+      ],
+      "schemaVersion": 1,
+      "recipeKind": "descriptive",
+      "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+      "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+      "compositing": {
+        "direction": "front-to-back",
+        "scene": [
+          "fore",
+          "railing",
+          "steam",
+          "train",
+          "bridge",
+          "farShore",
+          "clouds",
+          "sky",
+          "gGlow"
+        ],
+        "water": "main()将水线以下坐标折回scene；共享时间"
+      }
+    }
+  ]
+}

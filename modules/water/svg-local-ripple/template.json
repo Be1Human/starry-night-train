@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "water/svg-local-ripple",
+  "category": "water",
+  "name": "完整原画局部水波",
+  "method": "SVG裁切水域＋feTurbulence/feDisplacementMap＋统一播放时钟",
+  "status": "integrated",
+  "sourceMode": "archived-extract",
+  "sourceFiles": [
+    "modules/water/svg-local-ripple/source.svg"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "tools/vectorize.py",
+      "sha256": "add47b9281b1d589de522b1342c7aa9418fc0b304b31f30ede5fe05bf1c2ba59"
+    },
+    {
+      "path": "themes/blue-sky-train/wallpaper.js",
+      "sha256": "fb76dc7799d63d21b3620f60c9182f9a6b4e1ab2f0899e83c35c24c68fb3dd8e"
+    }
+  ],
+  "assets": [
+    "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+  ],
+  "preview": {
+    "path": "modules/water/svg-local-ripple/preview.html",
+    "kind": "scene-context",
+    "offline": false
+  },
+  "interfaces": [
+    "#water-layer / #water-ripple / #ripple-displacement",
+    "settings.ripple / svg.setCurrentTime"
+  ],
+  "contract": {
+    "coordinates": "原图 viewBox 0 0 2048 768；烟囱和水域遮罩依附原画",
+    "time": "SVG SMIL 动画；wallpaper.js 调用 pauseAnimations() 后，以统一 time 驱动 svg.setCurrentTime(time)。",
+    "color": "浏览器原生SVG填色、opacity与滤镜合成；水域通过clipPath裁切，无GLSL/PNG上传步骤。"
+  },
+  "pitfalls": [
+    "原画列车与大云保持静态，不能支持任意镜头穿行",
+    "适合完整画面轻动画，不等同拆分全场景"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "dependencies": [
+    "themes/blue-sky-train/wallpaper.js",
+    "themes/blue-sky-train/settings.js",
+    "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+  ],
+  "sortOrder": 18
+}

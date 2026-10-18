@@ -1,0 +1,1510 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>星河夜行列车 · 视觉特效深度拆解舞台</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #040510; user-select: none; }
+  body { font-family: "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans SC", sans-serif; color: #f2f4ff; }
+  #glcanvas, #hud { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; }
+  #glcanvas { image-rendering: pixelated; image-rendering: crisp-edges; }
+  #hud { pointer-events: none; z-index: 2; }
+
+  /* 顶部轻量技术角标（不遮挡主画面） */
+  #topbar {
+    position: absolute; left: 42px; top: 32px; z-index: 3; display: flex; align-items: center; gap: 18px;
+    padding: 10px 22px; border-radius: 14px; background: rgba(6, 9, 26, 0.72);
+    border: 1px solid rgba(120, 210, 255, 0.32); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+  }
+  #topbar .tag {
+    padding: 4px 12px; border-radius: 8px; font-size: 20px; font-weight: 800; letter-spacing: 0.06em;
+    color: #061024; background: linear-gradient(90deg, #5ce1e6, #ffd27a);
+  }
+  #topbar .ttl { font-size: 24px; font-weight: 700; color: #ffffff; letter-spacing: 0.04em; }
+  #topbar .sep { width: 1px; height: 24px; background: rgba(255, 255, 255, 0.2); }
+  #topbar .code {
+    font-family: "Cascadia Mono", Consolas, monospace; font-size: 19px; color: #8be9fd;
+    letter-spacing: 0.02em;
+  }
+
+  /* 底部字幕条 */
+  #subs {
+    position: absolute; left: 0; right: 0; bottom: 38px; z-index: 4; text-align: center; pointer-events: none;
+  }
+  #subs span {
+    display: inline-block; max-width: 1560px; padding: 10px 30px; border-radius: 12px;
+    font-size: 38px; font-weight: 700; line-height: 1.35; letter-spacing: 0.03em; color: #ffffff;
+    background: rgba(5, 7, 22, 0.76); border: 1px solid rgba(255, 255, 255, 0.14);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+  }
+  #subs span:empty { display: none; }
+
+  /* 底部进度细线 */
+  #bar {
+    position: absolute; left: 0; bottom: 0; height: 5px; z-index: 5;
+    background: linear-gradient(90deg, #5ce1e6, #ff8fbd, #ffd27a);
+  }
+</style>
+</head>
+<body>
+<canvas id="glcanvas" width="960" height="540"></canvas>
+<canvas id="hud" width="1920" height="1080"></canvas>
+<div id="topbar">
+  <span class="tag" id="tb-tag">00 / 视觉总览</span>
+  <span class="ttl" id="tb-ttl">纯代码实时渲染</span>
+  <span class="sep"></span>
+  <span class="code" id="tb-code">gl_FragColor = scene(p)</span>
+</div>
+<div id="subs"><span id="sub-txt"></span></div>
+<div id="bar"></div>
+
+<script type="module">
+import { SEGMENTS } from './script.mjs';
+
+const $ = s => document.querySelector(s);
+const clamp = (x, a = 0, b = 1) => Math.min(Math.max(x, a), b);
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+const lerp = (a, b, t) => a + (b - a) * clamp(t);
+const ramp = (t, t0, t1, v0 = 0, v1 = 1) => lerp(v0, v1, smooth(t0, t1, t));
+
+// ======== 拆解专用 Fragment Shader ========
+const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+const FRAG = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+uniform vec2 uRes;
+uniform float uT, uCamX, uFore, uTrainX, uSmokeOff, uFarOff, uWheel;
+uniform float uCL[12], uNMin, uNMax;
+uniform float uCars, uStars, uTwinkle, uMilky, uMeteor, uCover, uStack, uAmp, uSteam, uWin, uGlow;
+uniform float uRipple, uRefl, uHorizon, uExposure, uSat, uVignette, uPoster, uZoom, uCamY;
+uniform int uOct;
+uniform vec3 cSkyTop, cSkyHor, cCloudLit, cCloudTop, cCloudShade, cWin, cTrain, cBridge, cLight, cFore;
+uniform sampler2D uNoise, uCloudTex;
+
+// 拆解控制 Uniforms
+uniform float uCoordGrid, uSkyShow, uStarShow, uStarGridVis, uMilkyStage, uMeteorBoost;
+uniform float uCloudShow, uCloudStackCount, uCloudInspect, uCloud1D, uCloudBandVis;
+uniform float uBridgeShow, uBridgeArchCarve, uBridgeBlueprint, uRailingShow, uFarShow, uForeShow, uForeBlueprint;
+uniform float uTrainStage, uTrainBlueprint, uSteamShow, uSteamBlueprint;
+uniform float uWaterStage, uLayerMapVis, uXrayWipe;
+
+vec3 gGlow;
+float gPx, gPxS;
+vec2 gC;
+float gLayerId;
+float gSdfEdge;
+
+float hash(vec2 p){ vec3 p3=fract(vec3(p.xyx)*.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
+float noise(vec2 x){ vec2 i=floor(x); vec2 f=fract(x); f=f*f*(3.-2.*f); return texture2D(uNoise,(i+f+.5)/256.).x; }
+float fbm(vec2 x){
+  float a=0., w=.5, s=0.;
+  for(int i=0;i<6;i++){ if(i>=uOct) break; a+=w*noise(x); s+=w; w*=.5; x=x*2.+vec2(17.,9.); }
+  return a/s;
+}
+float fbmB(vec2 x){
+  float a=0., w=.5, s=0.;
+  for(int i=0;i<6;i++){ if(i>=uOct) break; a+=w*abs(2.*noise(x)-1.); s+=w; w*=.5; x=x*2.+vec2(17.,9.); }
+  return a/s;
+}
+#define DECK (uHorizon+.115)
+float sstep(float a, float b, float x){ float t=clamp((x-a)/(b-a),0.,1.); return t*t*(3.-2.*t); }
+float sdBox(vec2 p, vec2 c, vec2 h){ vec2 d=abs(p-c)-h; return length(max(d,0.))+min(max(d.x,d.y),0.); }
+
+// ---------- 天空与星空拆解 ----------
+float starLayer(vec2 p, float cell, float dens, float seed, float big){
+  vec2 g=p/cell; vec2 id=floor(g); vec2 f=fract(g);
+  float h=hash(id+seed);
+  if(h>dens) return 0.;
+  vec2 c=vec2(hash(id+seed+1.7),hash(id+seed+4.3))*.6+.2;
+  vec2 d=(f-c)*cell*gPxS;
+  float r=length(d);
+  float tw=1.-uTwinkle*.5*(1.+sin(uT*(1.2+3.*hash(id+seed+2.9))+h*80.));
+  float b=.45+.55*hash(id+seed+5.5);
+  float s;
+  if(big>0.){
+    float k=max(gPxS/540.,.6);
+    s=sstep(1.8*k,0.,r)+(exp(-abs(d.x)/(2.6*k)-abs(d.y)/(.45*k))+exp(-abs(d.y)/(2.6*k)-abs(d.x)/(.45*k)))*.9;
+  } else {
+    float sz=.35+.9*hash(id+seed+8.1);
+    s=sstep(sz+.8,sz-.2,r);
+  }
+  return s*tw*b;
+}
+
+float meteor(vec2 p, float slot){
+  if(uMeteor<=0. && uMeteorBoost<=0.) return 0.;
+  float per=mix(18.,3.,uMeteor)*(1.+slot*.63);
+  float tt=uT+slot*7.3;
+  float k=floor(tt/per); float lt=tt-k*per;
+  float dur=1.1;
+  if(lt>dur) return 0.;
+  float asp=uRes.x/uRes.y;
+  vec2 s=vec2(mix(.45,asp+.05,hash(vec2(k,slot+3.))),mix(.76,.98,hash(vec2(k+5.,slot+9.))));
+  vec2 dir=normalize(vec2(-1.,-.42));
+  float pr=lt/dur;
+  vec2 head=s+dir*pr*.5;
+  float len=.2*min(1.,pr*2.5)+1e-4;
+  vec2 rel=p-head;
+  float al=dot(rel,-dir);
+  float pe=abs(dot(rel,vec2(-dir.y,dir.x)));
+  float w=(1.+1.4*(1.-clamp(al/len,0.,1.)))/gPxS;
+  float tail=step(0.,al)*sstep(len,0.,al)*sstep(w,0.,pe);
+  float hd=exp(-dot(rel,rel)*gPxS*gPxS*.12);
+  return (tail*.9+hd*1.6)*sin(pr*3.14159);
+}
+
+// 教学特写流星（在 uMeteorBoost > 0 时可控划过）
+vec3 boostMeteor(vec2 p){
+  if(uMeteorBoost<=0.001) return vec3(0.);
+  float pr=clamp(uMeteorBoost,0.,1.);
+  vec2 s=vec2(1.32,.86);
+  vec2 dir=normalize(vec2(-1.,-.38));
+  vec2 head=s+dir*pr*.62;
+  float len=.26*min(1.,pr*2.8)+1e-4;
+  vec2 rel=p-head;
+  float al=dot(rel,-dir);
+  float pe=abs(dot(rel,vec2(-dir.y,dir.x)));
+  float w=(1.4+2.2*(1.-clamp(al/len,0.,1.)))/gPxS;
+  float tail=step(0.,al)*sstep(len,0.,al)*sstep(w,0.,pe);
+  float hd=exp(-dot(rel,rel)*gPxS*gPxS*.06);
+  float env=sin(pr*3.14159);
+  // 距离场等值环可视化
+  float ring=sstep(1.5/gPxS,0.,abs(pe-.012))*step(0.,al)*step(al,len)*env;
+  return vec3(.9,.95,1.)*(tail*1.3+hd*2.2)*env + vec3(.3,.9,1.)*ring*.7;
+}
+
+vec3 sky(vec2 sp){
+  float H=uHorizon;
+  float hy=clamp((sp.y-H)/(1.45-H),0.,1.);
+  vec3 grad=mix(cSkyHor,cSkyTop,pow(hy,.6));
+  float wipe=sstep(uSkyShow*1.15+.02,uSkyShow*1.15-.08,hy)*step(.001,uSkyShow);
+  vec3 col=grad*wipe*sstep(H-.005,H+.005,sp.y);
+
+  vec2 s=(sp-vec2(0.,uCamY)-gC)*uZoom+gC;
+  vec2 p=(s-gC)/sqrt(uZoom)+gC+vec2(0.,uCamY*.5);
+  float asp=uRes.x/uRes.y;
+  float v=p.y-(.6+.3*(p.x-.5*asp));
+  float band=exp(-v*v/.018);
+
+  // 银河三步拆解：0..1 高斯光带 -> 1..2 乘 FBM1 星云 -> 2..3 挖除 FBM2 暗尘带
+  if(band>.003 && uMilkyStage>.001 && sp.y>H){
+    vec2 r=vec2(p.x+p.y*.3,v);
+    float n=fbm(r*vec2(3.,6.)+vec2(3.,7.));
+    float f2=fbm(r*vec2(6.,14.)+vec2(11.,2.));
+    float dust=smoothstep(.45,.65,f2);
+    float s1=clamp(uMilkyStage,0.,1.);
+    float s2=clamp(uMilkyStage-1.,0.,1.);
+    float s3=clamp(uMilkyStage-2.,0.,1.);
+    float mw1=band*.55;
+    float mw2=band*(.2+n*n*1.7);
+    float mw3=mw2*(1.-.65*dust*band);
+    float mw=mix(mw1*s1,mix(mw2,mw3,s3),s2);
+    vec3 mcol=mix(vec3(.25,.75,1.),mix(vec3(.38,.36,.9),vec3(.95,.62,.95),n),s2);
+    col+=mcol*mw*uMilky*.7*sstep(H,H+.08,sp.y);
+    // 暗尘带挖除时的金色等值线高亮
+    float dustHighlight=s3*(1.-sstep(2.85,3.0,uMilkyStage));
+    if(dustHighlight>.01){
+      float edge=sstep(.025,0.,abs(f2-.52))*band;
+      col+=vec3(1.,.78,.35)*edge*dustHighlight*1.4;
+    }
+  }
+
+  if(uStarShow>.001 && sp.y>H){
+    float st=starLayer(p,1./90.,uStars*(.35+.45*band),0.,0.);
+    st+=starLayer(p,1./14.,uStars*.2,31.,1.);
+    col+=vec3(.95,.93,1.)*st*uStarShow*smoothstep(H,H+.12,sp.y);
+  }
+
+  // 星空哈希网格可视化
+  if(uStarGridVis>.001 && sp.y>H){
+    float cell=1./18.;
+    vec2 g=p/cell; vec2 id=floor(g); vec2 f=fract(g);
+    float h=hash(id+31.);
+    float active=step(h,uStars*.38);
+    vec2 edgeD=min(f,1.-f)*cell*gPxS;
+    float gridLine=sstep(1.4,0.,min(edgeD.x,edgeD.y));
+    vec3 gCol=mix(vec3(.18,.55,.85)*.45,vec3(1.,.82,.35),active);
+    col+=gCol*gridLine*uStarGridVis*sstep(H,H+.06,sp.y);
+    col+=vec3(1.,.75,.25)*active*.08*uStarGridVis*sstep(H,H+.06,sp.y);
+  }
+
+  col+=vec3(.85,.9,1.)*(meteor(p,0.)+meteor(p,1.))*uStarShow;
+  col+=boostMeteor(p);
+  return col;
+}
+
+// ---------- 云层拆解 ----------
+float cnoise(vec2 x){
+  vec2 f=fract(x);
+  vec2 u=f*f*f*(f*(f*6.-15.)+10.);
+  vec2 t=texture2D(uCloudTex,(floor(x)+u+.5)/1024.).xw;
+  return t.x+t.y/256.;
+}
+float cfbm(vec2 x, float lo, float hi){
+  float T=0., w=1.;
+  for(int i=0;i<8;i++){ if(i>=uOct) break; T+=w; w*=.7; }
+  float a=0., b=1., t=0.;
+  for(int i=0;i<8;i++){
+    if(i>=uOct) break;
+    a+=b*cnoise(x); t+=b; b*=.7; x=mod(x*2.,1024.);
+    if(i+1<uOct){
+      float R=T-t;
+      if((a+R*uNMax)/T<lo-1e-4) return -1.;
+      if((a+R*uNMin)/T>hi+1e-4) return 2.;
+    }
+  }
+  return a/t;
+}
+float gFog;
+vec3 cpal(vec3 o){
+  float l=dot(o,vec3(.299,.587,.114));
+  float s=max(o.r,max(o.g,o.b))-min(o.r,min(o.g,o.b));
+  vec3 c=mix(cCloudShade*.7,cCloudLit,smoothstep(.3,.72,l));
+  c=mix(c,cCloudTop,.7*smoothstep(.6,.92,l)*smoothstep(.5,.15,s));
+  c*=.78+.3*l;
+  return mix(c,mix(cSkyHor,cSkyTop,.5),gFog);
+}
+
+// 单层云检验模式：展示 1D vs 2D FBM 高度场与 4 道色带切分
+vec4 cloudSingleInspect(vec2 p){
+  float cy=p.y-uHorizon+.2;
+  float mid=.35, disp=2.6;
+  gFog=.06;
+  float m_=.3+(mid-.3)*uStack+(uCover-1.)*.3 + .05;
+  float D_=max(disp*uAmp,1e-4);
+  float sampleY=mix(cy,.36,uCloud1D);
+  float fn=cfbm(vec2(p.x+uCL[2],sampleY),-10.,10.);
+  float h_=(fn-.5)*D_+m_;
+  // 高度场热力背景（在云体外微弱显示二维噪声等值线）
+  float iso=sin((cy-h_)*90.);
+  float contour=sstep(1.4/gPx,0.,abs(cy-h_));
+  if(cy<h_){
+    vec3 col=cpal(vec3(.77,.48,.46));
+    float bId=0.;
+    if(cy<h_-.04){ col=cpal(vec3(.66,.42,.40)); bId=1.; }
+    if(cy<h_-.08){ col=cpal(vec3(.55,.42,.41)); bId=2.; }
+    if(cy<h_-.12){ col=cpal(vec3(.43,.32,.31)); bId=3.; }
+    if(uCloudBandVis>.001){
+      // 4 道色带分解着色与高亮切线
+      vec3 falseCol= bId>2.5 ? vec3(.22,.16,.48) : (bId>1.5 ? vec3(.48,.26,.68) : (bId>.5 ? vec3(.82,.42,.74) : vec3(1.,.78,.62)));
+      col=mix(col,falseCol,uCloudBandVis*.65);
+      float e0=sstep(1.8/gPx,0.,abs(cy-h_));
+      float e1=sstep(1.6/gPx,0.,abs(cy-(h_-.04)));
+      float e2=sstep(1.6/gPx,0.,abs(cy-(h_-.08)));
+      float e3=sstep(1.6/gPx,0.,abs(cy-(h_-.12)));
+      col+=vec3(1.,.92,.45)*(e0+e1*.8+e2*.8+e3*.8)*uCloudBandVis;
+    }
+    col+=vec3(.35,.95,1.)*contour*(1.-uCloudBandVis)*.8;
+    return vec4(col,1.);
+  }
+  // 云体外部显示半透明噪声等值线网格，直观看到二维噪声场
+  float fieldGlow=sstep(.92,1.,iso)*exp(-max(cy-h_,0.)*8.)*.35;
+  return vec4(vec3(.35,.75,1.),fieldGlow);
+}
+
+#define CLD(mid,disp,i,dhMax) ci_=float(i); gFog=ci_*.03; m_=.3+((mid)-.3)*uStack+(uCover-1.)*.3; D_=max((disp)*uAmp,1e-4); run_=((11.-ci_)<uCloudStackCount) && (cy<m_+(uNMax-.5)*D_); if(run_){ h_=(cfbm(vec2(p.x+uCL[i],cy),(cy-m_)/D_+.5,(cy+(dhMax)-m_)/D_+.5)-.5)*D_+m_; }
+#define BAND(dh,c) if(run_&&cy<h_-(dh)){ float edge_=sstep(2.2/gPx,0.,abs(cy-h_)); gSdfEdge=max(gSdfEdge,edge_*.55); float newBorn_=clamp(uCloudStackCount-(11.-ci_),0.,1.); float rim_=edge_*newBorn_*(1.-sstep(.85,1.,newBorn_))*1.5; return vec4(cpal(c)+vec3(.45,.9,1.)*rim_,1.); }
+
+vec4 clouds(vec2 p){
+  if(uCloudShow<=.001 || p.y<uHorizon) return vec4(0.);
+  if(uCloudInspect>.001){
+    vec4 ins=cloudSingleInspect(p);
+    if(uCloudInspect>.999) return ins;
+  }
+  float cy=p.y-uHorizon+.2;
+  float m_, D_, h_=0., ci_=0.; bool run_;
+  CLD(.3,.9,0,.14)   BAND(.14,vec3(.48,.19,.20)) BAND(.1,vec3(.68,.28,.19)) BAND(.07,vec3(.88,.38,.24)) BAND(0.,vec3(.95,.45,.30))
+  CLD(.35,1.,1,.04)  BAND(.04,vec3(.98,.76,.64)) BAND(0.,vec3(.95,.80,.77))
+  CLD(.35,3.5,2,.12) BAND(.12,vec3(.43,.32,.31)) BAND(.08,vec3(.55,.42,.41)) BAND(.04,vec3(.66,.42,.40)) BAND(0.,vec3(.77,.48,.46))
+  CLD(.45,2.,3,.04)  BAND(.04,vec3(.98,.57,.36)) BAND(0.,vec3(1.,.62,.44))
+  CLD(.5,2.3,4,.12)  BAND(.12,vec3(.41,.27,.27)) BAND(.08,vec3(.53,.35,.32)) BAND(.04,vec3(.80,.24,.17)) BAND(0.,vec3(.99,.29,.20))
+  CLD(.5,2.5,5,.1)   BAND(.1,vec3(.88,.38,.24))  BAND(.05,vec3(.98,.42,.28)) BAND(0.,vec3(1.,.48,.35))
+  CLD(.6,2.,6,.1)    BAND(.1,vec3(.95,.66,.48))  BAND(0.,vec3(1.,.76,.60))
+  CLD(.75,3.5,7,.2)  BAND(.2,vec3(1.,.55,.33))   BAND(.15,vec3(.98,.50,.24)) BAND(.1,vec3(.90,.55,.40)) BAND(0.,vec3(1.,.62,.44))
+  CLD(.7,2.7,8,.04)  BAND(.04,vec3(.73,.36,.30)) BAND(0.,vec3(.80,.40,.34))
+  CLD(.8,2.7,9,.1)   BAND(.1,vec3(.93,.58,.35))  BAND(0.,vec3(1.,.76,.60))
+  CLD(.9,3.,10,.1)   BAND(.1,vec3(.56,.25,.22))  BAND(.05,vec3(.60,.30,.27)) BAND(0.,vec3(.74,.35,.30))
+  CLD(1.,5.,11,.1)   BAND(.1,vec3(.92,.85,.82))  BAND(0.,vec3(1.,.94,.91))
+  return vec4(0.);
+}
+
+// ---------- 远岸与灯光 ----------
+vec4 farShore(vec2 p){
+  if(uFarShow<=.001) return vec4(0.);
+  float H=uHorizon;
+  if(p.y>H+.03 || p.y<H) return vec4(0.);
+  float fx=p.x*3.+uFarOff;
+  float town=smoothstep(.5,.72,noise(vec2(fx*.3,21.)));
+  float top=H+.004+.009*noise(vec2(fx*2.,5.))+.007*town*step(.45,hash(vec2(mod(floor(fx*14.),3584.),3.)));
+  float cid=mod(floor(fx*6.),1536.);
+  float hc=hash(vec2(cid,7.));
+  if(hc<town*.95){
+    float k=gPx/540.;
+    float lx=(fract(fx*6.)-(.2+.6*hash(vec2(cid,9.))))/18.;
+    float ly=p.y-(H+.004+.007*hash(vec2(cid,13.)));
+    float d=length(vec2(lx,ly))*gPx;
+    float fl=.85+.15*sin(uT*3.+hc*40.);
+    gGlow+=cLight*(sstep(1.6*k+.4,.3,d)*1.4+exp(-d*d/(70.*k*k))*.35*uGlow)*fl*uFarShow;
+  }
+  if(p.y<top) return vec4(mix(cFore,cSkyHor,.22),uFarShow);
+  return vec4(0.);
+}
+
+// ---------- 石拱桥与周期拆解 ----------
+vec4 bridge(vec2 p){
+  if(uBridgeShow<=.001) return vec4(0.);
+  float H=uHorizon, deck=DECK;
+  if(p.y>deck||p.y<H) return vec4(0.);
+  float P=.2, aw=.074, spring=H+.012;
+  float bx=p.x+uCamX;
+  float lx=mod(bx,P)-P*.5;
+  float ax=abs(lx);
+  float ey=max(p.y-spring,0.)/.8;
+  float e=length(vec2(ax,ey))-aw;
+  float inArch=(ax<aw && (p.y<spring || e<0.)) ? 1. : 0.;
+
+  float archEdge=sstep(2.0/gPx,0.,abs(e))*step(spring-.002,p.y);
+  gSdfEdge=max(gSdfEdge,archEdge);
+
+  if(inArch>.5){
+    if(uBridgeArchCarve>.999) return vec4(0.);
+    // 拱洞挖除动画：显示半透明距离场波纹与金青色切割边界
+    float ring=sin(e*220.-uT*6.)*.5+.5;
+    vec3 cutCol=mix(cBridge*.65,vec3(.2,.85,1.),.45+.35*ring);
+    return vec4(cutCol,(1.-uBridgeArchCarve)*.85);
+  }
+
+  vec3 c=cBridge*(.88+.24*noise(vec2(bx,p.y)*82.0513));
+  if(p.y>spring-.004 && e<.011){
+    float ang=atan(ey,lx);
+    float joint=step(.84,fract(ang*14./3.14159));
+    c=cBridge*(1.32-.4*joint);
+    if(uBridgeBlueprint>.001) c=mix(c,vec3(1.,.78,.35),joint*uBridgeBlueprint*.8);
+  }
+  if(p.y>deck-.011 && p.y<deck-.008) c=cBridge*.7;
+  if(p.y>deck-.007) c=cBridge*1.45;
+  if(p.y>deck-.002) c=mix(cBridge*2.,cCloudTop,.35);
+  c*=mix(.7,1.,smoothstep(H,H+.07,p.y));
+
+  if(uBridgeBlueprint>.001){
+    float perLine=sstep(1.6/gPx,0.,min(mod(bx,P),P-mod(bx,P)));
+    float springLine=sstep(1.3/gPx,0.,abs(p.y-spring));
+    c+=vec3(.25,.92,1.)*(perLine*.9+springLine*.45)*uBridgeBlueprint;
+    c+=vec3(1.,.82,.35)*archEdge*uBridgeBlueprint*1.2;
+  }
+  return vec4(c,uBridgeShow);
+}
+
+vec4 railing(vec2 p){
+  if(uRailingShow<=.001) return vec4(0.);
+  float ry=p.y-DECK;
+  if(ry<0.||ry>.013) return vec4(0.);
+  float bx=p.x+uCamX;
+  float post=step(abs(mod(bx,.016)-.008),max(.0011,.55/gPx));
+  float rail=step(abs(ry-.0115),max(.001,.55/gPx))+step(abs(ry-.006),max(.0007,.5/gPx));
+  float a=clamp(post+rail,0.,1.)*uRailingShow;
+  if(a>.1) gSdfEdge=max(gSdfEdge,.5);
+  return vec4(cBridge*1.3,a);
+}
+
+// ---------- 列车 SDF 分步组装 ----------
+#define PAINT(cond, c) if(cond){ col=(c); a=1.; }
+vec4 train(vec2 p){
+  if(uTrainStage<=.001) return vec4(0.);
+  float R=DECK;
+  vec2 q=vec2(p.x-uTrainX,p.y-R);
+  float carL=.12, gap=.006;
+  float activeCars=clamp((uTrainStage-3.)*2.5,0.,uCars);
+  float tail=(uTrainStage<3.) ? -.105 : (-.14-activeCars*(carL+gap));
+
+  float glowAmt=clamp(uTrainStage-5.,0.,1.)*uGlow;
+  float winAmt=clamp(uTrainStage-4.,0.,1.)*uWin;
+
+  if(glowAmt>.001 && q.y>-.04 && q.y<.12 && q.x>tail-.06 && q.x<.7){
+    float dwin=max(sdBox(q,vec2((tail-.14)*.5,.0255),vec2((-.14-tail)*.5,.0065)),0.);
+    gGlow+=cWin*exp(-dwin*90.)*.28*winAmt*glowAmt;
+    float dc=max(sdBox(q,vec2(-.085,.032),vec2(.008,.006)),0.);
+    gGlow+=cWin*exp(-dc*110.)*.22*winAmt*glowAmt;
+    vec2 hl=q-vec2(.001,.031);
+    gGlow+=cLight*exp(-length(hl)*70.)*.9*glowAmt;
+    if(hl.x>0.){ float spread=abs(hl.y)/(hl.x+.015); gGlow+=cLight*exp(-spread*7.-hl.x*4.)*.2*glowAmt; }
+    // 光晕距离场等值线显示
+    if(uTrainBlueprint>.01){
+      float iso=sstep(1.2/gPx,0.,abs(mod(dwin,.012)-.006))*exp(-dwin*35.);
+      gGlow+=vec3(1.,.78,.3)*iso*uTrainBlueprint*glowAmt*.55;
+    }
+  }
+
+  // 包围盒
+  if(q.y<-.005||q.y>.058||q.x>.012||q.x<tail-.005) return vec4(0.);
+
+  vec3 body=cTrain*(.75+.75*smoothstep(0.,.05,q.y));
+  vec3 dark=cTrain*.45;
+  vec3 metal=mix(cTrain*2.2,cCloudTop,.3);
+  vec3 col=vec3(0.); float a=0.;
+  float w=q.x;
+
+  // 阶段 1+: 机车主体 SDF
+  if(uTrainStage>=.4 && w>-.103){
+    float dBoiler=sdBox(q,vec2(-.04,.024),vec2(.026,.007))-.004;
+    float dCab=sdBox(q,vec2(-.085,.027),vec2(.015,.019));
+    float dChim=sdBox(q,vec2(-.02,.042),vec2(.0035,.0075));
+    float dDome=length(q-vec2(-.045,.035))-.005;
+    PAINT(w>-.1&&w<-.002&&q.y>.009&&q.y<.0125, dark)
+    PAINT(dBoiler<0., body)
+    PAINT(abs(w+.03)<.0008&&q.y>.013&&q.y<.035, metal)
+    PAINT(abs(w+.052)<.0008&&q.y>.013&&q.y<.035, metal)
+    PAINT(sdBox(q,vec2(-.009,.024),vec2(.005,.0115))<0., cTrain*.85)
+    PAINT(dChim<0., body)
+    PAINT(sdBox(q,vec2(-.02,.0495),vec2(.006,.0018))<0., dark)
+    PAINT(dDome<0.&&q.y>.033, body)
+    PAINT(dCab<0., body)
+    if(winAmt>.01) PAINT(sdBox(q,vec2(-.085,.032),vec2(.008,.006))<0., cWin*winAmt*(1.05-.3*smoothstep(.026,.038,q.y)))
+    PAINT(sdBox(q,vec2(-.085,.048),vec2(.018,.002))<0., dark)
+    PAINT(w>-.004&&w<.007&&q.y>0.&&q.y<.010-(w+.004)*.9, dark)
+    PAINT(length(q-vec2(-.002,.031))<.0028, cLight*1.6)
+
+    float minD=min(min(abs(dBoiler),abs(dCab)),min(abs(dChim),abs(dDome)));
+    float sdfLine=sstep(1.5/gPx,0.,minD);
+    gSdfEdge=max(gSdfEdge,sdfLine);
+    if(uTrainBlueprint>.01 && sdfLine>.01){
+      col=mix(col,vec3(.3,.95,1.),sdfLine*uTrainBlueprint*.9);
+      a=max(a,sdfLine*uTrainBlueprint*.9);
+    }
+
+    // 阶段 2+: 动轮与偏心连杆
+    if(uTrainStage>=1.8){
+      for(int i=0;i<3;i++){
+        vec2 wc=vec2(-.058+float(i)*.018,.0075);
+        float d=length(q-wc);
+        PAINT(d<.0075, dark)
+        PAINT(d<.0075&&d>.0058, mix(cTrain*1.3,vec3(.35,.92,1.),uTrainBlueprint*.7))
+        PAINT(d<.0016, vec3(1.,.82,.35))
+        gSdfEdge=max(gSdfEdge,sstep(1.3/gPx,0.,abs(d-.0075)));
+      }
+      PAINT(length(q-vec2(-.009,.004))<.004, dark)
+      vec2 o=vec2(cos(uWheel),sin(uWheel))*.0045;
+      if(abs(q.y-.0075-o.y)<.0012&&w>-.058+o.x&&w<-.022+o.x){
+        col=mix(metal,vec3(1.,.78,.28),uTrainBlueprint*.85);
+        a=1.;
+      }
+    }
+  } else if(uTrainStage>=3.0 && w>-.14){
+    // 煤水车
+    float dT=sdBox(q,vec2(-.1215,.021),vec2(.0165,.012))-.001;
+    PAINT(dT<0., body)
+    PAINT(abs(w+.1215)<.015&&q.y>.033&&q.y<.034+.004*(.6+.4*sin(w*900.)), dark*.8)
+    PAINT(length(q-vec2(-.132,.0045))<.0045||length(q-vec2(-.111,.0045))<.0045, dark)
+    gSdfEdge=max(gSdfEdge,sstep(1.4/gPx,0.,abs(dT)));
+  } else if(uTrainStage>=3.1){
+    // 客车厢：floor 直接定位第 idx 节
+    float u=-.14-gap-w;
+    float idx=floor(u/(carL+gap));
+    float lu=u-idx*(carL+gap);
+    if(idx>=0.&&idx<activeCars){
+      if(lu>carL||lu<0.){
+        PAINT(q.y>.010&&q.y<.0135, dark)
+      } else {
+        float cx=carL*.5-lu;
+        vec2 cq=vec2(cx,q.y);
+        float dCar=sdBox(cq,vec2(0.,.0225),vec2(carL*.5-.002,.0125))-.002;
+        PAINT(dCar<0., body)
+        PAINT(sdBox(cq,vec2(0.,.0395),vec2(carL*.5-.004,.002))-.0015<0., dark*1.3)
+        PAINT(abs(q.y-.0135)<.0009&&abs(cx)<carL*.5-.002, mix(body*1.6,cCloudTop,.2))
+        PAINT(abs(q.y-.0088)<.0012&&abs(cx)<carL*.5-.003, dark)
+        float wx=lu-.0105; float wi=floor(wx/.0155); float wl=wx-wi*.0155;
+        if(winAmt>.01 && wi>=0.&&wi<7.&&wl<.009&&abs(q.y-.0255)<.0055){
+          float hh=hash(vec2(wi+idx*7.,3.));
+          float lit=hh<.12?.22:(.75+.25*hh);
+          PAINT(true, cWin*lit*winAmt*(1.05-.3*smoothstep(.02,.031,q.y)))
+        }
+        float ax=abs(cx);
+        PAINT(length(vec2(ax-.046,q.y-.0042))<.0042||length(vec2(ax-.036,q.y-.0042))<.0042, dark)
+        float cEdge=sstep(1.4/gPx,0.,abs(dCar));
+        gSdfEdge=max(gSdfEdge,cEdge);
+        if(uTrainBlueprint>.01 && cEdge>.01){
+          col=mix(col,vec3(.3,.95,1.),cEdge*uTrainBlueprint*.8);
+        }
+      }
+    }
+  }
+  return vec4(col,a);
+}
+
+// ---------- 蒸汽与包络管道拆解 ----------
+vec4 steam(vec2 p){
+  if(uSteamShow<=.001 && uSteamBlueprint<=.001) return vec4(0.);
+  vec2 ch=vec2(uTrainX-.02,DECK+.051);
+  float dx=ch.x-p.x;
+  float L=.3+.45*uSteam;
+  if(dx<-.006||dx>L) return vec4(0.);
+  float dxp=max(dx,0.);
+  float yc=ch.y+.1*sqrt(dxp)+.03*dxp;
+  float r=.004+.075*pow(dxp,.7);
+  float dy=p.y-yc;
+  if(abs(dy)>r*1.9+.012) return vec4(0.);
+  float n=fbmB(vec2((p.x+uSmokeOff)*24.,p.y*24.-uT*.6));
+  float fade=1.-smoothstep(L*.25,L,dxp);
+  float d=abs(dy)-r*(.25+1.5*n)*fade;
+
+  vec3 col=vec3(0.); float a=0.;
+  if(uSteamShow>.001 && d<=0.){
+    float s=floor(clamp(dy/(r+.002)*.5+.5,0.,1.)*3.+.5)/3.;
+    vec3 c=mix(mix(cCloudShade,cCloudTop,.5),vec3(1.,.95,.98),s);
+    c=mix(c,cCloudLit,.2);
+    col=c;
+    a=(.35+.65*fade)*min(uSteam,1.)*smoothstep(-.006,0.,dx)*uSteamShow;
+    gSdfEdge=max(gSdfEdge,sstep(1.8/gPx,0.,abs(d)));
+  }
+
+  // 包络管道与翻滚噪声场可视化
+  if(uSteamBlueprint>.001){
+    float cLine=sstep(1.5/gPx,0.,abs(dy));
+    float envLine=sstep(1.5/gPx,0.,abs(abs(dy)-r*1.25*fade));
+    float inPipe=step(abs(dy),r*1.25*fade)*step(0.,dx);
+    vec3 nCol=mix(vec3(.12,.25,.55),vec3(.45,.92,1.),n);
+    float pipeAlpha=inPipe*.42*uSteamBlueprint*(1.-a*.6);
+    col=mix(col,nCol,pipeAlpha/(max(a+pipeAlpha,1e-4)));
+    a=max(a,pipeAlpha);
+    float lines=max(cLine,envLine)*uSteamBlueprint*step(0.,dx);
+    if(lines>.01){
+      vec3 lCol=cLine>envLine ? vec3(1.,.82,.32) : vec3(.3,.95,1.);
+      col=mix(col,lCol,lines);
+      a=max(a,lines);
+    }
+  }
+  return vec4(col,a);
+}
+
+// ---------- 近景树丛与抛物线电线拆解 ----------
+float landMask(float fx){ float s=mod(fx+.35,1.95); return smoothstep(0.,.05,s)*sstep(.56,.48,s); }
+vec4 fore(vec2 p){
+  if(uForeShow<=.001) return vec4(0.);
+  float H=uHorizon;
+  if(p.y<H) return vec4(0.);
+  float fx=p.x+uFore;
+  float s=mod(fx+.35,1.95);
+  float ptop=H+.24;
+  float dp=min(abs(s-.15),abs(s-.42));
+  vec3 wireGlow=mix(cFore,vec3(1.,.82,.35),uForeBlueprint*.85);
+  if(p.y<ptop&&dp<max(.0022,1./gPx)) return vec4(wireGlow,uForeShow);
+  if(abs(p.y-(ptop-.012))<max(.0016,.6/gPx)&&dp<.02) return vec4(wireGlow,uForeShow);
+  if(abs(p.y-(ptop-.03))<max(.0014,.6/gPx)&&dp<.014) return vec4(wireGlow,uForeShow);
+  if(p.y<ptop){
+    float u, sag;
+    if(s>=.15&&s<=.42){ u=(s-.15)/.27; sag=.01; }
+    else { float s2=s<.15?s+1.95:s; u=(s2-.42)/1.68; sag=.06; }
+    float dropW=4.*u*(1.-u)*sag;
+    float lw=max(.0009,.55/gPx)*(1.+.7*uForeBlueprint);
+    if(abs(p.y-(ptop-.012-dropW))<lw||abs(p.y-(ptop-.03-dropW))<lw) return vec4(wireGlow,.92*uForeShow);
+  }
+  float lm=landMask(fx);
+  if(lm<=0.||p.y>H+.2) return vec4(0.);
+  float cw=.025; float id=floor(fx/cw);
+  float top=H+.01*lm;
+  for(int k=-1;k<=1;k++){
+    float cid=id+float(k);
+    float hm=mod(cid,78.);
+    float c=(cid+.5)*cw+(hash(vec2(hm,1.))-.5)*.01;
+    float ht=landMask(c)*(.025+.1*hash(vec2(hm,2.))*hash(vec2(hm,5.))+.025*hash(vec2(hm,7.)));
+    float dxn=abs(fx-c)/(cw*(.8+.8*hash(vec2(hm,3.))));
+    if(dxn<1.) top=max(top,H+ht*sqrt(1.-dxn*dxn));
+  }
+  top+=.006*(noise(vec2(fx*131.282,p.y*70.))-.5)*step(H+.02,top);
+  float crownEdge=sstep(1.8/gPx,0.,abs(p.y-top))*step(H+.012,top);
+  gSdfEdge=max(gSdfEdge,crownEdge);
+  if(p.y<top){
+    vec3 fCol=mix(cFore,vec3(.25,.92,1.),crownEdge*uForeBlueprint*.9);
+    return vec4(fCol,uForeShow);
+  }
+  return vec4(0.);
+}
+
+// ---------- 前向遮挡合成（记录首个饱和图层 ID） ----------
+#define ADD(L, ID) { vec4 l_=L; if(l_.a>.05 && gLayerId<0.5) gLayerId=ID; acc.rgb+=(1.-acc.a)*l_.a*l_.rgb; acc.a+=(1.-acc.a)*l_.a; if(acc.a>.995) return acc.rgb+gGlow; }
+vec3 scene(vec2 p){
+  gGlow=vec3(0.);
+  gLayerId=0.;
+  vec4 acc=vec4(0.);
+  ADD(fore(p), 1.)
+  ADD(railing(p), 2.)
+  ADD(steam(p), 3.)
+  ADD(train(p), 4.)
+  ADD(bridge(p), 5.)
+  ADD(farShore(p), 6.)
+  ADD(clouds(p), 7.)
+  if(gLayerId<0.5) gLayerId=8.;
+  acc.rgb+=(1.-acc.a)*sky(p);
+  return acc.rgb+gGlow;
+}
+
+vec3 layerColor(float id){
+  if(id<1.5) return vec3(.15,.92,.65); // 1: 近景树丛与电线
+  if(id<2.5) return vec3(.35,.85,1.);  // 2: 桥面护栏
+  if(id<3.5) return vec3(.95,.95,1.);  // 3: 蒸汽
+  if(id<4.5) return vec3(1.,.75,.22);  // 4: 蒸汽列车
+  if(id<5.5) return vec3(.62,.45,.98); // 5: 石拱桥
+  if(id<6.5) return vec3(1.,.52,.38);  // 6: 远岸灯火
+  if(id<7.5) return vec3(.95,.42,.72); // 7: 12层云海
+  return vec3(.14,.22,.58);            // 8: 星空与银河
+}
+
+void main(){
+  gC=.5*uRes/uRes.y;
+  gPx=uRes.y*uZoom; gPxS=uRes.y*sqrt(uZoom);
+  gSdfEdge=0.;
+  vec2 p=(gl_FragCoord.xy/uRes.y-gC)/uZoom+gC+vec2(0.,uCamY);
+  float H=uHorizon;
+  float depth=H-p.y;
+
+  // 水面三阶段拆解：0 关闭 -> 0..1 纯镜像翻转 -> 1..2 1/z 透视水波网格 -> 2..3 双频噪声扰动与深水着色
+  vec2 q=p;
+  float wy=1./(max(depth,0.)+.015);
+  float wShow=clamp(uWaterStage,0.,1.);
+  float wPersp=clamp(uWaterStage-1.,0.,1.)*(1.-clamp(uWaterStage-2.,0.,1.));
+  float wRip=clamp(uWaterStage-2.,0.,1.);
+
+  if(depth>0.){
+    float n=noise(vec2(p.x*8.,wy*2.5-uT*.9))-.5;
+    float n2=noise(vec2(p.x*23.,wy*6.-uT*1.7))-.5;
+    float off=(n+.5*n2)*uRipple*wRip*(.002+.03*depth);
+    q=vec2(p.x+off,H+depth+off*.25);
+  }
+
+  vec3 col=scene(q);
+  float topLayerId=gLayerId;
+  float edgeVal=gSdfEdge;
+
+  if(depth>0.){
+    vec3 waterCol=mix(col*uRefl,cSkyTop*.55,.12+.35*smoothstep(0.,.4,depth)*wRip);
+    float ln=smoothstep(.66,.74,noise(vec2(p.x*2.5+uT*.02,wy*5.-uT*.5)));
+    waterCol+=cCloudTop*ln*.07*uRipple*wRip;
+    waterCol+=cSkyHor*.25*exp(-depth*gPx*.6);
+    // 阶段 1..2 显示 1/z 透视水波等相线（除以屏幕导数保持恒定像素线宽）
+    if(wPersp>.001){
+      float phase=wy*.42-uT*.35;
+      float dPhase=.42/((max(depth,0.)+.015)*(max(depth,0.)+.015)*gPx);
+      float pxDist=min(fract(phase),1.-fract(phase))/max(dPhase,1e-5);
+      float waveIso=sstep(1.8,0.,pxDist)*sstep(.003,.018,depth);
+      waterCol=mix(waterCol,vec3(.3,.92,1.),waveIso*wPersp*.82);
+    }
+    col=mix(vec3(.02,.03,.08),waterCol,wShow);
+  }
+
+  // 场景坐标网格与基准线叠加
+  if(uCoordGrid>.001){
+    vec2 gp=fract(p*10.);
+    vec2 gd=min(gp,1.-gp)*10.*gPx;
+    float gLine=sstep(1.2,0.,min(gd.x,gd.y));
+    float hLine=sstep(2.0/gPx,0.,abs(p.y-H));
+    float dLine=sstep(1.6/gPx,0.,abs(p.y-DECK));
+    col+=vec3(.2,.68,.95)*gLine*.22*uCoordGrid;
+    col+=vec3(1.,.78,.3)*hLine*.85*uCoordGrid;
+    col+=vec3(.4,.95,.8)*dLine*.55*uCoordGrid;
+  }
+
+  // 前向遮挡图层热力图模式
+  if(uLayerMapVis>.001){
+    vec3 lCol=layerColor(topLayerId);
+    vec3 mapView=mix(col,lCol,.68)+vec3(1.)*edgeVal*.35;
+    col=mix(col,mapView,uLayerMapVis);
+  }
+
+  // 全屏斜向 X-Ray 扫描分屏特效
+  vec2 uv=gl_FragCoord.xy/uRes;
+  if(uXrayWipe>-.99){
+    float diag=uv.x*.78+(1.-uv.y)*.22;
+    float band=abs(diag-uXrayWipe);
+    if(band<.16){
+      float w=sstep(.16,.0,band);
+      float grid=sstep(1.2,0.,min(fract(p.x*20.),1.-fract(p.x*20.))*20.*gPx);
+      vec3 xray=vec3(.03,.07,.18)+vec3(.25,.92,1.)*(edgeVal*.95+grid*.25)+layerColor(topLayerId)*.28;
+      col=mix(col,xray,w*.88);
+      float laser=sstep(.008,0.,abs(band-.155))+sstep(.006,0.,band);
+      col+=vec3(.45,.98,1.)*laser*1.2;
+    }
+  }
+
+  col*=uExposure;
+  float l=dot(col,vec3(.299,.587,.114));
+  col=max(mix(vec3(l),col,uSat),0.);
+  col*=mix(1.,.4+.6*pow(max(16.*uv.x*uv.y*(1.-uv.x)*(1.-uv.y),0.),.25),uVignette);
+  gl_FragColor=vec4(clamp(col,0.,1.),1.);
+}
+`;
+
+// ======== 默认颜色与状态 ========
+const COLORS = {
+  cSkyTop: '#0d1240', cSkyHor: '#4a3c8c', cCloudLit: '#ff8fbd', cCloudTop: '#8f97f0', cCloudShade: '#4b3f8f',
+  cWin: '#ffd27a', cTrain: '#1d1a3a', cBridge: '#2a2554', cLight: '#ffb35c', cFore: '#0b0d26',
+};
+const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+
+const CAM_WRAP = 15.6, FORE_WRAP = 1.95, SMOKE_WRAP = 256 / 24, TAU = Math.PI * 2;
+const CLOUD_DIST = [10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 100];
+const M = {
+  t: 0, camX: 0, fore: 0, far: 37, smoke: 0, trainX: 1.0, wheel: 0,
+  cl: [32.5, 30, 27.5, 23, 20.5, 18, 18, 15.5, 12, 9.5, 7, 3.5],
+};
+
+function advance(dt, speed, zoom, follow = true) {
+  const aspect = 1920 / 1080, cx = aspect / 2;
+  const toScene = x => cx + (x - cx) / zoom;
+  M.trainX = toScene(aspect * 0.60);
+  const d = speed * dt;
+  M.t = (M.t + dt) % 3600;
+  M.wheel = (M.wheel + d / 0.0075) % TAU;
+  const camD = follow ? d : 0;
+  M.camX = (M.camX + camD) % CAM_WRAP;
+  M.fore = (M.fore + camD * 1.15) % FORE_WRAP;
+  M.far = (M.far + camD * 0.08 * 3) % 256;
+  M.smoke = (M.smoke + camD + dt * 0.01) % SMOKE_WRAP;
+  for (let i = 0; i < 12; i++) M.cl[i] = (M.cl[i] + (camD + dt * 0.01) * 5 / CLOUD_DIST[i]) % 1024;
+}
+
+// ======== 根据视频绝对时间 t 计算全部着色器参数（精确对齐旁白） ========
+function stateAt(t) {
+  const s = {
+    speed: 0.12, zoom: 0.5, camY: 0.06,
+    stars: 0.55, twinkle: 0.6, milky: 1.0, meteor: 0.35,
+    cloudCover: 0.7, cloudStack: 0.4, amplitude: 0.6, steam: 1.0,
+    cars: 5, win: 1.0, glow: 1.0, horizon: 0.36, refl: 0.85, ripple: 1.0,
+    exposure: 1.0, saturation: 1.1, vignette: 0.45, poster: 0, detail: 8,
+    // 拆解控制参数
+    uCoordGrid: 0, uSkyShow: 1, uStarShow: 1, uStarGridVis: 0, uMilkyStage: 3, uMeteorBoost: 0,
+    uCloudShow: 1, uCloudStackCount: 12, uCloudInspect: 0, uCloud1D: 0, uCloudBandVis: 0,
+    uBridgeShow: 1, uBridgeArchCarve: 1, uBridgeBlueprint: 0, uRailingShow: 1, uFarShow: 1, uForeShow: 1, uForeBlueprint: 0,
+    uTrainStage: 6, uTrainBlueprint: 0, uSteamShow: 1, uSteamBlueprint: 0,
+    uWaterStage: 3, uLayerMapVis: 0, uXrayWipe: -1.5,
+  };
+
+  if (t < 24.736) {
+    // 00: Intro — 镜头从近景拉到全景，中段斜向 X-Ray 扫描，结尾退回纯黑网格画布
+    s.zoom = lerp(1.15, 0.5, smooth(0, 12.5, t));
+    s.camY = lerp(0.0, 0.06, smooth(0, 12.5, t));
+    if (t >= 12.5 && t <= 18.8) {
+      s.uXrayWipe = lerp(-0.2, 1.25, (t - 12.5) / 6.3);
+    }
+    if (t >= 18.5) {
+      const k = 1 - smooth(18.5, 23.8, t);
+      s.uForeShow = k; s.uRailingShow = k; s.uSteamShow = k;
+      s.uTrainStage = 6 * k; s.uBridgeShow = k; s.uFarShow = k;
+      s.uCloudShow = k; s.uStarShow = k; s.uMilkyStage = 3 * k;
+      s.uWaterStage = 3 * k; s.uSkyShow = k;
+      s.uCoordGrid = smooth(19.5, 23.5, t);
+    }
+  } else if (t < 65.896) {
+    // 01: Sky — 坐标系 -> 幂函数渐变 -> 星空哈希网格 -> 银河三步合成 -> 流星距离场
+    s.uCloudShow = 0; s.uBridgeShow = 0; s.uRailingShow = 0; s.uFarShow = 0;
+    s.uForeShow = 0; s.uTrainStage = 0; s.uSteamShow = 0; s.uWaterStage = 0;
+    s.uCoordGrid = 1 - 0.75 * smooth(34.0, 38.0, t);
+    s.uSkyShow = smooth(28.5, 32.2, t);
+    // 35.0s ~ 52.0s: 拉近夜空观察网格哈希与十字亮星
+    const zSky = smooth(35.0, 38.0, t) - smooth(50.5, 53.5, t);
+    s.zoom = lerp(0.55, 1.35, clamp(zSky));
+    s.camY = lerp(0.06, 0.20, clamp(zSky));
+    s.uStarGridVis = smooth(35.2, 37.0, t) * (1 - smooth(49.5, 52.0, t));
+    s.uStarShow = smooth(39.0, 43.0, t);
+    s.twinkle = lerp(0.2, 0.9, smooth(44.5, 48.0, t));
+    // 52.0s ~ 65.9s: 银河三步合成 + 流星
+    const s1 = smooth(53.0, 56.0, t);
+    const s2 = smooth(56.2, 59.0, t);
+    const s3 = smooth(59.2, 62.0, t);
+    s.uMilkyStage = s1 + s2 + s3;
+    if (t >= 62.0 && t <= 65.2) {
+      s.uMeteorBoost = (t - 62.0) / 3.2;
+    }
+  } else if (t < 102.904) {
+    // 02: Clouds — 1D vs 2D FBM 等值线 -> 4道色带切分 -> 12层由远到近叠加与视差
+    s.uBridgeShow = 0; s.uRailingShow = 0; s.uFarShow = 0;
+    s.uForeShow = 0; s.uTrainStage = 0; s.uSteamShow = 0; s.uWaterStage = 0;
+    s.zoom = lerp(0.55, 0.72, smooth(66.0, 69.0, t) * (1 - smooth(90.5, 93.5, t)));
+    s.camY = 0.06;
+    s.uCloudShow = 1;
+    s.uCloudInspect = 1 - smooth(90.5, 92.2, t);
+    // 69s ~ 75.5s 先展示 1D 曲线，75.5s ~ 79s 注入纵坐标 y 变成 2D 破碎积云
+    s.uCloud1D = (1 - smooth(75.5, 78.8, t)) * smooth(68.0, 70.0, t);
+    // 84s ~ 91.2s 高亮 4 道色带切分
+    s.uCloudBandVis = smooth(83.8, 85.5, t) * (1 - smooth(90.2, 91.8, t));
+    // 91.5s ~ 101.5s 12层云由远到近逐层叠加
+    s.uCloudStackCount = t < 91.2 ? 12 : lerp(1, 12, smooth(91.2, 100.5, t));
+  } else if (t < 140.344) {
+    // 03: Bridge & Fore — 周期取模 0.2 -> 半椭圆挖拱洞 -> 拱圈石缝与护栏 -> 0.08x 远岸 -> 1.15x 近景树冠与抛物线电线
+    s.uTrainStage = 0; s.uSteamShow = 0; s.uWaterStage = 0;
+    const zBr = smooth(103.2, 106.0, t) * (1 - smooth(122.5, 125.5, t));
+    s.zoom = lerp(0.75, 1.28, zBr);
+    s.camY = lerp(0.02, -0.02, zBr);
+    s.uBridgeShow = smooth(104.0, 106.5, t);
+    s.uBridgeBlueprint = smooth(108.0, 110.0, t) * (1 - smooth(123.0, 125.0, t));
+    s.uBridgeArchCarve = smooth(115.2, 118.8, t);
+    s.uRailingShow = smooth(120.5, 122.8, t);
+    s.uFarShow = smooth(123.2, 126.0, t);
+    s.uForeShow = smooth(128.0, 130.5, t);
+    s.uForeBlueprint = smooth(130.0, 132.0, t) * (1 - smooth(138.5, 140.0, t));
+  } else if (t < 180.04) {
+    // 04: Train — 镜头特写机车 -> SDF 布尔组装 -> 动轮旋转角与曲柄连杆 -> 客车厢 floor 克隆 -> 车窗哈希与指数光晕
+    s.uSteamShow = 0; s.uWaterStage = 0;
+    const closeUp = smooth(140.5, 143.5, t) * (1 - smooth(161.5, 164.8, t));
+    s.zoom = lerp(0.92, 2.15, closeUp);
+    s.camY = lerp(0.0, -0.038, closeUp);
+    s.uTrainBlueprint = smooth(141.0, 143.0, t) * (1 - smooth(177.5, 179.5, t));
+    if (t < 153.5) {
+      s.uTrainStage = lerp(0.4, 1.75, smooth(142.0, 152.0, t));
+    } else if (t < 162.2) {
+      s.uTrainStage = lerp(1.8, 2.95, smooth(153.5, 156.5, t));
+    } else if (t < 170.2) {
+      s.uTrainStage = lerp(3.0, 4.0, smooth(162.4, 168.5, t));
+    } else if (t < 173.2) {
+      s.uTrainStage = lerp(4.0, 5.0, smooth(170.2, 172.8, t));
+    } else {
+      s.uTrainStage = lerp(5.0, 6.0, smooth(173.2, 177.5, t));
+    }
+  } else if (t < 211.888) {
+    // 05: Steam — 抛物线中心轴与幂函数半径包络 -> Billow 翻折噪声侵蚀 -> 空气坐标滞留漂移
+    s.uWaterStage = 0;
+    s.zoom = lerp(0.92, 1.22, smooth(180.2, 183.0, t) * (1 - smooth(208.5, 211.5, t)));
+    s.camY = lerp(0.0, 0.04, smooth(180.2, 183.0, t));
+    s.uSteamBlueprint = smooth(183.2, 185.5, t) * (1 - smooth(208.5, 211.2, t));
+    s.uSteamShow = smooth(192.5, 196.5, t);
+  } else if (t < 246.016) {
+    // 06: Water — 对称翻转纯镜像 -> 1/z 透视水波网格 -> 双频横向噪声扰动与深水高光
+    s.zoom = lerp(0.76, 0.56, smooth(212.0, 238.0, t));
+    s.camY = lerp(0.01, 0.05, smooth(212.0, 238.0, t));
+    const w1 = smooth(216.0, 220.5, t);
+    const w2 = smooth(222.5, 225.5, t);
+    const w3 = smooth(228.5, 233.5, t);
+    s.uWaterStage = w1 + w2 + w3;
+  } else {
+    // 07: Outro — 前向遮挡透明度提前退出热力图 -> 斜向全屏扫描 -> 最终成片全景
+    s.zoom = 0.5;
+    s.camY = 0.06;
+    s.uLayerMapVis = smooth(252.5, 255.0, t) * (1 - smooth(264.0, 266.5, t));
+    if (t >= 266.5 && t <= 274.5) {
+      s.uXrayWipe = lerp(-0.2, 1.25, (t - 266.5) / 8.0);
+    }
+  }
+  return s;
+}
+
+// ======== 场景坐标 -> 1920×1080 屏幕像素坐标换算 ========
+function toScreen(px, py, st) {
+  const aspect = 1920 / 1080;
+  const gCx = 0.5 * aspect, gCy = 0.5;
+  const sx = ((px - gCx) * st.zoom + gCx) * 1080;
+  const sy = (1.0 - ((py - st.camY - gCy) * st.zoom + gCy)) * 1080;
+  return [sx, sy];
+}
+
+// ======== 动态矢量 HUD 标注绘制（1920×1080） ========
+function drawCallout(ctx, x, y, dx, dy, title, sub, color = '#5ce1e6', alpha = 1) {
+  if (alpha <= 0.01) return;
+  ctx.save();
+  ctx.globalAlpha = clamp(alpha);
+  const ex = x + dx, ey = y + dy;
+  const dir = dx >= 0 ? 1 : -1;
+
+  // 目标锚点脉冲圆环
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.2;
+  ctx.beginPath(); ctx.arc(x, y, 7, 0, TAU); ctx.stroke();
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y, 3.2, 0, TAU); ctx.fill();
+
+  // 折线引线
+  ctx.font = '700 22px "Microsoft YaHei UI", sans-serif';
+  const tw1 = ctx.measureText(title).width;
+  ctx.font = '500 17px "Cascadia Mono", Consolas, "Microsoft YaHei UI", sans-serif';
+  const tw2 = sub ? ctx.measureText(sub).width : 0;
+  const bw = Math.max(tw1, tw2) + 32;
+  const bh = sub ? 66 : 42;
+  const bx = dir > 0 ? ex : ex - bw;
+  const by = ey - bh * 0.5;
+
+  ctx.beginPath();
+  ctx.moveTo(x + dir * 7, y);
+  ctx.lineTo(ex - dir * 14, ey);
+  ctx.lineTo(ex, ey);
+  ctx.stroke();
+
+  // 标签背板
+  ctx.fillStyle = 'rgba(6, 10, 28, 0.84)';
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.roundRect(bx, by, bw, bh, 10);
+  ctx.fill();
+  ctx.stroke();
+
+  // 文本
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '700 21px "Microsoft YaHei UI", sans-serif';
+  ctx.fillText(title, bx + 16, by + 27);
+  if (sub) {
+    ctx.fillStyle = color;
+    ctx.font = '500 16px "Cascadia Mono", Consolas, "Microsoft YaHei UI", sans-serif';
+    ctx.fillText(sub, bx + 16, by + 51);
+  }
+  ctx.restore();
+}
+
+function drawPanelBox(ctx, x, y, w, h, title, color = '#5ce1e6', alpha = 1) {
+  ctx.save();
+  ctx.globalAlpha = clamp(alpha);
+  ctx.fillStyle = 'rgba(6, 10, 28, 0.86)';
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, 14);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = color;
+  ctx.font = '700 20px "Microsoft YaHei UI", sans-serif';
+  ctx.fillText(title, x + 20, y + 32);
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x + 16, y + 44);
+  ctx.lineTo(x + w - 16, y + 44);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawHUD(ctx, t, st) {
+  ctx.clearRect(0, 0, 1920, 1080);
+  const H = st.horizon, DECK = H + 0.115;
+
+  // ---- 00: Intro 扫描标注 ----
+  if (t < 24.736) {
+    if (t >= 1.2 && t <= 11.5) {
+      const a = smooth(1.2, 2.5, t) * (1 - smooth(10.0, 11.5, t));
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(0,0,0,0.85)';
+      ctx.shadowBlur = 24;
+      ctx.font = '800 72px "Microsoft YaHei UI", sans-serif';
+      ctx.fillText('星河夜行列车 · 视觉特效深度拆解', 960, 195);
+      ctx.fillStyle = '#8be9fd';
+      ctx.font = '600 30px "Cascadia Mono", "Microsoft YaHei UI", sans-serif';
+      ctx.fillText('Single-Pass WebGL Fragment Shader · 0 Textures · 100% Procedural', 960, 250);
+      ctx.restore();
+    }
+    if (t >= 12.8 && t <= 18.5) {
+      const wx = clamp((t - 12.5) / 6.3) * 1920;
+      drawCallout(ctx, clamp(wx, 240, 1680), 420, -180, -90, '实时像素着色器 X-Ray 扫描', 'SDF 距离场 + 噪声高度场 + 前向遮挡', '#5ce1e6', 1);
+    }
+  }
+
+  // ---- 01: Sky 坐标、渐变曲线、网格哈希、银河三步 ----
+  if (t >= 24.736 && t < 65.896) {
+    // 水平线标注
+    const [, hyPx] = toScreen(0.9, H, st);
+    const aHor = smooth(26.0, 27.5, t) * (1 - smooth(35.0, 36.5, t));
+    drawCallout(ctx, 520, hyPx, 90, -55, '地平线基准 H = 0.36', 'sp.y = gl_FragCoord.y / uRes.y', '#ffd27a', aHor);
+
+    // 幂函数曲线图 (29.5s ~ 35.5s)
+    const aCurve = smooth(29.8, 31.0, t) * (1 - smooth(34.8, 35.8, t));
+    if (aCurve > 0.01) {
+      const bx = 1380, by = 160, bw = 440, bh = 290;
+      drawPanelBox(ctx, bx, by, bw, bh, '夜空幂函数渐变曲线  mix(cHor, cTop, y^0.6)', '#8be9fd', aCurve);
+      ctx.save();
+      ctx.globalAlpha = aCurve;
+      const gx = bx + 54, gy = by + 235, gw = 340, gh = 165;
+      ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(gx, gy - gh, gw, gh);
+      ctx.strokeStyle = '#ff8fbd';
+      ctx.lineWidth = 3.2;
+      ctx.beginPath();
+      for (let i = 0; i <= 60; i++) {
+        const u = i / 60, v = Math.pow(u, 0.6);
+        const px = gx + u * gw, py = gy - v * gh;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      const curU = clamp(st.uSkyShow);
+      const curV = Math.pow(curU, 0.6);
+      ctx.fillStyle = '#ffd27a';
+      ctx.beginPath(); ctx.arc(gx + curU * gw, gy - curV * gh, 7, 0, TAU); ctx.fill();
+      ctx.fillStyle = '#d8deff';
+      ctx.font = '500 16px "Cascadia Mono", monospace';
+      ctx.fillText('y = 0 (地平线 #4a3c8c)', gx, gy + 26);
+      ctx.fillText('y = 1 (天顶 #0d1240)', gx + gw - 165, gy - gh - 10);
+      ctx.restore();
+    }
+
+    // 网格哈希检测面板 (36.0s ~ 51.5s)
+    const aGrid = smooth(36.0, 37.5, t) * (1 - smooth(50.2, 51.8, t));
+    if (aGrid > 0.01) {
+      const bx = 1320, by = 140, bw = 510, bh = 340;
+      drawPanelBox(ctx, bx, by, bw, bh, '星空网格哈希采样  h = hash(floor(p / cell))', '#ffd27a', aGrid);
+      ctx.save();
+      ctx.globalAlpha = aGrid;
+      const cells = [
+        [0.18, true, 0.62, 0.38], [0.81, false, 0, 0], [0.42, true, 0.35, 0.66],
+        [0.93, false, 0, 0], [0.12, true, 0.52, 0.48], [0.67, false, 0, 0],
+      ];
+      cells.forEach(([hVal, ok, cx, cy], idx) => {
+        const col = idx % 3, row = Math.floor(idx / 3);
+        const x0 = bx + 28 + col * 155, y0 = by + 62 + row * 125;
+        ctx.strokeStyle = ok ? '#ffd27a' : 'rgba(120,180,255,0.35)';
+        ctx.fillStyle = ok ? 'rgba(255,210,122,0.12)' : 'rgba(15,25,55,0.5)';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.roundRect(x0, y0, 140, 110, 8); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = ok ? '#ffd27a' : '#8899bb';
+        ctx.font = '600 16px "Cascadia Mono", monospace';
+        ctx.fillText(`h = ${hVal.toFixed(2)}`, x0 + 12, y0 + 26);
+        ctx.font = '700 15px "Microsoft YaHei UI", sans-serif';
+        ctx.fillText(ok ? '< 阈值 → 点亮' : '> 阈值 → 跳过', x0 + 12, y0 + 96);
+        if (ok) {
+          const sx = x0 + 25 + cx * 90, sy = y0 + 32 + cy * 45;
+          const tw = 0.65 + 0.35 * Math.sin(t * 4.5 + idx * 2.1);
+          ctx.strokeStyle = `rgba(255,235,180,${tw})`;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(sx - 14 * tw, sy); ctx.lineTo(sx + 14 * tw, sy);
+          ctx.moveTo(sx, sy - 14 * tw); ctx.lineTo(sx, sy + 14 * tw);
+          ctx.stroke();
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath(); ctx.arc(sx, sy, 3.5, 0, TAU); ctx.fill();
+        }
+      });
+      ctx.restore();
+    }
+
+    // 银河三步进度指示 (52.2s ~ 65.5s)
+    const aMw = smooth(52.2, 53.5, t) * (1 - smooth(64.5, 65.6, t));
+    if (aMw > 0.01) {
+      const bx = 80, by = 130, bw = 540, bh = 235;
+      drawPanelBox(ctx, bx, by, bw, bh, '银河三步分形合成管线', '#ff8fbd', aMw);
+      ctx.save();
+      ctx.globalAlpha = aMw;
+      const steps = [
+        ['1. 倾斜高斯光带', 'band = exp(-v² / 0.018)', st.uMilkyStage >= 0.15],
+        ['2. 乘 FBM 星云噪声', 'mw = band · (0.2 + 1.7·fbm₁²)', st.uMilkyStage >= 1.1],
+        ['3. 挖除 FBM 暗尘裂谷', 'mw *= 1.0 - 0.65 · dust(fbm₂)', st.uMilkyStage >= 2.02],
+      ];
+      steps.forEach(([label, eq, on], i) => {
+        const y0 = by + 64 + i * 54;
+        ctx.fillStyle = on ? 'rgba(255,143,189,0.22)' : 'rgba(255,255,255,0.05)';
+        ctx.strokeStyle = on ? '#ff8fbd' : 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.roundRect(bx + 20, y0, bw - 40, 44, 8); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = on ? '#ffffff' : '#8892b0';
+        ctx.font = '700 19px "Microsoft YaHei UI", sans-serif';
+        ctx.fillText(label, bx + 34, y0 + 29);
+        ctx.fillStyle = on ? '#ffd27a' : '#667090';
+        ctx.font = '500 16px "Cascadia Mono", monospace';
+        ctx.fillText(eq, bx + 245, y0 + 29);
+      });
+      ctx.restore();
+    }
+  }
+
+  // ---- 02: Clouds 1D vs 2D 高度场、4道色带、12层视差谱 ----
+  if (t >= 65.896 && t < 102.904) {
+    const a1D = smooth(68.0, 69.5, t) * (1 - smooth(83.2, 84.5, t));
+    if (a1D > 0.01) {
+      const is2D = t >= 76.2;
+      drawCallout(
+        ctx, 760, 460, -140, -110,
+        is2D ? '二维噪声等值线 h(x, y) = fbm(x, y)' : '一维高度曲线 h(x) = fbm(x, 常数)',
+        is2D ? '纵坐标 y 参与噪声 → 天然产生悬空碎云与孔洞' : '仅横坐标 x 参与噪声 → 只能生成单调山坡轮廓',
+        is2D ? '#5ce1e6' : '#ffd27a', a1D
+      );
+    }
+
+    // 4 道色带切分图例 (84.0s ~ 91.5s)
+    const aBand = smooth(84.0, 85.2, t) * (1 - smooth(90.5, 91.6, t));
+    if (aBand > 0.01) {
+      const bx = 1330, by = 150, bw = 510, bh = 285;
+      drawPanelBox(ctx, bx, by, bw, bh, '单层云 4 道高度差色带切分 (BAND 宏)', '#ffd27a', aBand);
+      ctx.save();
+      ctx.globalAlpha = aBand;
+      const bands = [
+        ['dh = 0.00 (最外受光亮边)', '#ff8fbd', 'cy < h - 0.00'],
+        ['dh = 0.04 (云体浅亮部)', '#c882c8', 'cy < h - 0.04'],
+        ['dh = 0.08 (云体中暗部)', '#7b5ea8', 'cy < h - 0.08'],
+        ['dh = 0.12 (云层最深暗部)', '#4b3f8f', 'cy < h - 0.12'],
+      ];
+      bands.forEach(([name, col, cond], i) => {
+        const y0 = by + 60 + i * 52;
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.roundRect(bx + 24, y0 + 6, 32, 32, 6); ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 18px "Microsoft YaHei UI", sans-serif';
+        ctx.fillText(name, bx + 70, y0 + 29);
+        ctx.fillStyle = '#8be9fd';
+        ctx.font = '500 16px "Cascadia Mono", monospace';
+        ctx.fillText(cond, bx + 335, y0 + 29);
+      });
+      ctx.restore();
+    }
+
+    // 12 层视差与雾化柱状图 (91.5s ~ 102.5s)
+    const aStack = smooth(91.3, 92.5, t) * (1 - smooth(101.5, 102.7, t));
+    if (aStack > 0.01) {
+      const bx = 1280, by = 130, bw = 560, bh = 420;
+      const count = Math.round(st.uCloudStackCount);
+      drawPanelBox(ctx, bx, by, bw, bh, `12 层云海由远到近叠加 (当前已激活 ${count}/12 层)`, '#5ce1e6', aStack);
+      ctx.save();
+      ctx.globalAlpha = aStack;
+      for (let i = 0; i < 12; i++) {
+        const idx = 11 - i; // 11(最远 c1) -> 0(最近 c12)
+        const dist = CLOUD_DIST[idx];
+        const spd = (5 / dist).toFixed(2);
+        const fog = Math.round(idx * 3);
+        const on = i < st.uCloudStackCount;
+        const y0 = by + 58 + i * 29;
+        ctx.fillStyle = on ? '#ffffff' : 'rgba(255,255,255,0.28)';
+        ctx.font = '600 15px "Cascadia Mono", monospace';
+        ctx.fillText(`c${12 - idx}`.padEnd(4) + `dist=${String(dist).padStart(3)}`, bx + 22, y0 + 18);
+        // 速度条
+        const barW = (5 / dist) * 340;
+        ctx.fillStyle = on ? 'rgba(92,225,230,0.85)' : 'rgba(255,255,255,0.1)';
+        ctx.beginPath(); ctx.roundRect(bx + 175, y0 + 4, barW, 16, 4); ctx.fill();
+        ctx.fillStyle = on ? '#ffd27a' : 'rgba(255,255,255,0.25)';
+        ctx.fillText(`速度 ${spd}x · 夜雾 ${fog}%`, bx + 365, y0 + 18);
+      }
+      ctx.restore();
+    }
+  }
+
+  // ---- 03: Bridge & Fore 周期取模、半椭圆拱洞、抛物线电线 ----
+  if (t >= 102.904 && t < 140.344) {
+    const [bx1, by1] = toScreen(0.88, H + 0.06, st);
+    const aMod = smooth(108.5, 110.0, t) * (1 - smooth(122.5, 124.0, t));
+    drawCallout(
+      ctx, bx1, by1, -150, -120,
+      t < 115.2 ? '周期取模 mod(x + uCamX, 0.2)' : '半椭圆距离场挖出拱洞 + 极角石缝',
+      t < 115.2 ? '只需定义 0.2 宽度的单孔桥段，即可左右无限重复' : 'length(ax, ey/0.8) - 0.074 < 0 剔除像素',
+      '#ffd27a', aMod
+    );
+
+    const aFar = smooth(123.5, 125.0, t) * (1 - smooth(128.0, 129.2, t));
+    const [fx, fy] = toScreen(0.75, H + 0.012, st);
+    drawCallout(ctx, fx, fy, -120, -95, '远岸城镇与闪烁灯火 (0.08× 视差)', 'uFarOff += 0.24 · v · dt (周期 256)', '#ffb35c', aFar);
+
+    const aFore = smooth(129.5, 131.0, t) * (1 - smooth(139.0, 140.1, t));
+    if (aFore > 0.01) {
+      drawCallout(ctx, 960, 480, 140, -110, '近景剪影 (1.15× 镜头速度)', '三格半圆 max(√(1-u²)) 交叠树冠 + 4u(1-u)·sag 抛物线电线', '#5ce1e6', aFore);
+    }
+  }
+
+  // ---- 04: Train SDF 布尔拼接、动轮曲柄连杆运动学、客车厢 O(1) 取整 ----
+  if (t >= 140.344 && t < 180.04) {
+    const tx = M.trainX;
+    // 机车特写部件标注 (143s ~ 161.5s)
+    const aLoco = smooth(143.0, 144.5, t) * (1 - smooth(161.2, 162.5, t));
+    if (aLoco > 0.01) {
+      const [chimX, chimY] = toScreen(tx - 0.02, DECK + 0.046, st);
+      const [cabX, cabY] = toScreen(tx - 0.085, DECK + 0.036, st);
+      drawCallout(ctx, chimX, chimY, 110, -85, '烟囱与排障器 SDF', 'sdBox(q, c, h) 矩形距离场布尔组合', '#5ce1e6', aLoco);
+      drawCallout(ctx, cabX, cabY, -80, -125, '驾驶室与圆角锅炉', 'sdBox(q) - 0.004 < 0 圆角等值扩边', '#ffd27a', aLoco);
+      if (t >= 153.5) {
+        const [wx, wy] = toScreen(tx - 0.04, DECK + 0.0075, st);
+        drawCallout(ctx, wx, wy, 130, 85, '三动轮与偏心曲柄连杆', 'θ = 行驶距离 / 0.0075  |  o = 0.0045·(cos θ, sin θ)', '#ff8fbd', smooth(153.5, 155.0, t));
+      }
+    }
+
+    // 动轮曲柄连杆实时运动学放大面板 (153.5s ~ 162.5s)
+    const aWheel = smooth(153.5, 154.8, t) * (1 - smooth(161.2, 162.4, t));
+    if (aWheel > 0.01) {
+      const bx = 68, by = 128, bw = 420, bh = 236;
+      drawPanelBox(ctx, bx, by, bw, bh, '动轮曲柄连杆机构实时相位 uWheel', '#ff8fbd', aWheel);
+      ctx.save();
+      ctx.globalAlpha = aWheel;
+      const ox = Math.cos(M.wheel) * 23, oy = -Math.sin(M.wheel) * 23;
+      for (let i = 0; i < 3; i++) {
+        const cx = bx + 100 + i * 110, cy = by + 135;
+        ctx.strokeStyle = '#5ce1e6';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.arc(cx, cy, 38, 0, TAU); ctx.stroke();
+        ctx.fillStyle = '#ffd27a';
+        ctx.beginPath(); ctx.arc(cx, cy, 5, 0, TAU); ctx.fill();
+        // 曲柄半径线
+        ctx.strokeStyle = 'rgba(255,210,122,0.7)';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + ox, cy + oy); ctx.stroke();
+        ctx.fillStyle = '#ff8fbd';
+        ctx.beginPath(); ctx.arc(cx + ox, cy + oy, 5.5, 0, TAU); ctx.fill();
+      }
+      // 水平连杆
+      ctx.strokeStyle = '#ffd27a';
+      ctx.lineWidth = 5.5;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(bx + 100 + ox, by + 135 + oy);
+      ctx.lineTo(bx + 320 + ox, by + 135 + oy);
+      ctx.stroke();
+      ctx.fillStyle = '#d8deff';
+      ctx.font = '500 15px "Cascadia Mono", monospace';
+      ctx.fillText(`θ = ${(M.wheel % TAU).toFixed(2)} rad   连杆偏移 = (${(ox / 23).toFixed(2)}, ${(-oy / 23).toFixed(2)})`, bx + 22, by + 214);
+      ctx.restore();
+    }
+
+    // 客车厢 O(1) 取整与车窗光晕标注 (163.0s ~ 179.5s)
+    const aCars = smooth(163.5, 165.0, t) * (1 - smooth(178.5, 179.8, t));
+    if (aCars > 0.01) {
+      for (let i = 0; i < 5; i++) {
+        const carCenterX = tx - 0.14 - 0.006 - (i + 0.5) * 0.126;
+        const [cx, cy] = toScreen(carCenterX, DECK + 0.045, st);
+        ctx.save();
+        ctx.globalAlpha = aCars * clamp((st.uTrainStage - 3 - i * 0.18) * 3);
+        ctx.fillStyle = 'rgba(6, 10, 28, 0.85)';
+        ctx.strokeStyle = '#ffd27a';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.roundRect(cx - 42, cy - 42, 84, 30, 6); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#ffd27a';
+        ctx.font = '700 15px "Cascadia Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(`idx = ${i}`, cx, cy - 21);
+        ctx.restore();
+      }
+      if (t >= 172.5) {
+        const [gx, gy] = toScreen(tx - 0.42, DECK + 0.025, st);
+        drawCallout(ctx, gx, gy, 0, -115, '车窗距离场指数光晕', 'gGlow += cWin · exp(-90 · sdBox(q))', '#ffd27a', smooth(172.5, 174.0, t));
+      }
+    }
+  }
+
+  // ---- 05: Steam 抛物线包络与空气坐标滞留 ----
+  if (t >= 180.04 && t < 211.888) {
+    const tx = M.trainX;
+    const [chX, chY] = toScreen(tx - 0.02, DECK + 0.051, st);
+    const aEnv = smooth(183.5, 185.0, t) * (1 - smooth(210.0, 211.5, t));
+    drawCallout(ctx, chX, chY, 130, -85, '烟囱起点 (uTrainX - 0.02, DECK + 0.051)', '抛物线中心轴 yc = y₀ + 0.1√dx + 0.03dx', '#ffd27a', aEnv);
+
+    const [pMidX, pMidY] = toScreen(tx - 0.24, DECK + 0.108, st);
+    drawCallout(
+      ctx, pMidX, pMidY, -160, -95,
+      t < 198.0 ? '幂函数扩张半径 + Billow 翻折噪声' : '空气坐标采样 p.x + uSmokeOff',
+      t < 198.0 ? 'r = 0.004 + 0.075·dx^0.7  |  fbmB = |2·noise - 1|' : '烟团绑定空气向后漂移，不随车身刚性平移',
+      '#5ce1e6', aEnv
+    );
+  }
+
+  // ---- 06: Water 对称翻转射线、1/z 透视水波 ----
+  if (t >= 211.888 && t < 246.016) {
+    const aRay = smooth(216.5, 218.2, t) * (1 - smooth(244.0, 245.5, t));
+    if (aRay > 0.01) {
+      const pts = [
+        [M.trainX - 0.02, DECK + 0.031, '车头灯源 p'],
+        [M.trainX - 0.39, DECK + 0.025, '客车窗带 p'],
+        [0.42, H + 0.18, '云海亮边 p'],
+      ];
+      ctx.save();
+      ctx.globalAlpha = aRay;
+      pts.forEach(([px, py, label]) => {
+        const depth = py - H;
+        const [x1, y1] = toScreen(px, py, st);
+        const [x2, y2] = toScreen(px, H - depth, st);
+        ctx.strokeStyle = 'rgba(92, 225, 230, 0.78)';
+        ctx.setLineDash([6, 6]);
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#ffd27a';
+        ctx.beginPath(); ctx.arc(x1, y1, 5, 0, TAU); ctx.fill();
+        ctx.fillStyle = '#5ce1e6';
+        ctx.beginPath(); ctx.arc(x2, y2, 5, 0, TAU); ctx.fill();
+
+        ctx.font = '700 15px "Microsoft YaHei UI", sans-serif';
+        const w1 = ctx.measureText(label).width + 16;
+        ctx.fillStyle = 'rgba(6, 10, 28, 0.82)';
+        ctx.beginPath(); ctx.roundRect(x1 + 8, y1 - 24, w1, 24, 5); ctx.fill();
+        ctx.fillStyle = '#ffd27a';
+        ctx.fillText(label, x1 + 16, y1 - 7);
+
+        const qLabel = '镜像点 q = (x, H + depth)';
+        ctx.font = '600 14px "Cascadia Mono", "Microsoft YaHei UI", sans-serif';
+        const w2 = ctx.measureText(qLabel).width + 16;
+        ctx.fillStyle = 'rgba(6, 10, 28, 0.84)';
+        ctx.beginPath(); ctx.roundRect(x2 + 8, y2 + 4, w2, 24, 5); ctx.fill();
+        ctx.fillStyle = '#8be9fd';
+        ctx.fillText(qLabel, x2 + 16, y2 + 21);
+      });
+      ctx.restore();
+    }
+  }
+
+  // ---- 07: Outro 前向遮挡图例 ----
+  if (t >= 246.016) {
+    const aMap = st.uLayerMapVis;
+    if (aMap > 0.01) {
+      const bx = 1320, by = 120, bw = 520, bh = 370;
+      drawPanelBox(ctx, bx, by, bw, bh, '前向遮挡合成顺序 (acc.a > 0.995 提前退出)', '#5ce1e6', aMap);
+      ctx.save();
+      ctx.globalAlpha = aMap;
+      const items = [
+        ['1. 近景树丛与电线', '#26eb9e', '命中即退出，省去后方 7 层'],
+        ['2. 桥面护栏', '#59d9ff', '命中即退出'],
+        ['3. 蒸汽云团', '#f2f2ff', '半透明累加'],
+        ['4. 蒸汽机车与客车厢', '#ffbf38', '命中即退出 + 累加车窗光晕'],
+        ['5. 石拱桥', '#9e73fa', '桥体不透明区域直接退出'],
+        ['6. 远岸与城镇灯火', '#ff8561', '地平线薄层'],
+        ['7. 12 层立体云海', '#f26bb8', '由近 c12 到远 c1 命中即退'],
+        ['8. 夜空、星辰与银河', '#243894', '仅未被遮挡的天空像素计算'],
+      ];
+      items.forEach(([name, col, desc], i) => {
+        const y0 = by + 56 + i * 37;
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.roundRect(bx + 22, y0 + 4, 24, 24, 5); ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 17px "Microsoft YaHei UI", sans-serif';
+        ctx.fillText(name, bx + 58, y0 + 22);
+        ctx.fillStyle = '#a8b8d8';
+        ctx.font = '500 15px "Microsoft YaHei UI", sans-serif';
+        ctx.fillText(desc, bx + 255, y0 + 22);
+      });
+      ctx.restore();
+    }
+  }
+}
+
+// ======== 初始化 WebGL 与舞台接口 ========
+let TL, gl, loc, hudCtx;
+
+function initGL() {
+  const canvas = $('#glcanvas');
+  gl = canvas.getContext('webgl', { alpha: false, antialias: false, depth: false, stencil: false });
+  const compile = (type, src) => {
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+  gl.bindAttribLocation(prog, 0, 'a');
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+  // 256×256 噪声纹理
+  const data = new Uint8Array(256 * 256); let seed = 2463534242;
+  for (let i = 0; i < data.length; i++) { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; data[i] = seed & 255; }
+  const tex = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, 256, 256, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, data);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+
+  // 1024×1024 云噪声纹理
+  const raw = new Uint8Array(1024 * 1024); let cs = 93451;
+  for (let i = 0; i < raw.length; i++) { cs ^= cs << 13; cs ^= cs >>> 17; cs ^= cs << 5; raw[i] = cs & 255; }
+  const avg = new Uint8Array(1024 * 1024 * 2);
+  let sMin = 1020, sMax = 0;
+  for (let y = 0; y < 1024; y++) {
+    const y0 = ((y + 1023) & 1023) * 1024, y1 = y * 1024;
+    for (let x = 0; x < 1024; x++) {
+      const x0 = (x + 1023) & 1023;
+      const sum = raw[y0 + x0] + raw[y0 + x] + raw[y1 + x0] + raw[y1 + x];
+      avg[(y1 + x) * 2] = sum >> 2; avg[(y1 + x) * 2 + 1] = (sum & 3) * 64;
+      if (sum < sMin) sMin = sum; if (sum > sMax) sMax = sum;
+    }
+  }
+  const ctex = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, ctex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE_ALPHA, 1024, 1024, 0, gl.LUMINANCE_ALPHA, gl.UNSIGNED_BYTE, avg);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+  gl.activeTexture(gl.TEXTURE0);
+
+  const names = [
+    'uRes', 'uT', 'uCamX', 'uFore', 'uTrainX', 'uSmokeOff', 'uFarOff', 'uWheel', 'uCL', 'uCars', 'uStars',
+    'uTwinkle', 'uMilky', 'uMeteor', 'uCover', 'uStack', 'uAmp', 'uSteam', 'uWin', 'uGlow', 'uRipple', 'uRefl', 'uHorizon',
+    'uExposure', 'uSat', 'uVignette', 'uPoster', 'uZoom', 'uCamY', 'uOct', 'uNoise', 'uCloudTex', 'uNMin', 'uNMax',
+    'uCoordGrid', 'uSkyShow', 'uStarShow', 'uStarGridVis', 'uMilkyStage', 'uMeteorBoost',
+    'uCloudShow', 'uCloudStackCount', 'uCloudInspect', 'uCloud1D', 'uCloudBandVis',
+    'uBridgeShow', 'uBridgeArchCarve', 'uBridgeBlueprint', 'uRailingShow', 'uFarShow', 'uForeShow', 'uForeBlueprint',
+    'uTrainStage', 'uTrainBlueprint', 'uSteamShow', 'uSteamBlueprint',
+    'uWaterStage', 'uLayerMapVis', 'uXrayWipe',
+    ...Object.keys(COLORS),
+  ];
+  loc = Object.fromEntries(names.map(n => [n, gl.getUniformLocation(prog, n)]));
+  gl.uniform1i(loc.uNoise, 0); gl.uniform1i(loc.uCloudTex, 1);
+  gl.uniform1f(loc.uNMin, sMin / 1020); gl.uniform1f(loc.uNMax, sMax / 1020);
+  for (const [k, hex] of Object.entries(COLORS)) gl.uniform3fv(loc[k], hexRgb(hex));
+}
+
+function drawGL(st) {
+  const w = 960, h = 540;
+  gl.viewport(0, 0, w, h);
+  gl.uniform2f(loc.uRes, w, h);
+  const f1 = (n, v) => gl.uniform1f(loc[n], v);
+  f1('uT', M.t); f1('uCamX', M.camX); f1('uFore', M.fore); f1('uTrainX', M.trainX);
+  f1('uSmokeOff', M.smoke); f1('uFarOff', M.far); f1('uWheel', M.wheel);
+  gl.uniform1fv(loc.uCL, M.cl);
+  f1('uCars', st.cars); f1('uStars', st.stars); f1('uTwinkle', st.twinkle); f1('uMilky', st.milky);
+  f1('uMeteor', st.meteor); f1('uCover', st.cloudCover); f1('uStack', st.cloudStack); f1('uAmp', st.amplitude); f1('uSteam', st.steam);
+  f1('uWin', st.win); f1('uGlow', st.glow); f1('uRipple', st.ripple); f1('uRefl', st.refl);
+  f1('uHorizon', st.horizon); f1('uExposure', st.exposure); f1('uSat', st.saturation);
+  f1('uVignette', st.vignette); f1('uPoster', st.poster); f1('uZoom', st.zoom); f1('uCamY', st.camY);
+  gl.uniform1i(loc.uOct, st.detail);
+
+  // 拆解控制参数
+  for (const k of [
+    'uCoordGrid', 'uSkyShow', 'uStarShow', 'uStarGridVis', 'uMilkyStage', 'uMeteorBoost',
+    'uCloudShow', 'uCloudStackCount', 'uCloudInspect', 'uCloud1D', 'uCloudBandVis',
+    'uBridgeShow', 'uBridgeArchCarve', 'uBridgeBlueprint', 'uRailingShow', 'uFarShow', 'uForeShow', 'uForeBlueprint',
+    'uTrainStage', 'uTrainBlueprint', 'uSteamShow', 'uSteamBlueprint',
+    'uWaterStage', 'uLayerMapVis', 'uXrayWipe',
+  ]) f1(k, st[k]);
+
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
+
+window.__stage = {
+  async init() {
+    TL = await (await fetch('/export/starry-night-train/tutorial/timeline.json', { cache: 'no-store' })).json();
+    initGL();
+    hudCtx = $('#hud').getContext('2d');
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    return {
+      total: TL.total,
+      segments: TL.segments.length,
+      gpu: dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : 'webgl',
+    };
+  },
+
+  frame(t, dtMs) {
+    const st = stateAt(t);
+    advance(dtMs / 1000, st.speed, st.zoom, true);
+    drawGL(st);
+    drawHUD(hudCtx, t, st);
+
+    const idx = Math.max(0, TL.segments.findIndex(g => t >= g.start && t < g.end));
+    const segIdx = t >= TL.total ? TL.segments.length - 1 : idx;
+    const seg = SEGMENTS[segIdx];
+    $('#tb-tag').textContent = seg.tag;
+    $('#tb-ttl').textContent = seg.title;
+    $('#tb-code').textContent = seg.formula;
+
+    const cue = TL.segments.flatMap(s => s.cues).find(q => t >= q.start && t < q.end);
+    $('#sub-txt').textContent = cue ? cue.text : '';
+    $('#bar').style.width = (1920 * clamp(t / TL.total)).toFixed(1) + 'px';
+    return segIdx;
+  },
+};
+window.__stageReady = true;
+</script>
+</body>
+</html>

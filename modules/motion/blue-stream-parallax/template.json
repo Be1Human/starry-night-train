@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "motion/blue-stream-parallax",
+  "category": "motion",
+  "name": "蓝天近远层素材行进",
+  "method": "固定槽位云流＋独立地面距离积分＋风摆时间",
+  "status": "integrated",
+  "sourceMode": "canonical",
+  "sourceFiles": [
+    "modules/motion/blue-stream-parallax/scene-camera.glsl",
+    "modules/motion/blue-stream-parallax/stream.js",
+    "modules/motion/blue-stream-parallax/study-camera.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-stream.js",
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+      "sha256": "e99a2dd0c04b54ab850ca608db4269bcc90a1d70436195331a88cce58661720d"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/motion/blue-stream-parallax/preview.html",
+    "kind": "scene-context",
+    "offline": false
+  },
+  "interfaces": [
+    "createAssetStream / CloudLibrary.setSettings / renderAt / setPaused / state",
+    "distance / groundTravel / speed / wind / seed"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "近景和云已积分，列车与山体仍用时间×速度模型",
+    "CloudLibrary依赖当前演示DOM，不是现成无UI通用渲染引擎"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/motion--blue-stream-parallax.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 27
+}

@@ -1,0 +1,7 @@
+<!-- Extracted study: supply a full artwork group with id="artwork". Not a complete scene. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 768"><defs><clipPath id="water-area"><path d="M205 566H1830L1810 620L1750 676L1710 716L1640 768H920L810 712L670 692L400 676L380 638L230 626Z"/></clipPath><filter id="water-ripple" x="160" y="558" width="1710" height="215" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".006 .034" numOctaves="1" seed="7" result="waves">
+        <animate attributeName="baseFrequency" values=".006 .034;.008 .026;.006 .034" dur="18s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap id="ripple-displacement" in="SourceGraphic" in2="waves" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter></defs><g id="water-layer" clip-path="url(#water-area)"><g filter="url(#water-ripple)"><use href="#artwork"/></g></g></svg>

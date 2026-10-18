@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "legacyDirectory": "themes/blue-sky-train/lab/src",
+  "files": {
+    "common.glsl": [
+      "modules/_shared/blue/study-core.glsl",
+      "modules/motion/blue-stream-parallax/study-camera.glsl",
+      "modules/sky/blue-gradient/study.glsl"
+    ],
+    "scene-common.glsl": [
+      "modules/_shared/blue/scene-core.glsl",
+      "modules/motion/blue-stream-parallax/scene-camera.glsl",
+      "modules/sky/blue-gradient/source.glsl"
+    ],
+    "world.glsl": [
+      "modules/terrain/noise-ridges/source.glsl",
+      "modules/bridge/simple-arch-bridge/source.glsl",
+      "cases/blue-sky-study/compose.glsl",
+      "modules/foreground/edge-noise-shrubs/source.glsl",
+      "modules/water/shared-scene-reflection/study.glsl"
+    ],
+    "scene-world.glsl": [
+      "modules/terrain/valley-distance-r05/source.glsl",
+      "cases/blue-sky-assets/compose.glsl",
+      "modules/water/shared-scene-reflection/source.glsl"
+    ],
+    "train.glsl": [
+      "modules/train/blue-locomotive-sdf/source.glsl",
+      "modules/train/world-puffs/source.glsl"
+    ],
+    "cloud.glsl": [
+      "modules/clouds/svg-flat-masks-r03/source.glsl"
+    ],
+    "cloud-mask.js": [
+      "modules/clouds/svg-flat-masks-r03/mask.js"
+    ],
+    "asset-cloud.glsl": [
+      "modules/clouds/complete-cloud-stream-r04/source.glsl"
+    ],
+    "asset-stream.js": [
+      "modules/motion/blue-stream-parallax/stream.js"
+    ],
+    "scene-train.glsl": [
+      "modules/train/blue-locomotive-sdf/distant.glsl"
+    ],
+    "scene-steam.glsl": [
+      "modules/train/original-starry-steam/blue-adapter.glsl"
+    ],
+    "scene-bridge.glsl": [
+      "modules/bridge/blue-stone-lighting/source.glsl"
+    ],
+    "scene-foreground.glsl": [
+      "modules/foreground/generated-foliage-r09/source.glsl"
+    ],
+    "asset-runtime.js": [
+      "cases/blue-sky-assets/runtime.js"
+    ]
+  }
+}

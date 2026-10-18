@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "clouds/starry-round-clouds",
+  "category": "clouds",
+  "name": "星河多尺度圆云实验",
+  "method": "macro/meso/micro球冠簇＋圆弧高光＋六层U形构图",
+  "status": "experiment",
+  "sourceMode": "generated-extract",
+  "sourceFiles": [
+    "modules/clouds/starry-round-clouds/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/starry-night-train/experiments/round-clouds.html",
+      "sha256": "196ff39f50d1f148767c22557ee8edc29b9a42c9c2268d4b7f1b58f2c710b899"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/clouds/starry-round-clouds/preview.html",
+    "kind": "historical-scene",
+    "offline": false
+  },
+  "interfaces": [
+    "cloudWarp / crestAt / evalScale / cloudLayer"
+  ],
+  "contract": {
+    "coordinates": "原星河世界坐标；需原宿主的 uniforms、噪声纹理、调色与合成宏",
+    "time": "共享 M 时间与分层积分；水面与天空求值使用同一时刻",
+    "color": "按原函数 alpha 与 gGlow/gFog 语义合成，不能随意套用蓝天 over()"
+  },
+  "pitfalls": [
+    "独立美术实验，正式星河壁纸不使用该实现",
+    "主要构图是固定U形山谷，换场景仍需调包络"
+  ],
+  "evidence": [],
+  "licenseNote": "保留星河主题来源与限制。原云算法使用限制见 themes/starry-night-train/README.md；不要把学习提取版视为新授权。",
+  "sortOrder": 7
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "clouds/sdf-cumulus-r01",
+  "category": "clouds",
+  "name": "R01 椭圆积云",
+  "method": "平滑合并椭圆 SDF＋高度场法线＋三色带",
+  "status": "experiment",
+  "sourceMode": "archived-extract",
+  "sourceFiles": [
+    "modules/clouds/sdf-cumulus-r01/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/cloud.glsl",
+      "sha256": "2aa253e08e4473d1d63cb6b76aee14e065992ad799e7352be869abf0e25b6eda"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/common.glsl",
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/clouds/sdf-cumulus-r01/preview.html",
+    "kind": "isolated",
+    "offline": true
+  },
+  "interfaces": [
+    "cloudShape / cloudField / cloudHeight / cloud / cloudBank",
+    "uDetail / uWind / uDebug"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "形状由固定的少数椭圆决定，和参考平涂云差异大",
+    "法线色带易产生立体胶团感"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "thumbnail": "library/thumbnails/clouds--sdf-cumulus-r01.png",
+  "thumbnailKind": "模块实测 · t=8s",
+  "sortOrder": 2
+}

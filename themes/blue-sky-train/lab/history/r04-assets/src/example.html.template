@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>%%TITLE%% · 蓝天主题 TA Lab</title>
+<style>
+:root{font-family:"Segoe UI","Microsoft YaHei",sans-serif;color:#d5e3ec;background:#10202e}*{box-sizing:border-box}body{margin:0}main{max-width:1440px;margin:auto;padding:24px}header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}h1{font-size:18px;margin:0 0 7px}p{margin:0;font-size:12px;color:#9db5c5;line-height:1.7}a{color:#acd7ed;font-size:12px}.scene{position:relative;background:#1479c5;border:1px solid #314b5b;aspect-ratio:8/3;overflow:hidden;border-radius:8px}canvas{display:block;width:100%;height:100%;image-rendering:pixelated}#error{position:absolute;inset:15%;background:#142a3de8;padding:20px;color:#ffb3a4;overflow:auto;white-space:pre-wrap}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px;padding:18px 0 12px}button,select{font:inherit;font-size:12px;border:1px solid #436073;background:#1b3548;color:#e0edf4;border-radius:6px;padding:7px 10px;cursor:pointer}label{display:flex;align-items:center;gap:8px;font-size:11px;color:#abc4d4}input{accent-color:#74c9ed}input[type=range]{width:80px}output{font-variant-numeric:tabular-nums;color:#e0edf4;font-size:11px;width:22px}.scrub{display:flex;align-items:center;gap:12px;font-size:11px;color:#9bb8ca}.scrub input{width:160px}#metrics{font:10px/1.6 Consolas,monospace;margin-left:auto;color:#8eb3c7}footer{margin-top:20px;border-top:1px solid #2d4556;padding-top:14px;font-size:12px;line-height:1.8;color:#86a4b6}.embedded main{padding:0 14px}.embedded header,.embedded footer{display:none}.embedded .scene{border:none;border-radius:0;margin:0 -14px}.embedded .toolbar{padding-top:10px;gap:8px 14px}.embedded button,.embedded select{padding:5px 8px}.embedded #metrics{font-size:9px}[hidden]{display:none!important}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #97d8f6;outline-offset:3px}@media(max-width:600px){main{padding:12px}.toolbar{gap:10px}input[type=range]{width:64px}.scrub{flex-wrap:wrap}#metrics{width:100%;margin-left:0}h1{font-size:16px}}
+</style>
+</head>
+<body><main>
+<header><div><h1>%%TITLE%%</h1><p>%%SUMMARY%%</p></div><a href="../index.html">返回 TA 方案 ↗</a></header>
+<div class="scene"><canvas id="stage" aria-label="%%TITLE%%实时着色器案例"></canvas><div id="error" role="alert" hidden></div></div>
+<div class="toolbar"><button id="pause" type="button">暂停</button><button id="reset" type="button">复位</button>%%CONTROLS%%<label>画质<select data-setting="scale"><option value="0.5">0.5×</option><option value="0.65" selected>0.65×</option><option value="1">1×</option></select></label></div>
+<div class="scrub"><label>时间 <input id="timeline" type="range" min="0" max="60" step="0.1" value="0"></label><span id="clock">0.0 s</span><span id="metrics">正在编译 WebGL 着色器…</span></div>
+<footer>%%NOTE%%<br>当前文件内嵌所需矢量轮廓、GLSL、宿主代码与样式，无外部请求，可直接保存并双击运行。拖动时间条会暂停；空格切换播放。CPU 显示的是指令提交时间，不等于 GPU 帧耗。</footer>
+</main><script>window.LAB_CONFIG=%%CONFIG%%;window.LAB_FRAGMENT=%%FRAGMENT%%;
+%%RUNTIME%%
+</script></body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1689e8">
+  <title>蓝天湖景列车 · Train Wallpapers</title>
+  <script>
+    // Register before resources load: Wallpaper Engine may deliver settings immediately.
+    window.wallpaperHost = { properties: {}, paused: false, fps: 30, connected: false, notify: null };
+    window.wallpaperPropertyListener = {
+      applyUserProperties(properties) {
+        wallpaperHost.connected = true;
+        Object.assign(wallpaperHost.properties, properties || {});
+        wallpaperHost.notify?.('properties');
+      },
+      applyGeneralProperties(properties) {
+        wallpaperHost.connected = true;
+        if (typeof properties?.fps === 'number' && Number.isFinite(properties.fps))
+          wallpaperHost.fps = Math.max(1, Math.min(60, properties.fps));
+        wallpaperHost.notify?.('general');
+      },
+      setPaused(paused) { wallpaperHost.paused = !!paused; wallpaperHost.notify?.('paused'); }
+    };
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="scene" aria-label="蓝天湖景列车动态壁纸" aria-busy="true"></main>
+  <p id="status" role="status">正在打开蓝天湖景…</p>
+  <nav id="controls" aria-label="壁纸控制" hidden>
+    <a class="home" href="../../index.html" aria-label="返回主题库">← 主题库</a>
+    <div class="title"><strong>蓝天湖景列车</strong><span>BLUE SKY · QUIET JOURNEY</span></div>
+    <button id="pause" type="button">暂停</button>
+    <label>速度 <input id="speed" type="range" min="0" max="2" step="0.1" value="1"><output id="speed-value">1.0×</output></label>
+    <label>水波 <input id="ripple" type="range" min="0" max="2" step="0.1" value="1"></label>
+    <label class="check"><input id="steam" type="checkbox" checked>蒸汽</label>
+    <label class="fit">画幅 <select id="fit"><option value="cover">铺满屏幕</option><option value="contain">完整画面</option></select></label>
+    <button id="fullscreen" type="button">全屏</button>
+    <button id="reset" type="button">重置</button>
+    <button id="hide-controls" type="button" title="按 H 再次显示">隐藏</button>
+  </nav>
+  <script type="module" src="wallpaper.js"></script>
+</body>
+</html>

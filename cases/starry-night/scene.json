@@ -1,0 +1,87 @@
+{
+  "id": "starry-night",
+  "name": "星河夜行 · 程序场景",
+  "description": "星河、12层云、城镇远岸、列车和灯光倒影，共享镜头与时间。",
+  "status": "integrated",
+  "entry": "themes/starry-night-train/index.html",
+  "preview": "assets/starry-night-train/images/screenshot.png",
+  "layers": [
+    {
+      "role": "sky",
+      "template": "sky/starry-galaxy",
+      "listingOrder": 0
+    },
+    {
+      "role": "clouds",
+      "template": "clouds/starry-layered-heightfield",
+      "listingOrder": 1
+    },
+    {
+      "role": "terrain",
+      "template": "terrain/starry-far-shore",
+      "listingOrder": 2
+    },
+    {
+      "role": "bridge",
+      "template": "bridge/starry-arch-bridge",
+      "listingOrder": 3
+    },
+    {
+      "role": "train",
+      "template": "train/starry-locomotive-sdf",
+      "listingOrder": 4
+    },
+    {
+      "role": "steam",
+      "template": "train/original-starry-steam",
+      "listingOrder": 5
+    },
+    {
+      "role": "water",
+      "template": "water/starry-perspective-reflection",
+      "listingOrder": 6
+    },
+    {
+      "role": "foreground",
+      "template": "foreground/starry-silhouette-poles",
+      "listingOrder": 7
+    },
+    {
+      "role": "motion",
+      "template": "motion/starry-wrapped-camera",
+      "listingOrder": 8
+    }
+  ],
+  "shared": {
+    "coordinates": "原星河screen→world映射，统一 horizon/zoom/camY",
+    "time": "M中的镜头/云/岸/烟/车/轮轴分别按周期积分",
+    "render": "前向alpha合成+gGlow；湖面复用 scene(q)"
+  },
+  "limitations": [
+    "原云来源及许可限制保留。",
+    "模块source.glsl是教学提取，原主题HTML仍是权威源；不能直接拼入蓝天运行时。"
+  ],
+  "composition": [
+    "themes/starry-night-train/index.html",
+    "tools/build-starry-modules.mjs"
+  ],
+  "schemaVersion": 1,
+  "recipeKind": "descriptive",
+  "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+  "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+  "compositing": {
+    "direction": "front-to-back",
+    "scene": [
+      "fore",
+      "railing",
+      "steam",
+      "train",
+      "bridge",
+      "farShore",
+      "clouds",
+      "sky",
+      "gGlow"
+    ],
+    "water": "main()将水线以下坐标折回scene；共享时间"
+  }
+}

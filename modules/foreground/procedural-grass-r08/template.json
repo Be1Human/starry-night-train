@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "foreground/procedural-grass-r08",
+  "category": "foreground",
+  "name": "R08 程序草叶",
+  "method": "叶片几何＋双层草＋世界坐标枝叶平移",
+  "status": "experiment",
+  "sourceMode": "archived-extract",
+  "sourceFiles": [
+    "modules/foreground/procedural-grass-r08/source.glsl"
+  ],
+  "sourceOrigins": [
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-foreground.glsl",
+      "sha256": "bc3cda8dfd13d74d33d585e692ab7a89db42e03f523a73b1c5b2098765d4d973"
+    }
+  ],
+  "assets": [],
+  "preview": {
+    "path": "modules/foreground/procedural-grass-r08/preview.html",
+    "kind": "historical-scene",
+    "offline": false
+  },
+  "interfaces": [
+    "broadLeaf / passingBranch / grassLayer / foreground",
+    "uGroundTravel / uWind"
+  ],
+  "contract": {
+    "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
+    "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+  },
+  "pitfalls": [
+    "用户要求改用生成素材；保留实验，不作为最终美术方案",
+    "程序叶形与参考小叶簇画风差异明显"
+  ],
+  "evidence": [],
+  "licenseNote": "沿用原文件与素材来源说明；生成素材记录保留在 assets/。",
+  "sortOrder": 20
+}

@@ -1,0 +1,1928 @@
+{
+  "generator": "tools/build-pages.mjs",
+  "catalogRevision": "r14-ta-materials",
+  "wallpapers": 1,
+  "materials": 8,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 30,
+      "sha256": "7a4ebc1fe25327f2350441a91dc4a17003b4e52fcbea8b7ed36773849dfc4c8d"
+    },
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r04/cloud-bank.png",
+      "bytes": 1377123,
+      "sha256": "06ff99f8dbc3b7a4e3924a98cdae246a00096f950c0dae693e8d36ddd08769dd"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r04/cloud-tower.png",
+      "bytes": 1411932,
+      "sha256": "48e5eb466526611a89034ed924a670d973a4dfd470c20d8f8e7d12ee2b3fdc67"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r04/generation-prompts.json",
+      "bytes": 4213,
+      "sha256": "4688cbb2d6cece2669742bb7ef80f3b3ceefabc763a41c448776cd82eda51332"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/generation-prompts.json",
+      "bytes": 6759,
+      "sha256": "cad95012e40f5bb6b1bd03e7de57a4f9e2a361d73e32a7f042f03540b2abf7c3"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/grass-initial.png",
+      "bytes": 2152242,
+      "sha256": "e9e9515acb33401f03ac71ef16851fd5f55e599bd482ee28e115f754b6d887e5"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/grass.png",
+      "bytes": 2335868,
+      "sha256": "be8e1a1a42a719754ef3b5552dd895b1c67b50d231b020f6f2fc3874905e2679"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/leaves.png",
+      "bytes": 1267215,
+      "sha256": "816079e6ec1e4cb27004983460f04ce187d6badad4ea957e94145113d3b255b1"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/understory-initial.png",
+      "bytes": 1680702,
+      "sha256": "ae8bb5975fd0a82bb5e145fbaafce5655215e3c71c44697cc5f990d9eb63c12b"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/understory.png",
+      "bytes": 1956872,
+      "sha256": "384f421ce6dd3669d86ed1902efe235e0963525b697de13d2174ea91a7c1cf65"
+    },
+    {
+      "path": "assets/blue-sky-train/manifest.json",
+      "bytes": 818,
+      "sha256": "48c2d1ad97c2fb4b6ccdfc6648332371d709f40a7afb52a11661cf414616270b"
+    },
+    {
+      "path": "assets/blue-sky-train/source/blue-sky-train.png",
+      "bytes": 2073095,
+      "sha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "path": "assets/blue-sky-train/vector/blue-sky-train-animated.svg",
+      "bytes": 860685,
+      "sha256": "2425d9dd428c0dd9715291ea88296b47769fa2404d5fe079ffdcadb5b4917cf9"
+    },
+    {
+      "path": "assets/blue-sky-train/vector/blue-sky-train.svg",
+      "bytes": 846538,
+      "sha256": "0a2c1423fd743f7ced8fb9e681394c1d00991bd31fded21cb88a53010841d343"
+    },
+    {
+      "path": "assets/blue-sky-train/vector/cloud-patterns.json",
+      "bytes": 283789,
+      "sha256": "d8277548a8948b1ae71a2ffbf577062a3087beb9e24dfbac65db523cb9c230db"
+    },
+    {
+      "path": "assets/starry-night-train/images/cloud-compare.png",
+      "bytes": 819361,
+      "sha256": "6e170d731148be755ab63a84dcb152d713b678ca74e5f7f49fd67ccfe28747a3"
+    },
+    {
+      "path": "assets/starry-night-train/images/preview.gif",
+      "bytes": 4179810,
+      "sha256": "7de43e1242bc6e2b9ff079edf5b8cd44ef1d8c2e1c8ac5ac578df91655b9d2a4"
+    },
+    {
+      "path": "assets/starry-night-train/images/screenshot-zoom.png",
+      "bytes": 446350,
+      "sha256": "997acd57a4a02f89124d9e198692b57845f053e7bdef17f633ae39745bed5c5d"
+    },
+    {
+      "path": "assets/starry-night-train/images/screenshot.png",
+      "bytes": 449152,
+      "sha256": "6ec5be1992396b1aa9e50fc15b24562f9e41d81d194b52db2e6d78ecb51f4c84"
+    },
+    {
+      "path": "cases/blue-sky-assets/compose.glsl",
+      "bytes": 813,
+      "sha256": "9cb7be4aaac9188ff001dd27cfedcbd8c0d14e9392e8f349c215a3eedb9124d5"
+    },
+    {
+      "path": "cases/blue-sky-assets/README.md",
+      "bytes": 2139,
+      "sha256": "0fb45d210b2bfb3fc1df808482e937fc2c21ed1b39e1356a1696b6f350208d9d"
+    },
+    {
+      "path": "cases/blue-sky-assets/runtime.js",
+      "bytes": 13432,
+      "sha256": "febad68e8143a8aea4637f00faa993722d692df507518a6c223acd2da0c92401"
+    },
+    {
+      "path": "cases/blue-sky-assets/scene.json",
+      "bytes": 2663,
+      "sha256": "c4262b95c5c39e1bad4242f8051f8eb02dfaa9bfad8f68c4692b040df81d6a7c"
+    },
+    {
+      "path": "cases/blue-sky-original/README.md",
+      "bytes": 1138,
+      "sha256": "09f3e46ea129f5b9bd0c9079acb8f9845be80aadcc7bc72b3c821e0a8a20fabc"
+    },
+    {
+      "path": "cases/blue-sky-original/scene.json",
+      "bytes": 1518,
+      "sha256": "27b43966323cb864a553c7a92d86b0c7b32f3edd3776d9593579088042978877"
+    },
+    {
+      "path": "cases/blue-sky-study/compose.glsl",
+      "bytes": 296,
+      "sha256": "1fd398249ecce5da29e1f39caa0122e49291a7cc137ad59b0b81433347e4a4dc"
+    },
+    {
+      "path": "cases/blue-sky-study/README.md",
+      "bytes": 1770,
+      "sha256": "dc79d9390211275202e7e7c3ca9c749328d46af3b7c594917081755652c1ca53"
+    },
+    {
+      "path": "cases/blue-sky-study/scene.json",
+      "bytes": 2282,
+      "sha256": "cca8b582f66fc98b80a62a735ef57e44508159ed58c74bb94a3b26ff9f4c5ac2"
+    },
+    {
+      "path": "cases/starry-night/README.md",
+      "bytes": 2004,
+      "sha256": "315e459e38ee4595b7d013c8e294eeeff190a83ebcd68c741ce139119e8e4d65"
+    },
+    {
+      "path": "cases/starry-night/scene.json",
+      "bytes": 2425,
+      "sha256": "0b8d1a181d443a0ca7529b4332c747f1060a89397959eaff9a1624e6d498d77b"
+    },
+    {
+      "path": "docs/github-pages.md",
+      "bytes": 1254,
+      "sha256": "6369babfdbee54fce797b305dcc991d49de76c906d1e1ebe9f229052df597cdd"
+    },
+    {
+      "path": "docs/lessons-learned.md",
+      "bytes": 8316,
+      "sha256": "f43188f9f3e2c3b543a9d4c0d8346a42489e850e1e1da56d5582ab46a757c70d"
+    },
+    {
+      "path": "docs/module-workflow.md",
+      "bytes": 10092,
+      "sha256": "9f4b5c6d2c76f1ea3702dd2b39e3190b682d7cc5ecb18879656bf4c04d90e3f6"
+    },
+    {
+      "path": "index.html",
+      "bytes": 574,
+      "sha256": "10c1bba32169235020c5905fd92cee2b9142f8bea83720b7430c58f198141e3e"
+    },
+    {
+      "path": "library/catalog.json",
+      "bytes": 40215,
+      "sha256": "a7ff7f1bec6e42023a67cd8f8cc4253992ac9908933f5d52a757f41395b2dec4"
+    },
+    {
+      "path": "library/index.html",
+      "bytes": 2150,
+      "sha256": "1c0e9487e9b802533e9e8db37510744ce60739e5995a1144512ecb71a19845ca"
+    },
+    {
+      "path": "library/library.css",
+      "bytes": 8643,
+      "sha256": "82c0dc608761a1ba63d0fde96e24130e169fc5c2095b6e6fd73abacd82024c04"
+    },
+    {
+      "path": "library/library.js",
+      "bytes": 10976,
+      "sha256": "12ec4e01e3207e09a0dbd8b0cbdbd82925fe2255e64f6d1418a0daead54838af"
+    },
+    {
+      "path": "library/materials/arch-bridge.json",
+      "bytes": 1829,
+      "sha256": "61168f7c093bd9c4b37fb2ddd3a5808426df384135d165806ffa2786d8b1ed4a"
+    },
+    {
+      "path": "library/materials/arch-bridge.md",
+      "bytes": 2846,
+      "sha256": "b52a106bafad696da4f60e5e3c58a25cb4f2d6ec0c0dcad3c3364b894a8e5144"
+    },
+    {
+      "path": "library/materials/lake-reflection.json",
+      "bytes": 1907,
+      "sha256": "4a494902dd09ac962a2de897317022a16212d3a426a6fcd2317d6687412f2c6f"
+    },
+    {
+      "path": "library/materials/lake-reflection.md",
+      "bytes": 2985,
+      "sha256": "c7720555fddcf63249611305435479e0e63a0a509b3609a769b7db623ea8f982"
+    },
+    {
+      "path": "library/materials/layered-clouds.json",
+      "bytes": 1944,
+      "sha256": "d79074b7fb75736297bcd3ae93f0eb51b2817b045103235628c3105372415091"
+    },
+    {
+      "path": "library/materials/layered-clouds.md",
+      "bytes": 2996,
+      "sha256": "b4b156477bde87c44b999a2dbd947c04d76da28f745d2adcccda4de19f5ccd50"
+    },
+    {
+      "path": "library/materials/milky-way.json",
+      "bytes": 1843,
+      "sha256": "8ad28399e9e0ecb59c9c2a39e2901fbbf5f06d0ea148dd1718a50c4c5b9bf1da"
+    },
+    {
+      "path": "library/materials/milky-way.md",
+      "bytes": 2821,
+      "sha256": "741560c4d59b3e7483e789a2b3686e67f5d9a28c7b07921b62c4a97e34598d22"
+    },
+    {
+      "path": "library/materials/painted-clouds.json",
+      "bytes": 2150,
+      "sha256": "1cd669a1aa08e688fa04c740a580fc34714cf93bb47043694b1b500f85543d98"
+    },
+    {
+      "path": "library/materials/painted-clouds.md",
+      "bytes": 3358,
+      "sha256": "7a8bc59f1b96d42e5ea8dd802af7e0a82589d395db694fe04835cfcc6920f231"
+    },
+    {
+      "path": "library/materials/passing-foliage.json",
+      "bytes": 2250,
+      "sha256": "5e87718e4c2b9bcd76a58a1981c8ed13dceefe5b207e5a9e34f7ac66cd967fde"
+    },
+    {
+      "path": "library/materials/passing-foliage.md",
+      "bytes": 3512,
+      "sha256": "222c6aac89eaa467dc6493898b657481aaf96973fb5e555b0120a596745214e5"
+    },
+    {
+      "path": "library/materials/sunlit-bridge.json",
+      "bytes": 1719,
+      "sha256": "ccb2f8181e37fceca3d5aaede6d6c1c3d449e61426652f0bc197e40d206eb4d4"
+    },
+    {
+      "path": "library/materials/sunlit-bridge.md",
+      "bytes": 2677,
+      "sha256": "b2254b31fdd7c4abcc0cd04a6ae8ec07cae58e37c63f36a173805bbc749d5de7"
+    },
+    {
+      "path": "library/materials/warm-train.json",
+      "bytes": 1832,
+      "sha256": "0a0cf8782efa1ce24e736f59f8571442ef353157ae7ef29ed8233bc0be931aaa"
+    },
+    {
+      "path": "library/materials/warm-train.md",
+      "bytes": 2853,
+      "sha256": "4dd170f31dce7003b9190d3be02128c52f5e7b218e11b1cd92da4ad6bb0e469b"
+    },
+    {
+      "path": "library/selection.json",
+      "bytes": 12779,
+      "sha256": "f760505e8ee4340c34e21451626292a426b188017ab1cdc8b3313816141d7279"
+    },
+    {
+      "path": "library/thumbnails/bridge--blue-stone-lighting.png",
+      "bytes": 113795,
+      "sha256": "de7de776a314b4f09002ce9c975183a204d64990e0b8df726ea982bb21229d98"
+    },
+    {
+      "path": "library/thumbnails/bridge--starry-arch-bridge.png",
+      "bytes": 124903,
+      "sha256": "d862bd3f48e73818349bb40039adb4c1273acb6cf77e44a55e89d3f71bc7901d"
+    },
+    {
+      "path": "library/thumbnails/clouds--complete-cloud-stream-r04.png",
+      "bytes": 850567,
+      "sha256": "a331f1a7150bff3149389bff2192918b9bc95bb80e6c9247fbfd33a83bc8bb4f"
+    },
+    {
+      "path": "library/thumbnails/clouds--starry-layered-heightfield.png",
+      "bytes": 73568,
+      "sha256": "d232f2ada1eabed6e18303ffe889e942a7407684437781ba9098cbc81a1f953a"
+    },
+    {
+      "path": "library/thumbnails/foreground--generated-foliage-r09.png",
+      "bytes": 658431,
+      "sha256": "b52e481e9e2df1f5de1c2dc12ccf8a3895390ea91facdd3c04632c5b905cdd08"
+    },
+    {
+      "path": "library/thumbnails/sky--starry-galaxy.png",
+      "bytes": 677101,
+      "sha256": "7096edc7ca514c325e15b52726c636c6da67a489a0c99650cae7e6b10e64faea"
+    },
+    {
+      "path": "library/thumbnails/train--starry-locomotive-sdf.png",
+      "bytes": 73897,
+      "sha256": "36d3b32078f33ec82a55f9df92d9c2dfc6d5b0b8e19fd9f6b193c52558a18eba"
+    },
+    {
+      "path": "library/thumbnails/water--starry-perspective-reflection.png",
+      "bytes": 507459,
+      "sha256": "029bc47c6ab249e2d308a2ee75a1cc407841e67a18b812dca735495b40d9de72"
+    },
+    {
+      "path": "modules/_shared/blue/scene-core.glsl",
+      "bytes": 1275,
+      "sha256": "d8e83bf2b988a862182732e55241d173d0ee0031e7693bf798109c8ea533c97d"
+    },
+    {
+      "path": "modules/_shared/blue/study-core.glsl",
+      "bytes": 1292,
+      "sha256": "ea8965fd077702129e7e67af6a5abf05ba08af294c348b2f577cd5252ebca7ab"
+    },
+    {
+      "path": "modules/bridge/blue-stone-lighting/preview.html",
+      "bytes": 1110,
+      "sha256": "954bb69eae133c3579f380e53e6008be937027d24529b89b9464c988d5a430ae"
+    },
+    {
+      "path": "modules/bridge/blue-stone-lighting/README.md",
+      "bytes": 2107,
+      "sha256": "35dc11eaaf4aa6e8b56a07c6f26d2b61071ae5e090bae2d334758e000bf3ebc4"
+    },
+    {
+      "path": "modules/bridge/blue-stone-lighting/source.glsl",
+      "bytes": 4864,
+      "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+    },
+    {
+      "path": "modules/bridge/blue-stone-lighting/template.json",
+      "bytes": 1764,
+      "sha256": "b0657b90c454aa7447026785ef8105908091866232651c99f09bcb4e81e4e24f"
+    },
+    {
+      "path": "modules/bridge/simple-arch-bridge/README.md",
+      "bytes": 1766,
+      "sha256": "6260dbbffeeea690832ab8e90251223642750982526134d67875696c440d6f76"
+    },
+    {
+      "path": "modules/bridge/simple-arch-bridge/source.glsl",
+      "bytes": 755,
+      "sha256": "4b753fa81f87ccd3c60f2741e785166c80a4f6ca3a86862163e59e66bd7ff215"
+    },
+    {
+      "path": "modules/bridge/simple-arch-bridge/template.json",
+      "bytes": 1415,
+      "sha256": "d604636c4a752f745a2927d62a37d60c9fcba1e350e7f7e8c82531ef430ecc92"
+    },
+    {
+      "path": "modules/bridge/starry-arch-bridge/preview.html",
+      "bytes": 44959,
+      "sha256": "db0b1b583f40ad3e89e49119bafc63573001b8b502f82821c368addad417d6d7"
+    },
+    {
+      "path": "modules/bridge/starry-arch-bridge/README.md",
+      "bytes": 1834,
+      "sha256": "7c77a18e042010454ea05fe15ba45b2844b54ae2b4ffaa13bbf494a970dc9dd1"
+    },
+    {
+      "path": "modules/bridge/starry-arch-bridge/source.glsl",
+      "bytes": 1523,
+      "sha256": "a20bf17ab811e7f8063bb089377027bc0c189b0edf57f3cdd5efdc0997d103c3"
+    },
+    {
+      "path": "modules/bridge/starry-arch-bridge/template.json",
+      "bytes": 1486,
+      "sha256": "59b95cca1c15dfc397b14919bfc59a1535460067a4fcbdc36dfad1fb4447b1d0"
+    },
+    {
+      "path": "modules/catalog.internal.json",
+      "bytes": 78135,
+      "sha256": "12347772b63528cada95f48905c137e2ad12a98c6439b8d21a94497f7734ca9e"
+    },
+    {
+      "path": "modules/categories.json",
+      "bytes": 442,
+      "sha256": "f7b0b23441c3ca8c238b422f072a83a085554cf951604e936e14a831db6f4572"
+    },
+    {
+      "path": "modules/clouds/billow-clusters-r02/README.md",
+      "bytes": 2046,
+      "sha256": "32dec539aa5696ed80379080f6ac4077c0831365a659469975079f31671bfcea"
+    },
+    {
+      "path": "modules/clouds/billow-clusters-r02/source.glsl",
+      "bytes": 5137,
+      "sha256": "3cb087dd9ba4eb7247168cc428cf96b3b4a6c3d9fa26c4062851d4ab36ea9c56"
+    },
+    {
+      "path": "modules/clouds/billow-clusters-r02/template.json",
+      "bytes": 1706,
+      "sha256": "dbd012a67a65311dd50bf68e6bb04c3ca7b54e5780a0907c3793e44f8a97ce50"
+    },
+    {
+      "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
+      "bytes": 1128,
+      "sha256": "cb38af7dcb74296fe5da937e71b01e530dd23e98b687fc310f7823f974b4e879"
+    },
+    {
+      "path": "modules/clouds/complete-cloud-stream-r04/README.md",
+      "bytes": 2931,
+      "sha256": "106e162ef05c16297c216431bfcf701b68d7b354efa34e2b1186c7d08925f9df"
+    },
+    {
+      "path": "modules/clouds/complete-cloud-stream-r04/source.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "modules/clouds/complete-cloud-stream-r04/template.json",
+      "bytes": 2374,
+      "sha256": "346199ef6287cebd2d13c109d0f4aeece0c6d465667af0e080fe47e23fbf535a"
+    },
+    {
+      "path": "modules/clouds/sdf-cumulus-r01/README.md",
+      "bytes": 1987,
+      "sha256": "21d79aa280fd727e27d6783da813537a8a9af7ad862cbcfbfd142f44e04a7ea3"
+    },
+    {
+      "path": "modules/clouds/sdf-cumulus-r01/source.glsl",
+      "bytes": 2835,
+      "sha256": "2aa253e08e4473d1d63cb6b76aee14e065992ad799e7352be869abf0e25b6eda"
+    },
+    {
+      "path": "modules/clouds/sdf-cumulus-r01/template.json",
+      "bytes": 1639,
+      "sha256": "891ce8bc6cf46521a97d922c3578c4fbce788ff1322d8b00f03138c426235ddd"
+    },
+    {
+      "path": "modules/clouds/starry-layered-heightfield/preview.html",
+      "bytes": 45036,
+      "sha256": "52d56eff2260979edc1260086307cdc81f786bd778ad9f95512e424725e5e2a1"
+    },
+    {
+      "path": "modules/clouds/starry-layered-heightfield/README.md",
+      "bytes": 2083,
+      "sha256": "0cd441c9fc6e5947bfd579771562d57f6d96e0ead1f10ea80e1d069e8a6d72b0"
+    },
+    {
+      "path": "modules/clouds/starry-layered-heightfield/source.glsl",
+      "bytes": 4388,
+      "sha256": "71625410cf24b5c633583dc2e9df343af43f34add78f71482bf9086369af5571"
+    },
+    {
+      "path": "modules/clouds/starry-layered-heightfield/template.json",
+      "bytes": 1798,
+      "sha256": "0dd73c15d6f9298a23bf7d7e2a4db94ca26e319a36699d4e61ca7cc361bb21ba"
+    },
+    {
+      "path": "modules/clouds/starry-puffy-scene/README.md",
+      "bytes": 1963,
+      "sha256": "54c44219274baf3e8ea3b9c95a5703c5e385748101ffa79089c667172351f0cb"
+    },
+    {
+      "path": "modules/clouds/starry-puffy-scene/source.glsl",
+      "bytes": 9330,
+      "sha256": "ccd7babf71dc3a0cf9fe5d7453392ca8805f0edc1aa72a6f238af865f4ce08d9"
+    },
+    {
+      "path": "modules/clouds/starry-puffy-scene/template.json",
+      "bytes": 1459,
+      "sha256": "a9c6fe7a42964bf92e9f855c999ea611081904130835a10deed634e14a184a44"
+    },
+    {
+      "path": "modules/clouds/starry-round-clouds/README.md",
+      "bytes": 1906,
+      "sha256": "67ea50dd0a3ad2c9b237f4e75d0e7b4a2c64eb6efe50d93320c1f3f6ed1dfc03"
+    },
+    {
+      "path": "modules/clouds/starry-round-clouds/source.glsl",
+      "bytes": 12792,
+      "sha256": "4b4c321f62510ee45a96184ad94f059efe867dea3728ef0a38ea8515459e22bc"
+    },
+    {
+      "path": "modules/clouds/starry-round-clouds/template.json",
+      "bytes": 1427,
+      "sha256": "9860b97a6b2ea19df38a7b8cf9f5152cc998d02038a647e577d6ac409ab90f3e"
+    },
+    {
+      "path": "modules/clouds/svg-flat-masks-r03/mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "modules/clouds/svg-flat-masks-r03/README.md",
+      "bytes": 2642,
+      "sha256": "3c6b57e702379fca769b0ea47158e4cd9ab64fb916ce07dd63d0094a2980dd23"
+    },
+    {
+      "path": "modules/clouds/svg-flat-masks-r03/source.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "modules/clouds/svg-flat-masks-r03/template.json",
+      "bytes": 2268,
+      "sha256": "b3ec0907defe5c6228d09a6db6bbac553f08496f1dd9414dcd8557d0b734db1f"
+    },
+    {
+      "path": "modules/foreground/edge-noise-shrubs/README.md",
+      "bytes": 1763,
+      "sha256": "e8cf56874c2b3f2aa0aa5ce1f3ee27a8df148dd49d0c0a41a30d1cb6ccad7db1"
+    },
+    {
+      "path": "modules/foreground/edge-noise-shrubs/source.glsl",
+      "bytes": 530,
+      "sha256": "a1fd7842e5c6e52c26a3b69702a106daa6f1c7789d89732b7196d8210391a705"
+    },
+    {
+      "path": "modules/foreground/edge-noise-shrubs/template.json",
+      "bytes": 1417,
+      "sha256": "738c33e010edc72606ca5f4db88ea2a0d98f25032b4fa8ee8e78014e575dfb88"
+    },
+    {
+      "path": "modules/foreground/generated-foliage-r09/preview.html",
+      "bytes": 1132,
+      "sha256": "2934b519063e3ca2072104ef9b2cf31feeac38ea37541e6ab0742b63eba4311e"
+    },
+    {
+      "path": "modules/foreground/generated-foliage-r09/README.md",
+      "bytes": 2819,
+      "sha256": "e3823dc92f819837e0473bcdcd223079027c6bcec5fb0c7ca556e711731912e6"
+    },
+    {
+      "path": "modules/foreground/generated-foliage-r09/source.glsl",
+      "bytes": 2692,
+      "sha256": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+    },
+    {
+      "path": "modules/foreground/generated-foliage-r09/template.json",
+      "bytes": 2210,
+      "sha256": "e14df3eba9aecf58d35fffd0a1ffcaef91c3c2076910a4a4bb0fceccecca6c1e"
+    },
+    {
+      "path": "modules/foreground/procedural-grass-r08/README.md",
+      "bytes": 1928,
+      "sha256": "be7675fb0cef10404e8c9ff3adabe01605767410c7b4b660b78d65a8142a63cf"
+    },
+    {
+      "path": "modules/foreground/procedural-grass-r08/source.glsl",
+      "bytes": 4737,
+      "sha256": "bc3cda8dfd13d74d33d585e692ab7a89db42e03f523a73b1c5b2098765d4d973"
+    },
+    {
+      "path": "modules/foreground/procedural-grass-r08/template.json",
+      "bytes": 1438,
+      "sha256": "d790ef6e6615b82bb18fcc88365e428f9a079edaf4cec77754a0e31bb56d7e24"
+    },
+    {
+      "path": "modules/foreground/starry-silhouette-poles/README.md",
+      "bytes": 1862,
+      "sha256": "1abc9bbe68bc7b8a11d4950b850eac5a0f9eae027f6f03d2af323eb4e56bd669"
+    },
+    {
+      "path": "modules/foreground/starry-silhouette-poles/source.glsl",
+      "bytes": 1871,
+      "sha256": "4d0bd8e047f4b97fe525ba84134e1f3b420371ab2b5cfd347aabbb52a8e12ca7"
+    },
+    {
+      "path": "modules/foreground/starry-silhouette-poles/template.json",
+      "bytes": 1536,
+      "sha256": "fecfce4837a00f650185496b53a5d03a746ddb22cadba53d30a7fed79629e7d5"
+    },
+    {
+      "path": "modules/motion/blue-stream-parallax/README.md",
+      "bytes": 2329,
+      "sha256": "e09a6a19d3523bd2e7c7d0149490e1019ed5c200b10bd8384dc2b612658bb441"
+    },
+    {
+      "path": "modules/motion/blue-stream-parallax/scene-camera.glsl",
+      "bytes": 330,
+      "sha256": "e6f5eba538aad527d0e89a1266e86408a1622703136eeb17fc4f617fed3ec555"
+    },
+    {
+      "path": "modules/motion/blue-stream-parallax/stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "modules/motion/blue-stream-parallax/study-camera.glsl",
+      "bytes": 278,
+      "sha256": "1c9a4c25b5de93f34d6c0ea121c2ca35aea3c284cb2984e1b1d1cbcbab51f9b9"
+    },
+    {
+      "path": "modules/motion/blue-stream-parallax/template.json",
+      "bytes": 2018,
+      "sha256": "c8b684e515106da08b01ec59838287c147651766052e271722f4943de81bf3eb"
+    },
+    {
+      "path": "modules/motion/starry-wrapped-camera/README.md",
+      "bytes": 1920,
+      "sha256": "7051500375efdee10dc147445c12c8997e4dd03dff1dd3a7cc340c5714da49c5"
+    },
+    {
+      "path": "modules/motion/starry-wrapped-camera/source.glsl",
+      "bytes": 1794,
+      "sha256": "93ae87709c052a32f1fb8e6a5cd7f8dc056f141ce5aae54f3a1eb8adf49f2000"
+    },
+    {
+      "path": "modules/motion/starry-wrapped-camera/template.json",
+      "bytes": 1579,
+      "sha256": "93244fee0fd622f6fdd72f8b462bb7bf51121a168c80bffc514c86e20a126f02"
+    },
+    {
+      "path": "modules/README.md",
+      "bytes": 867,
+      "sha256": "3c3999c7d0816fe22acee308c69242e9466393b241cc9387cb67a6d9ddeddf57"
+    },
+    {
+      "path": "modules/sky/blue-gradient/README.md",
+      "bytes": 1964,
+      "sha256": "43dd4614397eb1cc93ca4215326494157fe8933f5c1893a3dcac76dca4638e71"
+    },
+    {
+      "path": "modules/sky/blue-gradient/source.glsl",
+      "bytes": 174,
+      "sha256": "a424e6baa02d1d95458929f2b742dc26d05fed921b998193a6b182cb00dec158"
+    },
+    {
+      "path": "modules/sky/blue-gradient/study.glsl",
+      "bytes": 186,
+      "sha256": "1aa08571209607ad678012c9fed03e841057b2818c83fa78c118d7a5855b669d"
+    },
+    {
+      "path": "modules/sky/blue-gradient/template.json",
+      "bytes": 1616,
+      "sha256": "e3a2e6059430abdf6a82e2639b932f1f3eafd7a3140539cbb17b00e8685471ef"
+    },
+    {
+      "path": "modules/sky/starry-galaxy/preview.html",
+      "bytes": 44862,
+      "sha256": "0963ff8173296ce062684c0af2a6180a368272ef0ae445626c364fd542fe0874"
+    },
+    {
+      "path": "modules/sky/starry-galaxy/README.md",
+      "bytes": 1877,
+      "sha256": "2c6d66a759f040f05074fbdcf5ab95b010d572c07a4e4394f67665478039763e"
+    },
+    {
+      "path": "modules/sky/starry-galaxy/source.glsl",
+      "bytes": 2807,
+      "sha256": "1e1ba6b46d3bad1a50b785e19a0da31c19d15ee36b74e52c88b6839d432166e0"
+    },
+    {
+      "path": "modules/sky/starry-galaxy/template.json",
+      "bytes": 1514,
+      "sha256": "f1f89041b6ff4b28c6d4a89452268267b31eb9a6c84037834a7c5f1e2d36c085"
+    },
+    {
+      "path": "modules/source-map.json",
+      "bytes": 1857,
+      "sha256": "48d0a9c2bd3a89392e57792b79c2bb91c104312574a0f52f0e23a626af9fed91"
+    },
+    {
+      "path": "modules/terrain/noise-ridges/README.md",
+      "bytes": 1904,
+      "sha256": "f50db2f3be6636e7dc16d71a219d369b8d48cae8e44bee435483046e31121fec"
+    },
+    {
+      "path": "modules/terrain/noise-ridges/source.glsl",
+      "bytes": 534,
+      "sha256": "9a78eb58eef8c6d89cbd1597a6e4e4b05e8d7132ac1ef00751f93d35b1c0fd4e"
+    },
+    {
+      "path": "modules/terrain/noise-ridges/template.json",
+      "bytes": 1582,
+      "sha256": "dd7c9bfef6e8b31cf75798a30a718897241aede5a3b1bdefcf47d32f8541a8f1"
+    },
+    {
+      "path": "modules/terrain/starry-far-shore/README.md",
+      "bytes": 1836,
+      "sha256": "65c549be9a98043d6e134832a66a40f4078522b5ec909db7f8a5d6f3d53b7979"
+    },
+    {
+      "path": "modules/terrain/starry-far-shore/source.glsl",
+      "bytes": 1210,
+      "sha256": "4ebf8eccf61301a173499658cfe27731d6cfbc6b0cd72ac88f29c480246e6c6b"
+    },
+    {
+      "path": "modules/terrain/starry-far-shore/template.json",
+      "bytes": 1487,
+      "sha256": "66f293ea6466a2b179736571798e77e2e9ecf894a27232a0be133516ae34e1f8"
+    },
+    {
+      "path": "modules/terrain/valley-distance-r05/README.md",
+      "bytes": 2032,
+      "sha256": "543f7d0c53ba954dfd8e55c676c89e03877f42eb580a543ad5f497a5a6a0eb70"
+    },
+    {
+      "path": "modules/terrain/valley-distance-r05/source.glsl",
+      "bytes": 1715,
+      "sha256": "5dce2d76a467e71276532365368a10025d9b76560c5a6a869ddcdccd0639b3a1"
+    },
+    {
+      "path": "modules/terrain/valley-distance-r05/template.json",
+      "bytes": 1724,
+      "sha256": "38a710297e90aed33fd960f495939c7b034ee0fd922ed00b3c16738b3e7201e8"
+    },
+    {
+      "path": "modules/train/blue-locomotive-sdf/distant.glsl",
+      "bytes": 264,
+      "sha256": "82272b4a901078ba01df09158c91833f1b75c31bc3a4e94a1be8b2e16b043b7c"
+    },
+    {
+      "path": "modules/train/blue-locomotive-sdf/README.md",
+      "bytes": 2479,
+      "sha256": "eb3340f5ad20b413555231f258dccda8259e5f6e24fbf131a8b5ca2732374f76"
+    },
+    {
+      "path": "modules/train/blue-locomotive-sdf/source.glsl",
+      "bytes": 2357,
+      "sha256": "82c436c3ee60dc923853ed933d0a0b7b369d4f4a3546e5e9819e3fecc774e993"
+    },
+    {
+      "path": "modules/train/blue-locomotive-sdf/template.json",
+      "bytes": 2201,
+      "sha256": "9d9a9772297d9b1881e230bc85a69e09b360ba443216a0c0ac780b5681beb163"
+    },
+    {
+      "path": "modules/train/original-starry-steam/blue-adapter.glsl",
+      "bytes": 1221,
+      "sha256": "1670718866493c487f117a5914cf79d95f725a8d145327ae53e2b07879ac8ce5"
+    },
+    {
+      "path": "modules/train/original-starry-steam/README.md",
+      "bytes": 2514,
+      "sha256": "f3b05b17994a64f469affde883abb62aa82a973591596eacb542b3bdb4c207ea"
+    },
+    {
+      "path": "modules/train/original-starry-steam/source.glsl",
+      "bytes": 1537,
+      "sha256": "02298c09248cfe443c2037a6467b40158dbed6c7a8a9d6d5129b65ceb6b3c1eb"
+    },
+    {
+      "path": "modules/train/original-starry-steam/template.json",
+      "bytes": 2576,
+      "sha256": "4abfcb14883e9ea1670d257a735f018daad1d74ff9927c58efff4b0f6943727d"
+    },
+    {
+      "path": "modules/train/starry-locomotive-sdf/preview.html",
+      "bytes": 45062,
+      "sha256": "6fe26b2bdac44c1152e41397a776b31c2de8c890df637ed5deecb40cae95a5d0"
+    },
+    {
+      "path": "modules/train/starry-locomotive-sdf/README.md",
+      "bytes": 1866,
+      "sha256": "515ce1e05aeeb4eea024aa30707f6c85f56e8ddf6e0979e7f71af4bd9be4e35d"
+    },
+    {
+      "path": "modules/train/starry-locomotive-sdf/source.glsl",
+      "bytes": 4004,
+      "sha256": "29facf05ee8304df6107a65a9c64577da6e35604893b27c21d7f070a04721284"
+    },
+    {
+      "path": "modules/train/starry-locomotive-sdf/template.json",
+      "bytes": 1521,
+      "sha256": "7dec06c6e1a2330891b36558392639f860609a518d5425d41cc0828a7e56e39e"
+    },
+    {
+      "path": "modules/train/svg-steam-loop/README.md",
+      "bytes": 2404,
+      "sha256": "6d7d5c0b7b0a1b96f0737032747cd985a9bcb792993dd938038fb270bcdece30"
+    },
+    {
+      "path": "modules/train/svg-steam-loop/source.svg",
+      "bytes": 4546,
+      "sha256": "100d59cf3da52899432abbe62c7c79890eb49df20922867383e3fb44969e1eab"
+    },
+    {
+      "path": "modules/train/svg-steam-loop/template.json",
+      "bytes": 1759,
+      "sha256": "3171d960c033923c647bb01a3699bc1072bf877c986ed850da3297fbc9696fed"
+    },
+    {
+      "path": "modules/train/world-puffs/README.md",
+      "bytes": 1822,
+      "sha256": "03eb13d72dd3a42e42b8811325e758a3804ae56be4ff660e13ad6600bdd339ed"
+    },
+    {
+      "path": "modules/train/world-puffs/source.glsl",
+      "bytes": 790,
+      "sha256": "225ae5e72a22377d07e3dbefe58e2b5f72241071237599f8b2b33658987fca87"
+    },
+    {
+      "path": "modules/train/world-puffs/template.json",
+      "bytes": 1456,
+      "sha256": "d047328c9159d86819f2323efb4590044b07b739a3fd29fbdce211aee2501dc2"
+    },
+    {
+      "path": "modules/water/shared-scene-reflection/README.md",
+      "bytes": 2242,
+      "sha256": "07874f33acf973777f4a3c8d4ebc56cbb99c63a0d5dfe5cc5175cf1a460a1dca"
+    },
+    {
+      "path": "modules/water/shared-scene-reflection/source.glsl",
+      "bytes": 715,
+      "sha256": "34c9bbdaa91921afdab7c879ad7f6a0033f465a3126d57f3085aad7130cd75a2"
+    },
+    {
+      "path": "modules/water/shared-scene-reflection/study.glsl",
+      "bytes": 889,
+      "sha256": "27de4d64ba0536ffc7e15646c7a56a9ba595f941c3e9bd1ab2e8cf26feb7455f"
+    },
+    {
+      "path": "modules/water/shared-scene-reflection/template.json",
+      "bytes": 1897,
+      "sha256": "bd60fbad20766fb63b3ca57353ace8398a766310a485609f8bd1a18402c0a57a"
+    },
+    {
+      "path": "modules/water/starry-perspective-reflection/preview.html",
+      "bytes": 45790,
+      "sha256": "636ce51474396b01717d3a5bec283a8a2bd01d6da3670f190a855b4f0e70fb8c"
+    },
+    {
+      "path": "modules/water/starry-perspective-reflection/README.md",
+      "bytes": 1939,
+      "sha256": "97b568168c4c44425e84e67d83c8dfaf39e35c2e0445b429b830b7faf942ee4a"
+    },
+    {
+      "path": "modules/water/starry-perspective-reflection/source.glsl",
+      "bytes": 1726,
+      "sha256": "01014662b44efa4f4a48e5456025d2e528d2ed73e1510311c577f6de157e98bb"
+    },
+    {
+      "path": "modules/water/starry-perspective-reflection/template.json",
+      "bytes": 1611,
+      "sha256": "391526e0ee4349870a4715ab4898ce8ce64ea9f69050a20c45f0005a168491ca"
+    },
+    {
+      "path": "modules/water/svg-local-ripple/README.md",
+      "bytes": 2442,
+      "sha256": "17c27ece97f988dd6abef9732a5443c46c7564dc00f898299a27ab7dbc2acc31"
+    },
+    {
+      "path": "modules/water/svg-local-ripple/source.svg",
+      "bytes": 967,
+      "sha256": "245e9f4633ecf9a9565a8ff8b6b4402c96739c36d0f34265d4e4fae87b8f0b15"
+    },
+    {
+      "path": "modules/water/svg-local-ripple/template.json",
+      "bytes": 1799,
+      "sha256": "4abea1b61fb5c9502f06fd2761971dd29e073346865ce6c3eae83cfe59cf4a0d"
+    },
+    {
+      "path": "package.json",
+      "bytes": 235,
+      "sha256": "1fc35ac77ea55abfb98a8edc865bc76d8588ab7043a044afb94b9872a2d34d6f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 971,
+      "sha256": "3b75e1ca1e80b3df09e1aa579d212e3ccec0c9aadb5a08c0ff7aa6a9a06c3cce"
+    },
+    {
+      "path": "themes/blue-sky-train/docs/设计文档.md",
+      "bytes": 16015,
+      "sha256": "2e40ed1994389b1e5ae8de79ee8c8122e0da0ec989d466d938c20a3cc49b8a40"
+    },
+    {
+      "path": "themes/blue-sky-train/docs/需求分析.md",
+      "bytes": 4210,
+      "sha256": "da5899765bf948e87d0263722c8839c6436f42365f54766a992b930888753420"
+    },
+    {
+      "path": "themes/blue-sky-train/index.html",
+      "bytes": 2347,
+      "sha256": "4956fb8453ed0ed9a3db51deef57951c19ea45d012d46d1495d99437d8d59630"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/cloud-compare.html",
+      "bytes": 18226,
+      "sha256": "544bb0f528a06dc4392b16b5d93d6865ea5b0fdf4e19a6e79cb906ef33735843"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/cloud-library.html",
+      "bytes": 16938978,
+      "sha256": "ba9bc31ba5f621ca14e81990cf4870f8e825510f326d8e84ba24ada95f23460e"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
+      "bytes": 2242060,
+      "sha256": "e63ef5f779fb00ed4dea665eae8fd38bd8dcf83403ec7e9268a8fc1105a365cb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/examples/cloud.html",
+      "bytes": 302843,
+      "sha256": "fb3d0b4b09e0fa6b6c1b8524af1a2566d633bcc6134bf1096ed44fa5517f64c1"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/examples/procedural-cloud.html",
+      "bytes": 31248,
+      "sha256": "3d315dc1b9d8cfe1cebc698ce861aed42a95d4726434f7cb7474ce6c219db46a"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/examples/procedural-scene.html",
+      "bytes": 38173,
+      "sha256": "5e818cbb8659ca4d9d806df6ae520003e0f9c544ea7d36870d1e3bafc53e7af4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/examples/scene.html",
+      "bytes": 309676,
+      "sha256": "fd4785072d7dd10572d78fd06335fd5258ca44891925d86f9985b647c0a0693a"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/examples/train.html",
+      "bytes": 20375,
+      "sha256": "e32f16441604153d5de158dabc09a2f4f98c964f61202be2da686929351d4f3c"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/examples/water.html",
+      "bytes": 309705,
+      "sha256": "44728169d16fc719b3914eafa6d462ad4e239845a90cfabc1ea3b284c937ffeb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/cloud.glsl",
+      "bytes": 2835,
+      "sha256": "2aa253e08e4473d1d63cb6b76aee14e065992ad799e7352be869abf0e25b6eda"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/example.html.template",
+      "bytes": 3384,
+      "sha256": "d6f4b241cf8efb0dde2fbbee8b3535f09bdd36dd8b37edd1b9bb1787d3445ad7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/main.glsl",
+      "bytes": 863,
+      "sha256": "c92243062f9a61e7c522ceb7a50a5a961621f9e054a8202cf7afbaed881e3563"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/plan.html.template",
+      "bytes": 27220,
+      "sha256": "4d0d50240b5d7c7195619445935d9f6ddbf14c6c0a869c5a1b01ddac0d2ab444"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/runtime.js",
+      "bytes": 8519,
+      "sha256": "ed2c39410cb50327cf6dc595e065b5072c7c4b6abbd3f4cc13d70a22f38b22c2"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r01/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/cloud.glsl",
+      "bytes": 5137,
+      "sha256": "3cb087dd9ba4eb7247168cc428cf96b3b4a6c3d9fa26c4062851d4ab36ea9c56"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/compare.html.template",
+      "bytes": 6873,
+      "sha256": "c0ffde1cde278211ef339abba9864c465e4bb7e71ac2b546ff93fa54b28ae061"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/compare.js",
+      "bytes": 10691,
+      "sha256": "dd5a997b36086c9e3a69b3c514a7047f0a516277aaafd87441f0e681470d1d9d"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/example.html.template",
+      "bytes": 3384,
+      "sha256": "d6f4b241cf8efb0dde2fbbee8b3535f09bdd36dd8b37edd1b9bb1787d3445ad7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/main.glsl",
+      "bytes": 863,
+      "sha256": "e8f465efe9fad9cbc9012110ae9f9847b0ef61d38da01c88191e57fb588c5911"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/plan.html.template",
+      "bytes": 28188,
+      "sha256": "cc4922c876e9f9fc5bc3971b684da98d887c99c9f5da5bf92425b3da869ad345"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/runtime.js",
+      "bytes": 8519,
+      "sha256": "ed2c39410cb50327cf6dc595e065b5072c7c4b6abbd3f4cc13d70a22f38b22c2"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r02/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/cloud-patterns.json",
+      "bytes": 283789,
+      "sha256": "d8277548a8948b1ae71a2ffbf577062a3087beb9e24dfbac65db523cb9c230db"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/compare.html.template",
+      "bytes": 7087,
+      "sha256": "eaded620df2c2f9108a9160038c26e41650e44125c0cabc925c2ee7de63192ba"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/plan.html.template",
+      "bytes": 29329,
+      "sha256": "ae99d8657917b72470585efeb9e8c7463547cca52d60636d7605c72a591f5858"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r03/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "efc39e05647aa0ab9fa1db7add688f40270a7bc4cf8627fd204cff029d6ba570"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/asset-runtime.js",
+      "bytes": 8564,
+      "sha256": "485f6f3ab3b9a024c1d3a6a378930c3ce7e555e8434269aae823f26277703b91"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/asset-stream.js",
+      "bytes": 1277,
+      "sha256": "f78565dd06d8541a480f1ce14e92015b5b584ccae249dd93d14ac79eaab571b8"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/cloud-library.html.template",
+      "bytes": 8878,
+      "sha256": "242bd61cb2c3d2f96b479b75becc81af28b109e25390e52d21a00e1f874d74f9"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/compare.html.template",
+      "bytes": 7244,
+      "sha256": "ca87cba07b5b753b86b236a199e7cd715550375a0b2265ef9b081b639187f8bc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/plan.html.template",
+      "bytes": 29644,
+      "sha256": "cffc3f09899e7a38a365a09920d8f25457028cb17395fb9b21bb99956eead22b"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r04-assets/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/asset-runtime.js",
+      "bytes": 9425,
+      "sha256": "2e59353631f14d81813b1324c5ceb71bd56849aadfbbfebc91310f5d041c6162"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/asset-stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/cloud-library.html.template",
+      "bytes": 11026,
+      "sha256": "a0620e659b67a9be1de4be131e79afca21305c601b48a33a9014eaa25e443ae7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/compare.html.template",
+      "bytes": 7271,
+      "sha256": "2dc0af7757273c67f65b1dbd2cbbea6ff1ea8783305df2fe7a87ff01c40bc1d0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/plan.html.template",
+      "bytes": 29639,
+      "sha256": "d6e54371c8a47c5ec22c9dd08ac3aa2c7d1c58357538d98270d82da6404eb8d1"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/scene-common.glsl",
+      "bytes": 1758,
+      "sha256": "347f403e20f2f8650ae11e3e0166abca002ff262c4f386a93f0cf97094da78d1"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/scene-train.glsl",
+      "bytes": 856,
+      "sha256": "170def9d2559dd793c049b6fb2f845ec69c96aeb5d280c0ed7391815463d9913"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/scene-world.glsl",
+      "bytes": 4059,
+      "sha256": "1e40dd4a219f50dbdcf1101125d122c00fd22eb577775c302d07cebcba1145c9"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r05-composition/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/asset-runtime.js",
+      "bytes": 10295,
+      "sha256": "c94a4ff7ff9f234c841b489e870d4a5558982934efeca8c1147e35cd0fd1ceb2"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/asset-stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/cloud-library.html.template",
+      "bytes": 12124,
+      "sha256": "572f37ce5a6ddd30f2952407dc82c3a046faf57e1fded1b3500bd9a17e8d3956"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/compare.html.template",
+      "bytes": 7268,
+      "sha256": "1fb3a00c18e76d38b9dd243c11b99385924fd94847c33beeee46c7ed31924004"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/plan.html.template",
+      "bytes": 29631,
+      "sha256": "5692e7e3767c1189a66451ab3fca707b86e5c54ed259c7b49a9c74458a3da6a3"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/scene-bridge.glsl",
+      "bytes": 3816,
+      "sha256": "d9557ad2d8c070141e46ac1332d02b7c498ccd1d39cf9d5b7afa4165326bd131"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/scene-common.glsl",
+      "bytes": 1758,
+      "sha256": "347f403e20f2f8650ae11e3e0166abca002ff262c4f386a93f0cf97094da78d1"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/scene-train.glsl",
+      "bytes": 856,
+      "sha256": "170def9d2559dd793c049b6fb2f845ec69c96aeb5d280c0ed7391815463d9913"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/scene-world.glsl",
+      "bytes": 3254,
+      "sha256": "350a3187b672d6ee8fda25dcf69c19be96fa43207b29f451c6cfd06215f87e03"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r06-bridge/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/asset-runtime.js",
+      "bytes": 10441,
+      "sha256": "b1ec4ac3c87796e9c7038f2bc5a5e1d78fed0192b4d4bdca816f5e6bdc3c53ad"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/asset-stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/cloud-library.html.template",
+      "bytes": 12509,
+      "sha256": "7cd8abb41718c5f3a75c1e412b0baeec52b8a056a0586deece7e5579aa9c1583"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/compare.html.template",
+      "bytes": 7301,
+      "sha256": "2e425de95ea7113952e29565c5f18ae56a5aa67fafd2aea0dd541d0d2e48f23e"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/plan.html.template",
+      "bytes": 29656,
+      "sha256": "bcc6c7c6011cb06ba41c4104fe61d7e49d2751c8d531fb41b0ff9fe16b548c2e"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/scene-bridge.glsl",
+      "bytes": 4864,
+      "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/scene-common.glsl",
+      "bytes": 1764,
+      "sha256": "23032afd563d3d3d2fa34c77dac4cd388551aa692c8b54bfaff8b954000af3e8"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/scene-train.glsl",
+      "bytes": 856,
+      "sha256": "170def9d2559dd793c049b6fb2f845ec69c96aeb5d280c0ed7391815463d9913"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/scene-world.glsl",
+      "bytes": 3852,
+      "sha256": "73e3eee4fbba931f03a636c6af0b51c349c31a48eea930382c10344ad7fc4dcd"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r07-lighting/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/asset-runtime.js",
+      "bytes": 10677,
+      "sha256": "cd3459947fc84047bc8fc365ca52f510b670473ffd7531cb21cf023956b0be0c"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/asset-stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/cloud-library.html.template",
+      "bytes": 12550,
+      "sha256": "727dac73ecc6a826c5fb90cfe337b3df42e4c57b436b36df017dbea4ce6a9b82"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/compare.html.template",
+      "bytes": 7308,
+      "sha256": "2dc89f7128c2abb53fbecfe5abe0e98ae1ea4cccd73d0250002c5e3ea842ecf7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/plan.html.template",
+      "bytes": 29623,
+      "sha256": "b81e8de1b21a94e92feb9301d14bad91bf04f44781e75121f93e2c55f16f967d"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-bridge.glsl",
+      "bytes": 4864,
+      "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-common.glsl",
+      "bytes": 1779,
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-foreground.glsl",
+      "bytes": 4737,
+      "sha256": "bc3cda8dfd13d74d33d585e692ab7a89db42e03f523a73b1c5b2098765d4d973"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-train.glsl",
+      "bytes": 856,
+      "sha256": "170def9d2559dd793c049b6fb2f845ec69c96aeb5d280c0ed7391815463d9913"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/scene-world.glsl",
+      "bytes": 3243,
+      "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r08-foreground/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/asset-runtime.js",
+      "bytes": 10998,
+      "sha256": "9befcf66cf44dbcee259ff82fc3dc16b2d55c6b2b3b5f5b811b85d44c0e70c84"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/asset-stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/cloud-library.html.template",
+      "bytes": 14612,
+      "sha256": "a726482b0158abead12dd099217e22738649d8d35980cf1c0ba8776941f5552b"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/compare.html.template",
+      "bytes": 7318,
+      "sha256": "0d49b02d1adacce9cc08e62bfe226880f64c82736186fc24045b3bae55e42857"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/plan.html.template",
+      "bytes": 29641,
+      "sha256": "f3cd779860a2bc9b78ec1b2b7691394cfa294267920b395b73c60c9fdd502041"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/scene-bridge.glsl",
+      "bytes": 4864,
+      "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/scene-common.glsl",
+      "bytes": 1779,
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/scene-foreground.glsl",
+      "bytes": 2338,
+      "sha256": "433d9eb033cd76d9489b030d3da4d5a6397466356ab4e2f1bec0fa1b372e178c"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/scene-train.glsl",
+      "bytes": 856,
+      "sha256": "170def9d2559dd793c049b6fb2f845ec69c96aeb5d280c0ed7391815463d9913"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/scene-world.glsl",
+      "bytes": 3243,
+      "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/history/r09-generated-foreground/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/index.html",
+      "bytes": 42088,
+      "sha256": "871e9cb15d03aaccd315be2a178214201b5af412c8450719a3e883cb16b0fe01"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/procedural-cloud-compare.html",
+      "bytes": 18420,
+      "sha256": "ac9ffb53e5dfd512dad514b193c21276c9e3267b07c7d9027b9070095f0a279b"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-cloud.glsl",
+      "bytes": 951,
+      "sha256": "19d91abb3c924faaaa68bfc13c44c2d504355c33341a7ac9ff646c56aa9974bb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
+      "bytes": 13432,
+      "sha256": "febad68e8143a8aea4637f00faa993722d692df507518a6c223acd2da0c92401"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/asset-stream.js",
+      "bytes": 1493,
+      "sha256": "d7a362c3de050205d1ed58ad4ceef3b6257b8e2916e7fa3ea808c20e3b93b485"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/cloud-library.html.template",
+      "bytes": 15643,
+      "sha256": "41759d4c01473e4f9b6ceeb925c2874f30f900d38dc996a2f5fd461e17e3e8b7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/cloud-mask.js",
+      "bytes": 2138,
+      "sha256": "49740823976f8fceff43d5409efcf172c91364921363dcf4a3b954778b16eca0"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/cloud.glsl",
+      "bytes": 1712,
+      "sha256": "4013c7860c2ef1bc93b316f953613ec44a6053b557865d1d95f62742b0365dee"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/common.glsl",
+      "bytes": 1756,
+      "sha256": "43947acae6c47fbf5430e5c5bcd07b7b7c577116693ee25918ecab38f6689121"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/compare.html.template",
+      "bytes": 7318,
+      "sha256": "0d49b02d1adacce9cc08e62bfe226880f64c82736186fc24045b3bae55e42857"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/compare.js",
+      "bytes": 10922,
+      "sha256": "90fb5132b6d660fdcfc5445cc6cf90f629e3a8f86ea270915fa2cb7bc973cdf4"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/example.html.template",
+      "bytes": 3386,
+      "sha256": "65df9728f43b948e3e6a70c93a32493882b7c0dcd1c91606f785190f470cfdfc"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/main.glsl",
+      "bytes": 789,
+      "sha256": "65b37cb3ec48324de82827ba4d95bd0d1c68ec94d05b7e559af8af29414d1949"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/plan.html.template",
+      "bytes": 29641,
+      "sha256": "f3cd779860a2bc9b78ec1b2b7691394cfa294267920b395b73c60c9fdd502041"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/procedural-cloud.glsl",
+      "bytes": 15615,
+      "sha256": "df6444dbd51fcb644a779dccc578be6ad3000c948d73b7cc78aace5d3b70dcc2"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/README.md",
+      "bytes": 342,
+      "sha256": "470c80130617dc074e9d0bc1601a42094c26a43bc43911cac3fc9715d0072efb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/runtime.js",
+      "bytes": 8933,
+      "sha256": "5dbd1f47650e0b0f4f21ebd527c3cc88c98f2f6120822798471680a73910e771"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-bridge.glsl",
+      "bytes": 4864,
+      "sha256": "b229401001bbc18744d1656dc4b081a3f5e0efd9a0dccb8101b1da9a44eefa67"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-common.glsl",
+      "bytes": 1779,
+      "sha256": "2819584d9a5cfad887248c5dc371456ab3404c1da908bfd5f8e941de9c46ee20"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-foreground.glsl",
+      "bytes": 2692,
+      "sha256": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-steam.glsl",
+      "bytes": 1221,
+      "sha256": "1670718866493c487f117a5914cf79d95f725a8d145327ae53e2b07879ac8ce5"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-train.glsl",
+      "bytes": 264,
+      "sha256": "82272b4a901078ba01df09158c91833f1b75c31bc3a4e94a1be8b2e16b043b7c"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/scene-world.glsl",
+      "bytes": 3243,
+      "sha256": "3639b99943714a757a2ea978ad4048d86ec593d43aadcda6f2e97a3cc2b69461"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/train.glsl",
+      "bytes": 3147,
+      "sha256": "25a85b9c259d6e48eb2068032aa69766928a6296ec7dc1881b3119648889a1c7"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/src/world.glsl",
+      "bytes": 3004,
+      "sha256": "a5ecd66537405f498fdf2dfde2ea905abcff8fc953447a144dd33d2583aa4b50"
+    },
+    {
+      "path": "themes/blue-sky-train/README.md",
+      "bytes": 11311,
+      "sha256": "4bd586944383de406329b3e20fa10eccad85dacb6619cebd3ed6aa9c6b8e8ab3"
+    },
+    {
+      "path": "themes/blue-sky-train/settings.js",
+      "bytes": 1162,
+      "sha256": "111166733a39f5acf979537681f156daf2532b59dc4c75b9f729e1564c5debf9"
+    },
+    {
+      "path": "themes/blue-sky-train/style.css",
+      "bytes": 1908,
+      "sha256": "209bbcbf87b946f4ff9913154fe1f8153936ebf2d406c88921ba082f576f2262"
+    },
+    {
+      "path": "themes/blue-sky-train/theme.json",
+      "bytes": 371,
+      "sha256": "3eecba50b9c55a029a40298d301557adaa308eb83872d65d2d870574fc898d93"
+    },
+    {
+      "path": "themes/blue-sky-train/wallpaper.js",
+      "bytes": 5740,
+      "sha256": "fb76dc7799d63d21b3620f60c9182f9a6b4e1ab2f0899e83c35c24c68fb3dd8e"
+    },
+    {
+      "path": "themes/starry-night-train/docs/设计文档.md",
+      "bytes": 30422,
+      "sha256": "e2eaf9bf5bc9eb1bb620d045d1bcbd6b45ca3f63798fb4c49d0533cfded9e8b2"
+    },
+    {
+      "path": "themes/starry-night-train/docs/需求分析.md",
+      "bytes": 10862,
+      "sha256": "d65dd342aed66831d19a753a4890e16a35f6acf44f6ad75f4f158dba30e13275"
+    },
+    {
+      "path": "themes/starry-night-train/experiments/round-clouds.html",
+      "bytes": 23703,
+      "sha256": "196ff39f50d1f148767c22557ee8edc29b9a42c9c2268d4b7f1b58f2c710b899"
+    },
+    {
+      "path": "themes/starry-night-train/experiments/train-puffy-experiment-1792078486188.html",
+      "bytes": 47845,
+      "sha256": "989118c176c6cbd5f261630e7080143e842413bd8901acc26866d9d39ca7ef40"
+    },
+    {
+      "path": "themes/starry-night-train/index.html",
+      "bytes": 43649,
+      "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+    },
+    {
+      "path": "themes/starry-night-train/README.md",
+      "bytes": 9660,
+      "sha256": "e696e54122325507e857fc02660971288553811489722934f2acc60ff354b0eb"
+    },
+    {
+      "path": "themes/starry-night-train/reference/sunset-cloud-train.html",
+      "bytes": 46570,
+      "sha256": "f7382644250d8a4496a72596bf23b1ebc5e9823de90ff3a077dc826e2c5e88d7"
+    },
+    {
+      "path": "themes/starry-night-train/theme.json",
+      "bytes": 312,
+      "sha256": "a4c25e2b8a8902134de6f41197a455c870fa80b664230026dedc3fc34bc45988"
+    },
+    {
+      "path": "themes/starry-night-train/tools/build-wallpaper.mjs",
+      "bytes": 7123,
+      "sha256": "bcda275d844c0adca3720358cce2890446846c04bf7a70e478bdb4ff56bd6076"
+    },
+    {
+      "path": "themes/starry-night-train/tools/compose-video.mjs",
+      "bytes": 4665,
+      "sha256": "31bcb90cec95fb6bd3282ae83c9750cd0cb9868f728a4d647d91641a1e99b0e5"
+    },
+    {
+      "path": "themes/starry-night-train/tools/record-video.mjs",
+      "bytes": 8371,
+      "sha256": "da562fd7157848680ab7ca10543481f0b624261f25cfda04d64bc68de75c523f"
+    },
+    {
+      "path": "themes/starry-night-train/tutorial-video/make-voice.mjs",
+      "bytes": 4274,
+      "sha256": "856ed1fc0a7badc9ac587510a27594ea125e9704052662ae60a80f260c73d0f7"
+    },
+    {
+      "path": "themes/starry-night-train/tutorial-video/mix.mjs",
+      "bytes": 2739,
+      "sha256": "c460a45ba68662e59f2a6b42a34809d36138dae8acba02a2217b725cb025bb0a"
+    },
+    {
+      "path": "themes/starry-night-train/tutorial-video/render.mjs",
+      "bytes": 7824,
+      "sha256": "670f7832976470e4241965526100fb139aba70490121d9559b59af5aeceacd00"
+    },
+    {
+      "path": "themes/starry-night-train/tutorial-video/script.mjs",
+      "bytes": 6362,
+      "sha256": "b44ef547de6cc831b54fee3b734ed1f1affff2f829c1195cf005a7bccd10970e"
+    },
+    {
+      "path": "themes/starry-night-train/tutorial-video/stage.html",
+      "bytes": 64314,
+      "sha256": "00f64b28c84cf64d0785a549c69deb44e735dbc7d15887116863dd7b9a56f3b8"
+    },
+    {
+      "path": "tools/build-blue-module-previews.mjs",
+      "bytes": 6419,
+      "sha256": "20a8c9241d4fe9d02764a0833528fc299314ac1e0030825e262d8d84d851e31a"
+    },
+    {
+      "path": "tools/build-cloud-library.mjs",
+      "bytes": 4061,
+      "sha256": "6ef73910e33dfa8a17dcf46cf5f1cd7e02480844ab3d35eb68009be0ccd54710"
+    },
+    {
+      "path": "tools/build-cloud-patterns.mjs",
+      "bytes": 2023,
+      "sha256": "be32ba8fa91af2c8e5f16159c346d2516d66c9965acc510a9e003cd688105f1c"
+    },
+    {
+      "path": "tools/build-material-guides.mjs",
+      "bytes": 3957,
+      "sha256": "96885e9d539765bc290e8196b25e9af6777fe12ada1f833e8636e15a499a1b39"
+    },
+    {
+      "path": "tools/build-module-library.mjs",
+      "bytes": 6093,
+      "sha256": "e43c53eccbb8690f2a663d2e857bb7a92c8f8ca8b1edd467eecadadee5205352"
+    },
+    {
+      "path": "tools/build-starry-modules.mjs",
+      "bytes": 13834,
+      "sha256": "3e1368736d63e6d02470e48636a32a8d36e0383dd1a282ccc4fb47c329bdf8d0"
+    },
+    {
+      "path": "tools/build-ta-lab.mjs",
+      "bytes": 7704,
+      "sha256": "a4b2ee72b6d3de58f492191c97fd6b72c78395df2273de25f7a3820302e35756"
+    },
+    {
+      "path": "tools/module-sources.mjs",
+      "bytes": 712,
+      "sha256": "12d92bd1e527af742a8076c0c87102a75abae692f7359b3c3cbb2c350a46f121"
+    },
+    {
+      "path": "tools/public-library.mjs",
+      "bytes": 3974,
+      "sha256": "9361fc1afa2ee5e0d7ed24400d7080ce927d34fe08d8e2f1d4555c415f7afa5e"
+    },
+    {
+      "path": "tools/serve.mjs",
+      "bytes": 2666,
+      "sha256": "46d98f5ef5e1b05a5596d3881e5cac89a893d5fae4bd6ed811fe13eaef67f040"
+    }
+  ]
+}
