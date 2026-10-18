@@ -1,6 +1,6 @@
 # 掠过的草木 · AI 使用说明
 
-透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。
+生成的草木成簇经过镜头，深度视差与风摆保留，间隔露出开阔湖面。
 
 实现方式：图像素材 + Shader。本素材库按视觉效果组织，不要求全部程序化；保留有效的素材与 Shader 分工。
 
@@ -19,6 +19,7 @@
 
 - 替换草丛、枝叶、灌木 PNG
 - 经过速度、遮挡频率与风摆幅度
+- 植物簇宽度、空档距离和出现频率
 
 ## 文件入口
 
@@ -43,6 +44,8 @@
 - coordinates：x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度
 - time：共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制
 - color：GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘
+- distribution：所有近景层共享世界坐标植物簇，随机簇宽、株数、枝叶高度与间距；簇间完整留空，不做透明度切换。FOLIAGE_PATCH_SPAN=7.4，间距抖动±0.6；按 depth=.82/.94/1.02/1.14 投影。
+- replay：宿主支持 ?time=秒数 的暂停定帧预览（0–86400）；不带 time 时正常播放。
 
 - 接口：foliageSprite / foliageBend / foliageOver / nearBank / passingBranch / grassLayer
 - 接口：uFoliageAspect / uGroundTravel / uWind
@@ -52,6 +55,7 @@
 - 每类只有一张素材，重复可能被认出
 - 素材受光不随日光滑杆变化；保留方向避免镜像
 - 近枝遮挡桥车是设计效果，需要控制频率
+- 留空必须由各深度层共同遵守；独立随机平铺会互相填满空档。扩大素材尺寸时需同时检查簇边界与完整湖面间距。
 
 来源案例记录只说明依赖关系，不代表该整景已作为精品壁纸上架。
 - [cases/blue-sky-assets/scene.json](../../cases/blue-sky-assets/scene.json)

@@ -30,9 +30,10 @@ export function buildBlueModulePreviews(){
   const html=src('example.html.template').replace(/%%([A-Z_]+)%%/g,(_,k)=>values[k]??'').replace('href="../index.html">返回 TA 方案','href="../../../library/index.html#'+id+'">返回模块库');
   write('modules/'+id+'/preview.html',html);result[id]={kind:id.startsWith('water/')?'scene-context':'isolated',engine:'TALab'};
  }
+ const assetRevision=JSON.parse(read('library/selection.json')).revision;
  const assetViews={'clouds/complete-cloud-stream-r04':'clouds','terrain/valley-distance-r05':'mountains','bridge/blue-stone-lighting':'bridge','foreground/generated-foliage-r09':'foreground','motion/blue-stream-parallax':'motion'};
  for(const [id,mode]of Object.entries(assetViews)){
-  write('modules/'+id+'/preview.html',wrapper(id,'../../../themes/blue-sky-train/lab/cloud-library.html?module='+mode,'共享素材宿主 · '+(mode==='motion'?'完整场景中的视差关系':'独立图层预览')));
+  write('modules/'+id+'/preview.html',wrapper(id,'../../../themes/blue-sky-train/lab/cloud-library.html?module='+mode+'&v='+encodeURIComponent(assetRevision),'共享素材宿主 · '+(mode==='motion'?'完整场景中的视差关系':'独立图层预览')));
   result[id]={kind:mode==='motion'?'scene-context':'isolated',engine:'CloudLibrary',frame:true};
  }
  const related={'foreground/procedural-grass-r08':'../../../themes/blue-sky-train/lab/history/r08-foreground/cloud-library.html','water/svg-local-ripple':'../../../themes/blue-sky-train/index.html?controls=1','train/svg-steam-loop':'../../../themes/blue-sky-train/index.html?controls=1'};

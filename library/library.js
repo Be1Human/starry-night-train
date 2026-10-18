@@ -78,7 +78,7 @@ async function openItem(item,writeHash=true){
  renderDetails(item);if(!$('viewer').open)$('viewer').showModal();
  if(writeHash)history.replaceState(null,'','#'+item.kind+'/'+item.id);
  $('player-status').textContent='正在展开画面…';
- const frame=document.createElement('iframe');frame.title=item.title+(item.kind==='wallpaper'?'动态壁纸':'素材预览');const frameUrl=new URL(url(item.preview),location.href);frameUrl.searchParams.set('embed','1');frame.src=frameUrl.href;$('player').replaceChildren(frame);
+ const frame=document.createElement('iframe');frame.title=item.title+(item.kind==='wallpaper'?'动态壁纸':'素材预览');const frameUrl=new URL(url(item.preview),location.href);frameUrl.searchParams.set('embed','1');frameUrl.searchParams.set('v',catalog.revision);frame.src=frameUrl.href;$('player').replaceChildren(frame);
  try{const ready=await waitForPlayer(frame,request);if(!ready)return;api=ready;api.setSettings({...item.settings,paused:false});$('player').dataset.ready='true';$('viewer-poster').hidden=true;$('pause').disabled=false;$('player-status').textContent='';}catch(error){if(request===token){$('player').replaceChildren();$('player-status').textContent=error.message;$('retry').hidden=false;}}
 }
 function navigateItem(offset){if(!current)return;const items=visibleItems();if(items.length<2)return;const index=items.findIndex(i=>i.id===current.id);openItem(items[(index+offset+items.length)%items.length]);}
@@ -105,7 +105,7 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 $('viewer').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();navigateItem(1);}if(event.key==='ArrowLeft'){event.preventDefault();navigateItem(-1);}});
 window.addEventListener('pagehide',clearPlayer);window.addEventListener('hashchange',followHash);
 try{
- const response=await fetch('catalog.json?v=r18-daylight-motion');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
+ const response=await fetch('catalog.json?v=r19-open-lakeshore');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
  if(!catalog.wallpapers?.length)throw Error('没有可展示的火车壁纸');followHash();
  window.LayerLibrary={get state(){return {ready:true,revision:catalog.revision,collection,category,total:visibleItems().length,visibleIds:visibleItems().map(i=>i.id),selected:current?.id??null,playing:!!api&&!api.state.settings.paused};}};
 }catch(error){$('load-error').hidden=false;$('load-error').textContent='画廊暂时无法加载，请刷新重试。';console.error(error);}

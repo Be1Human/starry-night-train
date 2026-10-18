@@ -3,7 +3,7 @@
   "id": "foreground/generated-foliage-r09",
   "category": "foreground",
   "name": "R09 完整生成近景素材",
-  "method": "三张透明PNG＋层间速度差＋根部固定UV风摆",
+  "method": "三张透明 PNG＋共享随机植物簇＋深度视差＋根部固定 UV 风摆",
   "status": "integrated",
   "sourceMode": "canonical",
   "sourceFiles": [
@@ -37,12 +37,15 @@
   "contract": {
     "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
     "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
-    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+    "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘",
+    "distribution": "所有近景层共享世界坐标植物簇，随机簇宽、株数、枝叶高度与间距；簇间完整留空，不做透明度切换。FOLIAGE_PATCH_SPAN=7.4，间距抖动±0.6；按 depth=.82/.94/1.02/1.14 投影。",
+    "replay": "宿主支持 ?time=秒数 的暂停定帧预览（0–86400）；不带 time 时正常播放。"
   },
   "pitfalls": [
     "每类只有一张素材，重复可能被认出",
     "素材受光不随日光滑杆变化；保留方向避免镜像",
-    "近枝遮挡桥车是设计效果，需要控制频率"
+    "近枝遮挡桥车是设计效果，需要控制频率",
+    "留空必须由各深度层共同遵守；独立随机平铺会互相填满空档。扩大素材尺寸时需同时检查簇边界与完整湖面间距。"
   ],
   "evidence": [
     "themes/blue-sky-train/lab/evidence/r09-generated-foreground/report.json"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "revision": "r18-daylight-motion",
+  "revision": "r19-open-lakeshore",
   "featuredCase": "starry-night",
   "wallpapers": [
     {
@@ -33,7 +33,7 @@
       "caseId": "blue-sky-assets",
       "category": "daylight",
       "aspect": "8 / 3",
-      "summary": "云层持续漂移，近景草木随行进从眼前掠过。列车烟雾、桥梁与湖面倒影共享同一场景时间。",
+      "summary": "云层持续漂移，眼前草木成簇掠过，间隔露出开阔湖面。列车烟雾、桥梁与倒影共享场景时间。",
       "settings": {
         "mode": 3,
         "scale": 1,
@@ -374,11 +374,12 @@
       "templateId": "foreground/generated-foliage-r09",
       "poster": "library/thumbnails/foreground--generated-foliage-r09.png",
       "alt": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
-      "summary": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
+      "summary": "生成的草木成簇经过镜头，深度视差与风摆保留，间隔露出开阔湖面。",
       "implementation": "hybrid",
       "editable": [
         "替换草丛、枝叶、灌木 PNG",
-        "经过速度、遮挡频率与风摆幅度"
+        "经过速度、遮挡频率与风摆幅度",
+        "植物簇宽度、空档距离和出现频率"
       ],
       "aspect": "8 / 3",
       "settings": {
@@ -971,7 +972,7 @@
       "id": "foreground/generated-foliage-r09",
       "category": "foreground",
       "name": "R09 完整生成近景素材",
-      "method": "三张透明PNG＋层间速度差＋根部固定UV风摆",
+      "method": "三张透明 PNG＋共享随机植物簇＋深度视差＋根部固定 UV 风摆",
       "status": "integrated",
       "sourceMode": "canonical",
       "sourceFiles": [
@@ -1007,12 +1008,15 @@
       "contract": {
         "coordinates": "x∈[0,8/3]，y∈[0,1]，+y 向上；1单位=画面高度",
         "time": "共享 uTime；近景使用积分 uGroundTravel。旧山/桥 cameraAt=t×speed，切换速度存在跳变限制",
-        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘"
+        "color": "GLSL图层输出 straight alpha；PNG上传禁用预乘，保持完整透明边缘",
+        "distribution": "所有近景层共享世界坐标植物簇，随机簇宽、株数、枝叶高度与间距；簇间完整留空，不做透明度切换。FOLIAGE_PATCH_SPAN=7.4，间距抖动±0.6；按 depth=.82/.94/1.02/1.14 投影。",
+        "replay": "宿主支持 ?time=秒数 的暂停定帧预览（0–86400）；不带 time 时正常播放。"
       },
       "pitfalls": [
         "每类只有一张素材，重复可能被认出",
         "素材受光不随日光滑杆变化；保留方向避免镜像",
-        "近枝遮挡桥车是设计效果，需要控制频率"
+        "近枝遮挡桥车是设计效果，需要控制频率",
+        "留空必须由各深度层共同遵守；独立随机平铺会互相填满空档。扩大素材尺寸时需同时检查簇边界与完整湖面间距。"
       ],
       "evidence": [
         "themes/blue-sky-train/lab/evidence/r09-generated-foreground/report.json"
@@ -1026,18 +1030,18 @@
       "thumbnailKind": "模块实测 · t=8s",
       "sortOrder": 21,
       "sha256": {
-        "modules/foreground/generated-foliage-r09/source.glsl": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+        "modules/foreground/generated-foliage-r09/source.glsl": "536083202a35746efd87fc4b870f459674165ebba7b5a23ac20b8b1be831e211"
       },
       "readme": "modules/foreground/generated-foliage-r09/README.md",
       "manifest": "modules/foreground/generated-foliage-r09/template.json",
       "presentation": {
         "id": "foreground/generated-foliage-r09",
         "title": "掠过的草木",
-        "description": "透明草丛、枝叶和灌木，配合视差行进与根部固定的风摆。",
+        "description": "草丛与枝叶成簇掠过，疏密交错，簇间留出开阔湖面。",
         "previewLabel": "独立图层",
         "lookFor": [
-          "叶片细节和透明边缘",
-          "草丛快速掠过，枝叶间歇遮挡"
+          "植物簇的疏密变化和真实透明边缘",
+          "近景掠过后，湖面完整展开"
         ],
         "review": {
           "basis": "复核已有独立图层渲染的轮廓、色彩、层次；本轮重新验证播放。素材按自身成熟度收录。",

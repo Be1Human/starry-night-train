@@ -119,5 +119,8 @@
   document.getElementById('frame-label').textContent='模块预览 · '+moduleView;
   for(const el of document.querySelectorAll('[data-setting]'))el.value=settings[el.dataset.setting];
  }
- initialize().catch(fail);
+ // A deterministic, paused replay URL for visual comparisons; normal previews still animate.
+ const replayValue=new URLSearchParams(location.search).get('time');
+ const replayTime=replayValue===null||replayValue.trim()===''?NaN:Number(replayValue);
+ initialize().then(()=>{if(Number.isFinite(replayTime)&&replayTime>=0)window.CloudLibrary.renderAt(Math.min(replayTime,86400));}).catch(fail);
 })();

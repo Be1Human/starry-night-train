@@ -1,6 +1,6 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r18-daylight-motion",
+  "catalogRevision": "r19-open-lakeshore",
   "wallpapers": 2,
   "materials": 8,
   "files": [
@@ -121,8 +121,8 @@
     },
     {
       "path": "cases/blue-sky-assets/runtime.js",
-      "bytes": 13432,
-      "sha256": "febad68e8143a8aea4637f00faa993722d692df507518a6c223acd2da0c92401"
+      "bytes": 13798,
+      "sha256": "8c357963629d527ba6bd52bef0728f66a3bc771ba0a83261b9ba3791a7fae3f8"
     },
     {
       "path": "cases/blue-sky-assets/scene.json",
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 44752,
-      "sha256": "07e69c136b91af5d3d4195414c5fd418d89ae848004af40eb64ac466287c74ec"
+      "bytes": 45389,
+      "sha256": "ecf1f47c98b22713a349db2fc820ec89ad5a5756cec52ee339d37e3e671c5d16"
     },
     {
       "path": "library/index.html",
-      "bytes": 2179,
-      "sha256": "8cb4169a812c1148a3853d01df5a94f842975b7fbc04600b9120f3b3e15bd342"
+      "bytes": 2178,
+      "sha256": "fc7a0dd42a43952f4100a2021e38e67c5252ff11beaecbce7aeb4f9d7ac87538"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 11972,
-      "sha256": "e4f76879c335f27b533c438ec964f92e4c4a0bf53544c1439596902800141f69"
+      "bytes": 12019,
+      "sha256": "f9beabaf830a62840fc630c5ae8a928b9f877517a2dde4a8e318e362165ee1cd"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -256,13 +256,13 @@
     },
     {
       "path": "library/materials/passing-foliage.json",
-      "bytes": 2250,
-      "sha256": "5e87718e4c2b9bcd76a58a1981c8ed13dceefe5b207e5a9e34f7ac66cd967fde"
+      "bytes": 2836,
+      "sha256": "6799105cb3e9a7422dab1876f4b1eeb42082aa3a11b59f61ab936b0829b03949"
     },
     {
       "path": "library/materials/passing-foliage.md",
-      "bytes": 3512,
-      "sha256": "222c6aac89eaa467dc6493898b657481aaf96973fb5e555b0120a596745214e5"
+      "bytes": 4076,
+      "sha256": "d951da030acc84b422abadaf6b270cf8fa0474123a7b5bbf78d21b367ac219b3"
     },
     {
       "path": "library/materials/sunlit-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 14127,
-      "sha256": "e45e4cf4b23f233f3aecc496135eda77e5af9d12d445e08c73c37729441109d3"
+      "bytes": 14210,
+      "sha256": "05d1f61d42bc252c09ab0b02ff03378a467b90b7841c1e054e85c61a357acfea"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -346,8 +346,8 @@
     },
     {
       "path": "modules/bridge/blue-stone-lighting/preview.html",
-      "bytes": 1110,
-      "sha256": "954bb69eae133c3579f380e53e6008be937027d24529b89b9464c988d5a430ae"
+      "bytes": 1131,
+      "sha256": "c7f85ad5e2909539bb541d37ed2854a2b73020d154ed67fbfb760708f301a50b"
     },
     {
       "path": "modules/bridge/blue-stone-lighting/README.md",
@@ -401,8 +401,8 @@
     },
     {
       "path": "modules/catalog.internal.json",
-      "bytes": 79083,
-      "sha256": "f9deaf67f40c3839014ba03742f9fbec6a50f42fa9f385da10b7070151f81c37"
+      "bytes": 79637,
+      "sha256": "2a34486f1fe39af6ec7b3e32377e136f22e744c4a1262bd8a106f8d5fc02a126"
     },
     {
       "path": "modules/categories.json",
@@ -426,8 +426,8 @@
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/preview.html",
-      "bytes": 1128,
-      "sha256": "cb38af7dcb74296fe5da937e71b01e530dd23e98b687fc310f7823f974b4e879"
+      "bytes": 1149,
+      "sha256": "d5939c79a47f35e448e94271cac119f4d2ea2e6f7926966161aa6bb68bfc747f"
     },
     {
       "path": "modules/clouds/complete-cloud-stream-r04/README.md",
@@ -546,23 +546,23 @@
     },
     {
       "path": "modules/foreground/generated-foliage-r09/preview.html",
-      "bytes": 1132,
-      "sha256": "2934b519063e3ca2072104ef9b2cf31feeac38ea37541e6ab0742b63eba4311e"
+      "bytes": 1153,
+      "sha256": "22f7aa9e8cd5fda1a9abc5244ed53fc11b057648924a25a5f49f226113eb1413"
     },
     {
       "path": "modules/foreground/generated-foliage-r09/README.md",
-      "bytes": 2819,
-      "sha256": "e3823dc92f819837e0473bcdcd223079027c6bcec5fb0c7ca556e711731912e6"
+      "bytes": 3344,
+      "sha256": "4875c7d4550be7108ab0c202b19452172a63153c6040cf782f5269bf8f0aaa49"
     },
     {
       "path": "modules/foreground/generated-foliage-r09/source.glsl",
-      "bytes": 2692,
-      "sha256": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+      "bytes": 3334,
+      "sha256": "536083202a35746efd87fc4b870f459674165ebba7b5a23ac20b8b1be831e211"
     },
     {
       "path": "modules/foreground/generated-foliage-r09/template.json",
-      "bytes": 2210,
-      "sha256": "e14df3eba9aecf58d35fffd0a1ffcaef91c3c2076910a4a4bb0fceccecca6c1e"
+      "bytes": 2752,
+      "sha256": "e797ff35de1eef0637a5a49e8766621677f1f3b663d7738e6b2d3549fed06ad1"
     },
     {
       "path": "modules/foreground/procedural-grass-r08/README.md",
@@ -901,8 +901,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/cloud-library.html",
-      "bytes": 16938978,
-      "sha256": "ba9bc31ba5f621ca14e81990cf4870f8e825510f326d8e84ba24ada95f23460e"
+      "bytes": 16940055,
+      "sha256": "63a26b27a32794fd1d58a4387fcac16c653507491930b5fa6bdecaaa41e5ebc1"
     },
     {
       "path": "themes/blue-sky-train/lab/evidence/r09-generated-foreground/scene.png",
@@ -1621,8 +1621,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/asset-runtime.js",
-      "bytes": 13432,
-      "sha256": "febad68e8143a8aea4637f00faa993722d692df507518a6c223acd2da0c92401"
+      "bytes": 13798,
+      "sha256": "8c357963629d527ba6bd52bef0728f66a3bc771ba0a83261b9ba3791a7fae3f8"
     },
     {
       "path": "themes/blue-sky-train/lab/src/asset-stream.js",
@@ -1631,8 +1631,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/cloud-library.html.template",
-      "bytes": 15643,
-      "sha256": "41759d4c01473e4f9b6ceeb925c2874f30f900d38dc996a2f5fd461e17e3e8b7"
+      "bytes": 15694,
+      "sha256": "3f61fa8c226fcb9d4b26d2dd0ef4532cd4ff0456bb0209a00fb6971b7ac66317"
     },
     {
       "path": "themes/blue-sky-train/lab/src/cloud-mask.js",
@@ -1701,8 +1701,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/scene-foreground.glsl",
-      "bytes": 2692,
-      "sha256": "e9ba570fd230bb489de8fd67f9b2c1f1fff64eb97da8a456fb0c8224a662a909"
+      "bytes": 3334,
+      "sha256": "536083202a35746efd87fc4b870f459674165ebba7b5a23ac20b8b1be831e211"
     },
     {
       "path": "themes/blue-sky-train/lab/src/scene-steam.glsl",
@@ -1836,8 +1836,8 @@
     },
     {
       "path": "tools/build-blue-module-previews.mjs",
-      "bytes": 6419,
-      "sha256": "20a8c9241d4fe9d02764a0833528fc299314ac1e0030825e262d8d84d851e31a"
+      "bytes": 6533,
+      "sha256": "a13549b6302e482667e1c597bdc8f172dfecc79b1d838eff6d15da12052099cf"
     },
     {
       "path": "tools/build-cloud-library.mjs",
