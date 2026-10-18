@@ -4,7 +4,7 @@
   "description": "保留原图构图，局部水波与矢量烟雾循环，适用于画面轻动画。",
   "status": "integrated",
   "entry": "themes/blue-sky-train/index.html?controls=1",
-  "preview": "assets/blue-sky-train/source/blue-sky-train.png",
+  "preview": "library/thumbnails/wallpaper--blue-sky-original.png",
   "layers": [
     {
       "role": "water",
@@ -45,6 +45,16 @@
       "artwork",
       "water-layer（裁切原画重绘）",
       "steam-layer"
+    ]
+  },
+  "wallpaper": {
+    "kind": "complete-train-scene",
+    "engine": "trainWallpaper",
+    "entry": "themes/blue-sky-train/index.html",
+    "dependencies": [
+      "themes/blue-sky-train/wallpaper.js",
+      "themes/blue-sky-train/settings.js",
+      "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
     ]
   }
 }

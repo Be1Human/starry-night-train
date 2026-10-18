@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "revision": "r16-example-categories",
+  "revision": "r17-daylight-example",
   "featuredCase": "starry-night",
   "wallpapers": [
     {
@@ -18,13 +18,42 @@
       "caseId": "starry-night",
       "category": "night",
       "kind": "wallpaper",
-      "preview": "modules/water/starry-perspective-reflection/preview.html"
+      "preview": "modules/water/starry-perspective-reflection/preview.html",
+      "previewEngine": "StarryModulePreview"
+    },
+    {
+      "id": "blue-sky-original",
+      "title": "蓝天湖景",
+      "poster": "library/thumbnails/wallpaper--blue-sky-original.png",
+      "alt": "蓝天白云、青山和湖面倒影之间，列车停驻在长桥上，水波与蒸汽缓缓流动。",
+      "previewMode": "case-entry",
+      "caseId": "blue-sky-original",
+      "category": "daylight",
+      "aspect": "8 / 3",
+      "summary": "保留蓝天、积云、青山与列车的原画构图，水面和蒸汽轻轻流动。列车与景物保持原画位置。",
+      "settings": {
+        "fit": "contain",
+        "speed": 1,
+        "ripple": 1,
+        "steam": true
+      },
+      "review": {
+        "image": "library/thumbnails/wallpaper--blue-sky-original.png",
+        "basis": "已有完整 SVG 原画动画；2026-10-18 核对线上实际渲染并保存完整画幅截图。"
+      },
+      "kind": "wallpaper",
+      "preview": "themes/blue-sky-train/index.html",
+      "previewEngine": "trainWallpaper"
     }
   ],
   "wallpaperCategories": [
     {
       "id": "night",
       "name": "星空夜景"
+    },
+    {
+      "id": "daylight",
+      "name": "白天湖景"
     }
   ],
   "materials": [
@@ -1070,6 +1099,56 @@
         "water": "main()将水线以下坐标折回scene；共享时间"
       },
       "recipePath": "cases/starry-night/scene.json"
+    },
+    {
+      "id": "blue-sky-original",
+      "name": "蓝天原画 · SVG 轻动画",
+      "description": "保留原图构图，局部水波与矢量烟雾循环，适用于画面轻动画。",
+      "status": "integrated",
+      "entry": "themes/blue-sky-train/index.html?controls=1",
+      "preview": "library/thumbnails/wallpaper--blue-sky-original.png",
+      "layers": [],
+      "shared": {
+        "viewBox": [
+          0,
+          0,
+          2048,
+          768
+        ],
+        "time": "svg.setCurrentTime(time)，暂停浏览器自主SMIL时钟",
+        "artwork": "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+      },
+      "limitations": [
+        "天空、云、山、桥、列车和近景属于同一完整原画，不是独立可替换动态图层。",
+        "不能把它作为自由镜头穿行模板。"
+      ],
+      "composition": [
+        "themes/blue-sky-train/wallpaper.js",
+        "tools/vectorize.py"
+      ],
+      "schemaVersion": 1,
+      "recipeKind": "descriptive",
+      "recipeNote": "清单描述现有组合与依赖；不是通用运行时配置。更换算法后需在composition中对齐接口。",
+      "layerOrderNote": "layers按教学分类列出，不是绘制顺序；实际合成见compositing。",
+      "compositing": {
+        "direction": "back-to-front",
+        "layers": [
+          "artwork",
+          "water-layer（裁切原画重绘）",
+          "steam-layer"
+        ]
+      },
+      "wallpaper": {
+        "kind": "complete-train-scene",
+        "engine": "trainWallpaper",
+        "entry": "themes/blue-sky-train/index.html",
+        "dependencies": [
+          "themes/blue-sky-train/wallpaper.js",
+          "themes/blue-sky-train/settings.js",
+          "assets/blue-sky-train/vector/blue-sky-train-animated.svg"
+        ]
+      },
+      "recipePath": "cases/blue-sky-original/scene.json"
     }
   ]
 }

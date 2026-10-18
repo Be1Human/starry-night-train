@@ -1,7 +1,7 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r16-example-categories",
-  "wallpapers": 1,
+  "catalogRevision": "r17-daylight-example",
+  "wallpapers": 2,
   "materials": 8,
   "files": [
     {
@@ -136,8 +136,8 @@
     },
     {
       "path": "cases/blue-sky-original/scene.json",
-      "bytes": 1518,
-      "sha256": "27b43966323cb864a553c7a92d86b0c7b32f3edd3776d9593579088042978877"
+      "bytes": 1841,
+      "sha256": "7b14c78030831b27fd59114cdd2d00f5d75b7058dc7e888e1bc2f0d350121498"
     },
     {
       "path": "cases/blue-sky-study/compose.glsl",
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 40342,
-      "sha256": "df4ec1059b460890875e986bc345fd90ad4ece84db97520bc89e15d949eee60b"
+      "bytes": 43332,
+      "sha256": "376faa1316b2d000db6b6abf434d68628f47b0b45ccc99d414e9e744dafc893c"
     },
     {
       "path": "library/index.html",
-      "bytes": 2182,
-      "sha256": "76437d043c6dc05d18d412a7b6e6fab6e3abd6058dce61e8df5922c1d4f26030"
+      "bytes": 2180,
+      "sha256": "3edac0e7b556ce4479bf2218cc056c7a9118c6aa4bfddee019b5c3933c081b21"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 11292,
-      "sha256": "9ea4c198aa15fe8d4a735562e29cf231ee89ffd6f1f5d6bff05896e6ec276faa"
+      "bytes": 11920,
+      "sha256": "8fb4a0f7401ee61eed669a9e1eaa8d34b93489907c586618aee4252fee24b664"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 12906,
-      "sha256": "5889efcd53b2233216ef330f190ecd15040d2cf2e2aa92358604e0377712d9c7"
+      "bytes": 13866,
+      "sha256": "1064874914dd94b6edd7133a5bb5540e1fcc0913ee162c01157b3dc2a4a250a5"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -323,6 +323,11 @@
       "path": "library/thumbnails/train--starry-locomotive-sdf.png",
       "bytes": 73897,
       "sha256": "36d3b32078f33ec82a55f9df92d9c2dfc6d5b0b8e19fd9f6b193c52558a18eba"
+    },
+    {
+      "path": "library/thumbnails/wallpaper--blue-sky-original.png",
+      "bytes": 105709,
+      "sha256": "249212de45b01cce2519f8b7567fa6e8df0a53275335cab73cef485e58172cc6"
     },
     {
       "path": "library/thumbnails/water--starry-perspective-reflection.png",
@@ -396,8 +401,8 @@
     },
     {
       "path": "modules/catalog.internal.json",
-      "bytes": 78135,
-      "sha256": "12347772b63528cada95f48905c137e2ad12a98c6439b8d21a94497f7734ca9e"
+      "bytes": 78498,
+      "sha256": "0779e6b07742b15ac97b44612b7355436bf45b321a8329e986f25020b6b516af"
     },
     {
       "path": "modules/categories.json",
@@ -877,7 +882,7 @@
     {
       "path": "README.md",
       "bytes": 971,
-      "sha256": "3b75e1ca1e80b3df09e1aa579d212e3ccec0c9aadb5a08c0ff7aa6a9a06c3cce"
+      "sha256": "f5a6ce5e6b2703a3800b6d8a90d04ad5df0dc879d2b933ddde6abcd5787f91f4"
     },
     {
       "path": "themes/blue-sky-train/docs/设计文档.md",
@@ -891,8 +896,8 @@
     },
     {
       "path": "themes/blue-sky-train/index.html",
-      "bytes": 2347,
-      "sha256": "4956fb8453ed0ed9a3db51deef57951c19ea45d012d46d1495d99437d8d59630"
+      "bytes": 2359,
+      "sha256": "9d875fc5b8f9ffd77a2504b6cd8696835b1d4264f8ec014611e2527d02fa4aa8"
     },
     {
       "path": "themes/blue-sky-train/lab/cloud-library.html",
@@ -1671,8 +1676,8 @@
     },
     {
       "path": "themes/blue-sky-train/lab/src/procedural-cloud.glsl",
-      "bytes": 15615,
-      "sha256": "df6444dbd51fcb644a779dccc578be6ad3000c948d73b7cc78aace5d3b70dcc2"
+      "bytes": 17753,
+      "sha256": "1679fe8711d1967ebeb73e8fc65c5a9998f39279212e6c8025a55f3eb8eda84f"
     },
     {
       "path": "themes/blue-sky-train/lab/src/README.md",
@@ -1736,8 +1741,8 @@
     },
     {
       "path": "themes/blue-sky-train/style.css",
-      "bytes": 1908,
-      "sha256": "209bbcbf87b946f4ff9913154fe1f8153936ebf2d406c88921ba082f576f2262"
+      "bytes": 1961,
+      "sha256": "4e8a6ff9bde4d225e4f798ace609fcb62cb61a1ec99e8139cebad4898abf5202"
     },
     {
       "path": "themes/blue-sky-train/theme.json",
@@ -1746,8 +1751,8 @@
     },
     {
       "path": "themes/blue-sky-train/wallpaper.js",
-      "bytes": 5740,
-      "sha256": "fb76dc7799d63d21b3620f60c9182f9a6b4e1ab2f0899e83c35c24c68fb3dd8e"
+      "bytes": 6353,
+      "sha256": "d3692ae27c1a74bcc8cfc9419c16a606a4cca0126354439fcd85b01b1e5ec4b3"
     },
     {
       "path": "themes/starry-night-train/docs/设计文档.md",
@@ -1871,8 +1876,8 @@
     },
     {
       "path": "tools/public-library.mjs",
-      "bytes": 4509,
-      "sha256": "01cec03b9f8fd20c8f55e85943eb25f4f70bbfbfbdaa8b930fab992950334517"
+      "bytes": 5227,
+      "sha256": "9d46b82d4416fcd20cf348591d947f9ac80fdf4ec4d7aae77c321b0faf2ee86a"
     },
     {
       "path": "tools/serve.mjs",

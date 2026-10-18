@@ -29,6 +29,7 @@ function dismissViewer(restore=true){
 function previewAdapter(win,depth=0){
  try{
   if(win.StarryModulePreview?.state.ready)return win.StarryModulePreview;
+  if(win.trainWallpaper?.state.ready&&typeof win.trainWallpaper.setSettings==='function')return win.trainWallpaper;
   const hybrid=win.CloudLibrary;
   if(hybrid?.state.ready)return {
    get state(){const s=hybrid.state;return {...s,webgl:true,glError:hybrid.getError(),settings:{...s.settings,paused:s.paused}};},
@@ -44,8 +45,9 @@ function renderDetails(item){
  $('viewer-details').open=false;
  if(item.kind==='wallpaper'){
   const related=catalog.materials.filter(m=>m.usedIn.includes(item.id));
-  $('viewer-details').hidden=!related.length;$('details-label').textContent='配套素材';
-  $('details-content').innerHTML=related.map(m=>'<a href="#material/'+m.id+'">'+esc(categoryName(m.category))+' · '+esc(m.title)+' ↗</a>').join('');
+  const scene=catalog.cases.find(c=>c.id===item.caseId);
+  $('viewer-details').hidden=!related.length&&!item.summary;$('details-label').textContent=related.length?'配套素材':'作品与源码';
+  $('details-content').innerHTML=(item.summary?'<p>'+esc(item.summary)+'</p><div class="source-links"><a href="'+url(scene.entry)+'" target="_blank" rel="noopener">单独打开 ↗</a><a href="'+url('cases/'+scene.id+'/README.md')+'" target="_blank" rel="noopener">实现说明 ↗</a><a href="'+url(scene.recipePath)+'" download>场景清单 ↗</a></div>':'')+related.map(m=>'<a href="#material/'+m.id+'">'+esc(categoryName(m.category))+' · '+esc(m.title)+' ↗</a>').join('');
  }else{
   const method={shader:'Shader',hybrid:'素材 + Shader',asset:'图像 / 矢量素材'}[item.implementation];
   $('viewer-details').hidden=false;$('details-label').textContent='使用与源码';
@@ -76,7 +78,7 @@ async function openItem(item,writeHash=true){
  renderDetails(item);if(!$('viewer').open)$('viewer').showModal();
  if(writeHash)history.replaceState(null,'','#'+item.kind+'/'+item.id);
  $('player-status').textContent='正在展开画面…';
- const frame=document.createElement('iframe');frame.title=item.title+(item.kind==='wallpaper'?'动态壁纸':'素材预览');frame.src=url(item.preview)+'?embed=1';$('player').replaceChildren(frame);
+ const frame=document.createElement('iframe');frame.title=item.title+(item.kind==='wallpaper'?'动态壁纸':'素材预览');const frameUrl=new URL(url(item.preview),location.href);frameUrl.searchParams.set('embed','1');frame.src=frameUrl.href;$('player').replaceChildren(frame);
  try{const ready=await waitForPlayer(frame,request);if(!ready)return;api=ready;api.setSettings({...item.settings,paused:false});$('player').dataset.ready='true';$('viewer-poster').hidden=true;$('pause').disabled=false;$('player-status').textContent='';}catch(error){if(request===token){$('player').replaceChildren();$('player-status').textContent=error.message;$('retry').hidden=false;}}
 }
 function navigateItem(offset){if(!current)return;const items=visibleItems();if(items.length<2)return;const index=items.findIndex(i=>i.id===current.id);openItem(items[(index+offset+items.length)%items.length]);}
@@ -103,7 +105,7 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 $('viewer').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();navigateItem(1);}if(event.key==='ArrowLeft'){event.preventDefault();navigateItem(-1);}});
 window.addEventListener('pagehide',clearPlayer);window.addEventListener('hashchange',followHash);
 try{
- const response=await fetch('catalog.json?v=r16-example-categories');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
+ const response=await fetch('catalog.json?v=r17-daylight-example');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
  if(!catalog.wallpapers?.length)throw Error('没有可展示的火车壁纸');followHash();
  window.LayerLibrary={get state(){return {ready:true,revision:catalog.revision,collection,category,total:visibleItems().length,visibleIds:visibleItems().map(i=>i.id),selected:current?.id??null,playing:!!api&&!api.state.settings.paused};}};
 }catch(error){$('load-error').hidden=false;$('load-error').textContent='画廊暂时无法加载，请刷新重试。';console.error(error);}

@@ -4,11 +4,13 @@ const ASSET = '../../assets/blue-sky-train/vector/blue-sky-train-animated.svg';
 const KEY = 'train-wallpapers:blue-sky-train:v1';
 const host = window.wallpaperHost;
 const query = new URLSearchParams(location.search);
+const embedded = query.get('embed') === '1';
+document.documentElement.classList.toggle('embedded', embedded);
 const ui = document.getElementById('controls');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 let saved;
 try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { /* Private browsing can disable storage. */ }
-let settings = normalize(host.connected ? {} : saved || {});
+let settings = normalize(host.connected || embedded ? {} : saved || {});
 let svg, raf = 0, last = null, time = 0, renders = 0;
 let hostApplied = false;
 let explicitMotion = false;
@@ -36,7 +38,7 @@ function frame(now) {
   schedule();
 }
 function save() {
-  if (host.connected) return;
+  if (host.connected || embedded) return;
   try { localStorage.setItem(KEY, JSON.stringify(settings)); } catch { /* Storage is optional. */ }
 }
 function apply() {
@@ -58,7 +60,7 @@ function apply() {
 function hostUpdate(kind) {
   if (!hostApplied && host.connected) { settings = { ...DEFAULTS }; hostApplied = true; }
   if (kind === 'properties' || host.connected) settings = normalize({ ...settings, ...wallpaperPatch(host.properties) });
-  if (host.connected) ui.hidden = host.properties.showcontrols?.value !== true;
+  if (host.connected) ui.hidden = embedded || host.properties.showcontrols?.value !== true;
   apply();
 }
 host.notify = hostUpdate;
@@ -84,15 +86,28 @@ document.getElementById('fullscreen').addEventListener('click', async () => {
 });
 document.addEventListener('keydown', event => {
   if ((event.target instanceof Element && event.target.matches('input, select, textarea')) || event.ctrlKey || event.altKey || event.metaKey) return;
-  if (event.key.toLowerCase() === 'h') ui.hidden = !ui.hidden;
+  if (!embedded && event.key.toLowerCase() === 'h') ui.hidden = !ui.hidden;
   if (event.code === 'Space') { event.preventDefault(); document.getElementById('pause').click(); }
 });
 document.addEventListener('visibilitychange', resetClock);
 motion.addEventListener('change', apply);
 
-// Small read-only state API for browser regression checks and deterministic previews.
+// The Gallery and standalone wallpaper share one clock and playback controls.
+// Embedded previews use fresh defaults and never overwrite saved desktop preferences.
 window.trainWallpaper = {
-  get state() { return { ready: !!svg, time, renders, running: canAnimate(), settings: { ...settings }, fps: host.fps }; }
+  get state() { return { ready: !!svg, time, renders, running: canAnimate(), settings: { ...settings }, fps: host.fps }; },
+  setSettings(patch = {}) {
+    settings = normalize({ ...settings, ...patch });
+    if (patch.paused === false) explicitMotion = true;
+    save(); apply();
+    return this.state;
+  },
+  renderAt(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return this.state;
+    time = seconds;
+    if (svg) svg.setCurrentTime(time);
+    return this.state;
+  }
 };
 
 try {
@@ -109,7 +124,7 @@ try {
   svg.pauseAnimations(); svg.setCurrentTime(0);
   document.getElementById('scene').setAttribute('aria-busy', 'false');
   document.getElementById('status').hidden = true;
-  ui.hidden = query.get('controls') !== '1';
+  ui.hidden = embedded || query.get('controls') !== '1';
   if (host.connected) hostUpdate('properties');
   else apply();
 } catch (error) {

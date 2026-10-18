@@ -1,6 +1,6 @@
 # 沿途 · AI Train Gallery
 
-完整火车壁纸与分类素材。当前包含 1 张完整壁纸、8 项精选素材。纯 Shader、素材与 Shader 混合实现均可复用。
+完整火车壁纸与分类素材。当前包含 2 张完整壁纸、8 项精选素材。纯 Shader、素材与 Shader 混合实现均可复用。
 
 [打开 Gallery](https://be1human.github.io/starry-night-train/library/) · [分类素材](https://be1human.github.io/starry-night-train/library/#materials)
 

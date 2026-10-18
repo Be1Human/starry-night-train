@@ -27,12 +27,23 @@ export function selectPublicCatalog(inventory, selection) {
  const wallpapers=selection.wallpapers.map(item=>{
   unique(item);
   const c=inventory.cases.find(c=>c.id===item.caseId&&selection.cases.includes(c.id));
-  const t=templates.find(t=>t.id===item.previewTemplate);
-  if(!c||!c.layers.some(l=>l.role==='train'))throw Error('Train wallpaper requires a complete train case: '+item.id);
-  if(!t||t.preview.kind!=='scene-context'||!c.layers.some(l=>l.template===t.id))throw Error('Wallpaper requires a selected full-scene preview: '+item.id);
+  if(!c)throw Error('Train wallpaper requires a complete train case: '+item.id);
+  let preview,previewEngine;
+  if(item.previewMode==='case-entry'){
+   const player=c.wallpaper;
+   if(player?.kind!=='complete-train-scene')throw Error('Train wallpaper requires a complete train case: '+item.id);
+   if(player.engine!=='trainWallpaper'||player.entry!==c.entry.split('?')[0]||!player.dependencies?.length)throw Error('Wallpaper requires a supported case player: '+item.id);
+   if(item.review?.image!==item.poster||!item.review?.basis)throw Error('Case wallpaper needs a reviewed render: '+item.id);
+   preview=player.entry;previewEngine=player.engine;
+  }else{
+   const t=templates.find(t=>t.id===item.previewTemplate);
+   if(!c.layers.some(l=>l.role==='train'))throw Error('Train wallpaper requires a complete train case: '+item.id);
+   if(!t||t.preview.kind!=='scene-context'||!c.layers.some(l=>l.template===t.id))throw Error('Wallpaper requires a selected full-scene preview: '+item.id);
+   preview=t.preview.path;previewEngine=t.preview.engine;
+  }
   if(!item.title||item.poster!==c.preview)throw Error('Wallpaper cover must be the actual selected case render: '+item.id);
   if(!wallpaperCategoryIds.has(item.category))throw Error('Wallpaper requires a scene category: '+item.id);
-  return {...item,kind:'wallpaper',preview:t.preview.path};
+  return {...item,kind:'wallpaper',preview,previewEngine};
  });
  const categoryIds=new Set();
  for(const c of selection.materialCategories){if(categoryIds.has(c.id)||!c.sourceCategories?.length)throw Error('Invalid material category: '+c.id);categoryIds.add(c.id);}

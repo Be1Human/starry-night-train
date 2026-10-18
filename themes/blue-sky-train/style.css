@@ -18,3 +18,5 @@ input[type=range] { width: 70px; accent-color: #2b8584; }
 input[type=checkbox] { accent-color: #2b8584; }
 output { width: 30px; font-variant-numeric: tabular-nums; }
 @media (max-width: 700px) { #controls { width: calc(100vw - 24px); bottom: 12px; padding: 14px; gap: 12px; } .title { flex: 1; } }
+
+html.embedded, .embedded body { background: #000; }
