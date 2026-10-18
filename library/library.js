@@ -2,19 +2,22 @@ const $=id=>document.getElementById(id);
 const esc=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const url=p=>'../'+p;
 let catalog,collection='wallpapers',category='all',current=null,api=null,token=0;
-const listHash=()=>collection==='wallpapers'?'#wallpapers':'#materials'+(category==='all'?'':'/'+category);
-const visibleItems=()=>collection==='wallpapers'?catalog.wallpapers:catalog.materials.filter(item=>category==='all'||item.category===category);
-const categoryName=id=>catalog.materialCategories.find(c=>c.id===id)?.name??'';
+const listHash=()=>'#'+collection+(category==='all'?'':'/'+category);
+const collectionCategories=()=>collection==='wallpapers'?catalog.wallpaperCategories:catalog.materialCategories;
+const visibleItems=()=>catalog[collection].filter(item=>category==='all'||item.category===category);
+const categoryName=(id,kind='material')=>(kind==='wallpaper'?catalog.wallpaperCategories:catalog.materialCategories).find(c=>c.id===id)?.name??'';
 function renderGallery(){
  const materials=collection==='materials',items=visibleItems();
  document.querySelectorAll('[data-collection]').forEach(a=>{if(a.dataset.collection===collection)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
- $('section-title').textContent=materials?'分类素材'+(category==='all'?'':' · '+categoryName(category)):'完整火车壁纸';
+ $('section-title').textContent=(materials?'分类素材':'壁纸实例')+(category==='all'?'':' · '+categoryName(category,materials?'material':'wallpaper'));
  $('gallery').setAttribute('aria-label',$('section-title').textContent);
- $('material-categories').hidden=!materials;
- $('material-categories').innerHTML=[{id:'all',name:'全部素材'},...catalog.materialCategories].map(c=>'<a href="#materials'+(c.id==='all'?'':'/'+c.id)+'" data-category="'+c.id+'"'+(c.id===category?' aria-current="page"':'')+'>'+esc(c.name)+'</a>').join('');
+ $('collection-categories').hidden=false;
+ $('collection-categories').setAttribute('aria-label',materials?'素材分类':'实例分类');
+ $('collection-categories').innerHTML=[{id:'all',name:materials?'全部素材':'全部实例'},...collectionCategories()].map(c=>'<a href="#'+collection+(c.id==='all'?'':'/'+c.id)+'" data-category="'+c.id+'"'+(c.id===category?' aria-current="page"':'')+'>'+esc(c.name)+'</a>').join('');
  $('gallery').dataset.singleWallpaper=String(!materials&&items.length===1);
  $('empty').hidden=items.length>0;
- $('gallery').innerHTML=items.map((item,index)=>'<button class="work" data-work="'+esc(item.id)+'" data-kind="'+item.kind+'" aria-label="预览'+esc(item.title)+'"><div class="work-image"><img src="'+url(item.poster)+'" alt="'+esc(item.alt)+'" width="1280" height="720" loading="'+(index<2?'eager':'lazy')+'"><span class="play-mark" aria-hidden="true">▶</span></div><div class="work-caption"><h2>'+esc(item.title)+'</h2>'+(materials?'<span class="material-kind">'+esc(categoryName(item.category))+' · ↗</span>':'<span aria-hidden="true">↗</span>')+'</div></button>').join('');
+ $('empty').textContent=materials?'这里暂时没有收录的素材。':'这个分类暂时没有收录的实例。';
+ $('gallery').innerHTML=items.map((item,index)=>'<button class="work" data-work="'+esc(item.id)+'" data-kind="'+item.kind+'" aria-label="预览'+esc(item.title)+'"><div class="work-image"><img src="'+url(item.poster)+'" alt="'+esc(item.alt)+'" width="1280" height="720" loading="'+(index<2?'eager':'lazy')+'"><span class="play-mark" aria-hidden="true">▶</span></div><div class="work-caption"><h2>'+esc(item.title)+'</h2>'+('<span class="material-kind">'+esc(categoryName(item.category,item.kind))+' · ↗</span>')+'</div></button>').join('');
  $('gallery').querySelectorAll('button').forEach((button,index)=>button.onclick=()=>openItem(items[index]));
 }
 function clearPlayer(){token++;api=null;$('player').replaceChildren();$('player').dataset.ready='false';$('pause').disabled=true;$('pause').textContent='暂停';$('player-status').textContent='';$('retry').hidden=true;}
@@ -46,7 +49,7 @@ function renderDetails(item){
  }else{
   const method={shader:'Shader',hybrid:'素材 + Shader',asset:'图像 / 矢量素材'}[item.implementation];
   $('viewer-details').hidden=false;$('details-label').textContent='使用与源码';
-  $('details-content').innerHTML='<div class="reuse-intro"><span class="method-label">'+method+'</span><p>'+esc(item.summary)+'</p><p class="editable">可以修改：'+esc(item.editable.join('、'))+'</p></div><div class="reuse-actions"><button id="copy-ai" class="copy-ai">复制 AI 使用说明</button><a href="'+url(item.guide)+'" download>下载说明 ↗</a><a href="'+url(item.manifest)+'" download>素材清单 ↗</a><span id="copy-status" role="status"></span></div><textarea id="ai-text" aria-label="AI 使用说明" readonly hidden></textarea><div class="source-links"><a href="'+url(item.readme)+'" target="_blank" rel="noopener">实现说明 ↗</a>'+[...item.sourceFiles,...item.assets].map(p=>'<a href="'+url(p)+'" target="_blank" rel="noopener">'+esc(p.split('/').at(-1))+' ↗</a>').join('')+'</div>'+item.usedIn.map(id=>{const w=catalog.wallpapers.find(w=>w.id===id);return '<a href="#wallpaper/'+w.id+'">完整壁纸 · '+esc(w.title)+' ↗</a>';}).join('')+'<p>'+esc(item.licenseNote)+'</p>';
+  $('details-content').innerHTML='<div class="reuse-intro"><span class="method-label">'+method+'</span><p>'+esc(item.summary)+'</p><p class="editable">可以修改：'+esc(item.editable.join('、'))+'</p></div><div class="reuse-actions"><button id="copy-ai" class="copy-ai">复制 AI 使用说明</button><a href="'+url(item.guide)+'" download>下载说明 ↗</a><a href="'+url(item.manifest)+'" download>素材清单 ↗</a><span id="copy-status" role="status"></span></div><textarea id="ai-text" aria-label="AI 使用说明" readonly hidden></textarea><div class="source-links"><a href="'+url(item.readme)+'" target="_blank" rel="noopener">实现说明 ↗</a>'+[...item.sourceFiles,...item.assets].map(p=>'<a href="'+url(p)+'" target="_blank" rel="noopener">'+esc(p.split('/').at(-1))+' ↗</a>').join('')+'</div>'+item.usedIn.map(id=>{const w=catalog.wallpapers.find(w=>w.id===id);return '<a href="#wallpaper/'+w.id+'">完整实例 · '+esc(w.title)+' ↗</a>';}).join('')+'<p>'+esc(item.licenseNote)+'</p>';
   $('copy-ai').onclick=async()=>{
    const button=$('copy-ai'),status=$('copy-status');button.disabled=true;
    try{
@@ -63,9 +66,9 @@ function renderDetails(item){
 async function openItem(item,writeHash=true){
  if(!item)return;clearPlayer();current=item;
  collection=item.kind==='wallpaper'?'wallpapers':'materials';
- if(item.kind==='material'&&category!=='all'&&category!==item.category)category=item.category;
+ if(category!=='all'&&category!==item.category)category=item.category;
  renderGallery();const items=visibleItems(),index=items.findIndex(i=>i.id===item.id),request=token;
- $('viewer-title').innerHTML=esc(item.title)+'<span class="viewer-kind">'+esc(item.kind==='wallpaper'?'火车壁纸':categoryName(item.category)+'素材')+'</span>';
+ $('viewer-title').innerHTML=esc(item.title)+'<span class="viewer-kind">'+esc(item.kind==='wallpaper'?categoryName(item.category,'wallpaper')+' · 完整实例':categoryName(item.category)+'素材')+'</span>';
  $('viewer-stage').style.aspectRatio=item.aspect??'16 / 9';
  $('viewer-poster').src=url(item.poster);$('viewer-poster').alt=item.alt;$('viewer-poster').hidden=false;
  $('position').textContent=items.length>1?String(index+1).padStart(2,'0')+' / '+String(items.length).padStart(2,'0'):'';
@@ -83,9 +86,9 @@ function followHash(){
  const material=group==='material'?catalog.materials.find(m=>m.id===id):catalog.materials.find(m=>m.id===route||m.templateId===route);
  const wallpaper=group==='wallpaper'?catalog.wallpapers.find(w=>w.id===id):catalog.wallpapers.find(w=>w.id===route);
  const item=material??wallpaper;
- if(item){if(current?.id!==item.id||!$('viewer').open){if(item.kind==='material')category=item.category;openItem(item);}return;}
+ if(item){if(current?.id!==item.id||!$('viewer').open){category=item.category;openItem(item);}return;}
  dismissViewer(false);
- collection=group==='materials'?'materials':'wallpapers';category=collection==='materials'&&catalog.materialCategories.some(c=>c.id===id)?id:'all';renderGallery();
+ collection=group==='materials'?'materials':'wallpapers';category=collectionCategories().some(c=>c.id===id)?id:'all';renderGallery();
  const canonical=listHash();if(route&&'#'+route!==canonical)history.replaceState(null,'',location.pathname+location.search+canonical);
 }
 $('close').onclick=()=>dismissViewer();
@@ -100,7 +103,7 @@ document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=do
 $('viewer').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();navigateItem(1);}if(event.key==='ArrowLeft'){event.preventDefault();navigateItem(-1);}});
 window.addEventListener('pagehide',clearPlayer);window.addEventListener('hashchange',followHash);
 try{
- const response=await fetch('catalog.json');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
+ const response=await fetch('catalog.json?v=r16-example-categories');if(!response.ok)throw Error('HTTP '+response.status);catalog=await response.json();
  if(!catalog.wallpapers?.length)throw Error('没有可展示的火车壁纸');followHash();
  window.LayerLibrary={get state(){return {ready:true,revision:catalog.revision,collection,category,total:visibleItems().length,visibleIds:visibleItems().map(i=>i.id),selected:current?.id??null,playing:!!api&&!api.state.settings.paused};}};
 }catch(error){$('load-error').hidden=false;$('load-error').textContent='画廊暂时无法加载，请刷新重试。';console.error(error);}

@@ -19,6 +19,11 @@ export function selectPublicCatalog(inventory, selection) {
  if(!cases.some(c=>c.id===selection.featuredCase))throw Error('Featured case must be selected');
  const ids=new Set();
  const unique=item=>{if(!item.id||ids.has(item.id))throw Error('Missing or duplicate public entry: '+item.id);ids.add(item.id);};
+ const wallpaperCategoryIds=new Set();
+ for(const c of selection.wallpaperCategories??[]){
+  if(!/^[a-z][a-z0-9-]*$/.test(c.id)||!c.name?.trim()||wallpaperCategoryIds.has(c.id))throw Error('Invalid wallpaper category: '+c.id);
+  wallpaperCategoryIds.add(c.id);
+ }
  const wallpapers=selection.wallpapers.map(item=>{
   unique(item);
   const c=inventory.cases.find(c=>c.id===item.caseId&&selection.cases.includes(c.id));
@@ -26,6 +31,7 @@ export function selectPublicCatalog(inventory, selection) {
   if(!c||!c.layers.some(l=>l.role==='train'))throw Error('Train wallpaper requires a complete train case: '+item.id);
   if(!t||t.preview.kind!=='scene-context'||!c.layers.some(l=>l.template===t.id))throw Error('Wallpaper requires a selected full-scene preview: '+item.id);
   if(!item.title||item.poster!==c.preview)throw Error('Wallpaper cover must be the actual selected case render: '+item.id);
+  if(!wallpaperCategoryIds.has(item.category))throw Error('Wallpaper requires a scene category: '+item.id);
   return {...item,kind:'wallpaper',preview:t.preview.path};
  });
  const categoryIds=new Set();
@@ -45,5 +51,6 @@ export function selectPublicCatalog(inventory, selection) {
   return {...item,kind:'material',preview:t.preview.path,previewEngine:t.preview.engine,readme:t.readme,sourceFiles:t.sourceFiles,assets:t.assets,dependencies:t.dependencies??[],licenseNote:t.licenseNote,usedIn,sourceCases,guide:'library/materials/'+item.id+'.md',manifest:'library/materials/'+item.id+'.json'};
  });
  const materialCategories=selection.materialCategories.filter(c=>materials.some(m=>m.category===c.id)).map(({id,name})=>({id,name}));
- return {schemaVersion:4,revision:selection.revision,featuredCase:selection.featuredCase,wallpapers,materials,materialCategories,status:inventory.status,templates,cases};
+ const wallpaperCategories=(selection.wallpaperCategories??[]).filter(c=>wallpapers.some(w=>w.category===c.id)).map(({id,name})=>({id,name}));
+ return {schemaVersion:5,revision:selection.revision,featuredCase:selection.featuredCase,wallpapers,wallpaperCategories,materials,materialCategories,status:inventory.status,templates,cases};
 }

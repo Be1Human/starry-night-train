@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 3,
-  "revision": "r14-ta-materials",
+  "schemaVersion": 4,
+  "revision": "r16-example-categories",
   "featuredCase": "starry-night",
   "cases": [
     "starry-night"
@@ -239,7 +239,8 @@
         "scale": 0.75,
         "fps": 30
       },
-      "caseId": "starry-night"
+      "caseId": "starry-night",
+      "category": "night"
     }
   ],
   "materials": [
@@ -410,6 +411,12 @@
         "wind": 1,
         "sun": 1
       }
+    }
+  ],
+  "wallpaperCategories": [
+    {
+      "id": "night",
+      "name": "星空夜景"
     }
   ]
 }

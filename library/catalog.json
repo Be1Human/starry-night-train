@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 4,
-  "revision": "r14-ta-materials",
+  "schemaVersion": 5,
+  "revision": "r16-example-categories",
   "featuredCase": "starry-night",
   "wallpapers": [
     {
@@ -16,8 +16,15 @@
         "fps": 30
       },
       "caseId": "starry-night",
+      "category": "night",
       "kind": "wallpaper",
       "preview": "modules/water/starry-perspective-reflection/preview.html"
+    }
+  ],
+  "wallpaperCategories": [
+    {
+      "id": "night",
+      "name": "星空夜景"
     }
   ],
   "materials": [

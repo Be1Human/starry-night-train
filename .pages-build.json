@@ -1,6 +1,6 @@
 {
   "generator": "tools/build-pages.mjs",
-  "catalogRevision": "r14-ta-materials",
+  "catalogRevision": "r16-example-categories",
   "wallpapers": 1,
   "materials": 8,
   "files": [
@@ -186,13 +186,13 @@
     },
     {
       "path": "library/catalog.json",
-      "bytes": 40215,
-      "sha256": "a7ff7f1bec6e42023a67cd8f8cc4253992ac9908933f5d52a757f41395b2dec4"
+      "bytes": 40342,
+      "sha256": "df4ec1059b460890875e986bc345fd90ad4ece84db97520bc89e15d949eee60b"
     },
     {
       "path": "library/index.html",
-      "bytes": 2150,
-      "sha256": "1c0e9487e9b802533e9e8db37510744ce60739e5995a1144512ecb71a19845ca"
+      "bytes": 2182,
+      "sha256": "76437d043c6dc05d18d412a7b6e6fab6e3abd6058dce61e8df5922c1d4f26030"
     },
     {
       "path": "library/library.css",
@@ -201,8 +201,8 @@
     },
     {
       "path": "library/library.js",
-      "bytes": 10976,
-      "sha256": "12ec4e01e3207e09a0dbd8b0cbdbd82925fe2255e64f6d1418a0daead54838af"
+      "bytes": 11292,
+      "sha256": "9ea4c198aa15fe8d4a735562e29cf231ee89ffd6f1f5d6bff05896e6ec276faa"
     },
     {
       "path": "library/materials/arch-bridge.json",
@@ -286,8 +286,8 @@
     },
     {
       "path": "library/selection.json",
-      "bytes": 12779,
-      "sha256": "f760505e8ee4340c34e21451626292a426b188017ab1cdc8b3313816141d7279"
+      "bytes": 12906,
+      "sha256": "5889efcd53b2233216ef330f190ecd15040d2cf2e2aa92358604e0377712d9c7"
     },
     {
       "path": "library/thumbnails/bridge--blue-stone-lighting.png",
@@ -1871,8 +1871,8 @@
     },
     {
       "path": "tools/public-library.mjs",
-      "bytes": 3974,
-      "sha256": "9361fc1afa2ee5e0d7ed24400d7080ce927d34fe08d8e2f1d4555c415f7afa5e"
+      "bytes": 4509,
+      "sha256": "01cec03b9f8fd20c8f55e85943eb25f4f70bbfbfbdaa8b930fab992950334517"
     },
     {
       "path": "tools/serve.mjs",
