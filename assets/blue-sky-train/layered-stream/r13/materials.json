@@ -1,0 +1,36 @@
+{
+  "revision": "r13-natural-shore",
+  "createdAt": "2026-10-24T09:04:09.836Z",
+  "newImageGeneration": true,
+  "prompts": "prompts.json",
+  "implementation": "cases/blue-sky-layered/shoreline-material.mjs",
+  "implementationSha256": "b411b146cc7820c39d669f9d05ac56c12b167453100e5f22cb59ffeba43cd817",
+  "asset": {
+    "id": "shore",
+    "file": "shore.png",
+    "source": "assets/blue-sky-train/layered-stream/r13/shore-source.png",
+    "scale": 0.5,
+    "alphaFloor": 32,
+    "solidAlpha": 240,
+    "feather": 40,
+    "width": 1952,
+    "height": 83,
+    "sourceRect": [
+      41,
+      347,
+      1952,
+      83
+    ],
+    "seam": {
+      "contactDifference": 1,
+      "topDifference": 0,
+      "feather": 40
+    },
+    "contactRange": [
+      40,
+      82
+    ],
+    "sourceSha256": "e2b9a80af3987f9aa9279f0f08a29e27af0d823395be4c6e2908333de4a3d6c1",
+    "sha256": "a5e4213f63eb88c7a4da47d5b682216ea881ee919da50f18f6174e57d5296382"
+  }
+}

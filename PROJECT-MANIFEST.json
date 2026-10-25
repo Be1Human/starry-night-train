@@ -1,0 +1,1170 @@
+{
+  "schema": 1,
+  "version": "1.0.0",
+  "created": "2026-10-24T23:13:31.104Z",
+  "purpose": "Curated project publication: local skills, current examples, selected technical-art documentation and actual screenshots",
+  "fileCount": 232,
+  "totalBytes": 60362587,
+  "files": [
+    {
+      "path": ".agents/skills/layered-wallpaper/SKILL.md",
+      "bytes": 8394,
+      "sha256": "5a1a1b0cfb7f9ad9fcad91678711458a801ef89f30c0dc3b852139da0c97e93e"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/agents/openai.yaml",
+      "bytes": 474,
+      "sha256": "7c3c5ffff727268edfb6661f63e9861948beeb824d73ced50a13877816ac5e8b"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/references/breakdown-first.md",
+      "bytes": 4063,
+      "sha256": "a594401884a67b41022737e6eeea105dfa0562a60a4d4ac80dc7cedffa629201"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/references/implementation.md",
+      "bytes": 3733,
+      "sha256": "7d644fb7be3a4ae1b18f17c5f6697dae4ecc29686577ec20621e0fe759f9e55a"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/references/project-map.md",
+      "bytes": 5175,
+      "sha256": "d1039fc028578f5f007978cb7cb5964c5002f41a26ba2e5979dedb9821e525ea"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/references/workbench-contract.md",
+      "bytes": 5609,
+      "sha256": "f9b2dcd04fb6ab61c58c5da025c6e23db04ee60cb0fe5f740200f305d8bc9804"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/scripts/build-navigation.mjs",
+      "bytes": 17666,
+      "sha256": "6a84bc7be7263c1286550818aeb91154e16a5d3c587d2e09164ec8113141fe4b"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/scripts/doctor.mjs",
+      "bytes": 1969,
+      "sha256": "f18e4d3aa9895a56ae1fda90c70dc33e1839d90c5203e8b73cf4934fa6ce04da"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/scripts/package-starter.mjs",
+      "bytes": 7923,
+      "sha256": "ff7a14b9651a1f9ca24df9c13586e14fd25c6cd5b1318b46f77bbdee7ac9c70e"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/scripts/project.mjs",
+      "bytes": 2302,
+      "sha256": "c545fdfe7aa08d33124c7c0a4a96bef7d48a71376561a484ba80055cbab31b52"
+    },
+    {
+      "path": ".agents/skills/layered-wallpaper/scripts/quickstart.mjs",
+      "bytes": 1516,
+      "sha256": "403c7a6883819b9ad58ca05a8f6ce5967fb6760ab59b31d9ca56cd647a099515"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/SKILL.md",
+      "bytes": 5099,
+      "sha256": "e26f846007d8f74bc4ecff819036b14f100bb89924efaf7cb3b3ea089763f500"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/agents/openai.yaml",
+      "bytes": 394,
+      "sha256": "f306e6798437fd79aa40d249d5e924928c3ce7a848019d2de7200be7ddeb49b0"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/references/checks-and-export.md",
+      "bytes": 4701,
+      "sha256": "b6858153975d6f54188f801e1224e10ed0086e5432dd12decf7de681f8f90592"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/references/performance-contract.md",
+      "bytes": 3223,
+      "sha256": "71468fbfe5f3c7b8a37c8832c44d042dc9d1cea89d65a6c9da7fff0ba9156382"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/scripts/audit.mjs",
+      "bytes": 13062,
+      "sha256": "a7f93d1f85a9d24e69dce30ede5646e5bf6991ea284fbeb488d6faeaf9245cd3"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/scripts/release.mjs",
+      "bytes": 4283,
+      "sha256": "04e7ba7612c81543dbdec341d3ffd43fb55f72aceaf5df0d92d1dd7484028d08"
+    },
+    {
+      "path": ".agents/skills/wallpaper-quality-export/scripts/report.mjs",
+      "bytes": 11651,
+      "sha256": "7969cb576980f86a8b54c866232309f837c12768c2e5b77f3e5a4cf3ab369972"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 136,
+      "sha256": "4497b9d1840536b2d9003bb9bbead80aa01336aa0ab3426730daccec0df7b90e"
+    },
+    {
+      "path": ".github/workflows/check.yml",
+      "bytes": 478,
+      "sha256": "70e883103766936a2cfcc3206900f13437dc145f9ad6e406cf083116f7ddf893"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 125,
+      "sha256": "b309e6cd48a4ed0674a7386f4a246fccec9c28c76669db7517e185080e8b3321"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 1831,
+      "sha256": "835420050eda4942c734a844e65285aef268df79bf205d2e6212dd1406134013"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 873,
+      "sha256": "e09df490b15947ca8b63dae0751c3607b547199739844ade1335ddd1f9c0a0f7"
+    },
+    {
+      "path": "CREDITS.md",
+      "bytes": 1888,
+      "sha256": "68d48b742f37e2aefec2088cbaff6c17f73c7bfdd4f4012de3feafbba6fd937d"
+    },
+    {
+      "path": "README.en.md",
+      "bytes": 2317,
+      "sha256": "f88a1f6e77ad3db0854e7bcae875469c4f5f7f3b8f0cda436d4dc7863a095b94"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4043,
+      "sha256": "e2293fcd61a593a4c774e71423f247b1fc4bfb16bcf769b0dc9021c4bc36b3e2"
+    },
+    {
+      "path": "assets/blue-sky-train/audio/layered-lake-r02/MODEL_LICENSE.txt",
+      "bytes": 24375,
+      "sha256": "1acab94fa8fbfcd82913c5425a99d238c3e8c6386eeb2ec376b3776ce45334c3"
+    },
+    {
+      "path": "assets/blue-sky-train/audio/layered-lake-r02/README.md",
+      "bytes": 586,
+      "sha256": "f416607aa3e76dd6334c029e8a2d0291b05434ec7d45abe687092abe3c50d451"
+    },
+    {
+      "path": "assets/blue-sky-train/audio/layered-lake-r02/brief.json",
+      "bytes": 393,
+      "sha256": "6117225a80069b14f5dc0059bba255a384801756afa8ad91d2b10fc6db858890"
+    },
+    {
+      "path": "assets/blue-sky-train/audio/layered-lake-r02/prompt.txt",
+      "bytes": 925,
+      "sha256": "362bf7c3f71c34b86ab5fb62848b5de987d1d600f5844b9730306fef44d64cc8"
+    },
+    {
+      "path": "assets/blue-sky-train/audio/layered-lake-r02/technical-report.json",
+      "bytes": 1746,
+      "sha256": "3aa45832b4ee4f9d5197185735a58cf6004ed2b49a739c6abdb81efb4f79a6cc"
+    },
+    {
+      "path": "assets/blue-sky-train/audio/layered-lake-r02/yunan-manxing-loop.mp3",
+      "bytes": 2639301,
+      "sha256": "4b3681a8cb69bcc699565ff9eb26a66fab11af312340af949bb8338bb5327672"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r17/cloud-crown.png",
+      "bytes": 870638,
+      "sha256": "6ca20cbfc3c5d2e4ea415a9e335ea6d86657b2a1aa4a2ee2d6ce057c4aa40c97"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r17/cloud-fan.png",
+      "bytes": 832789,
+      "sha256": "ccee8d8e499b3fc7c788d216a277a6f9922fd891f3ff07253f00d47b7ee6b9a3"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r17/cloud-ribbon.png",
+      "bytes": 673119,
+      "sha256": "09b284d40777b6358e7a725c6547b24d1750b14d3c8bb510b1b9849a280a2942"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r17/generation-prompts.json",
+      "bytes": 7754,
+      "sha256": "16f291bb924ae24a7f1e9bfd1d3c665d362eb6d173e38d2f77c7078d72f9bbb9"
+    },
+    {
+      "path": "assets/blue-sky-train/clouds/r17/reference-pixel-cloud.png",
+      "bytes": 155124,
+      "sha256": "42552207f4569e0f09bfbd6e70d01ed4cfe65679ed4dffc53c8c9d1133d5e96d"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/leaves.png",
+      "bytes": 1267215,
+      "sha256": "816079e6ec1e4cb27004983460f04ce187d6badad4ea957e94145113d3b255b1"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r09/understory.png",
+      "bytes": 1956872,
+      "sha256": "384f421ce6dd3669d86ed1902efe235e0963525b697de13d2174ea91a7c1cf65"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r17/canopy-atlas.png",
+      "bytes": 1778664,
+      "sha256": "2e755890850eefdb7688470ac6280d4c6e3e48f879578bf5dd05078d8838d32c"
+    },
+    {
+      "path": "assets/blue-sky-train/foliage/r17/prompts.json",
+      "bytes": 3213,
+      "sha256": "33282e0014f4e5f5d7087978ff217aa77841e940e050650744f4a3f9bcee445c"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/preview.png",
+      "bytes": 1615040,
+      "sha256": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/bridge-deck.png",
+      "bytes": 11739,
+      "sha256": "f5a9d0f2fe3e9afd0996b3b548fcfcc53aa07a817d35589978e489d26a52cd18"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/bridge-piers.png",
+      "bytes": 9986,
+      "sha256": "e2b717ce562e06ed8880851eae15bb043ff0873162772db98e3ced39207909ad"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/coach-1.png",
+      "bytes": 7320,
+      "sha256": "2ff6e0404912531b7b9424178323f1806095e315934972db32fbc5bc527f21e3"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/coach-2.png",
+      "bytes": 7734,
+      "sha256": "c4d78ade2bcaa3bd7fd37ce6cd6745150b5740931126c9c250b053c01e64d894"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/engine.png",
+      "bytes": 6709,
+      "sha256": "577c79f5562047492eff2b787b6e8a261f8d600869d0bf777a2553f6881221e6"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/generation-prompts.json",
+      "bytes": 1601,
+      "sha256": "0c5d796fff1a1acdc52aec7dade411e1f80d35ae00b6ea95aeb945d0d2a648db"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/low-shrub.png",
+      "bytes": 1443333,
+      "sha256": "eb0621d46ec46867798eb7c9698322f096b2141e22d4f9f09c5ffadf6d07b266"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r01/materials.json",
+      "bytes": 3862,
+      "sha256": "fa0b8bf02041cfd877066a85fa174e4258f8f35a17c34543954d906466c15916"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r07/materials.json",
+      "bytes": 3100,
+      "sha256": "48d8b8f801f903ff114fe7fa60aa0447d905f83d34ac59855acb9e426ff13cdb"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r07/mountain-blue.png",
+      "bytes": 1011054,
+      "sha256": "288d9a29af66aa11468573d29cadac2069d6b6f8466f7c0d98a8bde039b13cb9"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r11/README.md",
+      "bytes": 1540,
+      "sha256": "6e708f5ea908fe7562c6f96bee9f011dbb6e3a0bfc7a398b6399508f9d7c6bb2"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r11/lakeside-knoll.png",
+      "bytes": 1141886,
+      "sha256": "99f97ee8a8338ac63e5c4e2066c5ebdedbdb52e06a1e0957cc76711c12136f80"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r11/materials.json",
+      "bytes": 689,
+      "sha256": "49556d1666313294c681c45cb4b1c4dbc5a7d63976e4c17c5d70d6f39db7897e"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r11/prompts.json",
+      "bytes": 3873,
+      "sha256": "ccfe70f3a6c632558f0556b92ad25f4f9e0672d50551db2806615e777c08237e"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png",
+      "bytes": 1292769,
+      "sha256": "071dbb3cea0aa6843906160fe7ba45ba4ddf8970f8987897fa16a5d607d2f91e"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r13/materials.json",
+      "bytes": 942,
+      "sha256": "255bf0c7553a01fea8be5f4a9aae03e60605773e4e769e434cad453e25546c5d"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r13/prompts.json",
+      "bytes": 4612,
+      "sha256": "51ba2307281a30541c7a125777b797fe80de3ea5df89f1e135a6eefd927ec505"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r13/shore-source.png",
+      "bytes": 916006,
+      "sha256": "e2b9a80af3987f9aa9279f0f08a29e27af0d823395be4c6e2908333de4a3d6c1"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r13/shore.png",
+      "bytes": 256775,
+      "sha256": "a5e4213f63eb88c7a4da47d5b682216ea881ee919da50f18f6174e57d5296382"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r20/README.md",
+      "bytes": 525,
+      "sha256": "15d37c75cf04ee880ae35b3584e2d0fa212a991c274398172872d0bc894d788d"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r20/materials.json",
+      "bytes": 571,
+      "sha256": "2b0f972413ea4e43020eb6ecb6b937ca72edc251deca6d2092b3c84ff3300ddd"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r20/mountain-haze.png",
+      "bytes": 919853,
+      "sha256": "0fac0b728f4642367889025f84c6980aedf33052315cfbe18fa354a2115bcaaf"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r20/prompts.json",
+      "bytes": 3161,
+      "sha256": "6b0952e008deb8befa25bda69481d865feb33e118f19b3c684ad647f2c2b6325"
+    },
+    {
+      "path": "assets/blue-sky-train/layered-stream/r20/reference-frame.png",
+      "bytes": 1608489,
+      "sha256": "17cd655daebb41d110243d86cea64e32d30dc7d5a937507b946df127bf473b30"
+    },
+    {
+      "path": "assets/blue-sky-train/source/blue-sky-train.png",
+      "bytes": 2073095,
+      "sha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/README.txt",
+      "bytes": 537,
+      "sha256": "fff60106f4ae7a9deb0667ce7a3211607d2e0eef94b4c83d573033e31e8118f3"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/evidence/decoded-assets-verification.json",
+      "bytes": 9093,
+      "sha256": "31f66b59b117370534de14b449b68e6c7433c45b3f96956c422ea54cd32b41c0"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/evidence/pixel-verification.json",
+      "bytes": 438,
+      "sha256": "1bbc6fd1d220205f765c70865164240cfd5225289ea607fd8bf10a0d6ef2fe30"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/evidence/published-recomposition.json",
+      "bytes": 246,
+      "sha256": "bf4c3ca641445a570d4e16b0aeaeacf2908e7b367ec03ab372d9a6ec9710a0ea"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/handoff.json",
+      "bytes": 2268,
+      "sha256": "aa47eb8adcdbb5f79a401548be4452cbeb7ec076d53d3269d48b53c8f5831a26"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/index.html",
+      "bytes": 78816,
+      "sha256": "a667757e9af3312496c9e9e2bbbb697452a6f1ff257de52a7adba254369450cb"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/00-sky.png",
+      "bytes": 405876,
+      "sha256": "88d3b81d4c485bac3338a0afc8bdb54eb32c6141a5b1096a1127a27cd459bcce"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/01-wisps.png",
+      "bytes": 20009,
+      "sha256": "4e5272f22c6034f25ede5ffc25071f8584adcbd2deae80623a05a5f382dda662"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/02-contrail.png",
+      "bytes": 2515,
+      "sha256": "7b345c60af8c278d9f27bf6e80e71d1d8d74779e4e59e8175a5784bbfd7986fe"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/03-cloud-left.png",
+      "bytes": 268961,
+      "sha256": "778ba0120accdc6640ff8c6a0c6b1fb36b1e7f9881785d1e7c45e1467560d969"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/04-cloud-center.png",
+      "bytes": 153051,
+      "sha256": "a1b78554e50e527e0bb6f8887b1d118d700315cdb94212851b0db06586e32515"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/05-cloud-right.png",
+      "bytes": 441463,
+      "sha256": "60185f9c30efe11330986017b1d38ec47544ebc883eb34b8fb486d3c0f50599c"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/06-mountains.png",
+      "bytes": 193373,
+      "sha256": "9e9ef67db38c8aae2ad6ad2481c563a10f076b9701ad5a0d928e8638d9f9d7cd"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/07-hill-back.png",
+      "bytes": 116662,
+      "sha256": "6308dffc53fb63de9f7bf4e4f73fb6f995a4ec189af9303e4f06e2e3487f220f"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/08-forest-left.png",
+      "bytes": 72013,
+      "sha256": "e3b887fa25533e4c4a8067b4b195db7295ac2a5bd86bc3aac1eff1da0e09f290"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/09-forest-right.png",
+      "bytes": 225542,
+      "sha256": "c57dbfb1747966eb15a8b615fd41212ed116bcdfe314371d205857029e39fe22"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/10-bank-shrubs.png",
+      "bytes": 10786,
+      "sha256": "c454813cf0689400198e719f0e1e28a8dedd0f4ca09a6c592d187694128e11d3"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/11-bridge-arches.png",
+      "bytes": 31856,
+      "sha256": "4617b3a29015653f366535c7dac0f52b3e8d93de4983314fb75eb91911651891"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/12-bridge-deck.png",
+      "bytes": 29409,
+      "sha256": "4433d7d5141ec7149dbe02c62f63af1ab5a7f2c830cfbd2cce6e0045d9debc34"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/13-steam.png",
+      "bytes": 1051,
+      "sha256": "ce4ea20b2e8672a1db8fbf10891a50e30a9e511702159152e750cc229f23fb03"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/14-engine.png",
+      "bytes": 4294,
+      "sha256": "ee837b2f49bb8196af9043ec6b921715227a888c98e431e247c3ba5168953a56"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/15-coach.png",
+      "bytes": 5396,
+      "sha256": "c066008e6293bb903e07c0d108cf56e588abf60c107bc78d886da850b6311132"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/16-coupling.png",
+      "bytes": 294,
+      "sha256": "2dfb59b0ba0dfa9d3f1439c82164987ee4efa4855f67bbfd2c21f8a23d806af2"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/17-engine-leading-wheels.png",
+      "bytes": 385,
+      "sha256": "10d43fd18881fa5414a30234f115498cb674a200ab44515b014e560984ba9c3a"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/18-engine-driving-wheels.png",
+      "bytes": 874,
+      "sha256": "d842510fce5c8bd31db0e1e91e5598d4c3745f9ad7cb633ac6fc04d4646e7eba"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/19-engine-rod.png",
+      "bytes": 254,
+      "sha256": "ef7678b658022d3ccb730f1f25144a886a8411ae9b1069eea189c47b852e26e9"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/20-coach-bogie-front.png",
+      "bytes": 418,
+      "sha256": "ec636017fff6a7f046b3c849842d7f969026693f4e30d0b9b024f49449fc42cb"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/21-coach-bogie-rear.png",
+      "bytes": 455,
+      "sha256": "3d23c665b96710b46a55a33cd6b1df12f6bf6a5c468205a71aace758c8eb3aa5"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/22-windows.png",
+      "bytes": 472,
+      "sha256": "613ee13a7eb2b601729739371a16635ea162151b6e662ab73c74379e4e393f12"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/23-shore.png",
+      "bytes": 115091,
+      "sha256": "58cfe52aa0419a24634ab95c2c5e91f704bf7aa5547766a155d656211eed5b84"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/24-water.png",
+      "bytes": 597185,
+      "sha256": "31b364130ccfb61388f25bd3ae8099fca000d278dd940eab0df282ec40a05d81"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/25-reflection-forest.png",
+      "bytes": 103281,
+      "sha256": "9f18f4d4dda2468a30a8c8f1ef770c2c88fd37c4dc91baf1f2f866aa7de90aef"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/26-reflection-bridge.png",
+      "bytes": 48804,
+      "sha256": "4b82f672a0571715a971c4b7b76d23d912549978858d2c5ae6380ae35ed06bf3"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/27-water-strokes.png",
+      "bytes": 10950,
+      "sha256": "1fcd89b3afe9641f62d9ded4e2a2d27b4fc3a7c9561cbc04d0f42865919c6a74"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/28-fg-left-trunks.png",
+      "bytes": 3781,
+      "sha256": "fc97175a6316daa5f06c8046e8aa8c6b431f270044c48caed2d54df3fe94361f"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/29-fg-left-crown.png",
+      "bytes": 88916,
+      "sha256": "1fa3da5e32a8daac5b66f456c5f66b2d49aaff0763b58551317ec6c4725f548c"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/30-fg-left-bough.png",
+      "bytes": 47160,
+      "sha256": "d295e0f1d10a726eb3f75a39c227ddba06d2eb237e49f2318e2809d953e061bc"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/31-fg-left-base.png",
+      "bytes": 52867,
+      "sha256": "74cd7bedac32afa0496ace3f135e72d8eaacc1ca0baf5cbe68e64d49034e3f6d"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/32-fg-bottom.png",
+      "bytes": 69723,
+      "sha256": "e04481addc4b63ddef7ead98a6d18a7ea54dd35d7bfd4f081543bea0041c010e"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/33-fg-right-trunks.png",
+      "bytes": 4705,
+      "sha256": "be21bdb2ed5433245acd13b118412c7ef40cb49ebfe2f50c67b8ef2ce26570c8"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/34-fg-right-crown.png",
+      "bytes": 87170,
+      "sha256": "597793574549b97fedadbdbe82fbee9929e0113e8e1eb8e47c5e498f1c6d8222"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/35-fg-right-bough.png",
+      "bytes": 44519,
+      "sha256": "7fb7484ec428c06ab8d131d9901923e3e935f8d7bb80d33e36a97e0b55c0b3d4"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/36-fg-right-base.png",
+      "bytes": 59420,
+      "sha256": "0c66c76bf40a52936db5fb6256f368ba9462426d99a4d8541981430ffbc539b9"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/manifest.json",
+      "bytes": 52273,
+      "sha256": "aa666443cc71cae8e6550dc1d3e3019e3908f5da515023ed0cb91ad1c51aea29"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/00-sky.png",
+      "bytes": 13694,
+      "sha256": "0b0d6f8f0db45b42c26f196ffaf87c4b11156d617589ccc4dc19fdc1e555be90"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/01-wisps.png",
+      "bytes": 3308,
+      "sha256": "868f7ea587d38f99ab1fbce11c3ad5a00d91a2324ed8a95ab763592d47b1a751"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/02-contrail.png",
+      "bytes": 568,
+      "sha256": "7564e95aa7cde6e3f9b4e65e03027126e2a8315d3550b66c8b2b9ab2b44071f1"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/03-cloud-left.png",
+      "bytes": 5130,
+      "sha256": "3f3059067fa5d32fd8b85e40f8d3b2ea51d2f6e7e1ce4bcd864f11b6e0277608"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/04-cloud-center.png",
+      "bytes": 2740,
+      "sha256": "7f97ff386e5affddcd3c6d7e76f407a4b8b965edd84a8ea3a2b643dee312ae85"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/05-cloud-right.png",
+      "bytes": 5865,
+      "sha256": "e08f04eb20f557359f2c4ed134c7bf05b73ce7629ccc982a8227efd709365456"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/06-mountains.png",
+      "bytes": 10552,
+      "sha256": "6231a51ac72ff7763f09020012da67529ce4f54b17fc80a4f400b0a04ffe798f"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/07-hill-back.png",
+      "bytes": 3071,
+      "sha256": "2dc8fbbb0b9bf69c028fe40690b4b5d0002c35d19c57812dcf54a11d8bf7bb06"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/08-forest-left.png",
+      "bytes": 6013,
+      "sha256": "bf9f2886d5e093accbf0bfbf13a3c1581ca5505de51d77140cbcd644519139a5"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/09-forest-right.png",
+      "bytes": 3050,
+      "sha256": "309b687b2450e5cf8f5283a72f30ce78188a524ef2f5bbd76b1325d5e8d6b440"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/10-bank-shrubs.png",
+      "bytes": 1183,
+      "sha256": "b6a56d2af87316be1fd6adc666ba635196d6a99c3b962cbb36bb1ecafbaa803a"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/11-bridge-arches.png",
+      "bytes": 2619,
+      "sha256": "b91b96d06126f09e49da90ce42bebb62cf463073d487620cd68107272a8d97e1"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/12-bridge-deck.png",
+      "bytes": 1188,
+      "sha256": "3f0e41419c56b26e9d6104d179325b352b83613edd0b2eb5efea25ec50415c12"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/13-steam.png",
+      "bytes": 175,
+      "sha256": "a9fe0ec4d3ec779da967478e19d9a5e404890b1415f986166d654f7e920ff0c2"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/14-engine.png",
+      "bytes": 250,
+      "sha256": "2faf8712db082288fb64e29c8c9770eb5f49d63402f534a1f78c84f659a40392"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/15-coach.png",
+      "bytes": 275,
+      "sha256": "7722c14bc7c36e40646cfbcc4f2ddbcfd04379d815e46ab7d1ebc7eafdae30b3"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/16-coupling.png",
+      "bytes": 115,
+      "sha256": "682f22aebb6aa8f7d4672f84d1e177c2654cdbe27775db96801173393bca1628"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/17-engine-leading-wheels.png",
+      "bytes": 112,
+      "sha256": "7ea6534e63906cd945b92a4c7d6825f4db8b9d055d2c2795896ae045eb3bcb75"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/18-engine-driving-wheels.png",
+      "bytes": 141,
+      "sha256": "3911e7f2eb09efc536ad8a37632efbd99a0b8b8f10c8d6a6dfcc555e15e3e511"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/19-engine-rod.png",
+      "bytes": 112,
+      "sha256": "1a370d435b4afe2d5beeed37efc1c6d8345173378571abdf9d7d16963df27785"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/20-coach-bogie-front.png",
+      "bytes": 106,
+      "sha256": "972abc019120ff9216ac2eb320ce28d9025047150d6cf740b7365182b84b38a9"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/21-coach-bogie-rear.png",
+      "bytes": 113,
+      "sha256": "81d22ed89eaadaf3c10d6220c3531488669841ce3c8a36cf217b671bb7e00969"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/22-windows.png",
+      "bytes": 148,
+      "sha256": "b865e910e7514eaab8e2ab15e993ba2c46d45726bdf469059fb0df72911613a1"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/23-shore.png",
+      "bytes": 1230,
+      "sha256": "87cbf8285edc2c96932d7ddcf51db8971cf31f000406c95e46b17144e1f69db5"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/24-water.png",
+      "bytes": 25626,
+      "sha256": "3564837cf4ba60a6191d1b56d13f199432afebaed12cd0dd7b52b75d4be4d6f7"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/25-reflection-forest.png",
+      "bytes": 8603,
+      "sha256": "ad4cb3fdbfc6a4a76c53125e1f6432280d8add1f57740c10c93760eaee355dbb"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/26-reflection-bridge.png",
+      "bytes": 3347,
+      "sha256": "513fc97c095d51c40de97738ed85304799745e8a23071075b3549518aa8647eb"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/27-water-strokes.png",
+      "bytes": 1625,
+      "sha256": "67d076c600678bd5ec32eef5e9c0534e89faae07c69c920fe298ca427a8b79fe"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/28-fg-left-trunks.png",
+      "bytes": 616,
+      "sha256": "06b52d5c1d4780e325d9ae82ea5c104f0b2f076df26b3abef211758c0906223f"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/29-fg-left-crown.png",
+      "bytes": 4433,
+      "sha256": "c8fb30e2e386fcb7f47784cc62116587167b459a67efab4c11cc540c76f04c00"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/30-fg-left-bough.png",
+      "bytes": 2119,
+      "sha256": "c1d303ede5229ab036f35c0f8f268a4b1da235f4a2e1b81df32835a9366c0de6"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/31-fg-left-base.png",
+      "bytes": 3674,
+      "sha256": "72f7aeb6f7e232253543d114910dca2c4c9b7c9b9c2e72e01a89f05208d65f9d"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/32-fg-bottom.png",
+      "bytes": 4248,
+      "sha256": "9ce9e76cbb9ead97a0deefc6d2b09e5baa95bc6bd5391345dafabba08c23a1a1"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/33-fg-right-trunks.png",
+      "bytes": 743,
+      "sha256": "3fea3d4858dbd1eca1bb1a0f3d4a28cc82daa656b9a0ead35b8c08a85c1a0cb8"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/34-fg-right-crown.png",
+      "bytes": 3626,
+      "sha256": "e53bd0c4d18c31988949a4f2979b764cb49c86d76945ff802b37c4dfdfc9f549"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/35-fg-right-bough.png",
+      "bytes": 2061,
+      "sha256": "8816f32b83a6c7408bf7ea682bbdc400b2090d0537b8fa90e778e955eb06d017"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/36-fg-right-base.png",
+      "bytes": 3775,
+      "sha256": "6e501f901b3e28b63118767baa0fa6b4d00b6c2c5dd59940167ff5b8121b5f27"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R01.png",
+      "bytes": 16597,
+      "sha256": "cf02c7b557e1fa6aec08aa1909e4f1d11b60142e9dc9e070aeae5d4dccbc8832"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R02.png",
+      "bytes": 14302,
+      "sha256": "c19ad4b86e08d35d7933df90d622d7632cb13373cb18d8745056e471fae28e03"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R03.png",
+      "bytes": 5099,
+      "sha256": "a02aa8a3c9bb32b043a1de999d4c849509b95416a60cb88d2d0f842a5456cb20"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R04.png",
+      "bytes": 4888,
+      "sha256": "cd92a4ebfdb3901bbf7cbf6497a4fab3a854fbe0e71493c6e239d2b18a20c8c9"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R05.png",
+      "bytes": 4779,
+      "sha256": "130562e632d87af5f8edfaaf96f303d89f7a95bc6cdfb5bc174f67798127e4c7"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R06.png",
+      "bytes": 25768,
+      "sha256": "b8f94c41d60c3e2ae63cda1b537c6d1f6db6f9e2c83787092abab52d5beec11b"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R07.png",
+      "bytes": 15100,
+      "sha256": "1cfa4849d5bd8c64144fb8f7d6c3f0e303cc78ee65b07574d034f68160786e34"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R08.png",
+      "bytes": 6451,
+      "sha256": "b74980f374c52e916add1727d5e9030e9e041120c9e6de842cc1cbdabc548606"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-visible-footprints.png",
+      "bytes": 45893,
+      "sha256": "09b8cf0f7e0eb9ed5cec92895e1ff6a3f4f5ac925b99a12017c442e2e922f4bf"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/navigation/implementation-navigation.json",
+      "bytes": 57898,
+      "sha256": "fab46e5048eb62def3927b1dd48e4045fe6e4709ce54004ae6e3ba6e5a48447a"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/navigation/index.html",
+      "bytes": 32708,
+      "sha256": "7c8f9a2afb1cc704d20101076b46d69e2c73d7c94138e66cd915315752b8652c"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/previews/contact-sheet.png",
+      "bytes": 426587,
+      "sha256": "3d6e283a1c8e129f6c956d1fbd131c25ac5a64d37b381625afe43bec403d22e8"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/previews/difference.png",
+      "bytes": 4687,
+      "sha256": "e6aba033aed0394d518fa16de335066371ba0b7fe16aa97f7bd15204c5dcbd89"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/previews/original-vs-recomposed.png",
+      "bytes": 6706483,
+      "sha256": "85a4f48eaf2af7013afa26e043a99cc90ce6ad93b535b25387fd547adafeeda1"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/previews/ownership.png",
+      "bytes": 73325,
+      "sha256": "754093c20edd9d6953763750890e47022cd9496be56f9be5d404a64a3c4ab064"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/previews/recomposed.png",
+      "bytes": 3109370,
+      "sha256": "f247c821325359cb5df921b8414f58eed5d63e3afc05ac164837fe4f94734229"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/source/original.png",
+      "bytes": 2521679,
+      "sha256": "37571a1f268b1e0721a37c3a6330321fbc155839c80ee17320645120e866d4d9"
+    },
+    {
+      "path": "cases/blue-sky-layered/README.md",
+      "bytes": 876,
+      "sha256": "54aa31a66344e31eedebd092bd91157a4773abea1f6835b884860691112575e9"
+    },
+    {
+      "path": "cases/blue-sky-layered/flat-clouds.js",
+      "bytes": 6188,
+      "sha256": "4d97441051132c0db0721e9eeb756ed1f6c9ccfacd1c9467c4a612f417ae9b46"
+    },
+    {
+      "path": "cases/blue-sky-layered/foreground.js",
+      "bytes": 5100,
+      "sha256": "6d60fcce98006f0d1860abab53aad9374956a6852bc74894b21fcfa4ae26f3ae"
+    },
+    {
+      "path": "cases/blue-sky-layered/music.js",
+      "bytes": 4761,
+      "sha256": "de58e68e872df125e55f1b211d77cb772f7661689861b79d67ed4a5e05827226"
+    },
+    {
+      "path": "cases/blue-sky-layered/procedural-shore.js",
+      "bytes": 12018,
+      "sha256": "b0d42ca96172b8da02cd7377810bbbdc89d89532dc203b1f01777e12c56ca200"
+    },
+    {
+      "path": "cases/blue-sky-layered/renderer.js",
+      "bytes": 23620,
+      "sha256": "de7fe3dbbb36885348f52159270fb130908f0cf65bcae1406c8a3de5530068cc"
+    },
+    {
+      "path": "cases/blue-sky-layered/shore-material.mjs",
+      "bytes": 2418,
+      "sha256": "74fc80d5935766e7439eb9eadd6dd321a6737b35541896797d71d05f34b3ba5b"
+    },
+    {
+      "path": "cases/blue-sky-layered/shoreline-material.mjs",
+      "bytes": 2692,
+      "sha256": "b411b146cc7820c39d669f9d05ac56c12b167453100e5f22cb59ffeba43cd817"
+    },
+    {
+      "path": "cases/blue-sky-layered/starry-steam.js",
+      "bytes": 8947,
+      "sha256": "ef4491afba5ac6211023a48667ca6be606e1c5770e616c5f0b43858869f22ba4"
+    },
+    {
+      "path": "cases/blue-sky-layered/world.mjs",
+      "bytes": 9106,
+      "sha256": "34c73a064e72ccf4e35bc5ebd954d0dcb682d1fbefbe0968e499ed8c7ca17b57"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "bytes": 2777,
+      "sha256": "704d26e9053bff5a9a1053cf99de61a6b6bbf201708f90bfdc71e636de9d11dc"
+    },
+    {
+      "path": "docs/GETTING-STARTED.md",
+      "bytes": 1406,
+      "sha256": "5e638fc49e779240e24bb00cdbe24995da5b23ffff5998f4b5dfa6c259b9b1e8"
+    },
+    {
+      "path": "docs/WALLPAPER-SKILLS.md",
+      "bytes": 6026,
+      "sha256": "ba7496ef19ca26853eb5e1319aaa11e1f07e5add4b6a48612bd15e08bef0e97a"
+    },
+    {
+      "path": "docs/images/blue-sky-lake.png",
+      "bytes": 1615040,
+      "sha256": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5"
+    },
+    {
+      "path": "docs/images/starry-night.png",
+      "bytes": 1175070,
+      "sha256": "40121fc8a732331448493b4a832a94a063c9b15fdcbfceafeca4d1ec702b1c47"
+    },
+    {
+      "path": "docs/images/ta-breakdown.png",
+      "bytes": 1081121,
+      "sha256": "757da49b82163f870033c49e25675bb62eb93f64f6fea763ef923485230c92aa"
+    },
+    {
+      "path": "docs/images/workbench.png",
+      "bytes": 536875,
+      "sha256": "30c17d72303abfc2fb4c2f888c79a40b3a7cbbfe5a492d8d2a2259afbd5490b8"
+    },
+    {
+      "path": "docs/reports/latest/README.md",
+      "bytes": 679,
+      "sha256": "0876f39ff6ecf9b5ff40e214d372cfc89d52161fc37cc3f1d0839ee0457b97ba"
+    },
+    {
+      "path": "docs/reports/latest/audit.json",
+      "bytes": 30901,
+      "sha256": "df43a06a852b597e62d827996cc32920704951e8231fe4c8771aa7f29c574f6a"
+    },
+    {
+      "path": "docs/reports/latest/measurements/branches-14.png",
+      "bytes": 221217,
+      "sha256": "b5f1c9ea5b2d5320e028aa316d6f3707fa2c673123a2b6dc93fe3bb7a896c2b9"
+    },
+    {
+      "path": "docs/reports/latest/measurements/branches-8.png",
+      "bytes": 220271,
+      "sha256": "d70f19d5c9b99620ec6f63a4945a87141e0fac5e293057d1060d5cbf8f8e6fcb"
+    },
+    {
+      "path": "docs/reports/latest/measurements/clouds-14.png",
+      "bytes": 95414,
+      "sha256": "b95528fc71e1169bf0ea03e63398f49b20114f9f3ec51da2763b7d3bd983ee9f"
+    },
+    {
+      "path": "docs/reports/latest/measurements/clouds-8.png",
+      "bytes": 95345,
+      "sha256": "8f36ca5c2ef95344250cc8463b6b3ea553b334ad7d7540a08e09a36b11da8bcb"
+    },
+    {
+      "path": "docs/reports/latest/measurements/ground-contact.png",
+      "bytes": 191103,
+      "sha256": "dbcbd5c06ea8eb3e780d8b384caf6a60fb69831cf518ad469da72a4d5509d711"
+    },
+    {
+      "path": "docs/reports/latest/measurements/opaque-hills.png",
+      "bytes": 113695,
+      "sha256": "072469c3ffd5f02bd019f0ad3d03184fd145ad75c84fe5145684dd8d9cd148de"
+    },
+    {
+      "path": "docs/reports/latest/measurements/other-seed.png",
+      "bytes": 1329442,
+      "sha256": "7e969f24c7e96cfc1a432d06b866c7a46b7fca4be896f4d79a8b63404edf7b53"
+    },
+    {
+      "path": "docs/reports/latest/measurements/reverse.png",
+      "bytes": 1613511,
+      "sha256": "0b52b95c4a9f588d851400d88dab70528910bc171abea3472ee5be821e003485"
+    },
+    {
+      "path": "docs/reports/latest/measurements/scene-0.png",
+      "bytes": 1525582,
+      "sha256": "0c6d3a985d87ee51c1d8afc842ae729322f0f03f1a7f68b6358beee66e42f398"
+    },
+    {
+      "path": "docs/reports/latest/measurements/scene-1.png",
+      "bytes": 1615040,
+      "sha256": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5"
+    },
+    {
+      "path": "docs/reports/latest/measurements/scene-2.png",
+      "bytes": 1330763,
+      "sha256": "d538056900b889d0c1c39fe6dc9fd53bd04259e309873119d5ebe821426568e2"
+    },
+    {
+      "path": "docs/reports/latest/measurements/scene-3.png",
+      "bytes": 1535662,
+      "sha256": "9794871f341bcd303703eebf723f28814a8efa0a333e0ab278e8864b0397eb6d"
+    },
+    {
+      "path": "docs/reports/latest/measurements/scene-4.png",
+      "bytes": 1410722,
+      "sha256": "329284e8e8f54150e69167a7b34dc2c98044b5dc91e6d4c8ee7e69a3f1dbe6f2"
+    },
+    {
+      "path": "docs/reports/latest/measurements/scene-5.png",
+      "bytes": 1603847,
+      "sha256": "3c3f1954b9a9e3b7e205f81e8a92df6b95b8f6a29ad95cb619ec2966b1982c0a"
+    },
+    {
+      "path": "docs/reports/latest/measurements/steam-14.png",
+      "bytes": 42488,
+      "sha256": "44e07dd79348a9629b749f6ab63b06c1652d2487e3038df3aa3aa887a28f020f"
+    },
+    {
+      "path": "docs/reports/latest/measurements/steam-8.png",
+      "bytes": 42863,
+      "sha256": "eb48b5368ac4f6429e44c4d64f487c15a01112384c48833693d51b82f2300592"
+    },
+    {
+      "path": "docs/reports/latest/measurements/water-14.png",
+      "bytes": 573662,
+      "sha256": "ca4819867e9e33bc15ad413c1d39259adacc83022ad1f2645e61c480f7f6dec1"
+    },
+    {
+      "path": "docs/reports/latest/measurements/water-8.png",
+      "bytes": 572224,
+      "sha256": "3c238c14bc76aa07b090417eed2384ccea3752faad35eb22707d9cca01dc0fcd"
+    },
+    {
+      "path": "docs/reports/latest/report.html",
+      "bytes": 2164887,
+      "sha256": "3dc1b294ad603093b8f7c373d2ec8408ac17abbbac04bec7a5ae893b3fc0e83d"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3346,
+      "sha256": "4158678828457597d496f6b2e0f7e6f48536221eb919d5a5b87cc6ca739b1e4f"
+    },
+    {
+      "path": "modules/train/original-starry-steam/README.md",
+      "bytes": 639,
+      "sha256": "7d187169b9adc7ccdbe0294704c04fc6d2e74795092c1cd35bb275ac050407bb"
+    },
+    {
+      "path": "modules/train/original-starry-steam/source.glsl",
+      "bytes": 1537,
+      "sha256": "02298c09248cfe443c2037a6467b40158dbed6c7a8a9d6d5129b65ceb6b3c1eb"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1844,
+      "sha256": "af968962538b1004dbc1bb26f9ccc3b71cebd8504d66e37160b63a28be02651b"
+    },
+    {
+      "path": "tests/layered-clouds.test.mjs",
+      "bytes": 2625,
+      "sha256": "659d03e7b9287e6fd219aeb158726e62fdfde8a416397ece39b75d86d60faf23"
+    },
+    {
+      "path": "tests/layered-world.test.mjs",
+      "bytes": 1452,
+      "sha256": "cd7402872ee73adb3f89c15c5416eae4fec15a08a0f8d0cc5ac1ba843d4e3709"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/layered-stream/app.js",
+      "bytes": 12654,
+      "sha256": "31d0076bc6886cb2af38cc5286e441132127f8e581daa189d50d14fdc71f3ec9"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/layered-stream/index.html",
+      "bytes": 4371,
+      "sha256": "2744d1c1b125ff6d220c987aa7e6797e2c8f6b286f8691fc72a0993011cb0dfb"
+    },
+    {
+      "path": "themes/blue-sky-train/lab/layered-stream/style.css",
+      "bytes": 9657,
+      "sha256": "95fea7ba019078027def13e6b3495aced7b99a90b276d5f0e90936834d8e5b46"
+    },
+    {
+      "path": "themes/starry-night-train/README.md",
+      "bytes": 1147,
+      "sha256": "70e6b36f9304b9357e7b032aba1d1c5cfc4f919027211b1714663e43c59ce414"
+    },
+    {
+      "path": "themes/starry-night-train/index.html",
+      "bytes": 43649,
+      "sha256": "b88aa652ac47b23d5b73d905e671b1455cccf06018d7ae42988c73575607f2b7"
+    },
+    {
+      "path": "tools/browser-harness.mjs",
+      "bytes": 5153,
+      "sha256": "af00b00adf465f7ba931053505935a2565b3e5cbc0e8edd5b80dd642058a3498"
+    },
+    {
+      "path": "tools/build-layered-wallpaper.mjs",
+      "bytes": 2881,
+      "sha256": "6ac44e936e7d590d970e7889ecc2f4340ae77af8b5b5c78ce43cbdf1532e9b5b"
+    },
+    {
+      "path": "tools/check-curated-project.mjs",
+      "bytes": 2577,
+      "sha256": "5a03f19abfcfd23849fe77fc1111845da5ea5d0e362fc89dc827f59e1f2b4114"
+    },
+    {
+      "path": "tools/find-browser.mjs",
+      "bytes": 1439,
+      "sha256": "292d8fba1307dfdead93e0c6c5c04c1772532c34ccc50f846fb6eea34fdf9cd3"
+    },
+    {
+      "path": "tools/serve.mjs",
+      "bytes": 2924,
+      "sha256": "c1381b92574efd0c7562b8726e3316ddac18e07914886a6736870a473f86187d"
+    },
+    {
+      "path": "tools/test-curated-project.mjs",
+      "bytes": 4759,
+      "sha256": "7b67bc1bc020020dd75327e30d0060594aa4bf2db4919db7a424c4815da987f0"
+    },
+    {
+      "path": "tools/test-layered-clouds.mjs",
+      "bytes": 9701,
+      "sha256": "e88dc91f22650d5f31fb372b3b8cf8e9a5e39456a72a49eb862db8aaaba65d54"
+    },
+    {
+      "path": "tools/test-layered-foreground.mjs",
+      "bytes": 5732,
+      "sha256": "3aebab22c25c0ad09c6f24823a9fd67c50dd4604f51ebea32e08d3bd98dedb45"
+    },
+    {
+      "path": "tools/test-layered-ground-blend.mjs",
+      "bytes": 5050,
+      "sha256": "5c9c0ede899194878ee3fde66555039f3cea3300d3eb055bc0b883807280c22d"
+    },
+    {
+      "path": "tools/test-layered-music.mjs",
+      "bytes": 10169,
+      "sha256": "f37466e4866fa4e0abe3b7bf93857e3175a9530673f4d6cf492a34cb8469eb61"
+    },
+    {
+      "path": "tools/test-layered-occlusion.mjs",
+      "bytes": 8556,
+      "sha256": "6a7adb733fc7a79f33ec65ac9d33a3134cac468899a8bc4ccc26fe3d6abb6d7b"
+    },
+    {
+      "path": "tools/test-layered-offline.mjs",
+      "bytes": 6763,
+      "sha256": "60c074a11a935b9518a98f322c8242036f980952c424c2699066f92b89514784"
+    },
+    {
+      "path": "tools/test-layered-scenery.mjs",
+      "bytes": 7618,
+      "sha256": "742fcad7e97c6c66332e4d80d6fcd375d573e59f9a0639bbcb461b3917513acb"
+    },
+    {
+      "path": "tools/test-layered-shader-shore.mjs",
+      "bytes": 8063,
+      "sha256": "8046617bf83ab5dae0bc0233904944f6bca2c8e7a2bf499b7e835cb3f7f42d51"
+    },
+    {
+      "path": "tools/test-layered-steam.mjs",
+      "bytes": 8160,
+      "sha256": "d3630ff105bedd6c165913a90a025226df55e35b38cd99330d6859d8a5456564"
+    },
+    {
+      "path": "tools/test-layered-terrain.mjs",
+      "bytes": 9198,
+      "sha256": "cc2a65f0014d8eb4bd99d8a5c3a79249daa5cb4a522873b651365c93fa081fbf"
+    },
+    {
+      "path": "tools/test-layered-wallpaper.mjs",
+      "bytes": 17320,
+      "sha256": "e194607ba566485d17ec204d4521230f050737fceb489e249acfc2f30843e86c"
+    },
+    {
+      "path": "tools/test-layered-water.mjs",
+      "bytes": 7818,
+      "sha256": "89ba9d2e8c8e5e4a92d8fda7e914aea5c4b2bf7d21911ee5d30d24170ecaf1a0"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-10-24",
+  "references": [
+    "assets/blue-sky-train/layered-stream/r07/mountain-green.png",
+    "assets/blue-sky-train/source/blue-sky-train.png"
+  ],
+  "assets": [
+    {
+      "path": "wooded-ridge.png",
+      "transparent_background": true,
+      "prompt": "Use case: precise-object-edit.\nAsset type: complete transparent painted wooded foothill group for a layered scrolling train wallpaper.\nInput images: Image 1 is the existing green mountain panorama and is the edit target; Image 2 is the original full wallpaper for matching brushwork, light and color only.\nPrimary request: Turn the wooded foothills into ONE complete standalone connected ridge group with 2 or 3 asymmetric summits, with the full natural slopes and tree-covered foothills present. Preserve the original hand-painted anime texture, vivid moss-green sunlit foliage, deep teal-blue shadows and small irregular brush patches. The original wallpaper's mid-distance mountains blend into tree crowns at the foot; retain this connected mountain-and-trees appearance.\nComposition: a wide landscape asset, about 2.5:1 aspect ratio. Main summit off center, lower irregular shoulder peaks. At BOTH ends the slope must descend naturally all the way to the same low ground level, then terminate with leafy shrubs. ALL mountain, tree and slope edges must fit INSIDE the canvas, with clear transparent padding above and at both sides. The entire base should be near the bottom with only a small transparent bottom margin. Opaque painted interior.\nConstraints: true transparent background; no sky, clouds, water, reflections, railway, train, bridge, foreground branches, text or shadow. Do not clip a rectangle out of the panorama. Complete the missing slope and foot with coherent painting. No straight diagonal cutoffs, bevelled edges, geometric caps, truncated sides, triangular cones, flat tops or faded semi-transparent mountains. The natural silhouette must be defined by the painting itself, ready to composite directly without a runtime outline mask."
+    },
+    {
+      "path": "lakeside-knoll.png",
+      "transparent_background": true,
+      "prompt": "Use case: precise-object-edit.\nAsset type: a complete standalone transparent wooded lakeside knoll for a scrolling hand-painted train wallpaper.\nInput images: Image 1 is the original green mountain painting to derive this asset from; Image 2 is the full original wallpaper, reference for palette, texture and daylight.\nPrimary request: Paint ONE complete low, broad, asymmetric wooded hill, naturally connected to irregular small tree crowns along its foot. Preserve the original vivid blue-green hand-painted anime brushwork, sunlit moss-green foliage patches and deep blue-teal shadows. It must have a fully painted natural slope on the left AND right, falling all the way down to the low ground line. The hill will be placed immediately in front of the railway to occasionally obscure a passing train.\nComposition: landscape 2:1 canvas. The hill itself occupies about 84 percent of image width and 68 percent of image height. Its entire silhouette including every slope, tree and shrub must be surrounded by transparent padding on the left, right and top. Peak slightly left of center with a longer, gently irregular descending right shoulder. Foot near the bottom. Both side endpoints must be low shrubs at ground height, not cut-off flanks.\nConstraints: true transparent background, opaque solid painted hill interior, no sky, clouds, water, reflection, bridge, train, grass field, text or shadow. No panorama clipped into a polygon; no straight diagonal sides, triangular/conical shapes, bevelled corners, flat caps or straight chopped vertical edges. Finish both natural slopes inside the canvas. The outline comes from irregular painted foliage, not a geometric mask."
+    }
+  ]
+}

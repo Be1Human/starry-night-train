@@ -1,0 +1,938 @@
+{
+  "schema": 1,
+  "date": "2026-10-24T23:05:40.462Z",
+  "status": "passed",
+  "method": {
+    "samples": 60,
+    "warmup": 20,
+    "trials": 2,
+    "target": 60,
+    "viewport": [
+      1920,
+      1080
+    ],
+    "canvas": [
+      2048,
+      768
+    ],
+    "timing": "真实播放器 rAF；CPU 仅记录原有 scene.stats.renderMs；GPU 仅岸线与蒸汽两个 pass",
+    "readback": "仅固定帧阶段读取独立 Canvas，性能阶段不截屏"
+  },
+  "evidence": {
+    "shots": [
+      {
+        "id": "scene-0",
+        "camera": 0,
+        "time": 8,
+        "file": "measurements/scene-0.png",
+        "pixelHash": "5a2683e1e8b48e9d9b5edbd4f9f8e0625a200a18bcb1b7890eec94c35fba1b96"
+      },
+      {
+        "id": "scene-1",
+        "camera": -530,
+        "time": 8,
+        "file": "measurements/scene-1.png",
+        "pixelHash": "82ad115e50f4f502bc903edd51335813676eefa072fd5cb8a60dce0d48f14425"
+      },
+      {
+        "id": "scene-2",
+        "camera": 15200,
+        "time": 8,
+        "file": "measurements/scene-2.png",
+        "pixelHash": "50828422d261883ec62cbd8638e5aed8ba290c7e55b392f27888bebc9bd59433"
+      },
+      {
+        "id": "scene-3",
+        "camera": -7072,
+        "time": 8,
+        "file": "measurements/scene-3.png",
+        "pixelHash": "117090bfee449624220ffd0e20e3cafe427a0ded3e000889d768aec5cbeae0b9"
+      },
+      {
+        "id": "scene-4",
+        "camera": 12345678,
+        "time": 8,
+        "file": "measurements/scene-4.png",
+        "pixelHash": "8ee923925377bad8f13d708b7c65ed0f76782fe5ac35e2a784b9697f44aa3e3c"
+      },
+      {
+        "id": "scene-5",
+        "camera": -12345678,
+        "time": 8,
+        "file": "measurements/scene-5.png",
+        "pixelHash": "5758191cc21d5202383b31d872baec485270da6c20b7c70658558da1cede2c7f"
+      },
+      {
+        "id": "reverse",
+        "camera": -530,
+        "time": 8,
+        "direction": 1,
+        "file": "measurements/reverse.png",
+        "pixelHash": "cd8462a8af52c5ff51d6d239796be9f2d6faa3dd2e8fae329b513bd06fc96fb0"
+      },
+      {
+        "id": "other-seed",
+        "camera": 15200,
+        "time": 8,
+        "seed": 137,
+        "file": "measurements/other-seed.png",
+        "pixelHash": "b44d03eed638b9a8e467ec3c18faabbc933c1218e3cc3840a23def33a5a64103"
+      },
+      {
+        "id": "clouds-8",
+        "camera": -530,
+        "time": 8,
+        "layer": "clouds",
+        "file": "measurements/clouds-8.png",
+        "pixelHash": "00edb6d4acb042de436c6e0e597ad799a3cceda1314df73e91f8febf87393a08"
+      },
+      {
+        "id": "clouds-14",
+        "camera": -530,
+        "time": 14,
+        "layer": "clouds",
+        "file": "measurements/clouds-14.png",
+        "pixelHash": "3cfa15bbf6693b9df4abf798dd85cd18515c8e4bf1c5d433c6c5e7259baab323"
+      },
+      {
+        "id": "steam-8",
+        "camera": -530,
+        "time": 8,
+        "layer": "steam",
+        "file": "measurements/steam-8.png",
+        "pixelHash": "ff8237d97677f0b3cd0522d4c6eb8d47c6546dcbc7a8ee178b7ff6036d8acec7"
+      },
+      {
+        "id": "steam-14",
+        "camera": -530,
+        "time": 14,
+        "layer": "steam",
+        "file": "measurements/steam-14.png",
+        "pixelHash": "eb1a95eb6e4bee6f936b6caf8553cda874e9fa7174330614d74ccccb257b4cc1"
+      },
+      {
+        "id": "water-8",
+        "camera": -530,
+        "time": 8,
+        "layer": "water",
+        "file": "measurements/water-8.png",
+        "pixelHash": "5cb2b5d8c1db16cbb63c3f4309d49f8b0dbe9aa26511a666fc6d4c57e1d82258"
+      },
+      {
+        "id": "water-14",
+        "camera": -530,
+        "time": 14,
+        "layer": "water",
+        "file": "measurements/water-14.png",
+        "pixelHash": "9ccc4720fba30ef3e7f15088df0836b130e922d800d2087df40b27257088864a"
+      },
+      {
+        "id": "branches-8",
+        "camera": -530,
+        "time": 8,
+        "layer": "branches",
+        "file": "measurements/branches-8.png",
+        "pixelHash": "056ae7be893e2cdc56f3fb153e1d5fe5f7f2ce52661fb6bd2a4d33b2266a6cd3"
+      },
+      {
+        "id": "branches-14",
+        "camera": -530,
+        "time": 14,
+        "layer": "branches",
+        "file": "measurements/branches-14.png",
+        "pixelHash": "6752c6828cc22187059dafc7184ec903ca455d8aea3699075501428a804d294e"
+      },
+      {
+        "id": "ground-contact",
+        "camera": -530,
+        "time": 8,
+        "layer": "shore",
+        "file": "measurements/ground-contact.png",
+        "pixelHash": "7ca8106a5fdcad8c33dcd7edb140c4e67b4c6b892ac64b909624db8cbc529760"
+      },
+      {
+        "id": "opaque-hills",
+        "camera": -530,
+        "time": 8,
+        "layer": "rail-hills",
+        "file": "measurements/opaque-hills.png",
+        "pixelHash": "4a2614c56d3892c2672001910dc70c702de30830f12c158c14114845f3e4d921"
+      }
+    ],
+    "checks": {
+      "revisit": true,
+      "animations": {
+        "clouds": true,
+        "steam": true,
+        "water": true,
+        "branches": true
+      },
+      "hostPause": true,
+      "bothDirections": true,
+      "consoleErrors": [],
+      "webglErrors": {
+        "shore": 0,
+        "steam": 0
+      },
+      "sourceStable": true
+    },
+    "benchmarks": [
+      {
+        "camera": 0,
+        "trial": 0,
+        "cpu": {
+          "count": 60,
+          "mean": 4.013333333283663,
+          "p50": 3.7999999970197678,
+          "p95": 5.200000002980232,
+          "max": 8.299999997019768
+        },
+        "interval": {
+          "count": 60,
+          "mean": 16.66833333333334,
+          "p50": 19.599999999999454,
+          "p95": 19.800000000000182,
+          "max": 19.800000000000182
+        },
+        "fps": 59.99400059993998,
+        "shoreGpu": {
+          "count": 60,
+          "mean": 0.025326933333333357,
+          "p50": 0.024576,
+          "p95": 0.03584,
+          "max": 0.047104
+        },
+        "steamGpu": {
+          "count": 60,
+          "mean": 0.004488533333333334,
+          "p50": 0.003072,
+          "p95": 0.013312,
+          "max": 0.019456
+        },
+        "maxInstances": 117,
+        "textureBytes": 70865300
+      },
+      {
+        "camera": 0,
+        "trial": 1,
+        "cpu": {
+          "count": 60,
+          "mean": 4.861666667461395,
+          "p50": 4.5999999940395355,
+          "p95": 7.4000000059604645,
+          "max": 8.299999997019768
+        },
+        "interval": {
+          "count": 60,
+          "mean": 16.671666666666656,
+          "p50": 19.5,
+          "p95": 19.899999999999636,
+          "max": 20.100000000000364
+        },
+        "fps": 59.98200539838052,
+        "shoreGpu": {
+          "count": 60,
+          "mean": 0.028603733333333346,
+          "p50": 0.028672,
+          "p95": 0.031744,
+          "max": 0.031744
+        },
+        "steamGpu": {
+          "count": 60,
+          "mean": 0.0036181333333333327,
+          "p50": 0.003072,
+          "p95": 0.00512,
+          "max": 0.009216
+        },
+        "maxInstances": 117,
+        "textureBytes": 70865300
+      },
+      {
+        "camera": -530,
+        "trial": 0,
+        "cpu": {
+          "count": 60,
+          "mean": 3.691666666169961,
+          "p50": 3.2999999970197678,
+          "p95": 5.700000002980232,
+          "max": 7.9000000059604645
+        },
+        "interval": {
+          "count": 60,
+          "mean": 16.664999999999996,
+          "p50": 19.600000000000364,
+          "p95": 19.80000000000109,
+          "max": 19.80000000000109
+        },
+        "fps": 60.00600060006002,
+        "shoreGpu": {
+          "count": 60,
+          "mean": 0.02973013333333334,
+          "p50": 0.028672,
+          "p95": 0.036864,
+          "max": 0.04608
+        },
+        "steamGpu": {
+          "count": 60,
+          "mean": 0.004915200000000003,
+          "p50": 0.004096,
+          "p95": 0.01024,
+          "max": 0.017408
+        },
+        "maxInstances": 111,
+        "textureBytes": 70865300
+      },
+      {
+        "camera": -530,
+        "trial": 1,
+        "cpu": {
+          "count": 60,
+          "mean": 3.9166666674117248,
+          "p50": 3.4000000059604645,
+          "p95": 6.699999988079071,
+          "max": 9.100000008940697
+        },
+        "interval": {
+          "count": 60,
+          "mean": 16.666666666666668,
+          "p50": 19.600000000000364,
+          "p95": 19.80000000000109,
+          "max": 19.80000000000109
+        },
+        "fps": 59.99999999999999,
+        "shoreGpu": {
+          "count": 60,
+          "mean": 0.029730133333333332,
+          "p50": 0.029696,
+          "p95": 0.031744,
+          "max": 0.04608
+        },
+        "steamGpu": {
+          "count": 60,
+          "mean": 0.004710400000000001,
+          "p50": 0.004096,
+          "p95": 0.01024,
+          "max": 0.021504
+        },
+        "maxInstances": 111,
+        "textureBytes": 70865300
+      },
+      {
+        "camera": 15200,
+        "trial": 0,
+        "cpu": {
+          "count": 60,
+          "mean": 3.9483333334326742,
+          "p50": 3.6000000089406967,
+          "p95": 5.899999991059303,
+          "max": 6.4000000059604645
+        },
+        "interval": {
+          "count": 60,
+          "mean": 16.666666666666668,
+          "p50": 19.69999999999891,
+          "p95": 19.80000000000109,
+          "max": 20
+        },
+        "fps": 59.99999999999999,
+        "shoreGpu": {
+          "count": 60,
+          "mean": 0.02897919999999999,
+          "p50": 0.028672,
+          "p95": 0.03072,
+          "max": 0.031744
+        },
+        "steamGpu": {
+          "count": 60,
+          "mean": 0.0034986666666666647,
+          "p50": 0.003072,
+          "p95": 0.004096,
+          "max": 0.012288
+        },
+        "maxInstances": 111,
+        "textureBytes": 70865300
+      },
+      {
+        "camera": 15200,
+        "trial": 1,
+        "cpu": {
+          "count": 60,
+          "mean": 3.8549999992052713,
+          "p50": 3.6000000089406967,
+          "p95": 5.5999999940395355,
+          "max": 8
+        },
+        "interval": {
+          "count": 60,
+          "mean": 16.666666666666668,
+          "p50": 19.599999999998545,
+          "p95": 19.80000000000109,
+          "max": 20.099999999998545
+        },
+        "fps": 59.99999999999999,
+        "shoreGpu": {
+          "count": 60,
+          "mean": 0.029440000000000004,
+          "p50": 0.028672,
+          "p95": 0.03072,
+          "max": 0.047104
+        },
+        "steamGpu": {
+          "count": 60,
+          "mean": 0.0034815999999999988,
+          "p50": 0.003072,
+          "p95": 0.004096,
+          "max": 0.009216
+        },
+        "maxInstances": 111,
+        "textureBytes": 70865300
+      }
+    ],
+    "sourceHashes": {
+      "assets/blue-sky-train/audio/layered-lake-r02/yunan-manxing-loop.mp3": "4b3681a8cb69bcc699565ff9eb26a66fab11af312340af949bb8338bb5327672",
+      "assets/blue-sky-train/clouds/r17/cloud-crown.png": "6ca20cbfc3c5d2e4ea415a9e335ea6d86657b2a1aa4a2ee2d6ce057c4aa40c97",
+      "assets/blue-sky-train/clouds/r17/cloud-fan.png": "ccee8d8e499b3fc7c788d216a277a6f9922fd891f3ff07253f00d47b7ee6b9a3",
+      "assets/blue-sky-train/clouds/r17/cloud-ribbon.png": "09b284d40777b6358e7a725c6547b24d1750b14d3c8bb510b1b9849a280a2942",
+      "assets/blue-sky-train/foliage/r09/understory.png": "384f421ce6dd3669d86ed1902efe235e0963525b697de13d2174ea91a7c1cf65",
+      "assets/blue-sky-train/foliage/r17/canopy-atlas.png": "2e755890850eefdb7688470ac6280d4c6e3e48f879578bf5dd05078d8838d32c",
+      "assets/blue-sky-train/layered-stream/preview.png": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5",
+      "assets/blue-sky-train/layered-stream/r01/bridge-deck.png": "f5a9d0f2fe3e9afd0996b3b548fcfcc53aa07a817d35589978e489d26a52cd18",
+      "assets/blue-sky-train/layered-stream/r01/bridge-piers.png": "e2b717ce562e06ed8880851eae15bb043ff0873162772db98e3ced39207909ad",
+      "assets/blue-sky-train/layered-stream/r01/coach-1.png": "2ff6e0404912531b7b9424178323f1806095e315934972db32fbc5bc527f21e3",
+      "assets/blue-sky-train/layered-stream/r01/coach-2.png": "c4d78ade2bcaa3bd7fd37ce6cd6745150b5740931126c9c250b053c01e64d894",
+      "assets/blue-sky-train/layered-stream/r01/engine.png": "577c79f5562047492eff2b787b6e8a261f8d600869d0bf777a2553f6881221e6",
+      "assets/blue-sky-train/layered-stream/r01/low-shrub.png": "eb0621d46ec46867798eb7c9698322f096b2141e22d4f9f09c5ffadf6d07b266",
+      "assets/blue-sky-train/layered-stream/r07/mountain-blue.png": "288d9a29af66aa11468573d29cadac2069d6b6f8466f7c0d98a8bde039b13cb9",
+      "assets/blue-sky-train/layered-stream/r11/lakeside-knoll.png": "99f97ee8a8338ac63e5c4e2066c5ebdedbdb52e06a1e0957cc76711c12136f80",
+      "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png": "071dbb3cea0aa6843906160fe7ba45ba4ddf8970f8987897fa16a5d607d2f91e",
+      "assets/blue-sky-train/layered-stream/r13/shore.png": "a5e4213f63eb88c7a4da47d5b682216ea881ee919da50f18f6174e57d5296382",
+      "assets/blue-sky-train/layered-stream/r20/mountain-haze.png": "0fac0b728f4642367889025f84c6980aedf33052315cfbe18fa354a2115bcaaf",
+      "assets/blue-sky-train/source/blue-sky-train.png": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1",
+      "cases/blue-sky-layered/flat-clouds.js": "4d97441051132c0db0721e9eeb756ed1f6c9ccfacd1c9467c4a612f417ae9b46",
+      "cases/blue-sky-layered/foreground.js": "6d60fcce98006f0d1860abab53aad9374956a6852bc74894b21fcfa4ae26f3ae",
+      "cases/blue-sky-layered/music.js": "de58e68e872df125e55f1b211d77cb772f7661689861b79d67ed4a5e05827226",
+      "cases/blue-sky-layered/procedural-shore.js": "b0d42ca96172b8da02cd7377810bbbdc89d89532dc203b1f01777e12c56ca200",
+      "cases/blue-sky-layered/renderer.js": "de7fe3dbbb36885348f52159270fb130908f0cf65bcae1406c8a3de5530068cc",
+      "cases/blue-sky-layered/starry-steam.js": "ef4491afba5ac6211023a48667ca6be606e1c5770e616c5f0b43858869f22ba4",
+      "cases/blue-sky-layered/world.mjs": "34c73a064e72ccf4e35bc5ebd954d0dcb682d1fbefbe0968e499ed8c7ca17b57",
+      "themes/blue-sky-train/lab/layered-stream/app.js": "31d0076bc6886cb2af38cc5286e441132127f8e581daa189d50d14fdc71f3ec9",
+      "themes/blue-sky-train/lab/layered-stream/index.html": "2744d1c1b125ff6d220c987aa7e6797e2c8f6b286f8691fc72a0993011cb0dfb",
+      "themes/blue-sky-train/lab/layered-stream/style.css": "95fea7ba019078027def13e6b3495aced7b99a90b276d5f0e90936834d8e5b46"
+    }
+  },
+  "comparison": null,
+  "release": {
+    "status": "passed",
+    "area": "all",
+    "checks": [
+      {
+        "label": "wallpaper",
+        "passed": true
+      },
+      {
+        "label": "terrain",
+        "passed": true
+      },
+      {
+        "label": "occlusion",
+        "passed": true
+      },
+      {
+        "label": "scenery",
+        "passed": true
+      },
+      {
+        "label": "shore",
+        "passed": true
+      },
+      {
+        "label": "ground-blend",
+        "passed": true
+      },
+      {
+        "label": "water",
+        "passed": true
+      },
+      {
+        "label": "foreground",
+        "passed": true
+      },
+      {
+        "label": "clouds",
+        "passed": true
+      },
+      {
+        "label": "steam",
+        "passed": true
+      },
+      {
+        "label": "music",
+        "passed": true
+      },
+      {
+        "label": "build",
+        "passed": true
+      },
+      {
+        "label": "offline",
+        "passed": true
+      },
+      {
+        "label": "offline-clouds",
+        "passed": true
+      },
+      {
+        "label": "offline-music",
+        "passed": true
+      }
+    ],
+    "nativeWallpaperEngineTested": false,
+    "bundleHashes": {
+      "index.html": "e2992340722a0dfb0a47a3371426cdb0a5f9c5d4ce264c5fc1411139f542dda9",
+      "project.json": "f5e3a854c7509457fb0d168b18a218b4a5023792e3dbb2b057572a61b2b58281",
+      "preview.png": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5"
+    }
+  },
+  "limitations": [
+    "这是本机 Chromium 的短时浏览器验收，不代表原生 Wallpaper Engine、长时间稳定性或其他显卡的结果。",
+    "1920×1080 是显示窗口；场景实际绘制为 2048×768，报告没有测量原生 4K 渲染。",
+    "CPU 数字是 JavaScript/Canvas 提交时间；没有测量整帧 GPU、系统 CPU 占用、功耗或完整显存占用。",
+    "固定帧对照只覆盖列出的镜头、种子、图层与时刻；还需要观看连续播放确认整体观感。",
+    "自动浏览器静音，音乐解码与暂停检查不能替代人工试听。"
+  ],
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+    "platform": "Win32",
+    "hardwareConcurrency": 16,
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 (0x0000220A) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "shoreBackend": "WebGL2",
+    "steamBackend": "WebGL2",
+    "canvas": [
+      2048,
+      768
+    ],
+    "browser": "Edg/150.0.4078.48",
+    "softwareRenderer": false
+  },
+  "effects": {
+    "world": {
+      "width": 2048,
+      "height": 768,
+      "waterline": 562,
+      "reflectionPlane": 548,
+      "pixelsPerSecond": 14,
+      "defaultDirection": -1
+    },
+    "materials": [
+      {
+        "id": "cloud-tower",
+        "label": "高塔积云 · 四层平涂",
+        "path": "assets/blue-sky-train/clouds/r17/cloud-crown.png",
+        "kind": "flat-cloud",
+        "flatCloud": true
+      },
+      {
+        "id": "cloud-bank",
+        "label": "低云带 · 四层平涂",
+        "path": "assets/blue-sky-train/clouds/r17/cloud-ribbon.png",
+        "kind": "flat-cloud",
+        "flatCloud": true
+      },
+      {
+        "id": "cloud-fan",
+        "label": "双峰积云 · 四层平涂",
+        "path": "assets/blue-sky-train/clouds/r17/cloud-fan.png",
+        "kind": "flat-cloud",
+        "flatCloud": true
+      },
+      {
+        "id": "mountain-blue",
+        "path": "assets/blue-sky-train/layered-stream/r07/mountain-blue.png",
+        "kind": "repeat-x",
+        "terrain": true
+      },
+      {
+        "id": "mountain-haze",
+        "label": "青蓝叠嶂 · 不规则远山",
+        "path": "assets/blue-sky-train/layered-stream/r20/mountain-haze.png",
+        "kind": "repeat-x",
+        "terrain": true
+      },
+      {
+        "id": "mountain-green",
+        "path": "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png",
+        "kind": "hill-groups",
+        "cutout": true,
+        "clusters": true,
+        "groundY": 689
+      },
+      {
+        "id": "midground-forest",
+        "path": "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png",
+        "kind": "hill-groups",
+        "cutout": true,
+        "clusters": true,
+        "groundY": 689
+      },
+      {
+        "id": "rail-hill",
+        "path": "assets/blue-sky-train/layered-stream/r11/lakeside-knoll.png",
+        "kind": "sprite",
+        "cutout": true,
+        "hill": true,
+        "groundY": 778
+      },
+      {
+        "id": "leaves",
+        "label": "近景枝叶 · 四种轮廓",
+        "path": "assets/blue-sky-train/foliage/r17/canopy-atlas.png",
+        "kind": "sprite-atlas",
+        "alphaCut": 0.3
+      },
+      {
+        "id": "low-shrub",
+        "path": "assets/blue-sky-train/layered-stream/r01/low-shrub.png",
+        "kind": "sprite"
+      },
+      {
+        "id": "near-ferns",
+        "label": "近景蕨叶与草花",
+        "path": "assets/blue-sky-train/foliage/r09/understory.png",
+        "kind": "sprite",
+        "alphaCut": 0.84,
+        "cutout": true
+      },
+      {
+        "id": "bridge-deck",
+        "path": "assets/blue-sky-train/layered-stream/r01/bridge-deck.png",
+        "kind": "repeat-x"
+      },
+      {
+        "id": "bridge-piers",
+        "path": "assets/blue-sky-train/layered-stream/r01/bridge-piers.png",
+        "kind": "repeat-x"
+      },
+      {
+        "id": "shore-paint",
+        "label": "草地笔触 · Shader 细节",
+        "path": "assets/blue-sky-train/layered-stream/r13/shore.png",
+        "kind": "shader-detail",
+        "detailRect": [
+          0,
+          23,
+          1952,
+          16
+        ]
+      },
+      {
+        "id": "engine",
+        "path": "assets/blue-sky-train/layered-stream/r01/engine.png",
+        "kind": "sprite"
+      },
+      {
+        "id": "coach-1",
+        "path": "assets/blue-sky-train/layered-stream/r01/coach-1.png",
+        "kind": "sprite"
+      },
+      {
+        "id": "coach-2",
+        "path": "assets/blue-sky-train/layered-stream/r01/coach-2.png",
+        "kind": "sprite"
+      }
+    ],
+    "layers": [
+      {
+        "id": "sky",
+        "name": "蓝天底色",
+        "depth": 0,
+        "group": "远景",
+        "type": "渐变底层",
+        "note": "贯穿所有位置的蓝天底色。"
+      },
+      {
+        "id": "clouds-far",
+        "name": "远处云带",
+        "depth": 0.022,
+        "group": "远景",
+        "type": "四层平涂 · 随机云簇",
+        "assets": [
+          "cloud-bank",
+          "cloud-fan"
+        ],
+        "note": "新绘云带按固定种子改变大小、间距和高度；像素采样保持色块清晰，同一地点往返时云形不变。"
+      },
+      {
+        "id": "clouds",
+        "name": "高耸积云",
+        "depth": 0.045,
+        "group": "远景",
+        "type": "四层平涂 · 主云墙与低云肩",
+        "assets": [
+          "cloud-tower",
+          "cloud-fan",
+          "cloud-bank"
+        ],
+        "note": "完整云形组成高耸主云墙、较低云肩与中间的蓝天开口，缓慢漂移；换云、暂停与湖面倒影同步。"
+      },
+      {
+        "id": "mountains-far",
+        "name": "蓝色远山",
+        "depth": 0.062,
+        "group": "远景",
+        "type": "四重山脉 · 空气透视",
+        "assets": [
+          "mountain-haze",
+          "mountain-blue"
+        ],
+        "note": "四重等比山脉以错开的山脊互相遮掩；越远越淡、移动越慢，保留云与山之间的空间。"
+      },
+      {
+        "id": "mountains-near",
+        "name": "绿色山坡",
+        "depth": 0.14,
+        "group": "远景",
+        "type": "低矮连绵林坡",
+        "assets": [
+          "mountain-green"
+        ],
+        "note": "林坡降低到岸边山地的尺度，山脚树冠与远山衔接；开阔段让出中央视野，往返时保持一致。"
+      },
+      {
+        "id": "foothills",
+        "name": "中景林坡",
+        "depth": 0.38,
+        "group": "中景",
+        "type": "随机林坡与树冠",
+        "assets": [
+          "midground-forest"
+        ],
+        "note": "林坡连着山脚树冠，成簇出现并留出开阔路段；整座山丘等比移动，保持自然轮廓。"
+      },
+      {
+        "id": "trees",
+        "name": "林坡山脚树丛",
+        "depth": 0.38,
+        "group": "中景",
+        "type": "等比树冠 · 与林坡衔接",
+        "assets": [
+          "low-shrub"
+        ],
+        "note": "完整树丛按原比例缩放，疏密与大小沿林坡变化；与林坡使用同一世界坐标和速度，行进时不会分离。"
+      },
+      {
+        "id": "bridge-piers",
+        "name": "桥墩与拱肩",
+        "depth": 1,
+        "group": "中景",
+        "type": "四跨重复单元",
+        "assets": [
+          "bridge-piers"
+        ],
+        "note": "从原图提取四跨石桥，桥洞透明，与桥面锁定同一相位。"
+      },
+      {
+        "id": "bridge-deck",
+        "name": "桥面与栏杆",
+        "depth": 1,
+        "group": "中景",
+        "type": "四跨重复单元",
+        "assets": [
+          "bridge-deck"
+        ],
+        "note": "桥面和栏杆使用原画纹理，沿水平方向无限接续。"
+      },
+      {
+        "id": "engine",
+        "name": "蒸汽机车",
+        "depth": 0,
+        "group": "列车",
+        "type": "跟随镜头",
+        "assets": [
+          "engine"
+        ],
+        "note": "车头始终朝行进方向；镜头跟随列车，背景向相反方向经过。"
+      },
+      {
+        "id": "coach-1",
+        "name": "第一节车厢",
+        "depth": 0,
+        "group": "列车",
+        "type": "跟随镜头",
+        "assets": [
+          "coach-1"
+        ],
+        "note": "独立车厢素材，与机车共用位置和倒影变换。"
+      },
+      {
+        "id": "coach-2",
+        "name": "第二节车厢",
+        "depth": 0,
+        "group": "列车",
+        "type": "跟随镜头",
+        "assets": [
+          "coach-2"
+        ],
+        "note": "独立车厢素材，与机车共用位置和倒影变换。"
+      },
+      {
+        "id": "steam",
+        "name": "列车蒸汽",
+        "depth": 0,
+        "group": "列车",
+        "type": "星空列车连续烟带",
+        "note": "沿用星空列车的翻卷烟带；从烟囱向车尾升起，暂停、换向与湖面倒影同步。"
+      },
+      {
+        "id": "rail-hills",
+        "name": "轨前小山",
+        "depth": 1.08,
+        "group": "轨道前方",
+        "type": "独立山丘 · 山脚材质融合",
+        "assets": [
+          "rail-hill"
+        ],
+        "note": "沿岸山丘局部遮住桥梁和列车；山脚与草地在 Shader 中按笔触起伏融合，局部接触阴影与倒影同步。与开阔路段交替，离开后轨道重新显露。"
+      },
+      {
+        "id": "shore",
+        "name": "草地与岸线",
+        "depth": 1,
+        "group": "水面",
+        "type": "程序化草岸与山脚融合 Shader",
+        "note": "浅湾、凸岸、草地色块与细碎水沿由世界坐标生成；经过小山时读取实际山脚纹理，草地与树根互相过渡。草岸与湖面共用轮廓遮罩。"
+      },
+      {
+        "id": "water",
+        "name": "湖面与实时倒影",
+        "depth": 0,
+        "group": "水面",
+        "type": "柔化倒影与细碎波光",
+        "note": "细波打散倒影，近处更柔和；青蓝水纹与碎光随水面缓慢起伏，桥、列车和近岸倒影保持同步。"
+      },
+      {
+        "id": "understory",
+        "name": "近景低灌木",
+        "depth": 2.6,
+        "group": "近景",
+        "type": "灌木与蕨叶群落",
+        "assets": [
+          "low-shrub",
+          "near-ferns"
+        ],
+        "note": "多种植物按路段形成疏密不同的群落；株高、间距、倾斜和叶色各异，留下自然的空隙。"
+      },
+      {
+        "id": "branches",
+        "name": "近景枝叶",
+        "depth": 4.1,
+        "group": "近景",
+        "type": "独立植株与错落风摆",
+        "assets": [
+          "leaves",
+          "low-shrub",
+          "near-ferns"
+        ],
+        "note": "高枝与低矮灌木交替经过，每株有自己的姿态与风摆；沿同一路线往返时，植物分布保持一致。"
+      }
+    ],
+    "assets": {
+      "assets/blue-sky-train/audio/layered-lake-r02/yunan-manxing-loop.mp3": "4b3681a8cb69bcc699565ff9eb26a66fab11af312340af949bb8338bb5327672",
+      "assets/blue-sky-train/clouds/r17/cloud-crown.png": "6ca20cbfc3c5d2e4ea415a9e335ea6d86657b2a1aa4a2ee2d6ce057c4aa40c97",
+      "assets/blue-sky-train/clouds/r17/cloud-fan.png": "ccee8d8e499b3fc7c788d216a277a6f9922fd891f3ff07253f00d47b7ee6b9a3",
+      "assets/blue-sky-train/clouds/r17/cloud-ribbon.png": "09b284d40777b6358e7a725c6547b24d1750b14d3c8bb510b1b9849a280a2942",
+      "assets/blue-sky-train/foliage/r09/understory.png": "384f421ce6dd3669d86ed1902efe235e0963525b697de13d2174ea91a7c1cf65",
+      "assets/blue-sky-train/foliage/r17/canopy-atlas.png": "2e755890850eefdb7688470ac6280d4c6e3e48f879578bf5dd05078d8838d32c",
+      "assets/blue-sky-train/layered-stream/preview.png": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5",
+      "assets/blue-sky-train/layered-stream/r01/bridge-deck.png": "f5a9d0f2fe3e9afd0996b3b548fcfcc53aa07a817d35589978e489d26a52cd18",
+      "assets/blue-sky-train/layered-stream/r01/bridge-piers.png": "e2b717ce562e06ed8880851eae15bb043ff0873162772db98e3ced39207909ad",
+      "assets/blue-sky-train/layered-stream/r01/coach-1.png": "2ff6e0404912531b7b9424178323f1806095e315934972db32fbc5bc527f21e3",
+      "assets/blue-sky-train/layered-stream/r01/coach-2.png": "c4d78ade2bcaa3bd7fd37ce6cd6745150b5740931126c9c250b053c01e64d894",
+      "assets/blue-sky-train/layered-stream/r01/engine.png": "577c79f5562047492eff2b787b6e8a261f8d600869d0bf777a2553f6881221e6",
+      "assets/blue-sky-train/layered-stream/r01/low-shrub.png": "eb0621d46ec46867798eb7c9698322f096b2141e22d4f9f09c5ffadf6d07b266",
+      "assets/blue-sky-train/layered-stream/r07/mountain-blue.png": "288d9a29af66aa11468573d29cadac2069d6b6f8466f7c0d98a8bde039b13cb9",
+      "assets/blue-sky-train/layered-stream/r11/lakeside-knoll.png": "99f97ee8a8338ac63e5c4e2066c5ebdedbdb52e06a1e0957cc76711c12136f80",
+      "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png": "071dbb3cea0aa6843906160fe7ba45ba4ddf8970f8987897fa16a5d607d2f91e",
+      "assets/blue-sky-train/layered-stream/r13/shore.png": "a5e4213f63eb88c7a4da47d5b682216ea881ee919da50f18f6174e57d5296382",
+      "assets/blue-sky-train/layered-stream/r20/mountain-haze.png": "0fac0b728f4642367889025f84c6980aedf33052315cfbe18fa354a2115bcaaf",
+      "assets/blue-sky-train/source/blue-sky-train.png": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    "buffers": {
+      "steam": [
+        432,
+        128
+      ],
+      "clouds": {
+        "method": "four-flat-painted-clouds",
+        "palette": [
+          [
+            253,
+            250,
+            241
+          ],
+          [
+            209,
+            234,
+            249
+          ],
+          [
+            167,
+            212,
+            243
+          ],
+          [
+            136,
+            193,
+            235
+          ]
+        ],
+        "pixelStep": 2,
+        "resolution": [
+          1024,
+          384
+        ],
+        "sourceTemplates": 3,
+        "bufferBytes": 3145728,
+        "layers": [
+          {
+            "far": true,
+            "seed": 42,
+            "instances": 4,
+            "windTime": 0
+          },
+          {
+            "far": false,
+            "seed": 42,
+            "instances": 4,
+            "windTime": 0
+          }
+        ],
+        "frames": 2
+      },
+      "shore": [
+        2048,
+        88
+      ]
+    }
+  },
+  "effectsHash": "5c85515a88250b0cecf88d6a8e91b7e52ac77cd3baae27f8d9c8cde91d84191c",
+  "functionalPassed": true,
+  "performance": {
+    "budgetMs": 16.666666666666668,
+    "worstCpuP95": 7.4000000059604645,
+    "lowestFps": 59.98200539838052,
+    "worstIntervalP95": 19.899999999999636,
+    "cpuMean": 4.047777777827449,
+    "passed": true
+  },
+  "archive": {
+    "kind": "published-report-snapshot",
+    "originalAuditSha256": "d67bf739b95186da694b1b22e9f5e327e12ea788bd5787b31302793309c57dbc",
+    "fixedFramesMatchSourceBaseline": true,
+    "screenshots": 18,
+    "omitted": [
+      "raw machine logs",
+      "duplicate measurement HTML",
+      "generated offline HTML bundle (distributed separately)"
+    ]
+  }
+}

@@ -1,0 +1,1888 @@
+{
+  "revision": "2026-10-24-r01",
+  "title": "晴昼 · 湖桥列车 / 原图 TA 拆层",
+  "width": 2048,
+  "height": 768,
+  "source": {
+    "file": "source/original.png",
+    "sha256": "37571a1f268b1e0721a37c3a6330321fbc155839c80ee17320645120e866d4d9",
+    "dimensions": [
+      2048,
+      768
+    ],
+    "colorSpace": "sRGB assumed, no embedded ICC",
+    "origin": "User attachment in this chat; original filename codex-clipboard-ee206197-c99f-47f5-9f5c-1be3d2f792c4.png",
+    "license": "User-supplied reference; no new license grant inferred"
+  },
+  "method": "Manually authored spatial guides + colour-constrained source-pixel ownership; exact visible RGB copied to cropped transparent PNG. imagegen auxiliary train selection rejected for silhouette/scale drift and glow; no generated pixels used in final layers.",
+  "coordinates": {
+    "origin": "top-left",
+    "xDirection": "right",
+    "yDirection": "down",
+    "units": "source pixels",
+    "bbox": "x,y,width,height; max edges exclusive",
+    "normalization": "x/2048,y/768,width/2048,height/768",
+    "alignment": "Place every crop at manifest x,y, scale 1, no rotation",
+    "pivot": "Proposed attachment only, not inferred original rig; pivotLocal = pivotSource - crop offset",
+    "alpha": "Straight RGBA; 0 or 255; no edge decontamination, expansion or feathering",
+    "ordering": "z ascending back to front; equal-source pixels never overlap"
+  },
+  "verification": {
+    "sourcePixelCount": 1572864,
+    "exportedLayerPixels": 1572864,
+    "changedPixels": 0,
+    "matchingPercent": 100,
+    "meanAbsoluteRGBError": 0,
+    "maxChannelError": 0,
+    "uncoveredPixels": 0,
+    "overlapPixels": 0,
+    "allLayersUseOriginalRGB": true,
+    "allLayerAlphaValues": [
+      0,
+      255
+    ],
+    "criterion": "Only static source-frame pixel reconstruction; not semantic mask correctness, background completeness or motion readiness."
+  },
+  "colors": [
+    {
+      "name": "深蓝天空",
+      "x": 1025,
+      "y": 40,
+      "rgb": [
+        3,
+        118,
+        250
+      ],
+      "hex": "#0376fa"
+    },
+    {
+      "name": "浅蓝空气",
+      "x": 834,
+      "y": 369,
+      "rgb": [
+        100,
+        194,
+        253
+      ],
+      "hex": "#64c2fd"
+    },
+    {
+      "name": "暖白云光",
+      "x": 1015,
+      "y": 263,
+      "rgb": [
+        251,
+        243,
+        232
+      ],
+      "hex": "#fbf3e8"
+    },
+    {
+      "name": "冷蓝云影",
+      "x": 1605,
+      "y": 183,
+      "rgb": [
+        146,
+        206,
+        252
+      ],
+      "hex": "#92cefc"
+    },
+    {
+      "name": "黄绿叶光",
+      "x": 1677,
+      "y": 405,
+      "rgb": [
+        173,
+        191,
+        57
+      ],
+      "hex": "#adbf39"
+    },
+    {
+      "name": "深青近树",
+      "x": 31,
+      "y": 662,
+      "rgb": [
+        18,
+        71,
+        61
+      ],
+      "hex": "#12473d"
+    },
+    {
+      "name": "车窗暖黄",
+      "x": 1253,
+      "y": 462,
+      "rgb": [
+        230,
+        178,
+        94
+      ],
+      "hex": "#e6b25e"
+    }
+  ],
+  "layers": [
+    {
+      "id": "sky",
+      "name": "蓝天可见底片",
+      "group": "远景",
+      "description": "天空负形，保留蓝色渐变与极淡薄雾。",
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        384
+      ],
+      "missing": "云层移开后，原先被云覆盖的天空为空缺。",
+      "status": "visible-plate",
+      "z": 0,
+      "file": "layers/00-sky.png",
+      "maskFile": "masks/00-sky.png",
+      "x": 0,
+      "y": 0,
+      "width": 2048,
+      "height": 464,
+      "pixels": 320731,
+      "bboxNormalized": [
+        0,
+        0,
+        1,
+        0.604167
+      ],
+      "pivotLocal": [
+        1024,
+        384
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 20.3915,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        111
+      ],
+      "sha256": "88d3b81d4c485bac3338a0afc8bdb54eb32c6141a5b1096a1127a27cd459bcce"
+    },
+    {
+      "id": "wisps",
+      "name": "高空碎云与亮点",
+      "group": "远景",
+      "description": "画面上方的小片云絮与细亮笔触；不将其认定为鸟。",
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        200
+      ],
+      "missing": "碎云背面的天空未补齐；极淡蓝色薄雾仍在底片。",
+      "status": "partial",
+      "z": 1,
+      "file": "layers/01-wisps.png",
+      "maskFile": "masks/01-wisps.png",
+      "x": 15,
+      "y": 33,
+      "width": 1190,
+      "height": 258,
+      "pixels": 7371,
+      "bboxNormalized": [
+        0.007324,
+        0.042969,
+        0.581055,
+        0.335938
+      ],
+      "pivotLocal": [
+        1009,
+        167
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.4686,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        147,
+        232
+      ],
+      "sha256": "4e5272f22c6034f25ede5ffc25071f8584adcbd2deae80623a05a5f382dda662"
+    },
+    {
+      "id": "contrail",
+      "name": "斜向凝结尾迹",
+      "group": "远景",
+      "description": "从左下到右上的一根细白线；不含假想飞机。",
+      "parent": "world",
+      "pivotSource": [
+        678,
+        205
+      ],
+      "missing": "移动或淡出会露出尾迹原位置的细线状缺口。",
+      "status": "visible-cutout",
+      "z": 2,
+      "file": "layers/02-contrail.png",
+      "maskFile": "masks/02-contrail.png",
+      "x": 673,
+      "y": 76,
+      "width": 311,
+      "height": 132,
+      "pixels": 634,
+      "bboxNormalized": [
+        0.328613,
+        0.098958,
+        0.151855,
+        0.171875
+      ],
+      "pivotLocal": [
+        5,
+        129
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0403,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        182,
+        232,
+        111
+      ],
+      "sha256": "7b345c60af8c278d9f27bf6e80e71d1d8d74779e4e59e8175a5784bbfd7986fe"
+    },
+    {
+      "id": "cloud-left",
+      "name": "左侧积云群",
+      "group": "远景",
+      "description": "左侧大团积云及相接低云，保留冷蓝阴影和乳白高光。",
+      "parent": "world",
+      "pivotSource": [
+        350,
+        390
+      ],
+      "missing": "与中央低云相接处为裁片接缝；底后被远山遮挡。",
+      "status": "connected-fragment",
+      "z": 3,
+      "file": "layers/03-cloud-left.png",
+      "maskFile": "masks/03-cloud-left.png",
+      "x": 0,
+      "y": 106,
+      "width": 760,
+      "height": 365,
+      "pixels": 151203,
+      "bboxNormalized": [
+        0,
+        0.138021,
+        0.371094,
+        0.47526
+      ],
+      "pivotLocal": [
+        350,
+        284
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 9.6132,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        217
+      ],
+      "sha256": "778ba0120accdc6640ff8c6a0c6b1fb36b1e7f9881785d1e7c45e1467560d969"
+    },
+    {
+      "id": "cloud-center",
+      "name": "中央低云群",
+      "group": "远景",
+      "description": "中央山谷上方低云，不能据一张图还原完整云体。",
+      "parent": "world",
+      "pivotSource": [
+        990,
+        429
+      ],
+      "missing": "左右交界连通，横向错开后需要云底与天空补绘。",
+      "status": "connected-fragment",
+      "z": 4,
+      "file": "layers/04-cloud-center.png",
+      "maskFile": "masks/04-cloud-center.png",
+      "x": 760,
+      "y": 209,
+      "width": 445,
+      "height": 260,
+      "pixels": 81717,
+      "bboxNormalized": [
+        0.371094,
+        0.272135,
+        0.217285,
+        0.338542
+      ],
+      "pivotLocal": [
+        230,
+        220
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 5.1954,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        232,
+        212
+      ],
+      "sha256": "a1b78554e50e527e0bb6f8887b1d118d700315cdb94212851b0db06586e32515"
+    },
+    {
+      "id": "cloud-right",
+      "name": "右侧高耸积云群",
+      "group": "远景",
+      "description": "右上体积最大的积云墙；画面上边与右边均截断。",
+      "parent": "world",
+      "pivotSource": [
+        1610,
+        300
+      ],
+      "missing": "上边、右边画幅外无信息；林坡后云形缺失。",
+      "status": "connected-fragment",
+      "z": 5,
+      "file": "layers/05-cloud-right.png",
+      "maskFile": "masks/05-cloud-right.png",
+      "x": 1205,
+      "y": 0,
+      "width": 843,
+      "height": 460,
+      "pixels": 265356,
+      "bboxNormalized": [
+        0.588379,
+        0,
+        0.411621,
+        0.598958
+      ],
+      "pivotLocal": [
+        405,
+        300
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 16.8709,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        177,
+        111
+      ],
+      "sha256": "60185f9c30efe11330986017b1d38ec47544ebc883eb34b8fb486d3c0f50599c"
+    },
+    {
+      "id": "mountains",
+      "name": "蓝色远山与谷地",
+      "group": "远景",
+      "description": "左至中央蓝色山系，桥洞中露出的山体也属于本层。",
+      "parent": "world",
+      "pivotSource": [
+        860,
+        520
+      ],
+      "missing": "石桥、岸树、列车和近树遮住的山体未恢复。",
+      "status": "visible-plate",
+      "z": 6,
+      "file": "layers/06-mountains.png",
+      "maskFile": "masks/06-mountains.png",
+      "x": 0,
+      "y": 362,
+      "width": 1315,
+      "height": 179,
+      "pixels": 77643,
+      "bboxNormalized": [
+        0,
+        0.471354,
+        0.64209,
+        0.233073
+      ],
+      "pivotLocal": [
+        860,
+        158
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 4.9364,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        141,
+        111,
+        232
+      ],
+      "sha256": "9e9ef67db38c8aae2ad6ad2481c563a10f076b9701ad5a0d928e8638d9f9d7cd"
+    },
+    {
+      "id": "hill-back",
+      "name": "右后方林木山坡",
+      "group": "远景",
+      "description": "从右上斜落至中央的蓝绿山坡，包含原有林纹。",
+      "parent": "world",
+      "pivotSource": [
+        1830,
+        530
+      ],
+      "missing": "前方林冠之后与右侧画幅外未补绘；不是完整地形。",
+      "status": "visible-plate",
+      "z": 7,
+      "file": "layers/07-hill-back.png",
+      "maskFile": "masks/07-hill-back.png",
+      "x": 1400,
+      "y": 247,
+      "width": 648,
+      "height": 223,
+      "pixels": 40454,
+      "bboxNormalized": [
+        0.683594,
+        0.321615,
+        0.316406,
+        0.290365
+      ],
+      "pivotLocal": [
+        430,
+        283
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 2.572,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        117,
+        232,
+        111
+      ],
+      "sha256": "6308dffc53fb63de9f7bf4e4f73fb6f995a4ec189af9303e4f06e2e3487f220f"
+    },
+    {
+      "id": "forest-left",
+      "name": "左岸中景树群",
+      "group": "中景",
+      "description": "桥前左岸树冠，亮黄绿叶片与青蓝背阴共存。",
+      "parent": "world",
+      "pivotSource": [
+        460,
+        548
+      ],
+      "missing": "与左近树交叠区域、桥前被遮树根未恢复。",
+      "status": "visible-plate",
+      "z": 24,
+      "file": "layers/08-forest-left.png",
+      "maskFile": "masks/08-forest-left.png",
+      "x": 111,
+      "y": 415,
+      "width": 900,
+      "height": 126,
+      "pixels": 20236,
+      "bboxNormalized": [
+        0.054199,
+        0.540365,
+        0.439453,
+        0.164063
+      ],
+      "pivotLocal": [
+        349,
+        133
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.2866,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        152
+      ],
+      "sha256": "e3b887fa25533e4c4a8067b4b195db7295ac2a5bd86bc3aac1eff1da0e09f290"
+    },
+    {
+      "id": "forest-right",
+      "name": "右岸中景林冠",
+      "group": "中景",
+      "description": "列车右后与右侧圆丘状林冠，在桥前形成遮挡。",
+      "parent": "world",
+      "pivotSource": [
+        1560,
+        548
+      ],
+      "missing": "与后坡的笔触交界需补叠边，近树之后缺失。",
+      "status": "visible-plate",
+      "z": 25,
+      "file": "layers/09-forest-right.png",
+      "maskFile": "masks/09-forest-right.png",
+      "x": 1141,
+      "y": 377,
+      "width": 907,
+      "height": 164,
+      "pixels": 75762,
+      "bboxNormalized": [
+        0.557129,
+        0.490885,
+        0.442871,
+        0.213542
+      ],
+      "pivotLocal": [
+        419,
+        171
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 4.8168,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        187,
+        232
+      ],
+      "sha256": "c57dbfb1747966eb15a8b615fd41212ed116bcdfe314371d205857029e39fe22"
+    },
+    {
+      "id": "bank-shrubs",
+      "name": "中央岸边低灌木",
+      "group": "中景",
+      "description": "桥墩前方的低灌木和细碎树冠。",
+      "parent": "world",
+      "pivotSource": [
+        899,
+        550
+      ],
+      "missing": "被墩脚与草岸混合遮挡的根部不完整。",
+      "status": "connected-fragment",
+      "z": 26,
+      "file": "layers/10-bank-shrubs.png",
+      "maskFile": "masks/10-bank-shrubs.png",
+      "x": 602,
+      "y": 480,
+      "width": 598,
+      "height": 61,
+      "pixels": 2864,
+      "bboxNormalized": [
+        0.293945,
+        0.625,
+        0.291992,
+        0.079427
+      ],
+      "pivotLocal": [
+        297,
+        70
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.1821,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        222,
+        232,
+        111
+      ],
+      "sha256": "c454813cf0689400198e719f0e1e28a8dedd0f4ca09a6c592d187694128e11d3"
+    },
+    {
+      "id": "bridge-arches",
+      "name": "石拱桥墩与拱肩",
+      "group": "中景",
+      "description": "只保留可见石构；桥洞透明，洞内山体不归桥。",
+      "parent": "bridge",
+      "pivotSource": [
+        860,
+        486
+      ],
+      "missing": "植被遮住的下段桥墩、两端桥台及列车后背景需补齐。",
+      "status": "visible-cutout",
+      "z": 12,
+      "file": "layers/11-bridge-arches.png",
+      "maskFile": "masks/11-bridge-arches.png",
+      "x": 403,
+      "y": 489,
+      "width": 962,
+      "height": 54,
+      "pixels": 9549,
+      "bboxNormalized": [
+        0.196777,
+        0.636719,
+        0.469727,
+        0.070313
+      ],
+      "pivotLocal": [
+        457,
+        -3
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.6071,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        207,
+        111,
+        232
+      ],
+      "sha256": "4617b3a29015653f366535c7dac0f52b3e8d93de4983314fb75eb91911651891"
+    },
+    {
+      "id": "bridge-deck",
+      "name": "桥面、轨道与细栏杆",
+      "group": "中景",
+      "description": "桥面整体保持刚性；与桥墩拆开仅便于查看结构。",
+      "parent": "bridge",
+      "pivotSource": [
+        860,
+        479
+      ],
+      "missing": "列车后面的栏杆及轨道被挖空，需修出连续桥面。",
+      "status": "visible-cutout",
+      "z": 13,
+      "file": "layers/12-bridge-deck.png",
+      "maskFile": "masks/12-bridge-deck.png",
+      "x": 403,
+      "y": 471,
+      "width": 962,
+      "height": 18,
+      "pixels": 9424,
+      "bboxNormalized": [
+        0.196777,
+        0.613281,
+        0.469727,
+        0.023438
+      ],
+      "pivotLocal": [
+        457,
+        8
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.5992,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        232,
+        172
+      ],
+      "sha256": "4433d7d5141ec7149dbe02c62f63af1ab5a7f2c830cfbd2cce6e0045d9debc34"
+    },
+    {
+      "id": "steam",
+      "name": "可确认的蒸汽烟根",
+      "group": "主体",
+      "description": "只分离贴近烟囱、连续可辨的白色烟根。",
+      "parent": "train",
+      "pivotSource": [
+        1172,
+        451
+      ],
+      "missing": "约 x1247 后与远云同色连通；烟尾范围无法唯一判定。",
+      "status": "partial",
+      "z": 14,
+      "file": "layers/13-steam.png",
+      "maskFile": "masks/13-steam.png",
+      "x": 1173,
+      "y": 429,
+      "width": 74,
+      "height": 19,
+      "pixels": 390,
+      "bboxNormalized": [
+        0.572754,
+        0.558594,
+        0.036133,
+        0.02474
+      ],
+      "pivotLocal": [
+        -1,
+        22
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0248,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        136,
+        111
+      ],
+      "sha256": "ce4ea20b2e8672a1db8fbf10891a50e30a9e511702159152e750cc229f23fb03"
+    },
+    {
+      "id": "engine",
+      "name": "机车车体与烟囱",
+      "group": "主体",
+      "description": "机车深蓝车体，后部箱体保留原图造型，不推测内部结构。",
+      "parent": "train",
+      "pivotSource": [
+        1198,
+        470
+      ],
+      "missing": "轮组和连杆的原位置是透明缺口，车体背面无信息。",
+      "status": "visible-cutout",
+      "z": 15,
+      "file": "layers/14-engine.png",
+      "maskFile": "masks/14-engine.png",
+      "x": 1152,
+      "y": 450,
+      "width": 87,
+      "height": 28,
+      "pixels": 1358,
+      "bboxNormalized": [
+        0.5625,
+        0.585938,
+        0.04248,
+        0.036458
+      ],
+      "pivotLocal": [
+        46,
+        20
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0863,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        122,
+        232
+      ],
+      "sha256": "ee837b2f49bb8196af9043ec6b921715227a888c98e431e247c3ba5168953a56"
+    },
+    {
+      "id": "coach",
+      "name": "单节客车车体",
+      "group": "主体",
+      "description": "原图只可确认一节客车；车窗像素另层。",
+      "parent": "train",
+      "pivotSource": [
+        1290,
+        470
+      ],
+      "missing": "车窗和转向架原位置需恢复遮挡后的底色。",
+      "status": "visible-cutout",
+      "z": 16,
+      "file": "layers/15-coach.png",
+      "maskFile": "masks/15-coach.png",
+      "x": 1242,
+      "y": 455,
+      "width": 101,
+      "height": 23,
+      "pixels": 1746,
+      "bboxNormalized": [
+        0.606445,
+        0.592448,
+        0.049316,
+        0.029948
+      ],
+      "pivotLocal": [
+        48,
+        15
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.111,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        157,
+        232,
+        111
+      ],
+      "sha256": "c066008e6293bb903e07c0d108cf56e588abf60c107bc78d886da850b6311132"
+    },
+    {
+      "id": "coupling",
+      "name": "机车与客车连接件",
+      "group": "主体",
+      "description": "两车之间可见的短连接像素。",
+      "parent": "train",
+      "pivotSource": [
+        1240,
+        471
+      ],
+      "missing": "像素很少，不能据此推断车钩三维形制或拉伸行程。",
+      "status": "partial",
+      "z": 17,
+      "file": "layers/16-coupling.png",
+      "maskFile": "masks/16-coupling.png",
+      "x": 1237,
+      "y": 465,
+      "width": 7,
+      "height": 11,
+      "pixels": 51,
+      "bboxNormalized": [
+        0.604004,
+        0.605469,
+        0.003418,
+        0.014323
+      ],
+      "pivotLocal": [
+        3,
+        6
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0032,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        192
+      ],
+      "sha256": "2dfb59b0ba0dfa9d3f1439c82164987ee4efa4855f67bbfd2c21f8a23d806af2"
+    },
+    {
+      "id": "engine-leading-wheels",
+      "name": "机车前部可见轮组",
+      "group": "主体",
+      "description": "保留前部小轮的可见像素，非完整圆轮贴图。",
+      "parent": "engine",
+      "pivotSource": [
+        1168,
+        474
+      ],
+      "missing": "车体遮住轮顶，转动时会露出缺口。",
+      "status": "partial",
+      "z": 18,
+      "file": "layers/17-engine-leading-wheels.png",
+      "maskFile": "masks/17-engine-leading-wheels.png",
+      "x": 1164,
+      "y": 472,
+      "width": 17,
+      "height": 6,
+      "pixels": 86,
+      "bboxNormalized": [
+        0.568359,
+        0.614583,
+        0.008301,
+        0.007813
+      ],
+      "pivotLocal": [
+        4,
+        2
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0055,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        227,
+        232
+      ],
+      "sha256": "10d43fd18881fa5414a30234f115498cb674a200ab44515b014e560984ba9c3a"
+    },
+    {
+      "id": "engine-driving-wheels",
+      "name": "机车驱动轮可见片",
+      "group": "主体",
+      "description": "驱动区轮缘与轮暗部；连杆另层。",
+      "parent": "engine",
+      "pivotSource": [
+        1206,
+        474
+      ],
+      "missing": "原图不足以可靠分出每一根辐条和完整轮周。",
+      "status": "partial",
+      "z": 19,
+      "file": "layers/18-engine-driving-wheels.png",
+      "maskFile": "masks/18-engine-driving-wheels.png",
+      "x": 1183,
+      "y": 472,
+      "width": 54,
+      "height": 6,
+      "pixels": 231,
+      "bboxNormalized": [
+        0.577637,
+        0.614583,
+        0.026367,
+        0.007813
+      ],
+      "pivotLocal": [
+        23,
+        2
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0147,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        202,
+        111
+      ],
+      "sha256": "d842510fce5c8bd31db0e1e91e5598d4c3745f9ad7cb633ac6fc04d4646e7eba"
+    },
+    {
+      "id": "engine-rod",
+      "name": "机车可见连杆",
+      "group": "主体",
+      "description": "沿轮缘的细蓝色横向连杆笔触。",
+      "parent": "engine",
+      "pivotSource": [
+        1205,
+        472
+      ],
+      "missing": "被车体与轮子遮住的连杆未补齐，不适合直接摆动。",
+      "status": "partial",
+      "z": 20,
+      "file": "layers/19-engine-rod.png",
+      "maskFile": "masks/19-engine-rod.png",
+      "x": 1181,
+      "y": 470,
+      "width": 54,
+      "height": 4,
+      "pixels": 39,
+      "bboxNormalized": [
+        0.57666,
+        0.611979,
+        0.026367,
+        0.005208
+      ],
+      "pivotLocal": [
+        24,
+        2
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0025,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        166,
+        111,
+        232
+      ],
+      "sha256": "ef7678b658022d3ccb730f1f25144a886a8411ae9b1069eea189c47b852e26e9"
+    },
+    {
+      "id": "coach-bogie-front",
+      "name": "客车前转向架可见片",
+      "group": "主体",
+      "description": "靠近机车的一组轮架像素。",
+      "parent": "coach",
+      "pivotSource": [
+        1256,
+        474
+      ],
+      "missing": "仅可见下缘；完整轮廓和轮轴需补绘。",
+      "status": "partial",
+      "z": 21,
+      "file": "layers/20-coach-bogie-front.png",
+      "maskFile": "masks/20-coach-bogie-front.png",
+      "x": 1249,
+      "y": 472,
+      "width": 18,
+      "height": 6,
+      "pixels": 102,
+      "bboxNormalized": [
+        0.609863,
+        0.614583,
+        0.008789,
+        0.007813
+      ],
+      "pivotLocal": [
+        7,
+        2
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0065,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        232,
+        131
+      ],
+      "sha256": "ec636017fff6a7f046b3c849842d7f969026693f4e30d0b9b024f49449fc42cb"
+    },
+    {
+      "id": "coach-bogie-rear",
+      "name": "客车后转向架可见片",
+      "group": "主体",
+      "description": "客车末端可见的轮架像素。",
+      "parent": "coach",
+      "pivotSource": [
+        1327,
+        474
+      ],
+      "missing": "末端与树丛、桥面相接，轮廓有不确定性。",
+      "status": "partial",
+      "z": 22,
+      "file": "layers/21-coach-bogie-rear.png",
+      "maskFile": "masks/21-coach-bogie-rear.png",
+      "x": 1317,
+      "y": 472,
+      "width": 22,
+      "height": 6,
+      "pixels": 112,
+      "bboxNormalized": [
+        0.643066,
+        0.614583,
+        0.010742,
+        0.007813
+      ],
+      "pivotLocal": [
+        10,
+        2
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0071,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        127
+      ],
+      "sha256": "3d23c665b96710b46a55a33cd6b1df12f6bf6a5c468205a71aace758c8eb3aa5"
+    },
+    {
+      "id": "windows",
+      "name": "客车暖色窗面",
+      "group": "主体",
+      "description": "独立保留黄色窗面与原画的高光差异。",
+      "parent": "coach",
+      "pivotSource": [
+        1290,
+        462
+      ],
+      "missing": "不是完整玻璃材质；窗框和背板仍属于车体。",
+      "status": "visible-cutout",
+      "z": 23,
+      "file": "layers/22-windows.png",
+      "maskFile": "masks/22-windows.png",
+      "x": 1248,
+      "y": 461,
+      "width": 83,
+      "height": 4,
+      "pixels": 84,
+      "bboxNormalized": [
+        0.609375,
+        0.60026,
+        0.040527,
+        0.005208
+      ],
+      "pivotLocal": [
+        42,
+        1
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0053,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        162,
+        232
+      ],
+      "sha256": "613ee13a7eb2b601729739371a16635ea162151b6e662ab73c74379e4e393f12"
+    },
+    {
+      "id": "shore",
+      "name": "草岸与水陆交界",
+      "group": "中景",
+      "description": "细而明亮的草岸，保留水边的青蓝暗线。",
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        557
+      ],
+      "missing": "近树后的草岸缺失，水平移动会露出断口。",
+      "status": "visible-plate",
+      "z": 27,
+      "file": "layers/23-shore.png",
+      "maskFile": "masks/23-shore.png",
+      "x": 0,
+      "y": 541,
+      "width": 2037,
+      "height": 22,
+      "pixels": 37602,
+      "bboxNormalized": [
+        0,
+        0.704427,
+        0.994629,
+        0.028646
+      ],
+      "pivotLocal": [
+        1024,
+        16
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 2.3907,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        197,
+        232,
+        111
+      ],
+      "sha256": "58cfe52aa0419a24634ab95c2c5e91f704bf7aa5547766a155d656211eed5b84"
+    },
+    {
+      "id": "water",
+      "name": "湖面底片与云山倒影",
+      "group": "水面",
+      "description": "保留原画湖水、天空、云山倒影；此层不是纯色水底。",
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        550
+      ],
+      "missing": "桥、植被与水纹被单列后留下孔洞；近树后水面缺失。",
+      "status": "visible-plate",
+      "z": 8,
+      "file": "layers/24-water.png",
+      "maskFile": "masks/24-water.png",
+      "x": 0,
+      "y": 563,
+      "width": 2048,
+      "height": 205,
+      "pixels": 246898,
+      "bboxNormalized": [
+        0,
+        0.733073,
+        1,
+        0.266927
+      ],
+      "pivotLocal": [
+        1024,
+        -13
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 15.6974,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        232
+      ],
+      "sha256": "31b364130ccfb61388f25bd3ae8099fca000d278dd940eab0df282ec40a05d81"
+    },
+    {
+      "id": "reflection-forest",
+      "name": "湖中植被倒影",
+      "group": "水面",
+      "description": "按可见青绿反射笔触分离；不重新生成镜像。",
+      "parent": "world",
+      "pivotSource": [
+        1530,
+        550
+      ],
+      "missing": "与蓝色倒影交界及被近树遮住部分无法完全区分。",
+      "status": "partial",
+      "z": 9,
+      "file": "layers/25-reflection-forest.png",
+      "maskFile": "masks/25-reflection-forest.png",
+      "x": 80,
+      "y": 563,
+      "width": 1860,
+      "height": 120,
+      "pixels": 30233,
+      "bboxNormalized": [
+        0.039063,
+        0.733073,
+        0.908203,
+        0.15625
+      ],
+      "pivotLocal": [
+        1450,
+        -13
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.9222,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        232,
+        196
+      ],
+      "sha256": "9f18f4d4dda2468a30a8c8f1ef770c2c88fd37c4dc91baf1f2f866aa7de90aef"
+    },
+    {
+      "id": "reflection-bridge",
+      "name": "湖中石桥倒影",
+      "group": "水面",
+      "description": "提取原图中的蓝色桥墩、桥面反射。",
+      "parent": "bridge",
+      "pivotSource": [
+        860,
+        550
+      ],
+      "missing": "按原画局部变形保留，不能用严格上下翻转替换。",
+      "status": "visible-cutout",
+      "z": 10,
+      "file": "layers/26-reflection-bridge.png",
+      "maskFile": "masks/26-reflection-bridge.png",
+      "x": 403,
+      "y": 563,
+      "width": 962,
+      "height": 68,
+      "pixels": 14958,
+      "bboxNormalized": [
+        0.196777,
+        0.733073,
+        0.469727,
+        0.088542
+      ],
+      "pivotLocal": [
+        457,
+        -13
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.951,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        161,
+        111
+      ],
+      "sha256": "4b82f672a0571715a971c4b7b76d23d912549978858d2c5ae6380ae35ed06bf3"
+    },
+    {
+      "id": "water-strokes",
+      "name": "长条水纹与岸边亮线",
+      "group": "水面",
+      "description": "只单列能确认的长水平亮笔触。",
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        620
+      ],
+      "missing": "与白云倒影同色相连的小纹仍在水底片；原位置留细孔。",
+      "status": "partial",
+      "z": 11,
+      "file": "layers/27-water-strokes.png",
+      "maskFile": "masks/27-water-strokes.png",
+      "x": 216,
+      "y": 563,
+      "width": 1667,
+      "height": 131,
+      "pixels": 3543,
+      "bboxNormalized": [
+        0.105469,
+        0.733073,
+        0.813965,
+        0.170573
+      ],
+      "pivotLocal": [
+        808,
+        57
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.2253,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        126,
+        111,
+        232
+      ],
+      "sha256": "1fcd89b3afe9641f62d9ded4e2a2d27b4fc3a7c9561cbc04d0f42865919c6a74"
+    },
+    {
+      "id": "fg-left-trunks",
+      "name": "左近景可见枝干",
+      "group": "前景",
+      "description": "叶片间露出的细暗枝干片段。",
+      "parent": "world",
+      "pivotSource": [
+        38,
+        760
+      ],
+      "missing": "被叶冠遮住的枝干不完整，支点仅为工作参考。",
+      "status": "partial",
+      "z": 28,
+      "file": "layers/28-fg-left-trunks.png",
+      "maskFile": "masks/28-fg-left-trunks.png",
+      "x": 46,
+      "y": 551,
+      "width": 54,
+      "height": 92,
+      "pixels": 1319,
+      "bboxNormalized": [
+        0.022461,
+        0.717448,
+        0.026367,
+        0.119792
+      ],
+      "pivotLocal": [
+        -8,
+        209
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.0839,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        132,
+        232,
+        111
+      ],
+      "sha256": "fc97175a6316daa5f06c8046e8aa8c6b431f270044c48caed2d54df3fe94361f"
+    },
+    {
+      "id": "fg-left-crown",
+      "name": "左侧上部近景叶冠",
+      "group": "前景",
+      "description": "左边缘高树，深暗框景并遮住中远景。",
+      "parent": "fg-left",
+      "pivotSource": [
+        63,
+        625
+      ],
+      "missing": "左边框外、叶冠背后和与下部相接处没有补绘。",
+      "status": "connected-fragment",
+      "z": 29,
+      "file": "layers/29-fg-left-crown.png",
+      "maskFile": "masks/29-fg-left-crown.png",
+      "x": 0,
+      "y": 329,
+      "width": 211,
+      "height": 315,
+      "pixels": 36763,
+      "bboxNormalized": [
+        0,
+        0.428385,
+        0.103027,
+        0.410156
+      ],
+      "pivotLocal": [
+        63,
+        296
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 2.3373,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        111,
+        167
+      ],
+      "sha256": "1fa3da5e32a8daac5b66f456c5f66b2d49aaff0763b58551317ec6c4725f548c"
+    },
+    {
+      "id": "fg-left-bough",
+      "name": "左侧伸入湖面的枝叶",
+      "group": "前景",
+      "description": "朝画面中间伸出的下部黄绿叶簇。",
+      "parent": "fg-left",
+      "pivotSource": [
+        196,
+        645
+      ],
+      "missing": "根部与底部灌木相接；摆开会露出透明切口。",
+      "status": "connected-fragment",
+      "z": 30,
+      "file": "layers/30-fg-left-bough.png",
+      "maskFile": "masks/30-fg-left-bough.png",
+      "x": 164,
+      "y": 563,
+      "width": 243,
+      "height": 153,
+      "pixels": 16736,
+      "bboxNormalized": [
+        0.080078,
+        0.733073,
+        0.118652,
+        0.199219
+      ],
+      "pivotLocal": [
+        32,
+        82
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.064,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        202,
+        232
+      ],
+      "sha256": "d295e0f1d10a726eb3f75a39c227ddba06d2eb237e49f2318e2809d953e061bc"
+    },
+    {
+      "id": "fg-left-base",
+      "name": "左下近景灌木底片",
+      "group": "前景",
+      "description": "左下角最暗的密集灌木与叶冠根部。",
+      "parent": "world",
+      "pivotSource": [
+        150,
+        767
+      ],
+      "missing": "底边、左边画幅外不可见，与上叶冠有连通裁缝。",
+      "status": "connected-fragment",
+      "z": 31,
+      "file": "layers/31-fg-left-base.png",
+      "maskFile": "masks/31-fg-left-base.png",
+      "x": 0,
+      "y": 644,
+      "width": 418,
+      "height": 124,
+      "pixels": 24709,
+      "bboxNormalized": [
+        0,
+        0.838542,
+        0.204102,
+        0.161458
+      ],
+      "pivotLocal": [
+        150,
+        123
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.571,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        227,
+        111
+      ],
+      "sha256": "74cd7bedac32afa0496ace3f135e72d8eaacc1ca0baf5cbe68e64d49034e3f6d"
+    },
+    {
+      "id": "fg-bottom",
+      "name": "下沿中央与偏右小灌木",
+      "group": "前景",
+      "description": "只保留画面下沿实际可见的小灌木，不补加植物。",
+      "parent": "world",
+      "pivotSource": [
+        650,
+        767
+      ],
+      "missing": "底边裁切，多个可见叶簇之间的连接无法推断。",
+      "status": "partial",
+      "z": 32,
+      "file": "layers/32-fg-bottom.png",
+      "maskFile": "masks/32-fg-bottom.png",
+      "x": 380,
+      "y": 653,
+      "width": 1154,
+      "height": 115,
+      "pixels": 23703,
+      "bboxNormalized": [
+        0.185547,
+        0.85026,
+        0.563477,
+        0.14974
+      ],
+      "pivotLocal": [
+        270,
+        114
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.507,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        191,
+        111,
+        232
+      ],
+      "sha256": "e04481addc4b63ddef7ead98a6d18a7ea54dd35d7bfd4f081543bea0041c010e"
+    },
+    {
+      "id": "fg-right-trunks",
+      "name": "右近景可见枝干",
+      "group": "前景",
+      "description": "右叶冠间露出的斜枝干片段。",
+      "parent": "world",
+      "pivotSource": [
+        2013,
+        767
+      ],
+      "missing": "树冠后主干缺失，不能直接当完整骨架使用。",
+      "status": "partial",
+      "z": 33,
+      "file": "layers/33-fg-right-trunks.png",
+      "maskFile": "masks/33-fg-right-trunks.png",
+      "x": 1940,
+      "y": 495,
+      "width": 106,
+      "height": 184,
+      "pixels": 1657,
+      "bboxNormalized": [
+        0.947266,
+        0.644531,
+        0.051758,
+        0.239583
+      ],
+      "pivotLocal": [
+        73,
+        272
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.1053,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        232,
+        156
+      ],
+      "sha256": "be21bdb2ed5433245acd13b118412c7ef40cb49ebfe2f50c67b8ef2ce26570c8"
+    },
+    {
+      "id": "fg-right-crown",
+      "name": "右上近景叶冠",
+      "group": "前景",
+      "description": "右边缘伸入画面的高树叶冠。",
+      "parent": "fg-right",
+      "pivotSource": [
+        1980,
+        614
+      ],
+      "missing": "右侧画幅外、枝干遮挡及底部连接处需补绘。",
+      "status": "connected-fragment",
+      "z": 34,
+      "file": "layers/34-fg-right-crown.png",
+      "maskFile": "masks/34-fg-right-crown.png",
+      "x": 1786,
+      "y": 366,
+      "width": 262,
+      "height": 265,
+      "pixels": 30555,
+      "bboxNormalized": [
+        0.87207,
+        0.476563,
+        0.12793,
+        0.345052
+      ],
+      "pivotLocal": [
+        194,
+        248
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.9426,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        232,
+        121,
+        111
+      ],
+      "sha256": "597793574549b97fedadbdbe82fbee9929e0113e8e1eb8e47c5e498f1c6d8222"
+    },
+    {
+      "id": "fg-right-bough",
+      "name": "右下伸入湖面的枝叶",
+      "group": "前景",
+      "description": "靠中央的右下亮叶和横向伸出的分枝。",
+      "parent": "fg-right",
+      "pivotSource": [
+        1831,
+        726
+      ],
+      "missing": "可见根部被深色灌木遮住，错位时露出连接缺口。",
+      "status": "connected-fragment",
+      "z": 35,
+      "file": "layers/35-fg-right-bough.png",
+      "maskFile": "masks/35-fg-right-bough.png",
+      "x": 1610,
+      "y": 649,
+      "width": 290,
+      "height": 118,
+      "pixels": 15451,
+      "bboxNormalized": [
+        0.786133,
+        0.845052,
+        0.141602,
+        0.153646
+      ],
+      "pivotLocal": [
+        221,
+        77
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 0.9823,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        111,
+        137,
+        232
+      ],
+      "sha256": "7fb7484ec428c06ab8d131d9901923e3e935f8d7bb80d33e36a97e0b55c0b3d4"
+    },
+    {
+      "id": "fg-right-base",
+      "name": "右下近景灌木底片",
+      "group": "前景",
+      "description": "右下深暗林叶底片，压住湖面倒影。",
+      "parent": "world",
+      "pivotSource": [
+        1960,
+        767
+      ],
+      "missing": "右、下画幅外无信息；叶冠背后的湖面尚未补齐。",
+      "status": "connected-fragment",
+      "z": 36,
+      "file": "layers/36-fg-right-base.png",
+      "maskFile": "masks/36-fg-right-base.png",
+      "x": 1572,
+      "y": 631,
+      "width": 476,
+      "height": 137,
+      "pixels": 21594,
+      "bboxNormalized": [
+        0.767578,
+        0.821615,
+        0.232422,
+        0.178385
+      ],
+      "pivotLocal": [
+        388,
+        136
+      ],
+      "frameAlignment": "top-left source pixel; place at (x,y), scale 1, no rotation",
+      "coveragePct": 1.3729,
+      "alpha": "binary 0/255; straight/unassociated",
+      "rgbSource": "exact original pixels, including existing antialiased edge colours",
+      "color": [
+        172,
+        232,
+        111
+      ],
+      "sha256": "0c66c76bf40a52936db5fb6256f368ba9462426d99a4d8541981430ffbc539b9"
+    }
+  ],
+  "repairRegions": [
+    {
+      "id": "R01",
+      "name": "天空在云后与尾迹后的缺口",
+      "rect": [
+        0,
+        0,
+        2048,
+        473
+      ],
+      "layers": [
+        "sky",
+        "cloud-left",
+        "cloud-center",
+        "cloud-right",
+        "wisps",
+        "contrail"
+      ],
+      "type": "occluded",
+      "priority": "P1",
+      "trigger": "云群或细尾迹发生位移、淡出；云缘后露出原位置的透明负形。",
+      "note": "可准确测到已抠走的原位置；隐藏天空的真实颜色只能补绘估计。",
+      "maskIds": [
+        "cloud-left",
+        "cloud-center",
+        "cloud-right",
+        "wisps",
+        "contrail"
+      ],
+      "maskFile": "masks/repair-R01.png"
+    },
+    {
+      "id": "R02",
+      "name": "远山 / 云在桥、列车与林木之后",
+      "rect": [
+        85,
+        365,
+        1950,
+        192
+      ],
+      "layers": [
+        "mountains",
+        "hill-back",
+        "forest-left",
+        "forest-right",
+        "bridge-arches",
+        "bridge-deck",
+        "engine",
+        "coach"
+      ],
+      "type": "occluded",
+      "priority": "P1",
+      "trigger": "镜头视差或岸树移开，桥洞及山脚暴露缺失区域。",
+      "note": "本框是保守检查范围，不是完整隐藏轮廓。",
+      "maskIds": [
+        "bridge-arches",
+        "bridge-deck",
+        "forest-left",
+        "forest-right",
+        "bank-shrubs",
+        "engine",
+        "coach"
+      ],
+      "maskFile": "masks/repair-R02.png"
+    },
+    {
+      "id": "R03",
+      "name": "列车原位置的轨道、栏杆和远景",
+      "rect": [
+        1148,
+        446,
+        202,
+        35
+      ],
+      "layers": [
+        "bridge-deck",
+        "engine",
+        "coach",
+        "coupling"
+      ],
+      "type": "occluded",
+      "priority": "P0",
+      "trigger": "列车沿桥移动后，x1151–1344 附近的栏杆和远山缺口直接可见。",
+      "note": "需先做一条连续的桥面与背景，再讨论列车平移。",
+      "maskIds": [
+        "engine",
+        "coach",
+        "coupling",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear",
+        "windows"
+      ],
+      "maskFile": "masks/repair-R03.png"
+    },
+    {
+      "id": "R04",
+      "name": "轮组、连杆与窗面背后的结构",
+      "rect": [
+        1150,
+        451,
+        199,
+        30
+      ],
+      "layers": [
+        "engine",
+        "coach",
+        "windows",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear"
+      ],
+      "type": "component",
+      "priority": "P0",
+      "trigger": "轮子转动、连杆摆动或窗面透明度降低，将露出缺轮周与底板孔洞。",
+      "note": "完整圆周、轮轴、辐条、车体被遮面没有源图证据。pivot 仅为拟定绑定点。",
+      "maskIds": [
+        "windows",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear"
+      ],
+      "maskFile": "masks/repair-R04.png"
+    },
+    {
+      "id": "R05",
+      "name": "烟根与远云混合区",
+      "rect": [
+        1170,
+        413,
+        238,
+        40
+      ],
+      "layers": [
+        "steam",
+        "cloud-right"
+      ],
+      "type": "ambiguous",
+      "priority": "P1",
+      "trigger": "烟从烟囱分离后，原烟根留下细白形缺口；尾烟与云无法唯一划界。",
+      "note": "只提取可辨烟根；没有将整条远云当作列车蒸汽。",
+      "maskIds": [
+        "steam"
+      ],
+      "maskFile": "masks/repair-R05.png"
+    },
+    {
+      "id": "R06",
+      "name": "两侧与下沿近树背后的湖面、草岸",
+      "rect": [
+        0,
+        326,
+        2048,
+        442
+      ],
+      "layers": [
+        "water",
+        "shore",
+        "reflection-forest",
+        "fg-left-crown",
+        "fg-right-crown"
+      ],
+      "type": "occluded",
+      "priority": "P0",
+      "trigger": "叶簇摆开或镜头移动，会暴露枝叶原位置的空洞，连通叶簇的接缝也会张开。",
+      "note": "保守区域通过前景实际 alpha 标记，叶间原有孔洞仍保持透明。",
+      "maskIds": [
+        "fg-left-trunks",
+        "fg-left-crown",
+        "fg-left-bough",
+        "fg-left-base",
+        "fg-bottom",
+        "fg-right-trunks",
+        "fg-right-crown",
+        "fg-right-bough",
+        "fg-right-base"
+      ],
+      "maskFile": "masks/repair-R06.png"
+    },
+    {
+      "id": "R07",
+      "name": "水面在独立倒影和亮纹后的底片",
+      "rect": [
+        90,
+        553,
+        1890,
+        215
+      ],
+      "layers": [
+        "water",
+        "reflection-forest",
+        "reflection-bridge",
+        "water-strokes"
+      ],
+      "type": "occluded",
+      "priority": "P1",
+      "trigger": "倒影或水纹错位后会露出湖底片透明负形。",
+      "note": "云山倒影仍与水底片合绘；未发现可可靠抠出的完整列车倒影，需另行补绘或重建。",
+      "maskIds": [
+        "reflection-forest",
+        "reflection-bridge",
+        "water-strokes"
+      ],
+      "maskFile": "masks/repair-R07.png"
+    },
+    {
+      "id": "R08",
+      "name": "四边画幅外",
+      "rect": [
+        0,
+        0,
+        2048,
+        768
+      ],
+      "layers": [
+        "cloud-right",
+        "hill-back",
+        "fg-left-base",
+        "fg-right-base",
+        "fg-bottom",
+        "water"
+      ],
+      "type": "out-of-frame",
+      "priority": "P1",
+      "trigger": "平移、缩放或改画幅后，四边会出现没有原画数据的区域。",
+      "note": "无图像外真值。示意余量：左右各128 px、上下各64 px，仅为后续工作建议，非已补绘。",
+      "maskIds": [],
+      "maskFile": "masks/repair-R08.png"
+    }
+  ],
+  "limitations": [
+    "Source-visible fragments only. No completed hidden background or full moving parts.",
+    "Binary ownership preserves source edge colour but may retain a blue fringe against a different backdrop.",
+    "Connected clouds and foliage have artificial cut boundaries; need painted overlap before independent deformation.",
+    "Colour-based semantic boundaries are approximate, especially blue foliage, steam/cloud transitions and reflections. Pixel equality does not certify those boundaries.",
+    "Reflection layer contains original painterly distortions. No independently identifiable complete train reflection is claimed.",
+    "Motion, shaders, seamless scrolling, game integration and unseen-region painting are outside this revision."
+  ]
+}

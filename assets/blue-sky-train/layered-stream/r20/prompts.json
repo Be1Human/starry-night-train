@@ -1,0 +1,19 @@
+{
+  "revision": "r20-depth-and-cloud-masses",
+  "provider": "built-in image_gen",
+  "model": "not exposed by tool",
+  "transparent_background": true,
+  "prompt": "Use case: stylized-concept. Asset type: ONE new transparent RGBA distant mountain panorama for the existing blue-sky train wallpaper; not a complete wallpaper. Input image 1 (the original blue-sky train artwork) is the palette/paint handling reference; input image 2 (a video frame) is reference ONLY for the receding, irregular overlapping ridge silhouettes. Create only mountains. Composition: a very wide 3:1 panorama, ideally 2304x768, with an unbroken mountain range across the full width. The highest summit is only moderately high and off-centre, with long irregular shoulders, slanting ridgelines, uneven low saddles and multiple interconnected secondary ridges descending into a broad valley. Strong sense of layered ranges disappearing into blue distance, NOT isolated cones, NOT an evenly spaced zigzag or repeated triangular peaks. Interleave about four painted ridge families with pale desaturated sky-cyan at the furthest edge and soft medium azure toward the base, retaining restrained broken small brush planes like the reference. Avoid geometrically perfect triangular faces, symmetrical pyramids, sharp neon outlines and uniformly lit sides. Colour is exclusively cool atmospheric blues/cyans; no saturated green forestry or black shadows. All slopes join a continuous solid blue base along the entire bottom edge, so there are NO holes, trees, detached islands or alpha cutouts inside the mountain mass. The left and right ends must meet at similar low shoulder height for horizontal tiling; no border, left/right padding, framing silhouettes or side fade. True transparent alpha ONLY above the natural irregular skyline; no sky colour, white background or checkerboard baked in, no haze halo outside silhouette. Keep all mountains in the lower 60 percent of the wide canvas and the upper sky area genuinely transparent. No clouds, sun, stars, water, reflections, bridge, rails, train, vegetation, text or labels. Match the existing painterly anime/pixel-painted scenery, not photographic, not vector, not low-poly. This asset will be drawn at uniform scale in several world-space parallax layers, so preserve brush textures and long coherent ridge shapes.",
+  "references": [
+    "assets/blue-sky-train/source/blue-sky-train.png",
+    "assets/blue-sky-train/layered-stream/r20/reference-frame.png"
+  ],
+  "output": "assets/blue-sky-train/layered-stream/r20/mountain-haze.png",
+  "rawGeneratedPNGPreserved": true,
+  "note": "One new distant ridge painting supplements the existing terrain. Video reference is an extracted frame supplied by the user. Other active paintings are reused.",
+  "outputSha256": "0fac0b728f4642367889025f84c6980aedf33052315cfbe18fa354a2115bcaaf",
+  "referenceHashes": {
+    "assets/blue-sky-train/source/blue-sky-train.png": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1",
+    "assets/blue-sky-train/layered-stream/r20/reference-frame.png": "17cd655daebb41d110243d86cea64e32d30dc7d5a937507b946df127bf473b30"
+  }
+}

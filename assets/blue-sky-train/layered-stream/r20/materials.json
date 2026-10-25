@@ -1,0 +1,22 @@
+{
+  "revision": "r20",
+  "file": "mountain-haze.png",
+  "dimensions": [
+    2172,
+    724
+  ],
+  "sha256": "0fac0b728f4642367889025f84c6980aedf33052315cfbe18fa354a2115bcaaf",
+  "source": "built-in image_gen; prompts.json",
+  "rawGeneratedPNGPreserved": true,
+  "runtimeSourceRect": [
+    6,
+    0,
+    2076,
+    724
+  ],
+  "seam": {
+    "ridgeDifference": 0,
+    "feather": 48
+  },
+  "runtimeProcessing": "Match natural ridge heights at horizontal ends, blend opaque colours within 48 px only, draw with uniform scale; no skyline warp or mirror."
+}

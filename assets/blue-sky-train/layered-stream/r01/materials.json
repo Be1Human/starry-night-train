@@ -1,0 +1,135 @@
+{
+  "revision": "r01-infinite-layers",
+  "assets": [
+    {
+      "id": "bridge-deck",
+      "width": 323,
+      "height": 19,
+      "source": "assets/blue-sky-train/source/blue-sky-train.png",
+      "type": "repeat-x",
+      "sourceRect": [
+        821,
+        470,
+        323,
+        19
+      ],
+      "overlap": 0,
+      "worldY": 470,
+      "file": "bridge-deck.png",
+      "sha256": "f5a9d0f2fe3e9afd0996b3b548fcfcc53aa07a817d35589978e489d26a52cd18",
+      "sourceSha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "id": "bridge-piers",
+      "width": 323,
+      "height": 55,
+      "source": "assets/blue-sky-train/source/blue-sky-train.png",
+      "type": "repeat-x",
+      "sourceRect": [
+        821,
+        489,
+        323,
+        55
+      ],
+      "overlap": 0,
+      "worldY": 489,
+      "file": "bridge-piers.png",
+      "sha256": "e2b717ce562e06ed8880851eae15bb043ff0873162772db98e3ced39207909ad",
+      "sourceSha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "id": "shore",
+      "width": 1015,
+      "height": 40,
+      "source": "assets/blue-sky-train/source/blue-sky-train.png",
+      "type": "repeat-x",
+      "sourceRect": [
+        660,
+        534,
+        1135,
+        40
+      ],
+      "overlap": 120,
+      "worldY": 534,
+      "file": "shore.png",
+      "sha256": "de3f1088e28970f92dd86a37a308b4977dbc227cea1673733905450d68e5d5c1",
+      "sourceSha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "id": "engine",
+      "width": 93,
+      "height": 32,
+      "source": "assets/blue-sky-train/source/blue-sky-train.png",
+      "type": "sprite",
+      "sourceRect": [
+        1201,
+        449,
+        93,
+        32
+      ],
+      "worldX": 1201,
+      "worldY": 449,
+      "file": "engine.png",
+      "sha256": "577c79f5562047492eff2b787b6e8a261f8d600869d0bf777a2553f6881221e6",
+      "sourceSha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "id": "coach-1",
+      "width": 103,
+      "height": 28,
+      "source": "assets/blue-sky-train/source/blue-sky-train.png",
+      "type": "sprite",
+      "sourceRect": [
+        1294,
+        453,
+        103,
+        28
+      ],
+      "worldX": 1294,
+      "worldY": 453,
+      "file": "coach-1.png",
+      "sha256": "2ff6e0404912531b7b9424178323f1806095e315934972db32fbc5bc527f21e3",
+      "sourceSha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "id": "coach-2",
+      "width": 111,
+      "height": 27,
+      "source": "assets/blue-sky-train/source/blue-sky-train.png",
+      "type": "sprite",
+      "sourceRect": [
+        1397,
+        454,
+        111,
+        27
+      ],
+      "worldX": 1397,
+      "worldY": 454,
+      "file": "coach-2.png",
+      "sha256": "c4d78ade2bcaa3bd7fd37ce6cd6745150b5740931126c9c250b053c01e64d894",
+      "sourceSha256": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+    },
+    {
+      "id": "mountain-blue",
+      "width": 1980,
+      "height": 724,
+      "source": "assets/blue-sky-train/mountains/r24/mountain-blue.png",
+      "type": "repeat-x",
+      "overlap": 192,
+      "file": "mountain-blue.png",
+      "sha256": "fced252bcf6a5c5a17c70f54561025513b0812089ee20c677e62c3db1fd76902",
+      "sourceSha256": "288d9a29af66aa11468573d29cadac2069d6b6f8466f7c0d98a8bde039b13cb9"
+    },
+    {
+      "id": "mountain-green",
+      "width": 1980,
+      "height": 724,
+      "source": "assets/blue-sky-train/mountains/r24/mountain-green.png",
+      "type": "repeat-x",
+      "overlap": 192,
+      "file": "mountain-green.png",
+      "sha256": "79d5416360629326ccd2cde3db0a0bc9411283f52b507f0263e98fe3ab15f783",
+      "sourceSha256": "72c6b0babadef2a74a306c64c89e31ef365cfbe7960f324d898db3bab5708616"
+    }
+  ]
+}

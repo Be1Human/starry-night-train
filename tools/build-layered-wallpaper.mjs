@@ -1,0 +1,15 @@
+import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { WORLD, MATERIALS } from '../cases/blue-sky-layered/world.mjs';
+import { SCENE_MUSIC } from '../cases/blue-sky-layered/music.js';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),lab=resolve(root,'themes/blue-sky-train/lab/layered-stream'),out=resolve(root,process.env.LAYERED_OUTPUT_DIR||'dist/blue-sky-layered');
+mkdirSync(out,{recursive:true});
+const paths=[...MATERIALS.map(a=>a.path),'assets/blue-sky-train/source/blue-sky-train.png',SCENE_MUSIC.path];
+const data=Object.fromEntries(paths.map(path=>[path,'data:'+(path.endsWith('.mp3')?'audio/mpeg':'image/png')+';base64,'+readFileSync(resolve(root,path)).toString('base64')]));
+const script=['cases/blue-sky-layered/world.mjs','cases/blue-sky-layered/starry-steam.js','cases/blue-sky-layered/procedural-shore.js','cases/blue-sky-layered/foreground.js','cases/blue-sky-layered/flat-clouds.js','cases/blue-sky-layered/renderer.js','cases/blue-sky-layered/music.js','themes/blue-sky-train/lab/layered-stream/app.js'].map(path=>readFileSync(resolve(root,path),'utf8').replace(/^import .*;\r?\n/gm,'').replace(/^export /gm,'')).join('\n');
+const css=readFileSync(resolve(lab,'style.css'),'utf8');
+const html=readFileSync(resolve(lab,'index.html'),'utf8').replace('<link rel="stylesheet" href="style.css">',()=>`<style>${css}</style>`).replace('<script type="module" src="app.js"></script>',()=>`<script>window.LAYERED_EMBEDDED=${JSON.stringify(data)};window.LAYERED_WALLPAPER=!new URLSearchParams(location.search).has('controls');\n(()=>{\n${script}\n})();</script>`);
+writeFileSync(resolve(out,'index.html'),html);copyFileSync(resolve(root,'assets/blue-sky-train/layered-stream/preview.png'),resolve(out,'preview.png'));
+writeFileSync(resolve(out,'project.json'),JSON.stringify({title:'蓝天湖景 · 无限分层壁纸',type:'web',file:'index.html',preview:'preview.png',description:'独立原画素材与完整绘制素材构建的双向视差场景，云、山、桥、岸线与近景持续接续，湖面细波与波光柔化实时倒影。',general:{properties:{speed:{order:0,text:'行进速度',type:'slider',min:0,max:4,value:1,fraction:true,precision:1},direction:{order:1,text:'列车行进方向',type:'combo',value:WORLD.defaultDirection,options:[{label:'车头向左',value:-1},{label:'车头向右',value:1}]},ripple:{order:2,text:'水面波光',type:'bool',value:true},paused:{order:3,text:'暂停',type:'bool',value:false},music:{order:4,text:'背景音乐',type:'bool',value:false},musicVolume:{order:5,text:'音乐音量',type:'slider',min:0,max:100,value:35}},supportsaudioprocessing:false}},null,2)+'\n');
+console.log(`Built offline layered wallpaper: ${out} (${(Buffer.byteLength(html)/1048576).toFixed(1)} MiB)`);

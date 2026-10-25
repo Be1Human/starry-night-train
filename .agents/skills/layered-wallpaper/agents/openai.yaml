@@ -1,0 +1,4 @@
+interface:
+  display_name: "分层动态壁纸制作"
+  short_description: "先读取已完成的拆解与实现导航，再复用现有代码和合适资产制作完整动态壁纸工作台"
+  default_prompt: "先读取我提供的 TA 拆解文档、manifest.json 和 implementation-navigation.json，再使用 $layered-wallpaper，按本图的对象、坐标与缺口沿导航复用代码和合适资产，补齐启用动作的资源后实现完整工作台网页。"

@@ -1,0 +1,5 @@
+{
+  "request": "Regenerate the soundtrack; preserve the pleasant first-half mood. Wordless humming is acceptable, but no sung lyrics or spoken words, especially in the latter half.",
+  "strategy": "Re-render the existing local-model composition with an instrumental-only lead throughout and remove verse/chorus section cues. No edited speech is fed to the model.",
+  "seed": 2026102402
+}
