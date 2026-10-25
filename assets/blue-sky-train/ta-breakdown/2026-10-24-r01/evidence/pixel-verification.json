@@ -1,0 +1,16 @@
+{
+  "sourcePixelCount": 1572864,
+  "exportedLayerPixels": 1572864,
+  "changedPixels": 0,
+  "matchingPercent": 100,
+  "meanAbsoluteRGBError": 0,
+  "maxChannelError": 0,
+  "uncoveredPixels": 0,
+  "overlapPixels": 0,
+  "allLayersUseOriginalRGB": true,
+  "allLayerAlphaValues": [
+    0,
+    255
+  ],
+  "criterion": "Only static source-frame pixel reconstruction; not semantic mask correctness, background completeness or motion readiness."
+}

@@ -1,0 +1,67 @@
+{
+  "revision": "ta-publication-r01",
+  "summary": "Selected static decomposition with exact original pixels; published navigation remains a plan for a separate image.",
+  "sources": [
+    {
+      "file": "source/original.png",
+      "sha256": "37571a1f268b1e0721a37c3a6330321fbc155839c80ee17320645120e866d4d9"
+    }
+  ],
+  "outputs": [
+    "index.html",
+    "manifest.json",
+    "navigation/index.html",
+    "navigation/implementation-navigation.json",
+    "layers/00-sky.png",
+    "layers/01-wisps.png",
+    "layers/02-contrail.png",
+    "layers/03-cloud-left.png",
+    "layers/04-cloud-center.png",
+    "layers/05-cloud-right.png",
+    "layers/06-mountains.png",
+    "layers/07-hill-back.png",
+    "layers/08-forest-left.png",
+    "layers/09-forest-right.png",
+    "layers/10-bank-shrubs.png",
+    "layers/11-bridge-arches.png",
+    "layers/12-bridge-deck.png",
+    "layers/13-steam.png",
+    "layers/14-engine.png",
+    "layers/15-coach.png",
+    "layers/16-coupling.png",
+    "layers/17-engine-leading-wheels.png",
+    "layers/18-engine-driving-wheels.png",
+    "layers/19-engine-rod.png",
+    "layers/20-coach-bogie-front.png",
+    "layers/21-coach-bogie-rear.png",
+    "layers/22-windows.png",
+    "layers/23-shore.png",
+    "layers/24-water.png",
+    "layers/25-reflection-forest.png",
+    "layers/26-reflection-bridge.png",
+    "layers/27-water-strokes.png",
+    "layers/28-fg-left-trunks.png",
+    "layers/29-fg-left-crown.png",
+    "layers/30-fg-left-bough.png",
+    "layers/31-fg-left-base.png",
+    "layers/32-fg-bottom.png",
+    "layers/33-fg-right-trunks.png",
+    "layers/34-fg-right-crown.png",
+    "layers/35-fg-right-bough.png",
+    "layers/36-fg-right-base.png"
+  ],
+  "evidence": [
+    {
+      "path": "evidence/published-recomposition.json",
+      "kind": "controlled-replay",
+      "result": "pass",
+      "observed_at": "2026-10-24T23:10:04.741Z",
+      "method": "Decoded 37 selected layers in the browser and recomposed at original coordinates: zero changed pixels."
+    }
+  ],
+  "limitations": [
+    "Hidden areas and motion repairs are not complete.",
+    "Planned cases/ta-37571a1f and themes/ta-37571a1f targets do not yet exist.",
+    "Authoring labels, machine logs and duplicate previews were omitted from this curated edition."
+  ]
+}

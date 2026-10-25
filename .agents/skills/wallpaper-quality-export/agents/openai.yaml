@@ -1,0 +1,4 @@
+interface:
+  display_name: "壁纸验收与导出"
+  short_description: "检查动态壁纸功能与画面，在保留现有效果的前提下优化性能并生成易读报告"
+  default_prompt: "使用 $wallpaper-quality-export 为当前壁纸建立性能与画面基线，在保留所有效果的前提下检查并优化性能，输出通俗的 HTML 报告和通过验收的离线包。"

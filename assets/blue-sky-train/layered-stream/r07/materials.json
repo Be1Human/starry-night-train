@@ -1,0 +1,120 @@
+{
+  "revision": "r07-natural-mountains",
+  "newImageGeneration": false,
+  "processing": "Project source PNGs copied intact. Runtime crops only along x at matching ridge heights and feathers opaque colour for 48 pixels. Source alpha and all vertical coordinates are retained.",
+  "assets": [
+    {
+      "id": "mountain-blue",
+      "file": "mountain-blue.png",
+      "source": "assets/blue-sky-train/mountains/r24/mountain-blue.png",
+      "sha256": "288d9a29af66aa11468573d29cadac2069d6b6f8466f7c0d98a8bde039b13cb9",
+      "sourceSha256": "288d9a29af66aa11468573d29cadac2069d6b6f8466f7c0d98a8bde039b13cb9",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "runtimeSourceRect": [
+        27,
+        0,
+        1853,
+        724
+      ],
+      "seam": {
+        "ridgeDifference": 0,
+        "feather": 48
+      },
+      "alphaChanges": 0,
+      "interiorColourChanges": 0
+    },
+    {
+      "id": "mountain-green",
+      "file": "mountain-green.png",
+      "source": "assets/blue-sky-train/mountains/r24/mountain-green.png",
+      "sha256": "72c6b0babadef2a74a306c64c89e31ef365cfbe7960f324d898db3bab5708616",
+      "sourceSha256": "72c6b0babadef2a74a306c64c89e31ef365cfbe7960f324d898db3bab5708616",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "runtimeSourceRect": [
+        38,
+        0,
+        2070,
+        724
+      ],
+      "seam": {
+        "ridgeDifference": 0,
+        "feather": 48
+      },
+      "alphaChanges": 0,
+      "interiorColourChanges": 0
+    },
+    {
+      "id": "midground-forest",
+      "file": "midground-forest.png",
+      "source": "assets/blue-sky-train/mountains/r24/mountain-green.png",
+      "sha256": "72c6b0babadef2a74a306c64c89e31ef365cfbe7960f324d898db3bab5708616",
+      "sourceSha256": "72c6b0babadef2a74a306c64c89e31ef365cfbe7960f324d898db3bab5708616",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "runtimeSourceRect": [
+        38,
+        0,
+        2070,
+        724
+      ],
+      "seam": {
+        "ridgeDifference": 0,
+        "feather": 48
+      },
+      "alphaChanges": 0,
+      "interiorColourChanges": 0
+    }
+  ],
+  "placements": [
+    {
+      "asset": "mountain-blue",
+      "layer": "mountains-far",
+      "depth": 0.06,
+      "base": 650,
+      "scale": 0.7,
+      "offset": -110,
+      "color": "#82d2fa",
+      "tint": 0.48
+    },
+    {
+      "asset": "mountain-blue",
+      "layer": "mountains-far",
+      "depth": 0.07,
+      "base": 640,
+      "scale": 0.58,
+      "offset": 160,
+      "color": "#68c5f8",
+      "tint": 0.23
+    },
+    {
+      "asset": "mountain-green",
+      "layer": "mountains-near",
+      "depth": 0.14,
+      "base": 730,
+      "scale": 0.88,
+      "offset": 500,
+      "color": "#61b7d1",
+      "tint": 0.07
+    },
+    {
+      "asset": "midground-forest",
+      "depth": 0.38,
+      "base": 553,
+      "scale": 0.34,
+      "offset": 80,
+      "reflectFromY": 500
+    }
+  ],
+  "limitations": [
+    "Finite terrain textures repeat.",
+    "Horizontal cropping changes which end sections are included; the retained mountain geometry is not warped."
+  ]
+}

@@ -1,0 +1,6 @@
+# Keep source and evidence byte hashes identical across operating systems.
+* -text
+*.png binary
+*.mp3 binary
+*.jpg binary
+*.webp binary

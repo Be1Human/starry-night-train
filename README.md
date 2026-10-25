@@ -1,106 +1,75 @@
-# 星河夜行列车 · Starry Night Train
+# AI Wallpaper Workshop · 分层动态壁纸
 
-一列蒸汽小火车在星空下驶过石拱桥，粉紫色的云层层后退，水面倒映着星河与车窗的暖光。
+两份随项目分发的 Skill、两个真实运行案例，以及从 TA 拆解到验收导出的完整参考。
 
-整个场景由**一个零依赖的单文件 HTML** 实时渲染：没有图片素材、没有第三方库，所有画面都由一个 WebGL fragment shader 逐像素计算出来。它改编自 [落日云间列车 sunset-cloud-train](https://github.com/incarnation-gem/sunset-cloud-train)，把晚霞云海换成了星河夜景。
+[English](README.en.md) · [快速开始](docs/GETTING-STARTED.md) · [Skill 使用方法](docs/WALLPAPER-SKILLS.md) · [制作中的关键决策](docs/DECISIONS.md)
 
-[![预览](docs/preview.gif)](https://github.com/Be1Human/starry-night-train/releases/tag/v1.0)
+## 最终效果
 
-## 视频与在线演示
+### 蓝天湖景列车 · 素材与 Shader 混合
 
-- **完整视频**（3 分 53 秒，1080p 30fps，配乐《Letter from the Clouds》）：[下载 starry-night-train.mp4](https://github.com/Be1Human/starry-night-train/releases/download/v1.0/starry-night-train.mp4)
-- **短视频**：[10 秒](https://github.com/Be1Human/starry-night-train/releases/download/v1.0/starry-night-train-10s.mp4) · [5 秒](https://github.com/Be1Human/starry-night-train/releases/download/v1.0/starry-night-train-5s.mp4)
-- **在线演示**：<https://be1human.github.io/starry-night-train/>（右下角面板可以实时调参，按 `H` 隐藏界面）
+![蓝天湖景列车的真实渲染](docs/images/blue-sky-lake.png)
 
-![运行截图](docs/screenshot.png)
+完整透明素材组成可双向行进的世界，包含确定性视差、局部遮挡、山脚与草岸融合、选择性倒影、水波、蒸汽和枝叶微动。
 
-## 运行
+### 星空列车 · 程序绘制
 
-下载 `index.html`，用 Chrome 或 Edge 双击打开即可，离线可用。
+![星空列车的真实渲染](docs/images/starry-night.png)
 
-- 右下角面板共 30 多项参数，分为运动、镜头、夜空、云与蒸汽、列车、水面、后期、画质、颜色几组，每项都可以单独重置，也可以把设置记到浏览器里。
-- 没有独显也能跑：默认半分辨率渲染加像素风放大；持续掉帧时会自动降低渲染比例和噪声细节。
-- 浏览器不支持 WebGL 时，自动切换为 Canvas2D 简化版。
+星空、层叠云、桥、列车、蒸汽和水面由 GLSL 实时绘制。原始主题为单文件 HTML，参数面板随主题保留。
 
-## 实现方法
+## 开始使用
 
-完整设计见 [docs/设计文档.md](docs/设计文档.md)，需求见 [docs/需求分析.md](docs/需求分析.md)。下面是要点。
+安装 Node.js 22 或更高版本，在本目录运行：
 
-### 1. 单个 pass 的全屏 shader
+~~~sh
+npm run wallpaper:doctor
+npm start
+~~~
 
-画面只有一次全屏三角形绘制，所有元素都在同一个 fragment shader 里按像素计算。原版需要场景 pass、后期 pass 加两张帧间反馈 FBO，这里合并成一个 pass，省掉了集显上最贵的显存带宽。
+打开命令打印的工作台地址。蓝天示例提供动态组合、单层运行、独立素材和原画参考四种视图；本地服务首页也提供星空案例、拆解文档和报告入口。播放已有示例无需 npm install、模型或 API Key。自动验收需要 Chrome 或 Edge。
 
-`scene(p)` 从前往后合成图层，累计不透明度到 1 就提前返回，被挡住的部分不再计算：
+![蓝天案例的完整工作台](docs/images/workbench.png)
 
-| 顺序 | 图层 | 视差 |
-| --- | --- | --- |
-| 1 | 近景树丛、电线杆、电线 | 镜头速度 × 1.15 |
-| 2 | 桥护栏 | 镜头速度 |
-| 3 | 蒸汽 | 随空气漂移 |
-| 4 | 列车 | 固定在画面中偏右 |
-| 5 | 石拱桥 | 镜头速度 |
-| 6 | 远岸与灯光 | 0.08 |
-| 7 | 12 层云 | 镜头速度 × 5 / 层距离 |
-| 8 | 天空：渐变、银河、星星、流星 | 静止 |
+## 两份 Skill
 
-水面像素先算出反射坐标，再调用同一个 `scene()`，所以倒影自动包含桥、列车、云和星空，并且始终和实体对齐。
+- [layered-wallpaper](.agents/skills/layered-wallpaper/SKILL.md)：先读取 TA 拆解与实现导航，再落实素材、视差、遮挡、Shader 和完整工作台。
+- [wallpaper-quality-export](.agents/skills/wallpaper-quality-export/SKILL.md)：保存基线、保持效果优化、功能/画面/性能检查、中文 HTML 报告和离线导出。
 
-### 2. 云：12 层 fbm 高度场
+在支持项目 Skill 的 agent 中打开本项目，使用 $layered-wallpaper 或 $wallpaper-quality-export 调用。详细输入和命令见 [使用指南](docs/WALLPAPER-SKILLS.md)。
 
-云的算法移植自原版：每层云是一个二维 fbm 噪声的高度场
+## 保留的关键过程文档
 
-```
-h = (fbm(x + 偏移ᵢ, y) − 0.5) × dispᵢ × 起伏 + midlevelᵢ
-```
+- [TA 拆解示例](assets/blue-sky-train/ta-breakdown/2026-10-24-r01/index.html)：37 个可见图层、坐标、连接、补绘范围和静态重组对照。
+- [拆解到实现导航](assets/blue-sky-train/ta-breakdown/2026-10-24-r01/navigation/index.html)：源图层到运行对象、候选代码和素材缺口的映射。
+- [关键决策与常见问题](docs/DECISIONS.md)：完整素材、无限延伸、山脚接地、倒影和近景随机的取舍。
+- [已测报告示例](docs/reports/latest/report.html)：真实测量、保留的固定画面、专项结果和未测范围。
+- [来源与使用边界](CREDITS.md)：素材生成记录、原图提取、星空云算法及音乐来源。
 
-因为 fbm 的输入里包含 y，轮廓是二维噪声的等值线，所以会出现碎裂的边缘、悬空的小云块和孔洞。每层再按深度切出 2～4 道色带，12 层由近到远叠加。原版的晚霞色按亮暗关系映射到星河配色（云亮部、云顶、云暗部）。
+拆解示例与动态蓝天案例是不同参考图；静态像素重组一致不代表隐藏背景和运动素材已经补齐。当前验收适配蓝天案例，不能为新主题或星空案例直接背书。
 
-形状与原版一致，性能上做了两处不改变结果的优化：
+## 检查与导出
 
-- 预先把噪声纹理每个格点的 2×2 平均值存进纹理，用一次硬件双线性采样代替原版的 4 次取值加手工插值；
-- fbm 每算完一阶，就用剩余权重乘噪声的上下限，推出最终值的范围，确定盖不到当前像素或一定落在最深色带时提前退出。
+~~~sh
+npm run check
+npm test
+npm run test:examples
+npm run wallpaper:audit -- --out docs/verification/my-baseline
+npm run wallpaper:verify-export -- --baseline docs/verification/my-baseline --out dist/my-release
+~~~
 
-云量、云层高度只调整各层的 midlevel，把云压到画面中下部、上方留出星空；越远的层越向天空色靠拢，融进夜色。
+每次输出使用新目录。完整验收默认 all；通过后报告位于 dist/my-release/report.html，交付包位于 dist/my-release/package/。原生 Wallpaper Engine、4K 性能、长时间运行和人工听感分别记录，未测不等于通过。
 
-### 3. 其他元素
+## 项目结构
 
-- **星空**：两层网格哈希，小星每格最多一颗、随机频率闪烁，亮星带十字光芒；银河是倾斜的高斯光带乘 fbm，再用另一层 fbm 挖出暗尘带；流星用点到线段的距离画拖尾。
-- **列车**：以车头为原点用 SDF 拼出机车（锅炉、烟囱、汽包、驾驶室、排障器、动轮和连杆）、煤水车和客车厢。用 `floor` 直接算出当前像素属于第几节车厢，每个像素只算一节。车窗亮度随机，车窗带外有指数衰减的光晕。
-- **蒸汽**：沿抛物线中心线展开，半径随距离增大，用 billow fbm 扰动轮廓；采样坐标跟随空气而不是列车，所以烟团留在原地慢慢上升。
-- **水面**：透视坐标 `1 / (深度 + 0.015)`，越靠近地平线波纹越密，用噪声横向扰动反射坐标。
-- **镜头**：场景坐标 `p = (s − c) / 远近 + c + (0, 高度)`，所有图层和倒影共用同一套变换；原来按屏幕像素计算的线宽和星点半径改为按「每单位场景的像素数」计算，缩放时粗细不变。
+~~~text
+.agents/skills/    制作、验收与导出 Skill 及其脚本
+cases/            蓝天案例的权威运行源码
+themes/           蓝天工作台与原始星空主题
+assets/           当前实际使用的素材、提示词、来源和 TA 拆解
+docs/             使用指南、关键决策、效果图与报告示例
+tools/            预览、构建、检查和专项验证
+tests/            确定性世界与云布局测试
+~~~
 
-### 4. 无缝循环与性能
-
-- 所有滚动量都按各自周期取模（桥 15.6、近景 1.95、云 1024、远岸 256），长时间运行既没有浮点精度问题，也没有接缝跳变。
-- 默认渲染比例 0.5 加最近邻放大，像素数只有全分辨率的 1/4，最近邻放大本身就是像素画风格。
-- 自动降画质每 2 秒统计一次帧间隔，按「渲染比例 → 噪声细节 → 渲染比例下限」的顺序逐级下调。在纯 CPU 的 SwiftShader 软件渲染下，约 24 秒收敛到 21 fps 左右。
-- 页面隐藏时停帧；WebGL 上下文丢失后会自动重建。
-
-## 视频是怎么做的
-
-视频不是录屏，而是逐帧确定性渲染出来的，所以不会掉帧。只用了 Edge、Node 和 ffmpeg，没有 npm 依赖。
-
-```bash
-# 1. 逐帧录制原始画面（1920×1080，30 fps）
-node tools/record-video.mjs --seconds 233.9 --camy-to 0.06 --out export/raw.mp4
-# 2. 后期合成并配乐
-node tools/compose-video.mjs --video export/raw.mp4 --audio <音乐.mp3> --out export/星河夜行列车.mp4
-```
-
-**录制**（[tools/record-video.mjs](tools/record-video.mjs)）：用 Node 自带的 `WebSocket` 直接走 DevTools 协议，控制无头 Edge。在页面脚本执行前替换 `requestAnimationFrame` 和 `performance.now`，换成虚拟时钟，每步精确推进 1/30 秒，与实际渲染耗时无关。每帧在同一次 `Runtime.evaluate` 里完成「设置镜头 → 推进一帧 → `canvas.toDataURL`」，JPEG 数据直接写进 ffmpeg 的标准输入。镜头在开头 14 秒内用 smoothstep 从远近 1 拉到 0.5。
-
-**合成**（[tools/compose-video.mjs](tools/compose-video.mjs)）：一张 ffmpeg 滤镜图完成全部后期：
-
-- 泛光：只保留高光，缩小到 480×270 后模糊再放大，用滤色叠加回原图；
-- 暗角、细微的胶片颗粒；
-- 片头标题和片尾小字：在透明画布上写黑字再模糊，得到柔和阴影；
-- 黑场淡入淡出、音频淡入淡出；
-- 色彩：把 JPEG 帧的 BT.601 全范围统一转成 BT.709 TV 范围，避免播放器偏色。
-
-## 来源与许可
-
-- 改编自 [incarnation-gem/sunset-cloud-train](https://github.com/incarnation-gem/sunset-cloud-train)，该项目提取自 [Rice-dog/code-codex](https://github.com/Rice-dog/code-codex) 的「Cloud Train Background」插件（MIT）。面板交互和渲染循环的思路参考了原版。
-- **云的生成算法**（噪声、fbm、12 层高度场与色带合成）移植自原版 shader，作者 **mdb**。该 shader 没有附带再分发许可，本项目沿用上游仓库的声明：**仅供学习与欣赏，请勿商用；如果权利人认为不妥，联系后会立即下架。**
-- 夜空、石拱桥、列车、蒸汽、水面、近景、远岸以及视频工具都是重新编写的。
-- `reference/sunset-cloud-train.html` 是原版的未改动副本，仅用于对照。
+此发布版按实际依赖精选文件；历史实验、重复导出、录屏、音频母版、模型、缓存和本机工作记录保留在作者工作目录，不纳入此版本。清单与文件哈希见 PROJECT-MANIFEST.json。

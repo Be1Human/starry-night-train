@@ -1,0 +1,314 @@
+{
+  "result": "pass",
+  "method": "Decode each exported PNG independently; verify source RGB, alpha, dimensions, SHA-256, offsets, and recompose in ascending z.",
+  "sourceSha256": "37571a1f268b1e0721a37c3a6330321fbc155839c80ee17320645120e866d4d9",
+  "sourcePixels": 1572864,
+  "layersChecked": 37,
+  "changedPixels": 0,
+  "maxChannelError": 0,
+  "uncoveredPixels": 0,
+  "overlapPixels": 0,
+  "nonBinaryAlpha": 0,
+  "sourcePixelMismatch": 0,
+  "files": [
+    {
+      "id": "sky",
+      "file": "layers/00-sky.png",
+      "width": 2048,
+      "height": 464,
+      "pixels": 320731,
+      "sha256": "88d3b81d4c485bac3338a0afc8bdb54eb32c6141a5b1096a1127a27cd459bcce"
+    },
+    {
+      "id": "wisps",
+      "file": "layers/01-wisps.png",
+      "width": 1190,
+      "height": 258,
+      "pixels": 7371,
+      "sha256": "4e5272f22c6034f25ede5ffc25071f8584adcbd2deae80623a05a5f382dda662"
+    },
+    {
+      "id": "contrail",
+      "file": "layers/02-contrail.png",
+      "width": 311,
+      "height": 132,
+      "pixels": 634,
+      "sha256": "7b345c60af8c278d9f27bf6e80e71d1d8d74779e4e59e8175a5784bbfd7986fe"
+    },
+    {
+      "id": "cloud-left",
+      "file": "layers/03-cloud-left.png",
+      "width": 760,
+      "height": 365,
+      "pixels": 151203,
+      "sha256": "778ba0120accdc6640ff8c6a0c6b1fb36b1e7f9881785d1e7c45e1467560d969"
+    },
+    {
+      "id": "cloud-center",
+      "file": "layers/04-cloud-center.png",
+      "width": 445,
+      "height": 260,
+      "pixels": 81717,
+      "sha256": "a1b78554e50e527e0bb6f8887b1d118d700315cdb94212851b0db06586e32515"
+    },
+    {
+      "id": "cloud-right",
+      "file": "layers/05-cloud-right.png",
+      "width": 843,
+      "height": 460,
+      "pixels": 265356,
+      "sha256": "60185f9c30efe11330986017b1d38ec47544ebc883eb34b8fb486d3c0f50599c"
+    },
+    {
+      "id": "mountains",
+      "file": "layers/06-mountains.png",
+      "width": 1315,
+      "height": 179,
+      "pixels": 77643,
+      "sha256": "9e9ef67db38c8aae2ad6ad2481c563a10f076b9701ad5a0d928e8638d9f9d7cd"
+    },
+    {
+      "id": "hill-back",
+      "file": "layers/07-hill-back.png",
+      "width": 648,
+      "height": 223,
+      "pixels": 40454,
+      "sha256": "6308dffc53fb63de9f7bf4e4f73fb6f995a4ec189af9303e4f06e2e3487f220f"
+    },
+    {
+      "id": "water",
+      "file": "layers/24-water.png",
+      "width": 2048,
+      "height": 205,
+      "pixels": 246898,
+      "sha256": "31b364130ccfb61388f25bd3ae8099fca000d278dd940eab0df282ec40a05d81"
+    },
+    {
+      "id": "reflection-forest",
+      "file": "layers/25-reflection-forest.png",
+      "width": 1860,
+      "height": 120,
+      "pixels": 30233,
+      "sha256": "9f18f4d4dda2468a30a8c8f1ef770c2c88fd37c4dc91baf1f2f866aa7de90aef"
+    },
+    {
+      "id": "reflection-bridge",
+      "file": "layers/26-reflection-bridge.png",
+      "width": 962,
+      "height": 68,
+      "pixels": 14958,
+      "sha256": "4b82f672a0571715a971c4b7b76d23d912549978858d2c5ae6380ae35ed06bf3"
+    },
+    {
+      "id": "water-strokes",
+      "file": "layers/27-water-strokes.png",
+      "width": 1667,
+      "height": 131,
+      "pixels": 3543,
+      "sha256": "1fcd89b3afe9641f62d9ded4e2a2d27b4fc3a7c9561cbc04d0f42865919c6a74"
+    },
+    {
+      "id": "bridge-arches",
+      "file": "layers/11-bridge-arches.png",
+      "width": 962,
+      "height": 54,
+      "pixels": 9549,
+      "sha256": "4617b3a29015653f366535c7dac0f52b3e8d93de4983314fb75eb91911651891"
+    },
+    {
+      "id": "bridge-deck",
+      "file": "layers/12-bridge-deck.png",
+      "width": 962,
+      "height": 18,
+      "pixels": 9424,
+      "sha256": "4433d7d5141ec7149dbe02c62f63af1ab5a7f2c830cfbd2cce6e0045d9debc34"
+    },
+    {
+      "id": "steam",
+      "file": "layers/13-steam.png",
+      "width": 74,
+      "height": 19,
+      "pixels": 390,
+      "sha256": "ce4ea20b2e8672a1db8fbf10891a50e30a9e511702159152e750cc229f23fb03"
+    },
+    {
+      "id": "engine",
+      "file": "layers/14-engine.png",
+      "width": 87,
+      "height": 28,
+      "pixels": 1358,
+      "sha256": "ee837b2f49bb8196af9043ec6b921715227a888c98e431e247c3ba5168953a56"
+    },
+    {
+      "id": "coach",
+      "file": "layers/15-coach.png",
+      "width": 101,
+      "height": 23,
+      "pixels": 1746,
+      "sha256": "c066008e6293bb903e07c0d108cf56e588abf60c107bc78d886da850b6311132"
+    },
+    {
+      "id": "coupling",
+      "file": "layers/16-coupling.png",
+      "width": 7,
+      "height": 11,
+      "pixels": 51,
+      "sha256": "2dfb59b0ba0dfa9d3f1439c82164987ee4efa4855f67bbfd2c21f8a23d806af2"
+    },
+    {
+      "id": "engine-leading-wheels",
+      "file": "layers/17-engine-leading-wheels.png",
+      "width": 17,
+      "height": 6,
+      "pixels": 86,
+      "sha256": "10d43fd18881fa5414a30234f115498cb674a200ab44515b014e560984ba9c3a"
+    },
+    {
+      "id": "engine-driving-wheels",
+      "file": "layers/18-engine-driving-wheels.png",
+      "width": 54,
+      "height": 6,
+      "pixels": 231,
+      "sha256": "d842510fce5c8bd31db0e1e91e5598d4c3745f9ad7cb633ac6fc04d4646e7eba"
+    },
+    {
+      "id": "engine-rod",
+      "file": "layers/19-engine-rod.png",
+      "width": 54,
+      "height": 4,
+      "pixels": 39,
+      "sha256": "ef7678b658022d3ccb730f1f25144a886a8411ae9b1069eea189c47b852e26e9"
+    },
+    {
+      "id": "coach-bogie-front",
+      "file": "layers/20-coach-bogie-front.png",
+      "width": 18,
+      "height": 6,
+      "pixels": 102,
+      "sha256": "ec636017fff6a7f046b3c849842d7f969026693f4e30d0b9b024f49449fc42cb"
+    },
+    {
+      "id": "coach-bogie-rear",
+      "file": "layers/21-coach-bogie-rear.png",
+      "width": 22,
+      "height": 6,
+      "pixels": 112,
+      "sha256": "3d23c665b96710b46a55a33cd6b1df12f6bf6a5c468205a71aace758c8eb3aa5"
+    },
+    {
+      "id": "windows",
+      "file": "layers/22-windows.png",
+      "width": 83,
+      "height": 4,
+      "pixels": 84,
+      "sha256": "613ee13a7eb2b601729739371a16635ea162151b6e662ab73c74379e4e393f12"
+    },
+    {
+      "id": "forest-left",
+      "file": "layers/08-forest-left.png",
+      "width": 900,
+      "height": 126,
+      "pixels": 20236,
+      "sha256": "e3b887fa25533e4c4a8067b4b195db7295ac2a5bd86bc3aac1eff1da0e09f290"
+    },
+    {
+      "id": "forest-right",
+      "file": "layers/09-forest-right.png",
+      "width": 907,
+      "height": 164,
+      "pixels": 75762,
+      "sha256": "c57dbfb1747966eb15a8b615fd41212ed116bcdfe314371d205857029e39fe22"
+    },
+    {
+      "id": "bank-shrubs",
+      "file": "layers/10-bank-shrubs.png",
+      "width": 598,
+      "height": 61,
+      "pixels": 2864,
+      "sha256": "c454813cf0689400198e719f0e1e28a8dedd0f4ca09a6c592d187694128e11d3"
+    },
+    {
+      "id": "shore",
+      "file": "layers/23-shore.png",
+      "width": 2037,
+      "height": 22,
+      "pixels": 37602,
+      "sha256": "58cfe52aa0419a24634ab95c2c5e91f704bf7aa5547766a155d656211eed5b84"
+    },
+    {
+      "id": "fg-left-trunks",
+      "file": "layers/28-fg-left-trunks.png",
+      "width": 54,
+      "height": 92,
+      "pixels": 1319,
+      "sha256": "fc97175a6316daa5f06c8046e8aa8c6b431f270044c48caed2d54df3fe94361f"
+    },
+    {
+      "id": "fg-left-crown",
+      "file": "layers/29-fg-left-crown.png",
+      "width": 211,
+      "height": 315,
+      "pixels": 36763,
+      "sha256": "1fa3da5e32a8daac5b66f456c5f66b2d49aaff0763b58551317ec6c4725f548c"
+    },
+    {
+      "id": "fg-left-bough",
+      "file": "layers/30-fg-left-bough.png",
+      "width": 243,
+      "height": 153,
+      "pixels": 16736,
+      "sha256": "d295e0f1d10a726eb3f75a39c227ddba06d2eb237e49f2318e2809d953e061bc"
+    },
+    {
+      "id": "fg-left-base",
+      "file": "layers/31-fg-left-base.png",
+      "width": 418,
+      "height": 124,
+      "pixels": 24709,
+      "sha256": "74cd7bedac32afa0496ace3f135e72d8eaacc1ca0baf5cbe68e64d49034e3f6d"
+    },
+    {
+      "id": "fg-bottom",
+      "file": "layers/32-fg-bottom.png",
+      "width": 1154,
+      "height": 115,
+      "pixels": 23703,
+      "sha256": "e04481addc4b63ddef7ead98a6d18a7ea54dd35d7bfd4f081543bea0041c010e"
+    },
+    {
+      "id": "fg-right-trunks",
+      "file": "layers/33-fg-right-trunks.png",
+      "width": 106,
+      "height": 184,
+      "pixels": 1657,
+      "sha256": "be21bdb2ed5433245acd13b118412c7ef40cb49ebfe2f50c67b8ef2ce26570c8"
+    },
+    {
+      "id": "fg-right-crown",
+      "file": "layers/34-fg-right-crown.png",
+      "width": 262,
+      "height": 265,
+      "pixels": 30555,
+      "sha256": "597793574549b97fedadbdbe82fbee9929e0113e8e1eb8e47c5e498f1c6d8222"
+    },
+    {
+      "id": "fg-right-bough",
+      "file": "layers/35-fg-right-bough.png",
+      "width": 290,
+      "height": 118,
+      "pixels": 15451,
+      "sha256": "7fb7484ec428c06ab8d131d9901923e3e935f8d7bb80d33e36a97e0b55c0b3d4"
+    },
+    {
+      "id": "fg-right-base",
+      "file": "layers/36-fg-right-base.png",
+      "width": 476,
+      "height": 137,
+      "pixels": 21594,
+      "sha256": "0c66c76bf40a52936db5fb6256f368ba9462426d99a4d8541981430ffbc539b9"
+    }
+  ],
+  "limitations": [
+    "Checks exact static frame reconstruction and export format only. It does not prove semantic mask boundaries or motion readiness."
+  ]
+}

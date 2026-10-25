@@ -1,0 +1,64 @@
+{
+  "files": {
+    "render/original.wav": {
+      "bytes": 21872428,
+      "sha256": "2eefaf38216d30e69f3c7945605e7787bdeb4873267d9572d3d45de865a29e55",
+      "duration": 113.918667,
+      "sampleRate": 48000,
+      "channels": 2,
+      "fullDecode": true
+    },
+    "yunan-manxing-loop.wav": {
+      "bytes": 31656700,
+      "sha256": "3f79a21398cc8d648eed99cea5245eb421e1be2902adf00b7bd46377f3fc9d87",
+      "duration": 109.918667,
+      "sampleRate": 48000,
+      "channels": 2,
+      "fullDecode": true
+    },
+    "yunan-manxing-loop.ogg": {
+      "bytes": 2157195,
+      "sha256": "23f93b91d3f791ef31e2955a063e2ffd125dec10786540014e82ef6cb77fd9ee",
+      "duration": 109.918667,
+      "sampleRate": 48000,
+      "channels": 2,
+      "fullDecode": true
+    },
+    "yunan-manxing-loop.mp3": {
+      "bytes": 2639301,
+      "sha256": "4b3681a8cb69bcc699565ff9eb26a66fab11af312340af949bb8338bb5327672",
+      "duration": 109.918667,
+      "sampleRate": 48000,
+      "channels": 2,
+      "fullDecode": true
+    }
+  },
+  "loopCrossfadeSeconds": 4.0,
+  "loudness": {
+    "input_i": "-20.01",
+    "input_tp": "-3.86",
+    "input_lra": "5.60",
+    "input_thresh": "-30.20",
+    "output_i": "-18.97",
+    "output_tp": "-2.68",
+    "output_lra": "3.50",
+    "output_thresh": "-29.10",
+    "normalization_type": "dynamic",
+    "target_offset": "-1.03"
+  },
+  "peak": 0.6404521465301514,
+  "channelRMS": [
+    0.08306616544723511,
+    0.08460012078285217
+  ],
+  "boundaryJump": [
+    0.0014072656631469727,
+    0.0017786026000976562
+  ],
+  "adjacentSampleP999": [
+    0.07253200560808182,
+    0.0681753158569336
+  ],
+  "listening": "not verified; user audition pending",
+  "passed": true
+}

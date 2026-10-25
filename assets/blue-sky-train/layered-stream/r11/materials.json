@@ -1,0 +1,23 @@
+{
+  "revision": "r11",
+  "tool": "built-in image_gen",
+  "rawGeneratedPNGsPreserved": true,
+  "prompts": "prompts.json",
+  "runtime": "Transparent-only bounds trim, uniform scale, source foot anchors; rail-hill alpha >=240 normalized to255 without a silhouette mask.",
+  "files": [
+    {
+      "path": "wooded-ridge.png",
+      "width": 1983,
+      "height": 793,
+      "sourceGroundY": 689,
+      "sha256": "071dbb3cea0aa6843906160fe7ba45ba4ddf8970f8987897fa16a5d607d2f91e"
+    },
+    {
+      "path": "lakeside-knoll.png",
+      "width": 1774,
+      "height": 887,
+      "sourceGroundY": 778,
+      "sha256": "99f97ee8a8338ac63e5c4e2066c5ebdedbdb52e06a1e0957cc76711c12136f80"
+    }
+  ]
+}

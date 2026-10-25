@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-24",
+  "provider": "built-in image_gen.imagegen",
+  "model": null,
+  "transparentBackground": true,
+  "references": [
+    "../../source/blue-sky-train.png",
+    "reference-pixel-cloud.png"
+  ],
+  "purpose": "Three new complete clouds for deterministic world-space random cloud groups; runtime reduces paint to the R03 four-colour palette and samples at a restrained pixel grid.",
+  "outputs": [
+    {
+      "id": "cloud-crown",
+      "filename": "cloud-crown.png",
+      "prompt": "Create ONE complete NEW cloud sprite for a side-scrolling anime train landscape. This is an isolated bitmap asset with a truly TRANSPARENT background.\nInput image 1 is only an art style and daylight palette reference. Input image 2 is only a reference for the attractive four-shade cel-painted cloud treatment in its screenshot. IGNORE ALL screenshot interface, red rectangles, borders, train, mountains, bridge, trees and lake.\nPaint a new cloud shape, NOT a crop of the reference cloud. Match the irregular hand-painted white cloud contours and densely interlocking pale-blue shadow color patches from the original. Use EXACTLY FOUR FLAT OPAQUE FILL COLORS throughout the cloud interior: warm white #FDFAF1, pale blue #D1EAF9, medium blue #A7D4F3, and deeper blue #88C1EB. Light comes from the upper LEFT, with broad white scalloped caps and coherent cool blue shading in the lower/right interior. Shadows are broad flat graphic patches with small irregular painted scallops, no smooth lighting gradients, no soft airbrush texture, no gray shadows. White should remain the dominant visible color, with a balanced substantial blue shaded area providing volume. Avoid simple circle stamps, black contour lines or a dark perimeter.\nRender with crisp natural painted detail; pixel-style sampling will be handled in the game. Each cloud must be one visually connected organic group, fully inside the canvas with generous transparent margin on ALL FOUR SIDES, including the bottom. Shape not cut off by canvas boundaries. No glow, no semitransparent fog halo, no blurry mist, no ground, no horizon, no sky, no background, no text or watermark, no checkerboard painted into the image, no multiple-view contact sheet. Transparent pixels outside, solid opaque cloudy paint inside, only narrow antialiasing on edges.\nVariant shape: A NEW irregular cumulus cloud group with a high rounded tower rising off-center on the left, three descending secondary domes across its width, and a low scalloped base. Strong asymmetry. The outside silhouette must be richly scalloped with many small cauliflower lobes, not a triangle or smooth oval. Whole shape about 1.6:1 wide-to-tall."
+    },
+    {
+      "id": "cloud-fan",
+      "filename": "cloud-fan.png",
+      "prompt": "Create ONE complete NEW cloud sprite for a side-scrolling anime train landscape. This is an isolated bitmap asset with a truly TRANSPARENT background.\nInput image 1 is only an art style and daylight palette reference. Input image 2 is only a reference for the attractive four-shade cel-painted cloud treatment in its screenshot. IGNORE ALL screenshot interface, red rectangles, borders, train, mountains, bridge, trees and lake.\nPaint a new cloud shape, NOT a crop of the reference cloud. Match the irregular hand-painted white cloud contours and densely interlocking pale-blue shadow color patches from the original. Use EXACTLY FOUR FLAT OPAQUE FILL COLORS throughout the cloud interior: warm white #FDFAF1, pale blue #D1EAF9, medium blue #A7D4F3, and deeper blue #88C1EB. Light comes from the upper LEFT, with broad white scalloped caps and coherent cool blue shading in the lower/right interior. Shadows are broad flat graphic patches with small irregular painted scallops, no smooth lighting gradients, no soft airbrush texture, no gray shadows. White should remain the dominant visible color, with a balanced substantial blue shaded area providing volume. Avoid simple circle stamps, black contour lines or a dark perimeter.\nRender with crisp natural painted detail; pixel-style sampling will be handled in the game. Each cloud must be one visually connected organic group, fully inside the canvas with generous transparent margin on ALL FOUR SIDES, including the bottom. Shape not cut off by canvas boundaries. No glow, no semitransparent fog halo, no blurry mist, no ground, no horizon, no sky, no background, no text or watermark, no checkerboard painted into the image, no multiple-view contact sheet. Transparent pixels outside, solid opaque cloudy paint inside, only narrow antialiasing on edges.\nVariant shape: A NEW wide cumulus cloud group with TWO separate tall crowns, the right crown taller, linked by a low scalloped shelf and tiny puffs. Shape wider and flatter in the middle, distinctly different from the left-tower cloud in the reference. Whole shape about 2:1 wide-to-tall."
+    },
+    {
+      "id": "cloud-ribbon",
+      "filename": "cloud-ribbon.png",
+      "prompt": "Create ONE complete NEW cloud sprite for a side-scrolling anime train landscape. This is an isolated bitmap asset with a truly TRANSPARENT background.\nInput image 1 is only an art style and daylight palette reference. Input image 2 is only a reference for the attractive four-shade cel-painted cloud treatment in its screenshot. IGNORE ALL screenshot interface, red rectangles, borders, train, mountains, bridge, trees and lake.\nPaint a new cloud shape, NOT a crop of the reference cloud. Match the irregular hand-painted white cloud contours and densely interlocking pale-blue shadow color patches from the original. Use EXACTLY FOUR FLAT OPAQUE FILL COLORS throughout the cloud interior: warm white #FDFAF1, pale blue #D1EAF9, medium blue #A7D4F3, and deeper blue #88C1EB. Light comes from the upper LEFT, with broad white scalloped caps and coherent cool blue shading in the lower/right interior. Shadows are broad flat graphic patches with small irregular painted scallops, no smooth lighting gradients, no soft airbrush texture, no gray shadows. White should remain the dominant visible color, with a balanced substantial blue shaded area providing volume. Avoid simple circle stamps, black contour lines or a dark perimeter.\nRender with crisp natural painted detail; pixel-style sampling will be handled in the game. Each cloud must be one visually connected organic group, fully inside the canvas with generous transparent margin on ALL FOUR SIDES, including the bottom. Shape not cut off by canvas boundaries. No glow, no semitransparent fog halo, no blurry mist, no ground, no horizon, no sky, no background, no text or watermark, no checkerboard painted into the image, no multiple-view contact sheet. Transparent pixels outside, solid opaque cloudy paint inside, only narrow antialiasing on edges.\nVariant shape: A NEW long low distant cumulus BANK, with seven uneven small cottony rounded peaks and a very shallow irregular base. Vary the peaks, with two medium lobes in the left third and a higher little stack near the right end. Whole shape about 3.5:1 wide-to-tall. It must be a complete independent cloud group with clean cutout edges, not a horizon or landscape strip."
+    }
+  ],
+  "hashes": [
+    {
+      "file": "cloud-crown.png",
+      "sha256": "6CA20CBFC3C5D2E4EA415A9E335EA6D86657B2A1AA4A2EE2D6CE057C4AA40C97"
+    },
+    {
+      "file": "cloud-fan.png",
+      "sha256": "CCEE8D8E499B3FC7C788D216A277A6F9922FD891F3FF07253F00D47B7EE6B9A3"
+    },
+    {
+      "file": "cloud-ribbon.png",
+      "sha256": "09B284D40777B6358E7A725C6547B24D1750B14D3C8BB510B1B9849A280A2942"
+    },
+    {
+      "file": "reference-pixel-cloud.png",
+      "sha256": "42552207F4569E0F09BFBD6E70D01ED4CFE65679ED4DFFC53C8C9D1133D5E96D"
+    }
+  ]
+}

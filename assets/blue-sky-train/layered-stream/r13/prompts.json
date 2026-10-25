@@ -1,0 +1,40 @@
+{
+  "revision": "r13-natural-shoreline",
+  "status": "generated-and-integrated",
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "references": [
+    "assets/blue-sky-train/layered-stream/r12/shore.png",
+    "assets/blue-sky-train/source/blue-sky-train.png"
+  ],
+  "purpose": "Replace the ruler-straight bank-water contact with a coherent variable-width painted shoreline",
+  "prompt": "Use case: precise-object-edit.\nAsset type: a transparent painted grassy shoreline terrain strip for a layered summer train wallpaper.\nInput images: Image 1 is the existing grassy-bank material to improve; Image 2 is the original full wallpaper, the strict reference for hand-painted foliage marks, palette, small scene scale and lighting.\n\nPrimary request: Redesign the WATER-CONTACT EDGE of the grassy bank into a naturally irregular lakeshore with shallow inlets and low projecting grassy tongues. The old material was cut to a ruler-straight bottom line. Keep a solid connected land interior with blue-green painted shadows, but give the land a convincing, visibly uneven outline where it meets the transparent water area below. Preserve the original painterly anime landscape texture and summer colors.\n\nComposition: one very wide continuous low grassy bank crossing the entire canvas horizontally, on a TRUE TRANSPARENT 2048 x 768 canvas. Place the painted strip around the vertical middle, approximately y=330..425, leaving large completely transparent space above and below. Its upper grass edge stays relatively level with tiny irregular blades and occasional very low grassy tufts. Its lower water-contact edge has 3 or 4 UNEQUAL broad shallow bays and gently projecting low headlands over the full width, plus smaller ragged grass and earth details. The bank surface has varying depth: about 40 to 90 pixels from upper edge to lower edge. The lower contour should vary by about 35 to 45 pixels in total. Design real changes in the WIDTH of the bank; do not bend a constant-width strip up and down. Keep the features broad, subtle and asymmetrical, appropriate to an opposite lakeshore viewed from a distance. Let both horizontal ends continue through the canvas sides as parts of the same bank, with similar end thickness and ground height for a horizontal repeating tile. No perspective convergence.\n\nPainting: sunlit yellow-green and moss-green grass above, connected deeper teal and blue-green shadow masses across the bank face, a few small muted olive-earth details at the water edge, and sparse tiny grass blades. Match the small opaque, slightly pixel-like hand-painted brush patches of the original wallpaper. The land interior must be fully solid and opaque, including every dark blue-green shadow. Only areas OUTSIDE the terrain silhouette are transparent. No holes inside the ground and no detached green flecks below the coast.\n\nCritical constraints: only the grass-and-earth bank, no water pixels, reflected foliage, waves, foam, lake, sky, cloud, mountains, hills, tall trees, bridge, train, foreground leaves, text, outlines, drop shadow or UI. No flat horizontal bottom cut, no evenly spaced scallops, no geometric polygon border, no continuous sine wave, no cliff wall, no isolated islands. Preserve genuine transparent alpha above and below. Output one usable painted shoreline strip rather than a scene illustration, diagram, comparison sheet or multi-panel image.",
+  "generatedAt": "2026-10-24T09:18:04.826Z",
+  "sourceOutput": {
+    "path": "assets/blue-sky-train/layered-stream/r13/shore-source.png",
+    "width": 2048,
+    "height": 768,
+    "sha256": "e2b9a80af3987f9aa9279f0f08a29e27af0d823395be4c6e2908333de4a3d6c1"
+  },
+  "runtimeOutput": {
+    "path": "assets/blue-sky-train/layered-stream/r13/shore.png",
+    "width": 1952,
+    "height": 83,
+    "sha256": "a5e4213f63eb88c7a4da47d5b682216ea881ee919da50f18f6174e57d5296382",
+    "scale": 0.5,
+    "period": 976,
+    "contactRange": [
+      562,
+      583
+    ]
+  },
+  "referenceHashes": {
+    "assets/blue-sky-train/layered-stream/r12/shore.png": "11c364b8e293924b27964c8c4171e01a01328f675c8eec6af47d997db3f63a6e",
+    "assets/blue-sky-train/source/blue-sky-train.png": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+  },
+  "preparation": {
+    "implementation": "cases/blue-sky-layered/shoreline-material.mjs",
+    "manifest": "assets/blue-sky-train/layered-stream/r13/materials.json",
+    "description": "Preserve the painted contour; remove faint alpha fringe, crop transparent margins, match natural contact heights at the repeat ends, and feather opaque colours at the join."
+  }
+}

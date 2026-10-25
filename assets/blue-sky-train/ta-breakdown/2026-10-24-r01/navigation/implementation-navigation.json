@@ -1,0 +1,2054 @@
+{
+  "schemaVersion": 1,
+  "kind": "breakdown-to-implementation-navigation",
+  "status": "plan-only",
+  "generatedAt": "2026-10-24T20:54:54.557Z",
+  "goal": "先完成并读取拆解，再把拆解文档和 layered-wallpaper skill 一起交给模型，按导航复用实现。",
+  "breakdown": {
+    "directory": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01",
+    "document": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/index.html",
+    "manifest": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/manifest.json",
+    "source": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/source/original.png",
+    "sourceSha256": "37571a1f268b1e0721a37c3a6330321fbc155839c80ee17320645120e866d4d9",
+    "width": 2048,
+    "height": 768,
+    "layerCount": 37,
+    "repairCount": 8,
+    "staticVerification": {
+      "sourcePixelCount": 1572864,
+      "exportedLayerPixels": 1572864,
+      "changedPixels": 0,
+      "matchingPercent": 100,
+      "meanAbsoluteRGBError": 0,
+      "maxChannelError": 0,
+      "uncoveredPixels": 0,
+      "overlapPixels": 0,
+      "allLayersUseOriginalRGB": true,
+      "allLayerAlphaValues": [
+        0,
+        255
+      ],
+      "criterion": "Only static source-frame pixel reconstruction; not semantic mask correctness, background completeness or motion readiness."
+    },
+    "limitations": [
+      "Source-visible fragments only. No completed hidden background or full moving parts.",
+      "Binary ownership preserves source edge colour but may retain a blue fringe against a different backdrop.",
+      "Connected clouds and foliage have artificial cut boundaries; need painted overlap before independent deformation.",
+      "Colour-based semantic boundaries are approximate, especially blue foliage, steam/cloud transitions and reflections. Pixel equality does not certify those boundaries.",
+      "Reflection layer contains original painterly distortions. No independently identifiable complete train reflection is claimed.",
+      "Motion, shaders, seamless scrolling, game integration and unseen-region painting are outside this revision."
+    ]
+  },
+  "authority": {
+    "composition": "本次拆解的 source 与 manifest",
+    "implementation": "项目旧案例仅为复用参考",
+    "coordinates": {
+      "origin": "top-left",
+      "xDirection": "right",
+      "yDirection": "down",
+      "units": "source pixels",
+      "bbox": "x,y,width,height; max edges exclusive",
+      "normalization": "x/2048,y/768,width/2048,height/768",
+      "alignment": "Place every crop at manifest x,y, scale 1, no rotation",
+      "pivot": "Proposed attachment only, not inferred original rig; pivotLocal = pivotSource - crop offset",
+      "alpha": "Straight RGBA; 0 or 255; no edge decontamination, expansion or feathering",
+      "ordering": "z ascending back to front; equal-source pixels never overlap"
+    },
+    "sourceBodyLayers": {
+      "engine": [
+        "engine"
+      ],
+      "coaches": [
+        "coach"
+      ]
+    },
+    "staticZIsRuntimeRig": false,
+    "extractedFragmentsAreMotionReady": false,
+    "allRepairsCompleted": false
+  },
+  "readFirst": [
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/navigation/implementation-navigation.json",
+      "purpose": "读取结构化交接数据"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/manifest.json",
+      "purpose": "读取结构化交接数据"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/index.html",
+      "purpose": "按需浏览，避免把内嵌图片 base64 整份输入模型"
+    },
+    {
+      "path": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/handoff.json",
+      "purpose": "读取结构化交接数据"
+    }
+  ],
+  "targets": {
+    "sceneId": "ta-37571a1f",
+    "caseDirectory": "cases/ta-37571a1f",
+    "workbenchEntry": "themes/ta-37571a1f/lab/layered-stream/index.html",
+    "state": "proposed-not-created",
+    "workbenchContract": ".agents/skills/layered-wallpaper/references/workbench-contract.md",
+    "skill": ".agents/skills/layered-wallpaper/SKILL.md",
+    "qualitySkill": ".agents/skills/wallpaper-quality-export/SKILL.md",
+    "workbenchTemplate": "themes/blue-sky-train/lab/layered-stream/index.html",
+    "newSceneRequired": true,
+    "overwriteReferenceCase": false
+  },
+  "runtimeGroups": [
+    {
+      "id": "sky",
+      "label": "天空与高空细节",
+      "layers": [
+        "sky",
+        "wisps",
+        "contrail"
+      ],
+      "files": [
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "InfiniteScene.sky",
+        "WORLD"
+      ],
+      "assets": [],
+      "actions": [
+        "保留本图色板；先补齐云后天空，再允许独立云移位。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "clouds",
+      "label": "大积云",
+      "layers": [
+        "cloud-left",
+        "cloud-center",
+        "cloud-right"
+      ],
+      "files": [
+        "flat-clouds.js",
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "prepareFlatCloud",
+        "cloudInstances",
+        "FlatCloudField.draw",
+        "InfiniteScene.cloudLayer"
+      ],
+      "assets": [
+        "assets/blue-sky-train/clouds/r17/cloud-crown.png",
+        "assets/blue-sky-train/clouds/r17/cloud-ribbon.png",
+        "assets/blue-sky-train/clouds/r17/cloud-fan.png"
+      ],
+      "actions": [
+        "源层是连通云群片段；修复重叠边与云后负形后才独立移动。",
+        "已有完整云形是画风/算法候选，不能默默替换参考图构图。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/flat-clouds.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [
+        "assets/blue-sky-train/clouds/r17/cloud-crown.png",
+        "assets/blue-sky-train/clouds/r17/cloud-ribbon.png",
+        "assets/blue-sky-train/clouds/r17/cloud-fan.png"
+      ],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "terrain",
+      "label": "远山与中景林坡",
+      "layers": [
+        "mountains",
+        "hill-back",
+        "forest-left",
+        "forest-right",
+        "bank-shrubs"
+      ],
+      "files": [
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "InfiniteScene.terrainStrip",
+        "InfiniteScene.clusterLayer",
+        "InfiniteScene.foothillLayer",
+        "InfiniteScene.treeLayer",
+        "MOUNTAINS",
+        "MIDGROUND"
+      ],
+      "assets": [
+        "assets/blue-sky-train/layered-stream/r20/mountain-haze.png",
+        "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png",
+        "assets/blue-sky-train/layered-stream/r01/low-shrub.png"
+      ],
+      "actions": [
+        "等比保持山形；按本图重设位置与层次。",
+        "林坡和山脚树丛共享世界相位；补齐桥/列车/近树背后的远景。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [
+        "assets/blue-sky-train/layered-stream/r20/mountain-haze.png",
+        "assets/blue-sky-train/layered-stream/r11/wooded-ridge.png",
+        "assets/blue-sky-train/layered-stream/r01/low-shrub.png"
+      ],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "bridge",
+      "label": "桥梁与轨道",
+      "layers": [
+        "bridge-arches",
+        "bridge-deck"
+      ],
+      "files": [
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "InfiniteScene.repeated",
+        "visibleCells"
+      ],
+      "assets": [
+        "assets/blue-sky-train/layered-stream/r01/bridge-deck.png",
+        "assets/blue-sky-train/layered-stream/r01/bridge-piers.png"
+      ],
+      "actions": [
+        "桥面/桥墩作为刚体共用相位；先补连续桥面与列车旧位置，再允许平移。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [
+        "assets/blue-sky-train/layered-stream/r01/bridge-deck.png",
+        "assets/blue-sky-train/layered-stream/r01/bridge-piers.png"
+      ],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "train",
+      "label": "列车与运行部件",
+      "layers": [
+        "engine",
+        "coach",
+        "coupling",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear",
+        "windows"
+      ],
+      "files": [
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "TRAIN",
+        "trainPose",
+        "InfiniteScene.train"
+      ],
+      "assets": [],
+      "actions": [
+        "保留拆解图的机车、客车、连接件和坐标；不复制旧 TRAIN.parts 的车厢数量。",
+        "轮组/连杆只是局部片段，完整轮周和车体遮挡面未补齐前保持静态。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "steam",
+      "label": "烟根与动态烟带",
+      "layers": [
+        "steam"
+      ],
+      "files": [
+        "starry-steam.js",
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "StarrySteam.render",
+        "trainPose",
+        "InfiniteScene.steam"
+      ],
+      "assets": [],
+      "actions": [
+        "只把明确的烟根作为烟囱连接依据；不要把远云整片归为烟。",
+        "复用原烟 Shader，按本图烟囱重设锚点和朝向，同时修复旧烟根露底。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/starry-steam.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "shore",
+      "label": "草岸与水陆衔接",
+      "layers": [
+        "shore"
+      ],
+      "files": [
+        "procedural-shore.js",
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "ProceduralShore.setContacts",
+        "ProceduralShore.render",
+        "InfiniteScene.shoreLayer"
+      ],
+      "assets": [
+        "assets/blue-sky-train/layered-stream/r13/shore.png"
+      ],
+      "actions": [
+        "沿本图起伏岸线设置新坐标；旧 Shader 的具体 y 常数只作实现参考。",
+        "需要山脚材质融合时保持山体不透明，与水面共用边界遮罩。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/procedural-shore.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [
+        "assets/blue-sky-train/layered-stream/r13/shore.png"
+      ],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "water",
+      "label": "湖面与选择性反射",
+      "layers": [
+        "water",
+        "reflection-forest",
+        "reflection-bridge",
+        "water-strokes"
+      ],
+      "files": [
+        "renderer.js"
+      ],
+      "symbols": [
+        "InfiniteScene.water",
+        "InfiniteScene.paintWater",
+        "InfiniteScene.waterSurface"
+      ],
+      "assets": [],
+      "actions": [
+        "本图水底片含烘焙云山反射；不能再叠一份实时反射造成重复。",
+        "没有独立列车反射裁片；需要时明确重建来源与锚点，不能声称已提取。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js"
+      ],
+      "candidateAssets": [],
+      "mappingStatus": "candidate-requires-review"
+    },
+    {
+      "id": "foreground",
+      "label": "近景枝干、叶冠与底部植物",
+      "layers": [
+        "fg-left-trunks",
+        "fg-left-crown",
+        "fg-left-bough",
+        "fg-left-base",
+        "fg-bottom",
+        "fg-right-trunks",
+        "fg-right-crown",
+        "fg-right-bough",
+        "fg-right-base"
+      ],
+      "files": [
+        "foreground.js",
+        "renderer.js",
+        "world.mjs"
+      ],
+      "symbols": [
+        "ForegroundVegetation",
+        "InfiniteScene.nearLayer",
+        "randomAt",
+        "visibleCells"
+      ],
+      "assets": [
+        "assets/blue-sky-train/foliage/r17/canopy-atlas.png",
+        "assets/blue-sky-train/foliage/r09/understory.png"
+      ],
+      "actions": [
+        "依据本图父级/支点绑定；先补树后湖面、草岸和叶簇连接边，再做根部风摆。",
+        "已有图集只作兼容候选，保持本图框景与叶片尺度。"
+      ],
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "candidateAssets": [
+        "assets/blue-sky-train/foliage/r17/canopy-atlas.png",
+        "assets/blue-sky-train/foliage/r09/understory.png"
+      ],
+      "mappingStatus": "candidate-requires-review"
+    }
+  ],
+  "layers": [
+    {
+      "id": "sky",
+      "name": "蓝天可见底片",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/00-sky.png",
+      "sha256": "88d3b81d4c485bac3338a0afc8bdb54eb32c6141a5b1096a1127a27cd459bcce",
+      "rect": [
+        0,
+        0,
+        2048,
+        464
+      ],
+      "z": 0,
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        384
+      ],
+      "pivotLocal": [
+        1024,
+        384
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "云层移开后，原先被云覆盖的天空为空缺。",
+      "repairIds": [
+        "R01"
+      ],
+      "runtimeGroup": "sky",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "wisps",
+      "name": "高空碎云与亮点",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/01-wisps.png",
+      "sha256": "4e5272f22c6034f25ede5ffc25071f8584adcbd2deae80623a05a5f382dda662",
+      "rect": [
+        15,
+        33,
+        1190,
+        258
+      ],
+      "z": 1,
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        200
+      ],
+      "pivotLocal": [
+        1009,
+        167
+      ],
+      "extractionStatus": "partial",
+      "missing": "碎云背面的天空未补齐；极淡蓝色薄雾仍在底片。",
+      "repairIds": [
+        "R01"
+      ],
+      "runtimeGroup": "sky",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "contrail",
+      "name": "斜向凝结尾迹",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/02-contrail.png",
+      "sha256": "7b345c60af8c278d9f27bf6e80e71d1d8d74779e4e59e8175a5784bbfd7986fe",
+      "rect": [
+        673,
+        76,
+        311,
+        132
+      ],
+      "z": 2,
+      "parent": "world",
+      "pivotSource": [
+        678,
+        205
+      ],
+      "pivotLocal": [
+        5,
+        129
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "移动或淡出会露出尾迹原位置的细线状缺口。",
+      "repairIds": [
+        "R01"
+      ],
+      "runtimeGroup": "sky",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "cloud-left",
+      "name": "左侧积云群",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/03-cloud-left.png",
+      "sha256": "778ba0120accdc6640ff8c6a0c6b1fb36b1e7f9881785d1e7c45e1467560d969",
+      "rect": [
+        0,
+        106,
+        760,
+        365
+      ],
+      "z": 3,
+      "parent": "world",
+      "pivotSource": [
+        350,
+        390
+      ],
+      "pivotLocal": [
+        350,
+        284
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "与中央低云相接处为裁片接缝；底后被远山遮挡。",
+      "repairIds": [
+        "R01"
+      ],
+      "runtimeGroup": "clouds",
+      "referenceCode": [
+        "cases/blue-sky-layered/flat-clouds.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "cloud-center",
+      "name": "中央低云群",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/04-cloud-center.png",
+      "sha256": "a1b78554e50e527e0bb6f8887b1d118d700315cdb94212851b0db06586e32515",
+      "rect": [
+        760,
+        209,
+        445,
+        260
+      ],
+      "z": 4,
+      "parent": "world",
+      "pivotSource": [
+        990,
+        429
+      ],
+      "pivotLocal": [
+        230,
+        220
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "左右交界连通，横向错开后需要云底与天空补绘。",
+      "repairIds": [
+        "R01"
+      ],
+      "runtimeGroup": "clouds",
+      "referenceCode": [
+        "cases/blue-sky-layered/flat-clouds.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "cloud-right",
+      "name": "右侧高耸积云群",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/05-cloud-right.png",
+      "sha256": "60185f9c30efe11330986017b1d38ec47544ebc883eb34b8fb486d3c0f50599c",
+      "rect": [
+        1205,
+        0,
+        843,
+        460
+      ],
+      "z": 5,
+      "parent": "world",
+      "pivotSource": [
+        1610,
+        300
+      ],
+      "pivotLocal": [
+        405,
+        300
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "上边、右边画幅外无信息；林坡后云形缺失。",
+      "repairIds": [
+        "R01",
+        "R05",
+        "R08"
+      ],
+      "runtimeGroup": "clouds",
+      "referenceCode": [
+        "cases/blue-sky-layered/flat-clouds.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "mountains",
+      "name": "蓝色远山与谷地",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/06-mountains.png",
+      "sha256": "9e9ef67db38c8aae2ad6ad2481c563a10f076b9701ad5a0d928e8638d9f9d7cd",
+      "rect": [
+        0,
+        362,
+        1315,
+        179
+      ],
+      "z": 6,
+      "parent": "world",
+      "pivotSource": [
+        860,
+        520
+      ],
+      "pivotLocal": [
+        860,
+        158
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "石桥、岸树、列车和近树遮住的山体未恢复。",
+      "repairIds": [
+        "R02"
+      ],
+      "runtimeGroup": "terrain",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "hill-back",
+      "name": "右后方林木山坡",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/07-hill-back.png",
+      "sha256": "6308dffc53fb63de9f7bf4e4f73fb6f995a4ec189af9303e4f06e2e3487f220f",
+      "rect": [
+        1400,
+        247,
+        648,
+        223
+      ],
+      "z": 7,
+      "parent": "world",
+      "pivotSource": [
+        1830,
+        530
+      ],
+      "pivotLocal": [
+        430,
+        283
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "前方林冠之后与右侧画幅外未补绘；不是完整地形。",
+      "repairIds": [
+        "R02",
+        "R08"
+      ],
+      "runtimeGroup": "terrain",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "forest-left",
+      "name": "左岸中景树群",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/08-forest-left.png",
+      "sha256": "e3b887fa25533e4c4a8067b4b195db7295ac2a5bd86bc3aac1eff1da0e09f290",
+      "rect": [
+        111,
+        415,
+        900,
+        126
+      ],
+      "z": 24,
+      "parent": "world",
+      "pivotSource": [
+        460,
+        548
+      ],
+      "pivotLocal": [
+        349,
+        133
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "与左近树交叠区域、桥前被遮树根未恢复。",
+      "repairIds": [
+        "R02"
+      ],
+      "runtimeGroup": "terrain",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "forest-right",
+      "name": "右岸中景林冠",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/09-forest-right.png",
+      "sha256": "c57dbfb1747966eb15a8b615fd41212ed116bcdfe314371d205857029e39fe22",
+      "rect": [
+        1141,
+        377,
+        907,
+        164
+      ],
+      "z": 25,
+      "parent": "world",
+      "pivotSource": [
+        1560,
+        548
+      ],
+      "pivotLocal": [
+        419,
+        171
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "与后坡的笔触交界需补叠边，近树之后缺失。",
+      "repairIds": [
+        "R02"
+      ],
+      "runtimeGroup": "terrain",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "bank-shrubs",
+      "name": "中央岸边低灌木",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/10-bank-shrubs.png",
+      "sha256": "c454813cf0689400198e719f0e1e28a8dedd0f4ca09a6c592d187694128e11d3",
+      "rect": [
+        602,
+        480,
+        598,
+        61
+      ],
+      "z": 26,
+      "parent": "world",
+      "pivotSource": [
+        899,
+        550
+      ],
+      "pivotLocal": [
+        297,
+        70
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "被墩脚与草岸混合遮挡的根部不完整。",
+      "repairIds": [
+        "R02"
+      ],
+      "runtimeGroup": "terrain",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "bridge-arches",
+      "name": "石拱桥墩与拱肩",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/11-bridge-arches.png",
+      "sha256": "4617b3a29015653f366535c7dac0f52b3e8d93de4983314fb75eb91911651891",
+      "rect": [
+        403,
+        489,
+        962,
+        54
+      ],
+      "z": 12,
+      "parent": "bridge",
+      "pivotSource": [
+        860,
+        486
+      ],
+      "pivotLocal": [
+        457,
+        -3
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "植被遮住的下段桥墩、两端桥台及列车后背景需补齐。",
+      "repairIds": [
+        "R02"
+      ],
+      "runtimeGroup": "bridge",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "bridge-deck",
+      "name": "桥面、轨道与细栏杆",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/12-bridge-deck.png",
+      "sha256": "4433d7d5141ec7149dbe02c62f63af1ab5a7f2c830cfbd2cce6e0045d9debc34",
+      "rect": [
+        403,
+        471,
+        962,
+        18
+      ],
+      "z": 13,
+      "parent": "bridge",
+      "pivotSource": [
+        860,
+        479
+      ],
+      "pivotLocal": [
+        457,
+        8
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "列车后面的栏杆及轨道被挖空，需修出连续桥面。",
+      "repairIds": [
+        "R02",
+        "R03"
+      ],
+      "runtimeGroup": "bridge",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "steam",
+      "name": "可确认的蒸汽烟根",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/13-steam.png",
+      "sha256": "ce4ea20b2e8672a1db8fbf10891a50e30a9e511702159152e750cc229f23fb03",
+      "rect": [
+        1173,
+        429,
+        74,
+        19
+      ],
+      "z": 14,
+      "parent": "train",
+      "pivotSource": [
+        1172,
+        451
+      ],
+      "pivotLocal": [
+        -1,
+        22
+      ],
+      "extractionStatus": "partial",
+      "missing": "约 x1247 后与远云同色连通；烟尾范围无法唯一判定。",
+      "repairIds": [
+        "R05"
+      ],
+      "runtimeGroup": "steam",
+      "referenceCode": [
+        "cases/blue-sky-layered/starry-steam.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "engine",
+      "name": "机车车体与烟囱",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/14-engine.png",
+      "sha256": "ee837b2f49bb8196af9043ec6b921715227a888c98e431e247c3ba5168953a56",
+      "rect": [
+        1152,
+        450,
+        87,
+        28
+      ],
+      "z": 15,
+      "parent": "train",
+      "pivotSource": [
+        1198,
+        470
+      ],
+      "pivotLocal": [
+        46,
+        20
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "轮组和连杆的原位置是透明缺口，车体背面无信息。",
+      "repairIds": [
+        "R02",
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "coach",
+      "name": "单节客车车体",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/15-coach.png",
+      "sha256": "c066008e6293bb903e07c0d108cf56e588abf60c107bc78d886da850b6311132",
+      "rect": [
+        1242,
+        455,
+        101,
+        23
+      ],
+      "z": 16,
+      "parent": "train",
+      "pivotSource": [
+        1290,
+        470
+      ],
+      "pivotLocal": [
+        48,
+        15
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "车窗和转向架原位置需恢复遮挡后的底色。",
+      "repairIds": [
+        "R02",
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "coupling",
+      "name": "机车与客车连接件",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/16-coupling.png",
+      "sha256": "2dfb59b0ba0dfa9d3f1439c82164987ee4efa4855f67bbfd2c21f8a23d806af2",
+      "rect": [
+        1237,
+        465,
+        7,
+        11
+      ],
+      "z": 17,
+      "parent": "train",
+      "pivotSource": [
+        1240,
+        471
+      ],
+      "pivotLocal": [
+        3,
+        6
+      ],
+      "extractionStatus": "partial",
+      "missing": "像素很少，不能据此推断车钩三维形制或拉伸行程。",
+      "repairIds": [
+        "R03"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "engine-leading-wheels",
+      "name": "机车前部可见轮组",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/17-engine-leading-wheels.png",
+      "sha256": "10d43fd18881fa5414a30234f115498cb674a200ab44515b014e560984ba9c3a",
+      "rect": [
+        1164,
+        472,
+        17,
+        6
+      ],
+      "z": 18,
+      "parent": "engine",
+      "pivotSource": [
+        1168,
+        474
+      ],
+      "pivotLocal": [
+        4,
+        2
+      ],
+      "extractionStatus": "partial",
+      "missing": "车体遮住轮顶，转动时会露出缺口。",
+      "repairIds": [
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "engine-driving-wheels",
+      "name": "机车驱动轮可见片",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/18-engine-driving-wheels.png",
+      "sha256": "d842510fce5c8bd31db0e1e91e5598d4c3745f9ad7cb633ac6fc04d4646e7eba",
+      "rect": [
+        1183,
+        472,
+        54,
+        6
+      ],
+      "z": 19,
+      "parent": "engine",
+      "pivotSource": [
+        1206,
+        474
+      ],
+      "pivotLocal": [
+        23,
+        2
+      ],
+      "extractionStatus": "partial",
+      "missing": "原图不足以可靠分出每一根辐条和完整轮周。",
+      "repairIds": [
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "engine-rod",
+      "name": "机车可见连杆",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/19-engine-rod.png",
+      "sha256": "ef7678b658022d3ccb730f1f25144a886a8411ae9b1069eea189c47b852e26e9",
+      "rect": [
+        1181,
+        470,
+        54,
+        4
+      ],
+      "z": 20,
+      "parent": "engine",
+      "pivotSource": [
+        1205,
+        472
+      ],
+      "pivotLocal": [
+        24,
+        2
+      ],
+      "extractionStatus": "partial",
+      "missing": "被车体与轮子遮住的连杆未补齐，不适合直接摆动。",
+      "repairIds": [
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "coach-bogie-front",
+      "name": "客车前转向架可见片",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/20-coach-bogie-front.png",
+      "sha256": "ec636017fff6a7f046b3c849842d7f969026693f4e30d0b9b024f49449fc42cb",
+      "rect": [
+        1249,
+        472,
+        18,
+        6
+      ],
+      "z": 21,
+      "parent": "coach",
+      "pivotSource": [
+        1256,
+        474
+      ],
+      "pivotLocal": [
+        7,
+        2
+      ],
+      "extractionStatus": "partial",
+      "missing": "仅可见下缘；完整轮廓和轮轴需补绘。",
+      "repairIds": [
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "coach-bogie-rear",
+      "name": "客车后转向架可见片",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/21-coach-bogie-rear.png",
+      "sha256": "3d23c665b96710b46a55a33cd6b1df12f6bf6a5c468205a71aace758c8eb3aa5",
+      "rect": [
+        1317,
+        472,
+        22,
+        6
+      ],
+      "z": 22,
+      "parent": "coach",
+      "pivotSource": [
+        1327,
+        474
+      ],
+      "pivotLocal": [
+        10,
+        2
+      ],
+      "extractionStatus": "partial",
+      "missing": "末端与树丛、桥面相接，轮廓有不确定性。",
+      "repairIds": [
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "windows",
+      "name": "客车暖色窗面",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/22-windows.png",
+      "sha256": "613ee13a7eb2b601729739371a16635ea162151b6e662ab73c74379e4e393f12",
+      "rect": [
+        1248,
+        461,
+        83,
+        4
+      ],
+      "z": 23,
+      "parent": "coach",
+      "pivotSource": [
+        1290,
+        462
+      ],
+      "pivotLocal": [
+        42,
+        1
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "不是完整玻璃材质；窗框和背板仍属于车体。",
+      "repairIds": [
+        "R03",
+        "R04"
+      ],
+      "runtimeGroup": "train",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "shore",
+      "name": "草岸与水陆交界",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/23-shore.png",
+      "sha256": "58cfe52aa0419a24634ab95c2c5e91f704bf7aa5547766a155d656211eed5b84",
+      "rect": [
+        0,
+        541,
+        2037,
+        22
+      ],
+      "z": 27,
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        557
+      ],
+      "pivotLocal": [
+        1024,
+        16
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "近树后的草岸缺失，水平移动会露出断口。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "shore",
+      "referenceCode": [
+        "cases/blue-sky-layered/procedural-shore.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "water",
+      "name": "湖面底片与云山倒影",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/24-water.png",
+      "sha256": "31b364130ccfb61388f25bd3ae8099fca000d278dd940eab0df282ec40a05d81",
+      "rect": [
+        0,
+        563,
+        2048,
+        205
+      ],
+      "z": 8,
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        550
+      ],
+      "pivotLocal": [
+        1024,
+        -13
+      ],
+      "extractionStatus": "visible-plate",
+      "missing": "桥、植被与水纹被单列后留下孔洞；近树后水面缺失。",
+      "repairIds": [
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "runtimeGroup": "water",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "reflection-forest",
+      "name": "湖中植被倒影",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/25-reflection-forest.png",
+      "sha256": "9f18f4d4dda2468a30a8c8f1ef770c2c88fd37c4dc91baf1f2f866aa7de90aef",
+      "rect": [
+        80,
+        563,
+        1860,
+        120
+      ],
+      "z": 9,
+      "parent": "world",
+      "pivotSource": [
+        1530,
+        550
+      ],
+      "pivotLocal": [
+        1450,
+        -13
+      ],
+      "extractionStatus": "partial",
+      "missing": "与蓝色倒影交界及被近树遮住部分无法完全区分。",
+      "repairIds": [
+        "R06",
+        "R07"
+      ],
+      "runtimeGroup": "water",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "reflection-bridge",
+      "name": "湖中石桥倒影",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/26-reflection-bridge.png",
+      "sha256": "4b82f672a0571715a971c4b7b76d23d912549978858d2c5ae6380ae35ed06bf3",
+      "rect": [
+        403,
+        563,
+        962,
+        68
+      ],
+      "z": 10,
+      "parent": "bridge",
+      "pivotSource": [
+        860,
+        550
+      ],
+      "pivotLocal": [
+        457,
+        -13
+      ],
+      "extractionStatus": "visible-cutout",
+      "missing": "按原画局部变形保留，不能用严格上下翻转替换。",
+      "repairIds": [
+        "R07"
+      ],
+      "runtimeGroup": "water",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "water-strokes",
+      "name": "长条水纹与岸边亮线",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/27-water-strokes.png",
+      "sha256": "1fcd89b3afe9641f62d9ded4e2a2d27b4fc3a7c9561cbc04d0f42865919c6a74",
+      "rect": [
+        216,
+        563,
+        1667,
+        131
+      ],
+      "z": 11,
+      "parent": "world",
+      "pivotSource": [
+        1024,
+        620
+      ],
+      "pivotLocal": [
+        808,
+        57
+      ],
+      "extractionStatus": "partial",
+      "missing": "与白云倒影同色相连的小纹仍在水底片；原位置留细孔。",
+      "repairIds": [
+        "R07"
+      ],
+      "runtimeGroup": "water",
+      "referenceCode": [
+        "cases/blue-sky-layered/renderer.js"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-left-trunks",
+      "name": "左近景可见枝干",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/28-fg-left-trunks.png",
+      "sha256": "fc97175a6316daa5f06c8046e8aa8c6b431f270044c48caed2d54df3fe94361f",
+      "rect": [
+        46,
+        551,
+        54,
+        92
+      ],
+      "z": 28,
+      "parent": "world",
+      "pivotSource": [
+        38,
+        760
+      ],
+      "pivotLocal": [
+        -8,
+        209
+      ],
+      "extractionStatus": "partial",
+      "missing": "被叶冠遮住的枝干不完整，支点仅为工作参考。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-left-crown",
+      "name": "左侧上部近景叶冠",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/29-fg-left-crown.png",
+      "sha256": "1fa3da5e32a8daac5b66f456c5f66b2d49aaff0763b58551317ec6c4725f548c",
+      "rect": [
+        0,
+        329,
+        211,
+        315
+      ],
+      "z": 29,
+      "parent": "fg-left",
+      "pivotSource": [
+        63,
+        625
+      ],
+      "pivotLocal": [
+        63,
+        296
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "左边框外、叶冠背后和与下部相接处没有补绘。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-left-bough",
+      "name": "左侧伸入湖面的枝叶",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/30-fg-left-bough.png",
+      "sha256": "d295e0f1d10a726eb3f75a39c227ddba06d2eb237e49f2318e2809d953e061bc",
+      "rect": [
+        164,
+        563,
+        243,
+        153
+      ],
+      "z": 30,
+      "parent": "fg-left",
+      "pivotSource": [
+        196,
+        645
+      ],
+      "pivotLocal": [
+        32,
+        82
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "根部与底部灌木相接；摆开会露出透明切口。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-left-base",
+      "name": "左下近景灌木底片",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/31-fg-left-base.png",
+      "sha256": "74cd7bedac32afa0496ace3f135e72d8eaacc1ca0baf5cbe68e64d49034e3f6d",
+      "rect": [
+        0,
+        644,
+        418,
+        124
+      ],
+      "z": 31,
+      "parent": "world",
+      "pivotSource": [
+        150,
+        767
+      ],
+      "pivotLocal": [
+        150,
+        123
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "底边、左边画幅外不可见，与上叶冠有连通裁缝。",
+      "repairIds": [
+        "R06",
+        "R08"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-bottom",
+      "name": "下沿中央与偏右小灌木",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/32-fg-bottom.png",
+      "sha256": "e04481addc4b63ddef7ead98a6d18a7ea54dd35d7bfd4f081543bea0041c010e",
+      "rect": [
+        380,
+        653,
+        1154,
+        115
+      ],
+      "z": 32,
+      "parent": "world",
+      "pivotSource": [
+        650,
+        767
+      ],
+      "pivotLocal": [
+        270,
+        114
+      ],
+      "extractionStatus": "partial",
+      "missing": "底边裁切，多个可见叶簇之间的连接无法推断。",
+      "repairIds": [
+        "R06",
+        "R08"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-right-trunks",
+      "name": "右近景可见枝干",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/33-fg-right-trunks.png",
+      "sha256": "be21bdb2ed5433245acd13b118412c7ef40cb49ebfe2f50c67b8ef2ce26570c8",
+      "rect": [
+        1940,
+        495,
+        106,
+        184
+      ],
+      "z": 33,
+      "parent": "world",
+      "pivotSource": [
+        2013,
+        767
+      ],
+      "pivotLocal": [
+        73,
+        272
+      ],
+      "extractionStatus": "partial",
+      "missing": "树冠后主干缺失，不能直接当完整骨架使用。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-right-crown",
+      "name": "右上近景叶冠",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/34-fg-right-crown.png",
+      "sha256": "597793574549b97fedadbdbe82fbee9929e0113e8e1eb8e47c5e498f1c6d8222",
+      "rect": [
+        1786,
+        366,
+        262,
+        265
+      ],
+      "z": 34,
+      "parent": "fg-right",
+      "pivotSource": [
+        1980,
+        614
+      ],
+      "pivotLocal": [
+        194,
+        248
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "右侧画幅外、枝干遮挡及底部连接处需补绘。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-right-bough",
+      "name": "右下伸入湖面的枝叶",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/35-fg-right-bough.png",
+      "sha256": "7fb7484ec428c06ab8d131d9901923e3e935f8d7bb80d33e36a97e0b55c0b3d4",
+      "rect": [
+        1610,
+        649,
+        290,
+        118
+      ],
+      "z": 35,
+      "parent": "fg-right",
+      "pivotSource": [
+        1831,
+        726
+      ],
+      "pivotLocal": [
+        221,
+        77
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "可见根部被深色灌木遮住，错位时露出连接缺口。",
+      "repairIds": [
+        "R06"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    },
+    {
+      "id": "fg-right-base",
+      "name": "右下近景灌木底片",
+      "sourceFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/layers/36-fg-right-base.png",
+      "sha256": "0c66c76bf40a52936db5fb6256f368ba9462426d99a4d8541981430ffbc539b9",
+      "rect": [
+        1572,
+        631,
+        476,
+        137
+      ],
+      "z": 36,
+      "parent": "world",
+      "pivotSource": [
+        1960,
+        767
+      ],
+      "pivotLocal": [
+        388,
+        136
+      ],
+      "extractionStatus": "connected-fragment",
+      "missing": "右、下画幅外无信息；叶冠背后的湖面尚未补齐。",
+      "repairIds": [
+        "R06",
+        "R08"
+      ],
+      "runtimeGroup": "foreground",
+      "referenceCode": [
+        "cases/blue-sky-layered/foreground.js",
+        "cases/blue-sky-layered/renderer.js",
+        "cases/blue-sky-layered/world.mjs"
+      ],
+      "plannedTargetConfig": "cases/ta-37571a1f/world.mjs",
+      "readyForIndependentMotion": false
+    }
+  ],
+  "repairs": [
+    {
+      "id": "R01",
+      "name": "天空在云后与尾迹后的缺口",
+      "rect": [
+        0,
+        0,
+        2048,
+        473
+      ],
+      "layers": [
+        "sky",
+        "cloud-left",
+        "cloud-center",
+        "cloud-right",
+        "wisps",
+        "contrail"
+      ],
+      "type": "occluded",
+      "priority": "P1",
+      "trigger": "云群或细尾迹发生位移、淡出；云缘后露出原位置的透明负形。",
+      "note": "可准确测到已抠走的原位置；隐藏天空的真实颜色只能补绘估计。",
+      "maskIds": [
+        "cloud-left",
+        "cloud-center",
+        "cloud-right",
+        "wisps",
+        "contrail"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R01.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R02",
+      "name": "远山 / 云在桥、列车与林木之后",
+      "rect": [
+        85,
+        365,
+        1950,
+        192
+      ],
+      "layers": [
+        "mountains",
+        "hill-back",
+        "forest-left",
+        "forest-right",
+        "bridge-arches",
+        "bridge-deck",
+        "engine",
+        "coach"
+      ],
+      "type": "occluded",
+      "priority": "P1",
+      "trigger": "镜头视差或岸树移开，桥洞及山脚暴露缺失区域。",
+      "note": "本框是保守检查范围，不是完整隐藏轮廓。",
+      "maskIds": [
+        "bridge-arches",
+        "bridge-deck",
+        "forest-left",
+        "forest-right",
+        "bank-shrubs",
+        "engine",
+        "coach"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R02.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R03",
+      "name": "列车原位置的轨道、栏杆和远景",
+      "rect": [
+        1148,
+        446,
+        202,
+        35
+      ],
+      "layers": [
+        "bridge-deck",
+        "engine",
+        "coach",
+        "coupling"
+      ],
+      "type": "occluded",
+      "priority": "P0",
+      "trigger": "列车沿桥移动后，x1151–1344 附近的栏杆和远山缺口直接可见。",
+      "note": "需先做一条连续的桥面与背景，再讨论列车平移。",
+      "maskIds": [
+        "engine",
+        "coach",
+        "coupling",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear",
+        "windows"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R03.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R04",
+      "name": "轮组、连杆与窗面背后的结构",
+      "rect": [
+        1150,
+        451,
+        199,
+        30
+      ],
+      "layers": [
+        "engine",
+        "coach",
+        "windows",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear"
+      ],
+      "type": "component",
+      "priority": "P0",
+      "trigger": "轮子转动、连杆摆动或窗面透明度降低，将露出缺轮周与底板孔洞。",
+      "note": "完整圆周、轮轴、辐条、车体被遮面没有源图证据。pivot 仅为拟定绑定点。",
+      "maskIds": [
+        "windows",
+        "engine-leading-wheels",
+        "engine-driving-wheels",
+        "engine-rod",
+        "coach-bogie-front",
+        "coach-bogie-rear"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R04.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R05",
+      "name": "烟根与远云混合区",
+      "rect": [
+        1170,
+        413,
+        238,
+        40
+      ],
+      "layers": [
+        "steam",
+        "cloud-right"
+      ],
+      "type": "ambiguous",
+      "priority": "P1",
+      "trigger": "烟从烟囱分离后，原烟根留下细白形缺口；尾烟与云无法唯一划界。",
+      "note": "只提取可辨烟根；没有将整条远云当作列车蒸汽。",
+      "maskIds": [
+        "steam"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R05.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R06",
+      "name": "两侧与下沿近树背后的湖面、草岸",
+      "rect": [
+        0,
+        326,
+        2048,
+        442
+      ],
+      "layers": [
+        "water",
+        "shore",
+        "reflection-forest",
+        "fg-left-crown",
+        "fg-right-crown"
+      ],
+      "type": "occluded",
+      "priority": "P0",
+      "trigger": "叶簇摆开或镜头移动，会暴露枝叶原位置的空洞，连通叶簇的接缝也会张开。",
+      "note": "保守区域通过前景实际 alpha 标记，叶间原有孔洞仍保持透明。",
+      "maskIds": [
+        "fg-left-trunks",
+        "fg-left-crown",
+        "fg-left-bough",
+        "fg-left-base",
+        "fg-bottom",
+        "fg-right-trunks",
+        "fg-right-crown",
+        "fg-right-bough",
+        "fg-right-base"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R06.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R07",
+      "name": "水面在独立倒影和亮纹后的底片",
+      "rect": [
+        90,
+        553,
+        1890,
+        215
+      ],
+      "layers": [
+        "water",
+        "reflection-forest",
+        "reflection-bridge",
+        "water-strokes"
+      ],
+      "type": "occluded",
+      "priority": "P1",
+      "trigger": "倒影或水纹错位后会露出湖底片透明负形。",
+      "note": "云山倒影仍与水底片合绘；未发现可可靠抠出的完整列车倒影，需另行补绘或重建。",
+      "maskIds": [
+        "reflection-forest",
+        "reflection-bridge",
+        "water-strokes"
+      ],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R07.png",
+      "status": "not-completed"
+    },
+    {
+      "id": "R08",
+      "name": "四边画幅外",
+      "rect": [
+        0,
+        0,
+        2048,
+        768
+      ],
+      "layers": [
+        "cloud-right",
+        "hill-back",
+        "fg-left-base",
+        "fg-right-base",
+        "fg-bottom",
+        "water"
+      ],
+      "type": "out-of-frame",
+      "priority": "P1",
+      "trigger": "平移、缩放或改画幅后，四边会出现没有原画数据的区域。",
+      "note": "无图像外真值。示意余量：左右各128 px、上下各64 px，仅为后续工作建议，非已补绘。",
+      "maskIds": [],
+      "maskFile": "assets/blue-sky-train/ta-breakdown/2026-10-24-r01/masks/repair-R08.png",
+      "status": "not-completed"
+    }
+  ],
+  "implementationOrder": [
+    {
+      "id": "S00",
+      "title": "读取拆解和导航",
+      "dependsOn": [],
+      "repairIds": [],
+      "doneWhen": [
+        "source、manifest、原文档与证据都可读取；记录原画和旧案例的差异。"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "S10",
+      "title": "原坐标静态重组",
+      "dependsOn": [
+        "S00"
+      ],
+      "repairIds": [],
+      "doneWhen": [
+        "逐层按 x/y、scale=1、Z 合成，与 source 比较；零差异只标记静态通过。"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "S20",
+      "title": "补齐已选择动作的资源缺口",
+      "dependsOn": [
+        "S10"
+      ],
+      "repairIds": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "doneWhen": [
+        "补绘/重建另存，关联原图层和遮罩；受影响动作保持待完成，其他工作可继续。"
+      ],
+      "status": "planned",
+      "repairSelection": "enabled-actions-only",
+      "mayContinue": [
+        "static-recomposition",
+        "workbench",
+        "unaffected-bindings"
+      ]
+    },
+    {
+      "id": "S30",
+      "title": "世界数据、刚体连接与视差",
+      "dependsOn": [
+        "S10",
+        "S20"
+      ],
+      "repairIds": [],
+      "doneWhen": [
+        "按本图数量/坐标绑定对象；确定性种子、往返重现、画外保护区与等比山形。"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "S40",
+      "title": "烟、风、水与反射依赖",
+      "dependsOn": [
+        "S30"
+      ],
+      "repairIds": [],
+      "doneWhen": [
+        "时间与旅行分离；烟囱/叶根连接稳定；水面不重复反射；暂停与方向一致。"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "S50",
+      "title": "规范工作台网页",
+      "dependsOn": [
+        "S10"
+      ],
+      "repairIds": [],
+      "doneWhen": [
+        "复用现有四视图、图层侧栏、播放控制和素材下载；目标入口真实可用。"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "S60",
+      "title": "目标适配、性能验收与导出",
+      "dependsOn": [
+        "S40",
+        "S50"
+      ],
+      "repairIds": [],
+      "doneWhen": [
+        "使用 wallpaper-quality-export，适配本图对象/入口后检查；未测项目如实标记。"
+      ],
+      "status": "planned"
+    }
+  ],
+  "checks": {
+    "sourceAndLayerHashes": "passed",
+    "sourceLayersCovered": 37,
+    "unknownRoutes": [],
+    "motionImplemented": false,
+    "performanceMeasured": false
+  },
+  "modelPrompt": "先读取随附拆解文档与 implementation-navigation.json，再使用 $layered-wallpaper。以本次拆解的构图、对象、坐标与缺口为准，按导航复用已有代码和合适素材；先完成静态重组和所启用动作的资源修复，再实现规范工作台。不得把计划、静态一致性或旧案例运行结果当作本图已完成。"
+}

@@ -1,0 +1,43 @@
+{
+  "revision": "r17-foreground-canopies",
+  "provider": "built-in image_gen",
+  "transparent_background": true,
+  "prompt": "Use case: style-transfer. Asset type: ONE transparent RGBA foliage sprite atlas for the existing blue-sky train wallpaper. Input image 1 is the source foliage artwork to derive new shapes from; input image 2 is a palette and brushwork reference only. Transform the first image into a SQUARE atlas with a precise 2 by 2 grid of FOUR separate complete foreground shrub/young-tree silhouettes, each centered wholly inside its own quadrant with at least 10 percent EMPTY TRANSPARENT padding on every side. The quadrant boundaries themselves must remain entirely empty. No grid lines, labels, text or background. Match the original illustration's stepped painterly anime/pixel-painted brush planes, small irregular broadleaf clusters, rich DARK BLUE-TEAL shaded centres, emerald leaves, sparse muted olive sunlit tips lit consistently from upper left. These are foreground framing plants, not icons or botanical diagrams. Keep leaf scale and sharp irregular paint edges consistent with the source. FOUR CLEARLY DIFFERENT branching structures and silhouettes: TOP LEFT is a slender, airy, upward shrub with two unequal spreading branches and substantial negative spaces; TOP RIGHT is a broad, lopsided, many-branched maple-like shrub with a low spreading crown; BOTTOM LEFT is an arching, wind-shaped young shrub with a drooping side branch and uneven canopy openings; BOTTOM RIGHT is a dense irregular rounded shrub with several short offset forks, much shorter and wider than top left. Each has a subtle connected stem base and a complete uncut outline. Do not reuse or mirror the same branch topology in another quadrant. Avoid the source's distinctive three repeated triangular leaf masses. Make the four shapes botanically organic, asymmetric and recognizably different even as black silhouettes. Keep the original colour palette and painting style unchanged. Real alpha transparency, including between leaves; absolutely no soft green glow, haze, vignette, ground slab, sky, water, mountain, train, checkerboard, border, pot, flowers or photographic lighting. Create one 2048 by 2048 atlas if possible.",
+  "references": [
+    "assets/blue-sky-train/foliage/r09/leaves.png",
+    "assets/blue-sky-train/source/blue-sky-train.png"
+  ],
+  "output": "assets/blue-sky-train/foliage/r17/canopy-atlas.png",
+  "note": "Four distinct complete shrub silhouettes. Original generated alpha preserved. Runtime crops separate regions, trims transparent margins and caches small palette variants.",
+  "outputSha256": "2e755890850eefdb7688470ac6280d4c6e3e48f879578bf5dd05078d8838d32c",
+  "referenceHashes": {
+    "assets/blue-sky-train/foliage/r09/leaves.png": "816079e6ec1e4cb27004983460f04ce187d6badad4ea957e94145113d3b255b1",
+    "assets/blue-sky-train/source/blue-sky-train.png": "47a2990651da32f034cd152496d9643b93da91ae76a3ea729cf873b0f5b8c3e1"
+  },
+  "runtimeRegions1280": [
+    [
+      0,
+      0,
+      620,
+      642
+    ],
+    [
+      620,
+      0,
+      660,
+      642
+    ],
+    [
+      0,
+      642,
+      632,
+      638
+    ],
+    [
+      632,
+      642,
+      648,
+      638
+    ]
+  ]
+}

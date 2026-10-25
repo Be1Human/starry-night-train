@@ -1,0 +1,11 @@
+{
+  "method": "Built-in image_gen; existing r04 cloud and r24 mountain assets are reused without modification.",
+  "reference": "assets/blue-sky-train/source/blue-sky-train.png",
+  "items": [
+    {
+      "id": "low-shrub",
+      "file": "low-shrub.png",
+      "prompt": "Use case: background-extraction / completion. Reference image: the supplied blue-sky steam-train landscape. Create one standalone reusable foreground low shrub cluster based specifically on the small broadleaf foliage at the bottom-left and lower edge of that reference. Preserve its flat hand-painted anime background treatment: irregular small rounded leaf silhouettes, crisp painterly patches, deep midnight blue-teal core, restrained medium green surfaces and a few muted yellow-green highlights from upper left. Complete the whole shrub as an independent asset with a fully closed natural silhouette and clear transparent margins on ALL four sides, including below. Composition: a broad low asymmetric mass, about 2.5 times wider than tall, with three uneven small rises in the crown and a few sparse twigs. Dense opaque interior, delicate actual holes between a few outer branches. Match the reference's simple flat coloured foliage, not realistic rendered leaves. No blades of grass, no flowers, no bright yellow neon, no outer glow, no translucent green haze, no ground, no mountains, no clouds, no water, no bridge, no train. True transparent background. No checkerboard painted in the image, no text or borders. This is an isolated sprite for an endlessly scrolling layered wallpaper, not a complete scene."
+    }
+  ]
+}
