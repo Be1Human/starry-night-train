@@ -3,8 +3,8 @@
   "version": "1.0.2",
   "created": "2026-10-24T23:13:31.104Z",
   "purpose": "Curated project publication: local skills, current examples, selected technical-art documentation and actual screenshots",
-  "fileCount": 239,
-  "totalBytes": 61350857,
+  "fileCount": 246,
+  "totalBytes": 61389247,
   "files": [
     {
       "path": ".agents/skills/layered-wallpaper/SKILL.md",
@@ -48,8 +48,8 @@
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/package-starter.mjs",
-      "bytes": 7742,
-      "sha256": "e7c8442f149771667662ce6faad1142f59a5fab0c25ad376cf33f1f5d6b1c599"
+      "bytes": 9053,
+      "sha256": "25960c6c82b781e5a8c6f1c05de97688f35d12f16e8de55cdfd8ee85f2969387"
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/project.mjs",
@@ -63,8 +63,8 @@
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/starter-documents.mjs",
-      "bytes": 7469,
-      "sha256": "2c72e66171f5072dab5ae1e506c6e298538c8563766c424a7b59fa7d07a1b8c0"
+      "bytes": 9088,
+      "sha256": "161c555cb01b88565332d11f9250f2c969f1108e94f22c777a9e0f7906947c9a"
     },
     {
       "path": ".agents/skills/wallpaper-quality-export/SKILL.md",
@@ -123,18 +123,18 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "bytes": 873,
-      "sha256": "e09df490b15947ca8b63dae0751c3607b547199739844ade1335ddd1f9c0a0f7"
+      "bytes": 923,
+      "sha256": "fbf2c60b2d6f9565854df8572c4202becad90f986ded99724d0c7c37e414f183"
     },
     {
       "path": "CREDITS.md",
-      "bytes": 1888,
-      "sha256": "68d48b742f37e2aefec2088cbaff6c17f73c7bfdd4f4012de3feafbba6fd937d"
+      "bytes": 1933,
+      "sha256": "14263a6601f69ef2cd21492078d07b7977526e804578863bc143f914b628b76a"
     },
     {
       "path": "README.en.md",
-      "bytes": 3438,
-      "sha256": "80236213c19b0904f9e6e760b67a146de51e3677a128254c39ca3d69ed6e1a20"
+      "bytes": 5718,
+      "sha256": "df2a3cef55194c8ee91a51282ac4e3a8069bb181a8d1cab464a7af5d64d960ac"
     },
     {
       "path": "README.md",
@@ -888,28 +888,28 @@
     },
     {
       "path": "docs/DECISIONS.md",
-      "bytes": 2777,
-      "sha256": "704d26e9053bff5a9a1053cf99de61a6b6bbf201708f90bfdc71e636de9d11dc"
+      "bytes": 2824,
+      "sha256": "6b126f921db11f8a4a190185f5e7d1bd824033ef4d53de3b4656625406534e43"
     },
     {
       "path": "docs/GETTING-STARTED.md",
-      "bytes": 1803,
-      "sha256": "8950c847b8107851bce416b7b4b914ce9e956063fa345ec699bcbe62b4af5d7d"
+      "bytes": 1856,
+      "sha256": "e10e9a04016d01b51575ee09afc2ff7ed24568b48ea14e6d955e39af7e66ed6b"
     },
     {
       "path": "docs/OUTPUT-AND-PUBLISH.md",
-      "bytes": 8210,
-      "sha256": "07202a6ea96419620f5457d3a15e1d215aecf704e027a5026798060d0d5bf48c"
+      "bytes": 8266,
+      "sha256": "1187b174a5c4b4b28f357524e80b3d22309b304043512ea6fab92e98c06c55ed"
     },
     {
       "path": "docs/SKILL-OUTPUT-CHECK.md",
-      "bytes": 2816,
-      "sha256": "4a7179201d43b28ac0d9cccae6cb4bcb3541b9288336e8a3d12ff7ce4e730223"
+      "bytes": 2872,
+      "sha256": "c89dc4c465ee13d62cf38cea943aeecbef2fa8a812a8cc05f0dcf3fba1aa2a54"
     },
     {
       "path": "docs/WALLPAPER-SKILLS.md",
-      "bytes": 6493,
-      "sha256": "6d99efd2c4cf8159fde5cff82923f3f933924d5911aa7fc7cfe29b23530b506a"
+      "bytes": 6547,
+      "sha256": "c88d231c7cb1a0697e7a833fd4a24c6bce3c599c91a3c2490f1bbd158da26e99"
     },
     {
       "path": "docs/images/blue-sky-lake.png",
@@ -1133,8 +1133,8 @@
     },
     {
       "path": "tools/serve.mjs",
-      "bytes": 2924,
-      "sha256": "c1381b92574efd0c7562b8726e3316ddac18e07914886a6736870a473f86187d"
+      "bytes": 2942,
+      "sha256": "9ab6f323247855a904969bda11ef93d9500163a345d3776e3d6a83a907e6cede"
     },
     {
       "path": "tools/test-curated-project.mjs",
@@ -1200,7 +1200,42 @@
       "path": "tools/test-layered-water.mjs",
       "bytes": 7818,
       "sha256": "89ba9d2e8c8e5e4a92d8fda7e914aea5c4b2bf7d21911ee5d30d24170ecaf1a0"
+    },
+    {
+      "path": "CONTRIBUTING.en.md",
+      "bytes": 1741,
+      "sha256": "c0823cfdf0823553f5fe1875c1b57695f4178f8db2b1c4c439b064095cf235e7"
+    },
+    {
+      "path": "CREDITS.en.md",
+      "bytes": 2820,
+      "sha256": "fb11e7a0cc31e84837bdaba4bbd92bb2710004879fc2d53fad9c8857c372a8ee"
+    },
+    {
+      "path": "docs/DECISIONS.en.md",
+      "bytes": 4229,
+      "sha256": "1d22898f99b293b3efb40b9f8fd9eb7a1addb6f2853d048c24f4a0443294bd72"
+    },
+    {
+      "path": "docs/GETTING-STARTED.en.md",
+      "bytes": 3824,
+      "sha256": "594a17b981da546fcb19d97cc1a52599bf4f8bce65533a7ed50869c65389625e"
+    },
+    {
+      "path": "docs/OUTPUT-AND-PUBLISH.en.md",
+      "bytes": 8204,
+      "sha256": "c844c092f3b8d0e1e6ba3bdec526fad97ef3e73432443d2e6fc5908f62ed54b2"
+    },
+    {
+      "path": "docs/SKILL-OUTPUT-CHECK.en.md",
+      "bytes": 3532,
+      "sha256": "0e99b087b149734ed62d693cb29fe5b3e11b0b68e73a7c62dbb1662910f033e8"
+    },
+    {
+      "path": "docs/WALLPAPER-SKILLS.en.md",
+      "bytes": 8451,
+      "sha256": "337866a937fbdabb66173bbe4c353c745bf7ff84c69e6e9cfe825ce5adc31543"
     }
   ],
-  "updated": "2026-10-25T04:48:56.425Z"
+  "updated": "2026-10-25T09:40:05.576796+00:00"
 }

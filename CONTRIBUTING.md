@@ -1,5 +1,7 @@
 # 开发约定
 
+**简体中文** | [English](CONTRIBUTING.en.md)
+
 先阅读 AGENTS.md 和当前主题的拆解、来源说明。蓝天运行权威源位于 cases/blue-sky-layered/；themes/ 中的 app.js 负责工作台、时间与宿主交互。
 
 新增主题独立建目录。先建立 TA 拆解与 implementation-navigation.json，再按制作 Skill 实施；不要覆盖示例或原始素材。保留提示词、派生关系与来源。

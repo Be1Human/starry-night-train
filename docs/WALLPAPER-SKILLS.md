@@ -1,5 +1,7 @@
 # 下载即用：两份动态壁纸 Skill
 
+**简体中文** | [English](WALLPAPER-SKILLS.en.md)
+
 项目已附带制作与验收两个 skill。下载整个项目，用 Codex 打开本目录即可；无需把 skill 复制到个人目录。入口在 `.agents/skills/`，支持直接用 `$名称` 调用；若刚下载后没有出现，重新打开项目或重启 Codex。目录发现规则参考 [官方 Skills 文档](https://learn.chatgpt.com/docs/build-skills)。
 
 **先看产物在哪里：**[生成的工程目录、独立工程导出、GitHub 上传和 Wallpaper Engine 发布](OUTPUT-AND-PUBLISH.md)。制作默认保存到当前项目的 themes/、cases/、assets/，不会自动另建独立工程或上传。

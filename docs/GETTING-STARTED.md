@@ -1,5 +1,7 @@
 # 快速开始
 
+**简体中文** | [English](GETTING-STARTED.en.md)
+
 安装 Node.js 22+，将完整项目解压到一个独立目录。
 
 ~~~sh

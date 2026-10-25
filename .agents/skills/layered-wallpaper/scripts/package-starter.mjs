@@ -15,6 +15,8 @@ for(const path of ['.agents/skills/layered-wallpaper','.agents/skills/wallpaper-
 // Fans can pass these to the skill without depending on the author's Temp files.
 addTree('assets/blue-sky-train/ta-breakdown/2026-10-24-r01');
 for(const file of ['AGENTS.md','docs/WALLPAPER-SKILLS.md','docs/OUTPUT-AND-PUBLISH.md','cases/blue-sky-layered/README.md',
+  'docs/WALLPAPER-SKILLS.en.md','docs/OUTPUT-AND-PUBLISH.en.md','docs/GETTING-STARTED.md','docs/GETTING-STARTED.en.md',
+  'docs/DECISIONS.md','docs/DECISIONS.en.md','CREDITS.en.md',
   'cases/blue-sky-layered/shore-material.mjs','cases/blue-sky-layered/shoreline-material.mjs',
   'modules/train/original-starry-steam/source.glsl','modules/train/original-starry-steam/README.md',
   'themes/starry-night-train/README.md','themes/starry-night-train/index.html','tools/serve.mjs','tools/find-browser.mjs','tools/browser-harness.mjs','tools/build-layered-wallpaper.mjs',
@@ -42,6 +44,18 @@ const scripts=Object.fromEntries(Object.entries(original.scripts).filter(([name]
 scripts.start=scripts['wallpaper:start'];scripts.test='node --test tests/*.test.mjs';
 writeFileSync(resolve(project,'package.json'),JSON.stringify({...original,scripts},null,2)+'\n');
 for(const [file,text]of Object.entries(starterDocuments)){const target=resolve(project,file);mkdirSync(dirname(target),{recursive:true});writeFileSync(target,text);}
+// English and Chinese guides must remain usable in the lightweight package,
+// which deliberately omits the publication's saved historical report.
+for(const file of ['docs/GETTING-STARTED.md','docs/GETTING-STARTED.en.md','docs/DECISIONS.md','docs/DECISIONS.en.md']){
+  const target=resolve(project,file),english=file.endsWith('.en.md');
+  let text=readFileSync(target,'utf8');
+  text=text.replace('The [saved report example](reports/latest/report.html) describes an earlier measurement. Run the checks on your own machine for current results.',
+    'This lightweight package omits historical reports. [Generate a report locally](OUTPUT-AND-PUBLISH.en.md) for current measurements.');
+  text=text.replace('发布版中的 [报告示例](reports/latest/report.html) 是已保存的测量副本，新机器应重新运行检查。',
+    '轻量包不含历史报告，请在本机重新运行检查生成报告。');
+  text=text.replace(/\[[^\]]+\]\(reports\/latest\/report\.html\)/g,english?'[generate a report locally](OUTPUT-AND-PUBLISH.en.md)':'[在本机生成报告](OUTPUT-AND-PUBLISH.md)');
+  writeFileSync(target,text);
+}
 const ridgeReadme=resolve(project,'assets/blue-sky-train/layered-stream/r11/README.md');
 writeFileSync(ridgeReadme,readFileSync(ridgeReadme,'utf8').replace(/\[(?:当前运行版本的验收报告|实际画面、对照及验证记录)\]\([^)]*\)(?:；历史 r11 逐轮证据在作者工作目录保留)?/,'[在本机重新验收与导出](../../../../docs/OUTPUT-AND-PUBLISH.md)'));
 writeFileSync(resolve(project,'.gitignore'),'.cache/\ndist/\nexport/\nnode_modules/\n');

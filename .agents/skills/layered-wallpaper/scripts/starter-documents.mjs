@@ -7,10 +7,12 @@ export const starterDocuments = {
 <style>body{margin:0;background:#f2f7fa;color:#173447;font:16px/1.7 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:36px 24px}h1{margin:0 0 8px;font-size:30px}p{margin:8px 0 22px}img{display:block;width:100%;border-radius:12px}nav{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}a{color:#08678e}nav a{padding:10px 16px;background:white;border:1px solid #cbdde6;border-radius:8px;text-decoration:none}nav a:first-child{background:#08678e;color:white}ul{padding-left:22px}code{background:#e4eef3;padding:2px 6px;border-radius:4px}footer{margin-top:28px;font-size:14px;color:#4b6676}</style>
 <main><h1>分层动态壁纸 · 开箱示例</h1><p>先体验蓝天湖景，再看制作、输出和上传说明。此包默认运行蓝天案例；星空单文件作为原始算法参考保留。</p>
 <img src="assets/blue-sky-train/layered-stream/preview.png" alt="蓝天湖景列车的实际运行画面">
-<nav><a href="themes/blue-sky-train/lab/layered-stream/index.html">打开蓝天工作台</a><a href="themes/blue-sky-train/lab/layered-stream/index.html?wallpaper=1">纯壁纸预览</a><a href="docs/OUTPUT-AND-PUBLISH.md">工程位置与上传</a></nav>
+<nav><a href="themes/blue-sky-train/lab/layered-stream/index.html">打开蓝天工作台</a><a href="themes/blue-sky-train/lab/layered-stream/index.html?wallpaper=1">纯壁纸预览</a><a href="docs/OUTPUT-AND-PUBLISH.md">工程位置与上传</a><a href="README.en.md">English guide</a></nav>
 <h2>制作与使用</h2><ul><li><a href="docs/scenes/blue-sky-train/README.md">本次工程说明与启动命令</a> · <a href="docs/WALLPAPER-SKILLS.md">两份 Skill 的使用说明</a></li><li><a href="assets/blue-sky-train/ta-breakdown/2026-10-24-r01/index.html">TA 拆解示例</a> · <a href="assets/blue-sky-train/ta-breakdown/2026-10-24-r01/navigation/index.html">实现导航</a>（另一张参考图，导航是实施计划）</li><li><a href="themes/starry-night-train/index.html">星空列车原始单文件</a> · <a href="CREDITS.md">素材与算法来源</a></li></ul>
 <footer>本地启动：在本目录运行 <code>npm start</code>。以终端当次打印的地址为准；无需 npm install。基线、报告和离线成品需在本机重新生成，未随此轻量包提供。</footer></main></html>`,
   'README.md': `# 分层动态壁纸 · 开箱示例
+
+[English](README.en.md)
 
 安装 Node.js 22+，在本目录运行 npm run wallpaper:doctor，再运行 npm start。无需 npm install。打开命令打印的工作台地址；工作台左上角“项目首页”可回到带说明链接的首页。端口以终端当次输出为准。
 
@@ -21,6 +23,31 @@ export const starterDocuments = {
 - [源码与素材来源](CREDITS.md)
 
 自动验收需要本机 Chrome/Edge；播放不依赖在线服务。历史测试报告、Gallery、影片、模型和缓存未附带。来源和原有使用边界继续适用，打包不产生新授权。
+`,
+  'README.en.md': `# Layered Wallpaper · Portable Blue Sky Example
+
+[简体中文](README.md) | **English**
+
+Install Node.js 22 or later and run these commands from this project directory:
+
+~~~sh
+npm run wallpaper:doctor
+npm start
+~~~
+
+Open the URL printed by this run. No npm installation, online model, or API key is required for the included example. Automated validation also requires Chrome or Edge.
+
+This package runs Blue Sky by default and keeps the original Starry Night HTML as an algorithm reference. The workbench and generated report currently use Chinese labels; the English guides explain the controls and measurements.
+
+- [Getting started and controls](docs/GETTING-STARTED.en.md)
+- [Using both skills](docs/WALLPAPER-SKILLS.en.md)
+- [Project directories, standalone sources, and publishing](docs/OUTPUT-AND-PUBLISH.en.md)
+- [Implementation decisions](docs/DECISIONS.en.md)
+- [Sources and usage restrictions](CREDITS.en.md)
+
+Prepare or reuse the TA breakdown before invoking $layered-wallpaper. Use $wallpaper-quality-export for baseline comparison, effect-preserving optimization, validation, reports, and accepted offline output. New themes need their own launch and validation adapters.
+
+The 37-layer breakdown studies another reference image; its navigation is an implementation plan. Generate current baselines, reports, and offline packages on your computer. Historical reports, recordings, models, and caches are omitted from this lightweight project. Existing component-specific source and usage conditions continue to apply.
 `,
   'docs/scenes/blue-sky-train/README.md': `# 蓝天湖景 · 本次工程说明
 

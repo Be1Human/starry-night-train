@@ -14,7 +14,7 @@ export function createPreviewServer(root = ROOT) {
       let pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
       if (pathname.includes('\\') || pathname.includes('\0')) { res.writeHead(400).end(); return; }
       if (pathname.endsWith('/')) pathname += 'index.html';
-      if (!/^\/(index\.html|README\.md|CREDITS\.md|\.agents\/skills\/(?:layered-wallpaper|wallpaper-quality-export)\/|favicon\.ico|themes\/|assets\/|dist\/|modules\/|cases\/|library\/|docs\/|tools\/[a-zA-Z0-9_-]+\.(mjs|py)$)/.test(pathname)) { res.writeHead(404).end(); return; }
+      if (!/^\/(index\.html|README(?:\.en)?\.md|CREDITS(?:\.en)?\.md|\.agents\/skills\/(?:layered-wallpaper|wallpaper-quality-export)\/|favicon\.ico|themes\/|assets\/|dist\/|modules\/|cases\/|library\/|docs\/|tools\/[a-zA-Z0-9_-]+\.(mjs|py)$)/.test(pathname)) { res.writeHead(404).end(); return; }
       const target = resolve(root, '.' + pathname);
       const local = relative(root, target);
       if (local.startsWith('..' + sep) || local === '..' || isAbsolute(local) || local.split(sep).some((segment,index) => segment.startsWith('.') && !(index===0 && segment==='.agents' && /^\/\.agents\/skills\/(?:layered-wallpaper|wallpaper-quality-export)\//.test(pathname)))) { res.writeHead(403).end(); return; }
