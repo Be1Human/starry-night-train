@@ -59,6 +59,6 @@ npm run wallpaper:verify-export -- --baseline docs/verification/my-baseline --ou
 
 ## 5. 告诉用户文件在哪里、怎样上传
 
-`--out` 相对所属项目根目录；省略时 release 使用 `dist/wallpaper-accepted-<时间和随机值>/`，audit 使用 `docs/verification/wallpaper-quality-<时间和随机值>/`。交付实际的绝对目录、`report.html`、通过后的 `package/` 及其中壁纸入口，并写入该主题的交付说明；只有 `candidate/` 时明确尚未通过。
+`--out` 相对所属项目根目录；省略时 release 使用 `dist/wallpaper-accepted-<时间和随机值>/`，audit 使用 `docs/verification/wallpaper-quality-<时间和随机值>/`。回复中交付实际的绝对目录、`report.html`、通过后的 `package/` 及其中壁纸入口；随包的主题交付说明使用可迁移的相对路径。只有 `candidate/` 时明确尚未通过。
 
 验收导出不会自动生成 ZIP 或上传。用户要分享时另行压缩已通过的 package 并提供哈希；GitHub 保存精选源码，Wallpaper Engine 导入 package/index.html 后通过编辑器发布。按 [生成位置与上传说明](../../../docs/OUTPUT-AND-PUBLISH.md) 给出对应步骤；新主题先适配，不能用蓝天包作为新主题成品。实际上传沿用用户已给的目标和授权，不能把制作要求当成公开发布要求。

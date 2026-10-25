@@ -2,12 +2,13 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync, copyFileSync, lsta
 import { resolve, dirname, relative, extname } from 'node:path';
 import { deflateRawSync } from 'node:zlib';
 import { root, args, freshDir, outputPath, runId, assetFiles, runtimeFiles, hash } from './project.mjs';
+import { starterDocuments } from './starter-documents.mjs';
 
 const o=args(),out=freshDir(outputPath(o.out,'export/wallpaper-starter-'+runId())),project=resolve(out,'project');
 const files=new Set([...runtimeFiles,...assetFiles]);
 function addTree(path){for(const item of readdirSync(resolve(root,path),{withFileTypes:true})){
   const file=path+'/'+item.name;if(item.isSymbolicLink())throw Error('示例包不跟随符号链接：'+file);
-  if(item.isDirectory())addTree(file);else files.add(file);
+  if(item.isDirectory()){if(item.name!=='authoring'&&!item.name.startsWith('.'))addTree(file);}else files.add(file);
 }}
 for(const path of ['.agents/skills/layered-wallpaper','.agents/skills/wallpaper-quality-export'])addTree(path);
 // Include the actual decomposition input and its implementation navigation.
@@ -16,7 +17,7 @@ addTree('assets/blue-sky-train/ta-breakdown/2026-10-24-r01');
 for(const file of ['AGENTS.md','docs/WALLPAPER-SKILLS.md','docs/OUTPUT-AND-PUBLISH.md','cases/blue-sky-layered/README.md',
   'cases/blue-sky-layered/shore-material.mjs','cases/blue-sky-layered/shoreline-material.mjs',
   'modules/train/original-starry-steam/source.glsl','modules/train/original-starry-steam/README.md',
-  'themes/starry-night-train/README.md','tools/serve.mjs','tools/find-browser.mjs','tools/browser-harness.mjs','tools/build-layered-wallpaper.mjs',
+  'themes/starry-night-train/README.md','themes/starry-night-train/index.html','tools/serve.mjs','tools/find-browser.mjs','tools/browser-harness.mjs','tools/build-layered-wallpaper.mjs',
   'tests/layered-world.test.mjs','tests/layered-clouds.test.mjs'])files.add(file);
 const checkNames=['wallpaper','terrain','occlusion','scenery','shader-shore','ground-blend','water','foreground','clouds','steam','music','offline'];
 for(const name of checkNames)files.add('tools/test-layered-'+name+'.mjs');
@@ -40,8 +41,9 @@ const original=JSON.parse(readFileSync(resolve(root,'package.json'),'utf8'));
 const scripts=Object.fromEntries(Object.entries(original.scripts).filter(([name])=>name.startsWith('wallpaper:')||name==='build:layered-wallpaper'||(name.startsWith('test:layered-')&&checkNames.includes(name.slice(13)))));
 scripts.start=scripts['wallpaper:start'];scripts.test='node --test tests/*.test.mjs';
 writeFileSync(resolve(project,'package.json'),JSON.stringify({...original,scripts},null,2)+'\n');
-writeFileSync(resolve(project,'index.html'),'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=themes/blue-sky-train/lab/layered-stream/index.html"><a href="themes/blue-sky-train/lab/layered-stream/index.html">打开蓝天列车</a>');
-writeFileSync(resolve(project,'README.md'),'# 分层动态壁纸 · 开箱示例\n\n安装 Node.js 22+，在此目录运行 npm run wallpaper:doctor，然后 npm run wallpaper:start。无需 npm install。\n\n打开本目录后可用 $layered-wallpaper 制作，$wallpaper-quality-export 验收、保持效果优化及导出。\n\n完整说明见 [使用说明](docs/WALLPAPER-SKILLS.md)。自动验收需本机 Chrome/Edge；播放和报告不依赖在线服务。\n\n这是当前蓝天案例的精简包，历史 Gallery、影片和其他主题未附带。素材与上游代码继续适用各自原有来源/许可，打包不更改授权。\n');
+for(const [file,text]of Object.entries(starterDocuments)){const target=resolve(project,file);mkdirSync(dirname(target),{recursive:true});writeFileSync(target,text);}
+const ridgeReadme=resolve(project,'assets/blue-sky-train/layered-stream/r11/README.md');
+writeFileSync(ridgeReadme,readFileSync(ridgeReadme,'utf8').replace(/\[(?:当前运行版本的验收报告|实际画面、对照及验证记录)\]\([^)]*\)(?:；历史 r11 逐轮证据在作者工作目录保留)?/,'[在本机重新验收与导出](../../../../docs/OUTPUT-AND-PUBLISH.md)'));
 writeFileSync(resolve(project,'.gitignore'),'.cache/\ndist/\nexport/\nnode_modules/\n');
 const entries=[];
 function collect(path){for(const item of readdirSync(path,{withFileTypes:true})){

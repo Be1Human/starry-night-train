@@ -67,6 +67,6 @@ npm run wallpaper:verify-export -- --baseline docs/verification/my-baseline --ou
 npm run wallpaper:starter
 ```
 
-生成 `export/wallpaper-starter-时间/` 下的 `project/` 和 ZIP，只包含当前蓝天案例所需源码、素材、两份 skill、检查工具与来源记录。不包含作者机器缓存、模型、历史测试截图、视频和其他主题；不访问网络、不上传。粉丝解压 ZIP 后进入 project 运行上述命令即可。新主题需由 AI 按实际依赖另行整理，不能用这个命令代替新主题导出，具体见 [独立工程与上传](OUTPUT-AND-PUBLISH.md)。
+生成 `export/wallpaper-starter-时间/` 下的 `project/` 和 ZIP，只包含当前蓝天案例所需源码、素材、两份 skill、检查工具与来源记录，并保留星空原始单文件作为蒸汽来源参考。不包含作者机器缓存、模型、历史测试截图、视频和其他实验；不访问网络、不上传。粉丝解压 ZIP 后进入 project 运行上述命令即可。新主题需由 AI 按实际依赖另行整理，不能用这个命令代替新主题导出，具体见 [独立工程与上传](OUTPUT-AND-PUBLISH.md)。
 
 项目播放与报告不依赖其他全局 skill。制作新的位图素材时，AI 需要可用的生图能力；这是创作能力，不是下载现有示例的启动条件。原始素材和上游代码的来源/许可继续适用，打包不改变授权范围。
