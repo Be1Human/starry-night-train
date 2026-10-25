@@ -38,6 +38,8 @@ npm start
 
 在支持项目 Skill 的 agent 中打开本项目，使用 $layered-wallpaper 或 $wallpaper-quality-export 调用。详细输入和命令见 [使用指南](docs/WALLPAPER-SKILLS.md)。
 
+工程格式已做实际打包、迁移和浏览器检查，发现的问题与覆盖范围见 [产物格式实测记录](docs/SKILL-OUTPUT-CHECK.md)。
+
 ## 生成的工程与上传
 
 新主题默认保存在当前项目的 `themes/<主题ID>/`、`cases/<案例ID>/`、`assets/<主题ID>/`，实际路径和启动命令由 AI 写入 `docs/scenes/<主题ID>/README.md`。需要独立源码工程时，让 AI 整理到新的 `export/<主题ID>-source-<修订>/project/` 并验证依赖；`wallpaper:starter` 目前只打包蓝天示例。

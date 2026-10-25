@@ -27,6 +27,8 @@ The Blue Sky workbench includes scene playback, isolated layers, downloadable as
 
 The included 37-layer decomposition is a static visible-pixel study of a different reference image. Its navigation is an implementation plan, not proof of a completed animated scene.
 
+The starter format was checked through ZIP extraction, relocation, a second scene adapter and offline browser playback. See the [output-format validation record (Chinese)](docs/SKILL-OUTPUT-CHECK.md) for fixes and coverage limits.
+
 ## Where the generated project goes
 
 New themes stay inside the project you opened: `themes/<theme-id>/` contains the workbench, `cases/<case-id>/` the runtime, and `assets/<theme-id>/` the artwork. The agent must record actual paths and the target launch command in `docs/scenes/<theme-id>/README.md`. A separate editable source project can be prepared under a new `export/<theme-id>-source-<revision>/project/`; the included starter command packages only the Blue Sky example.

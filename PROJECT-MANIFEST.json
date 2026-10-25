@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "created": "2026-10-24T23:13:31.104Z",
   "purpose": "Curated project publication: local skills, current examples, selected technical-art documentation and actual screenshots",
-  "fileCount": 233,
-  "totalBytes": 60375114,
+  "fileCount": 239,
+  "totalBytes": 61350857,
   "files": [
     {
       "path": ".agents/skills/layered-wallpaper/SKILL.md",
-      "bytes": 9602,
-      "sha256": "a4c5f48514e12c4cf977495165eac5898fa4ff018744825eae6c129abc805a94"
+      "bytes": 9703,
+      "sha256": "a988a76f72681a8647fb4fc05905f3497f8fa8e1a9ba05fafe22d7ac7d996149"
     },
     {
       "path": ".agents/skills/layered-wallpaper/agents/openai.yaml",
@@ -48,8 +48,8 @@
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/package-starter.mjs",
-      "bytes": 7952,
-      "sha256": "c2deccb4e9f79340102d6451d42828dbf8a31d1b59911cc495978e1ea6c0b97b"
+      "bytes": 7742,
+      "sha256": "e7c8442f149771667662ce6faad1142f59a5fab0c25ad376cf33f1f5d6b1c599"
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/project.mjs",
@@ -62,9 +62,14 @@
       "sha256": "403c7a6883819b9ad58ca05a8f6ce5967fb6760ab59b31d9ca56cd647a099515"
     },
     {
+      "path": ".agents/skills/layered-wallpaper/scripts/starter-documents.mjs",
+      "bytes": 7469,
+      "sha256": "2c72e66171f5072dab5ae1e506c6e298538c8563766c424a7b59fa7d07a1b8c0"
+    },
+    {
       "path": ".agents/skills/wallpaper-quality-export/SKILL.md",
-      "bytes": 5989,
-      "sha256": "dddcb581b9643fb5718352e4fd7044163c68cdb7de24127930528005771d6800"
+      "bytes": 6022,
+      "sha256": "58c482441237e9e762e7bf2e8d2eaca4b298cd2227626196c1f979269b7e4e83"
     },
     {
       "path": ".agents/skills/wallpaper-quality-export/agents/openai.yaml",
@@ -128,13 +133,13 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 3206,
-      "sha256": "40692032f71f2069e274ce1df6001534b11721654acdf60b4bc0d2e0bcdcee46"
+      "bytes": 3438,
+      "sha256": "80236213c19b0904f9e6e760b67a146de51e3677a128254c39ca3d69ed6e1a20"
     },
     {
       "path": "README.md",
-      "bytes": 4874,
-      "sha256": "4b790903750356abca8fbf39c585441f867af7a712f897a6e8ebc15d26d417c8"
+      "bytes": 5027,
+      "sha256": "6a987bb4872f0b01377a8abe6f707e5466828a531462fc256fac1813ec70b3ae"
     },
     {
       "path": "assets/blue-sky-train/audio/layered-lake-r02/MODEL_LICENSE.txt",
@@ -893,13 +898,18 @@
     },
     {
       "path": "docs/OUTPUT-AND-PUBLISH.md",
-      "bytes": 7873,
-      "sha256": "995fbf6850b321dc161886358c2c2250d6739b3e8638881ee0ae64c3223c5aa1"
+      "bytes": 8210,
+      "sha256": "07202a6ea96419620f5457d3a15e1d215aecf704e027a5026798060d0d5bf48c"
+    },
+    {
+      "path": "docs/SKILL-OUTPUT-CHECK.md",
+      "bytes": 2816,
+      "sha256": "4a7179201d43b28ac0d9cccae6cb4bcb3541b9288336e8a3d12ff7ce4e730223"
     },
     {
       "path": "docs/WALLPAPER-SKILLS.md",
-      "bytes": 6436,
-      "sha256": "67852218904d98fc5765aa345a0a207ecb915dcd59bc9319340ab86bb26eceea"
+      "bytes": 6493,
+      "sha256": "6d99efd2c4cf8159fde5cff82923f3f933924d5911aa7fc7cfe29b23530b506a"
     },
     {
       "path": "docs/images/blue-sky-lake.png",
@@ -907,9 +917,19 @@
       "sha256": "60fff576a43d280348f5f62b4f3294addca96bab212265e1969510f9c71653e5"
     },
     {
+      "path": "docs/images/output-format-check.png",
+      "bytes": 541149,
+      "sha256": "4ce66858dcce37f5f49b8bbe4786bd5e958b7061610d3127aaa1fff0d7d47afe"
+    },
+    {
       "path": "docs/images/starry-night.png",
       "bytes": 1175070,
       "sha256": "40121fc8a732331448493b4a832a94a063c9b15fdcbfceafeca4d1ec702b1c47"
+    },
+    {
+      "path": "docs/images/starter-home.png",
+      "bytes": 418500,
+      "sha256": "d94d5e9860078b2669eaf1f7dd014c68ed70889f705306640bcabc910fa48620"
     },
     {
       "path": "docs/images/ta-breakdown.png",
@@ -1044,7 +1064,7 @@
     {
       "path": "package.json",
       "bytes": 1844,
-      "sha256": "7b2b6c37d65c2961f39254b6b9949bbb570f00df8a88e13d266390154b57e857"
+      "sha256": "e584ce6cac42a2a0a11975885d576ef7681ed92f074383c06c9b63e4acf4d435"
     },
     {
       "path": "tests/layered-clouds.test.mjs",
@@ -1055,6 +1075,11 @@
       "path": "tests/layered-world.test.mjs",
       "bytes": 1452,
       "sha256": "cd7402872ee73adb3f89c15c5416eae4fec15a08a0f8d0cc5ac1ba843d4e3709"
+    },
+    {
+      "path": "tests/starter-output.test.mjs",
+      "bytes": 3100,
+      "sha256": "4b21911fad8f8b2c6137ee7cf40d4afa349e63f62291cb69cfea68853bf79f9c"
     },
     {
       "path": "themes/blue-sky-train/lab/layered-stream/app.js",
@@ -1095,6 +1120,11 @@
       "path": "tools/check-curated-project.mjs",
       "bytes": 2577,
       "sha256": "5a03f19abfcfd23849fe77fc1111845da5ea5d0e362fc89dc827f59e1f2b4114"
+    },
+    {
+      "path": "tools/check-project-links.mjs",
+      "bytes": 2006,
+      "sha256": "cb88c0d3c6fd7effc762446e56cdb324ddcb3aee2486c9c76881a9eb8818c5ac"
     },
     {
       "path": "tools/find-browser.mjs",
@@ -1172,5 +1202,5 @@
       "sha256": "89ba9d2e8c8e5e4a92d8fda7e914aea5c4b2bf7d21911ee5d30d24170ecaf1a0"
     }
   ],
-  "updated": "2026-10-25T04:13:18.709Z"
+  "updated": "2026-10-25T04:48:56.425Z"
 }
