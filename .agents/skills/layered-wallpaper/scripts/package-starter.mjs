@@ -13,7 +13,7 @@ for(const path of ['.agents/skills/layered-wallpaper','.agents/skills/wallpaper-
 // Include the actual decomposition input and its implementation navigation.
 // Fans can pass these to the skill without depending on the author's Temp files.
 addTree('assets/blue-sky-train/ta-breakdown/2026-10-24-r01');
-for(const file of ['AGENTS.md','docs/WALLPAPER-SKILLS.md','cases/blue-sky-layered/README.md',
+for(const file of ['AGENTS.md','docs/WALLPAPER-SKILLS.md','docs/OUTPUT-AND-PUBLISH.md','cases/blue-sky-layered/README.md',
   'cases/blue-sky-layered/shore-material.mjs','cases/blue-sky-layered/shoreline-material.mjs',
   'modules/train/original-starry-steam/source.glsl','modules/train/original-starry-steam/README.md',
   'themes/starry-night-train/README.md','tools/serve.mjs','tools/find-browser.mjs','tools/browser-harness.mjs','tools/build-layered-wallpaper.mjs',

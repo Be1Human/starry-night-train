@@ -1,6 +1,6 @@
 {
   "name": "train-wallpapers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "Project-local skills and complete train wallpaper examples with selected TA documentation",

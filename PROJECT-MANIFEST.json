@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "created": "2026-10-24T23:13:31.104Z",
   "purpose": "Curated project publication: local skills, current examples, selected technical-art documentation and actual screenshots",
-  "fileCount": 232,
-  "totalBytes": 60362587,
+  "fileCount": 233,
+  "totalBytes": 60375114,
   "files": [
     {
       "path": ".agents/skills/layered-wallpaper/SKILL.md",
-      "bytes": 8394,
-      "sha256": "5a1a1b0cfb7f9ad9fcad91678711458a801ef89f30c0dc3b852139da0c97e93e"
+      "bytes": 9602,
+      "sha256": "a4c5f48514e12c4cf977495165eac5898fa4ff018744825eae6c129abc805a94"
     },
     {
       "path": ".agents/skills/layered-wallpaper/agents/openai.yaml",
@@ -48,8 +48,8 @@
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/package-starter.mjs",
-      "bytes": 7923,
-      "sha256": "ff7a14b9651a1f9ca24df9c13586e14fd25c6cd5b1318b46f77bbdee7ac9c70e"
+      "bytes": 7952,
+      "sha256": "c2deccb4e9f79340102d6451d42828dbf8a31d1b59911cc495978e1ea6c0b97b"
     },
     {
       "path": ".agents/skills/layered-wallpaper/scripts/project.mjs",
@@ -63,8 +63,8 @@
     },
     {
       "path": ".agents/skills/wallpaper-quality-export/SKILL.md",
-      "bytes": 5099,
-      "sha256": "e26f846007d8f74bc4ecff819036b14f100bb89924efaf7cb3b3ea089763f500"
+      "bytes": 5989,
+      "sha256": "dddcb581b9643fb5718352e4fd7044163c68cdb7de24127930528005771d6800"
     },
     {
       "path": ".agents/skills/wallpaper-quality-export/agents/openai.yaml",
@@ -128,13 +128,13 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 2317,
-      "sha256": "f88a1f6e77ad3db0854e7bcae875469c4f5f7f3b8f0cda436d4dc7863a095b94"
+      "bytes": 3206,
+      "sha256": "40692032f71f2069e274ce1df6001534b11721654acdf60b4bc0d2e0bcdcee46"
     },
     {
       "path": "README.md",
-      "bytes": 4043,
-      "sha256": "e2293fcd61a593a4c774e71423f247b1fc4bfb16bcf769b0dc9021c4bc36b3e2"
+      "bytes": 4874,
+      "sha256": "4b790903750356abca8fbf39c585441f867af7a712f897a6e8ebc15d26d417c8"
     },
     {
       "path": "assets/blue-sky-train/audio/layered-lake-r02/MODEL_LICENSE.txt",
@@ -888,13 +888,18 @@
     },
     {
       "path": "docs/GETTING-STARTED.md",
-      "bytes": 1406,
-      "sha256": "5e638fc49e779240e24bb00cdbe24995da5b23ffff5998f4b5dfa6c259b9b1e8"
+      "bytes": 1803,
+      "sha256": "8950c847b8107851bce416b7b4b914ce9e956063fa345ec699bcbe62b4af5d7d"
+    },
+    {
+      "path": "docs/OUTPUT-AND-PUBLISH.md",
+      "bytes": 7873,
+      "sha256": "995fbf6850b321dc161886358c2c2250d6739b3e8638881ee0ae64c3223c5aa1"
     },
     {
       "path": "docs/WALLPAPER-SKILLS.md",
-      "bytes": 6026,
-      "sha256": "ba7496ef19ca26853eb5e1319aaa11e1f07e5add4b6a48612bd15e08bef0e97a"
+      "bytes": 6436,
+      "sha256": "67852218904d98fc5765aa345a0a207ecb915dcd59bc9319340ab86bb26eceea"
     },
     {
       "path": "docs/images/blue-sky-lake.png",
@@ -1039,7 +1044,7 @@
     {
       "path": "package.json",
       "bytes": 1844,
-      "sha256": "af968962538b1004dbc1bb26f9ccc3b71cebd8504d66e37160b63a28be02651b"
+      "sha256": "7b2b6c37d65c2961f39254b6b9949bbb570f00df8a88e13d266390154b57e857"
     },
     {
       "path": "tests/layered-clouds.test.mjs",
@@ -1166,5 +1171,6 @@
       "bytes": 7818,
       "sha256": "89ba9d2e8c8e5e4a92d8fda7e914aea5c4b2bf7d21911ee5d30d24170ecaf1a0"
     }
-  ]
+  ],
+  "updated": "2026-10-25T04:13:18.709Z"
 }

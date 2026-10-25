@@ -24,4 +24,6 @@ npm start
 
 ## 完成后交付
 
-先保存基线，再使用验收 Skill。默认 all 检查，只有通过后才生成 package/。发布版中的 [报告示例](reports/latest/report.html) 是已保存的测量副本，新机器应重新运行检查。
+新主题默认保存到本项目的 themes/、cases/、assets/，AI 应交付实际路径和目标启动命令。先保存基线，再使用验收 Skill。默认 all 检查，只有通过后才生成所选输出目录下的 package/。发布版中的 [报告示例](reports/latest/report.html) 是已保存的测量副本，新机器应重新运行检查。
+
+源码用来继续编辑和上传 GitHub；package/ 用来导入 Wallpaper Engine；report.html 用来阅读验收结论。独立工程整理、具体输出位置和两种上传方式，见 [工程在哪里、做好后怎么上传](OUTPUT-AND-PUBLISH.md)。
