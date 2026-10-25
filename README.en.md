@@ -2,7 +2,7 @@
 
 Two project-local skills, two working train wallpapers, and a documented path from a technical-art breakdown to validation and offline export.
 
-[中文](README.md) · [Getting started](docs/GETTING-STARTED.md) · [Source notices](CREDITS.md)
+[中文](README.md) · [Getting started](docs/GETTING-STARTED.md) · [Output and publishing guide (Chinese)](docs/OUTPUT-AND-PUBLISH.md) · [Source notices](CREDITS.md)
 
 ![Blue Sky Lake: actual runtime capture](docs/images/blue-sky-lake.png)
 ![Starry Night Train: actual runtime capture](docs/images/starry-night.png)
@@ -26,6 +26,12 @@ The Blue Sky workbench includes scene playback, isolated layers, downloadable as
 - [.agents/skills/wallpaper-quality-export](.agents/skills/wallpaper-quality-export/SKILL.md): save baselines, preserve effects during optimization, validate functionality and frame timing, generate a readable HTML report and export offline.
 
 The included 37-layer decomposition is a static visible-pixel study of a different reference image. Its navigation is an implementation plan, not proof of a completed animated scene.
+
+## Where the generated project goes
+
+New themes stay inside the project you opened: `themes/<theme-id>/` contains the workbench, `cases/<case-id>/` the runtime, and `assets/<theme-id>/` the artwork. The agent must record actual paths and the target launch command in `docs/scenes/<theme-id>/README.md`. A separate editable source project can be prepared under a new `export/<theme-id>-source-<revision>/project/`; the included starter command packages only the Blue Sky example.
+
+Accepted offline files appear in `<chosen-output>/package/`, next to `report.html`. Upload editable sources to GitHub; import the accepted package's `index.html` into Wallpaper Engine and publish through its editor. Neither skill uploads automatically. See the [output and publishing guide](docs/OUTPUT-AND-PUBLISH.md) for instructions.
 
 ## Validate
 

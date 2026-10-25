@@ -2,7 +2,7 @@
 
 两份随项目分发的 Skill、两个真实运行案例，以及从 TA 拆解到验收导出的完整参考。
 
-[English](README.en.md) · [快速开始](docs/GETTING-STARTED.md) · [Skill 使用方法](docs/WALLPAPER-SKILLS.md) · [制作中的关键决策](docs/DECISIONS.md)
+[English](README.en.md) · [快速开始](docs/GETTING-STARTED.md) · [Skill 使用方法](docs/WALLPAPER-SKILLS.md) · [工程目录与上传](docs/OUTPUT-AND-PUBLISH.md) · [制作中的关键决策](docs/DECISIONS.md)
 
 ## 最终效果
 
@@ -37,6 +37,12 @@ npm start
 - [wallpaper-quality-export](.agents/skills/wallpaper-quality-export/SKILL.md)：保存基线、保持效果优化、功能/画面/性能检查、中文 HTML 报告和离线导出。
 
 在支持项目 Skill 的 agent 中打开本项目，使用 $layered-wallpaper 或 $wallpaper-quality-export 调用。详细输入和命令见 [使用指南](docs/WALLPAPER-SKILLS.md)。
+
+## 生成的工程与上传
+
+新主题默认保存在当前项目的 `themes/<主题ID>/`、`cases/<案例ID>/`、`assets/<主题ID>/`，实际路径和启动命令由 AI 写入 `docs/scenes/<主题ID>/README.md`。需要独立源码工程时，让 AI 整理到新的 `export/<主题ID>-source-<修订>/project/` 并验证依赖；`wallpaper:starter` 目前只打包蓝天示例。
+
+验收通过后的成品在所选输出目录的 `package/`，报告为同目录的 `report.html`。GitHub 上传精选源码，Wallpaper Engine 导入成品的 `index.html` 后从编辑器发布；Skill 不会自动上传。具体路径、可复制的 AI 指令、手动 GitHub 上传与创意工坊发布步骤，见 [工程在哪里、做好后怎么上传](docs/OUTPUT-AND-PUBLISH.md)。
 
 ## 保留的关键过程文档
 
